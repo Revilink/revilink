@@ -139,7 +139,7 @@ const config: NuxtConfig = {
     [
       'nuxt-font-loader',
       {
-        url: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap',
+        url: 'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap',
         prefetch: true,
         preconnect: true
       }

@@ -1,6 +1,6 @@
 <template lang="pug">
 header.app-header
-  AppLogo(:height="36")
+  AppLogo(:height="38")
 </template>
 
 <script lang="ts">
