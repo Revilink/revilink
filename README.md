@@ -1,15 +1,15 @@
 <br>
 
 <p align="center">
-<b>nuxt2-boilerplate</b>
+<b>Revilink</b>
 </p>
 
 <p align="center">
-💚 Stable, compatible, powerful, clear, production ready. 📦👌
+See reviews on the thing in the link.
 </p>
 
 <p align="center">
-<a href="https://github.com/selimdoyranli/nuxt2-boilerplate" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/selimdoyranli/nuxt2-boilerplate?style=social"></a>
+<a href="https://github.com/selimdoyranli/revilink" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/selimdoyranli/revilink?style=social"></a>
 </p>
 
 <div align="center">
@@ -29,7 +29,7 @@ Install [Node.js >=14.18.0](https://nodejs.org/) and run the following command:
 Git clone.
 
 ```bash
-$ git clone https://github.com/selimdoyranli/nuxt2-boilerplate.git
+$ git clone https://github.com/selimdoyranli/revilink.git
 ```
 
 &nbsp;
@@ -37,7 +37,7 @@ $ git clone https://github.com/selimdoyranli/nuxt2-boilerplate.git
 #### Build Setup
 
 ```bash
-$ cd nuxt2-boilerplate
+$ cd revilink
 
 # install dependencies
 $ yarn install

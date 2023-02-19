@@ -1,23 +1,23 @@
 {
-  "name": "nuxt2-boilerplate",
-  "version": "1.0.0",
-  "description": "💚 Stable, compatible, powerful, clear, production ready. 📦👌",
+  "name": "revilink",
+  "version": "0.0.1",
+  "description": "See reviews on the thing in the link.",
   "private": true,
   "keywords": [
-    "nuxt",
-    "nuxt2",
-    "nuxt boilerplate",
-    "nuxt2 boilerplate"
+    "revilink",
+    "reviews",
+    "comments",
+    "link review"
   ],
   "author": "selimdoyranli",
   "contributors": [
     "Selim Doyranlı <selimdoyranli@gmail.com> (https://selimdoyranli.com)"
   ],
   "bugs": "selimdoyranli@gmail.com",
-  "homepage": "https://github.com/selimdoyranli/nuxt2-boilerplate",
+  "homepage": "https://github.com/selimdoyranli/revilink",
   "repository": {
     "type": "git",
-    "url": "https://github.com/selimdoyranli/nuxt2-boilerplate"
+    "url": "https://github.com/selimdoyranli/revilink"
   },
   "license": "MIT",
   "scripts": {
