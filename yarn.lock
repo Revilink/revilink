@@ -8270,6 +8270,11 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==
 
+nuxt-font-loader@1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/nuxt-font-loader/-/nuxt-font-loader-1.1.5.tgz#0b338abc7c3564c38be38989a59ce9d55ed0de5c"
+  integrity sha512-Hzdp3/FEehBoZPDIVK2az5bl+6lEABWhTi920wDdne7/kjCK3KSmC2fd0teLZPQYF7Lwsnsr8yQBAeOeOd7aDA==
+
 nuxt@2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.16.0.tgz#a02814ed83818bf5d2d31ec116154f8ff5a8843e"

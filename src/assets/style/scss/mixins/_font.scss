@@ -3,8 +3,20 @@
     sans-serif;
 }
 
+@mixin font-family-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+@mixin font-weight-light {
+  font-weight: 300;
+}
+
 @mixin font-weight-regular {
   font-weight: 400;
+}
+
+@mixin font-weight-semi-bold {
+  font-weight: 600;
 }
 
 @mixin font-weight-bold {

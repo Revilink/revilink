@@ -22,6 +22,6 @@ body {
   overflow-x: clip;
   background-color: var(--color-ui-01);
 
-  @include font-family-system;
+  @include font-family-poppins;
   @include font-weight-regular;
 }

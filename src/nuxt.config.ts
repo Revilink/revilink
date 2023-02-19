@@ -134,6 +134,15 @@ const config: NuxtConfig = {
       {
         files: ['./{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}']
       }
+    ],
+    // https://www.npmjs.com/package/nuxt-font-loader
+    [
+      'nuxt-font-loader',
+      {
+        url: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap',
+        prefetch: true,
+        preconnect: true
+      }
     ]
   ],
 
