@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+::selection {
+  color: #fff;
+  background: #444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background-color: var(--color-ui-01);
+
+  @include font-family-system;
+  @include font-weight-regular;
+}

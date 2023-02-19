@@ -1,0 +1,19 @@
+// Variables
+@import '../css/variables/color.css';
+@import '../css/variables/box-shadow.css';
+@import '../css/variables/z-index.css';
+@import '../css/variables/header.css';
+
+// Vendor
+@import '../css/vendor/animate.min.css';
+
+// Base
+@import 'base/general';
+
+// Utils
+@import 'utils/state';
+
+// Shared (elements with common/shared style classes)
+@import 'shared/page';
+@import 'shared/layout';
+@import 'shared/transition';

@@ -1,0 +1,19 @@
+.app-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-overlay);
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-ui-02);
+  place-items: center;
+
+  &__inner {
+    position: relative;
+  }
+
+  &__title {
+    font-size: 26px;
+  }
+}

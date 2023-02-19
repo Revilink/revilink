@@ -1,0 +1,13 @@
+.default-layout {
+  $layout: '.layout';
+
+  position: relative;
+
+  #{$layout} {
+    &__inner {
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+  }
+}

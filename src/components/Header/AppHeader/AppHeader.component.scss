@@ -1,0 +1,10 @@
+.app-header {
+  position: var(--header-position);
+  z-index: var(--z-index-header);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  padding: 16px;
+  background-color: var(--color-ui-02);
+}

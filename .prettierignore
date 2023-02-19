@@ -1,0 +1,10 @@
+.nuxt/
+.nuxt-storybook
+dist
+src/static
+src/public
+coverage
+node_modules
+package.json
+package-lock.json
+yarn.lock

@@ -1,0 +1,92 @@
+{
+  "name": "nuxt2-boilerplate",
+  "version": "1.0.0",
+  "description": "💚 Stable, compatible, powerful, clear, production ready. 📦👌",
+  "private": true,
+  "keywords": [
+    "nuxt",
+    "nuxt2",
+    "nuxt boilerplate",
+    "nuxt2 boilerplate"
+  ],
+  "author": "selimdoyranli",
+  "contributors": [
+    "Selim Doyranlı <selimdoyranli@gmail.com> (https://selimdoyranli.com)"
+  ],
+  "bugs": "selimdoyranli@gmail.com",
+  "homepage": "https://github.com/selimdoyranli/nuxt2-boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/selimdoyranli/nuxt2-boilerplate"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt src",
+    "build": "nuxt build src",
+    "start": "nuxt start src",
+    "generate": "nuxt generate src",
+    "lint:eslint": "eslint --ext .js,.ts,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
+    "lint:eslint:fix": "eslint --fix --ext .js,.ts,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
+    "lint:stylelint": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\"",
+    "lint:stylelint:fix": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\" --fix",
+    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line crlf"
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "npm run lint:eslint",
+      "npm run prettier"
+    ],
+    "src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}": [
+      "npm run lint:stylelint",
+      "npm run prettier"
+    ]
+  },
+  "dependencies": {
+    "@nuxtjs/composition-api": "^0.33.1",
+    "cross-env": "^5.2.0",
+    "express": "^4.17.1",
+    "nuxt": "2.16.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@nuxt/types": "2.16.0",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@nuxtjs/eslint-module": "^3.1.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/stylelint-module": "^4.1.0",
+    "@prettier/plugin-pug": "^2.4.1",
+    "@types/node": "^18.13.0",
+    "@types/stylelint": "14.0.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.9.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "postcss-html": "^1.5.0",
+    "postcss-scss": "^4.0.6",
+    "prettier": "^2.8.4",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.58.0",
+    "sass-loader": "10.1.1",
+    "stylelint": "14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-order": "^6.0.2",
+    "stylelint-scss": "^4.4.0",
+    "vue-eslint-parser": "^9.1.0",
+    "vue-eslint-parser-template-tokenizer-pug": "^0.4.10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
