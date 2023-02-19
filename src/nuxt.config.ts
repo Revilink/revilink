@@ -40,12 +40,17 @@ const config: NuxtConfig = {
       /*
        * Vendor
        */
-      // --
+      // > Bootstrap Vendor
+      'bootstrap/scss/_functions.scss',
+      'bootstrap/scss/_variables.scss',
+      'bootstrap/scss/_mixins.scss',
 
       /*
        * Overrides (This overrides not includes actual styles. | variables, mixins etc.)
        */
-      // > --
+      // > Bootstrap Overrides
+      '@/assets/style/scss/overrides/bootstrap/_grid.override.scss',
+      '@/assets/style/scss/overrides/bootstrap/_spacing.override.scss',
 
       /*
        * Plugins
