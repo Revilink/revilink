@@ -1,0 +1,11 @@
+.application-nav-button-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__item {
+    .app-icon {
+      color: var(--color-icon-02);
+    }
+  }
+}

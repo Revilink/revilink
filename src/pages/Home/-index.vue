@@ -1,34 +1,24 @@
 <template lang="pug">
 .page.home-page
-  h1 {{ message.title }}
-  p {{ message.description }}
+  .col-lg-8.mx-auto
+    AppLogo.home-page__logo(:height="44")
+    h2.home-page__description(v-html="$t('hero.home.description')")
 
-  NuxtLink(:to="navigation.link") {{ navigation.title }}
+    ReviewSearchForm
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { HomeNavigationTypes } from './Home.page.types'
-import { WelcomeMessageTypes } from '@/types'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { AppLogo } from '@/components/Logo'
+import { ReviewSearchForm } from '@/components/Form'
 
 export default defineComponent({
-  layout: 'Default/Default.layout',
-  setup() {
-    const message = ref<WelcomeMessageTypes>({
-      title: 'Home page',
-      description: 'Welcome to home page'
-    })
-
-    const navigation = ref<HomeNavigationTypes>({
-      title: 'Go to about page',
-      link: '/about'
-    })
-
-    return {
-      message,
-      navigation
-    }
-  }
+  components: {
+    AppLogo,
+    ReviewSearchForm
+  },
+  layout: 'Home/Home.layout',
+  setup() {}
 })
 </script>
 

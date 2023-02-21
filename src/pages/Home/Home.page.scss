@@ -1,3 +1,25 @@
 .home-page {
   position: relative;
+
+  &__logo {
+    display: block;
+    margin-bottom: calc(var(--spacer-base) / 1);
+  }
+
+  &__title {
+    font-size: var(--font-size-h1);
+  }
+
+  &__description {
+    color: var(--color-text-02);
+    font-size: var(--font-size-h2);
+
+    @include font-weight-regular;
+
+    strong {
+      background: linear-gradient(var(--color-brand-02), var(--color-brand-03));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 }

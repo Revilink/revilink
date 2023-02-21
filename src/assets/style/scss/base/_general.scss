@@ -21,6 +21,10 @@ body {
   padding: 0;
   overflow-x: clip;
   background-color: var(--color-ui-01);
+  background-image: url(~/assets/media/elements/mesh.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: cover;
 
   @include font-family-rubik;
   @include font-weight-regular;

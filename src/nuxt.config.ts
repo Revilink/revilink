@@ -88,7 +88,18 @@ const config: NuxtConfig = {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    // https://vuesax.com
+    {
+      src: '@/plugins/vuesax.ts',
+      ssr: true
+    },
+    // https://docs.iconify.design/icon-components/vue
+    {
+      src: '@/plugins/iconify.ts',
+      ssr: false
+    }
+  ],
 
   /*
    ** Auto import components
@@ -149,7 +160,36 @@ const config: NuxtConfig = {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    // https://i18n.nuxtjs.org
+    [
+      '@nuxtjs/i18n',
+      {
+        lazy: true,
+        locales: [
+          {
+            name: 'English',
+            title: 'English',
+            code: 'en',
+            iso: 'en-US',
+            file: 'en.ts'
+          },
+          {
+            name: 'Turkish',
+            title: 'Türkçe',
+            code: 'tr',
+            iso: 'tr-TR',
+            file: 'tr.ts'
+          }
+        ],
+        langDir: 'locales/',
+        defaultLocale: 'en',
+        strategy: 'prefix_except_default',
+        detectBrowserLanguage: false,
+        parsePages: false
+      }
+    ]
+  ],
 
   /*
    ** Typescript configuration

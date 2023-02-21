@@ -1,16 +1,19 @@
 <template lang="pug">
 header.app-header
-  .container
-    AppLogo(:height="34")
+  .app-header__inner.container
+    AppLogo(v-show="false" :height="34")
+    ApplicationNavButtonGroup.ms-auto
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { AppLogo } from '@/components/Logo'
+import { ApplicationNavButtonGroup } from '@/components/ButtonGroup'
 
 export default defineComponent({
   components: {
-    AppLogo
+    AppLogo,
+    ApplicationNavButtonGroup
   },
   setup() {}
 })

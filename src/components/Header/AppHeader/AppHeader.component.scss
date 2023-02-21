@@ -3,8 +3,16 @@
   z-index: var(--z-index-header);
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
   height: var(--header-height);
   padding: 16px;
-  background-color: var(--color-ui-02);
+  background-color: transparent;
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

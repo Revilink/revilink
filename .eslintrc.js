@@ -77,6 +77,7 @@ module.exports = {
     'vue/attribute-hyphenation': ['error', 'always'],
     'vue/v-on-event-hyphenation': ['error', 'always'],
     'vue/html-self-closing': 'off',
+    'vue/no-v-html': 'off',
     'vue/order-in-components': ['error'],
     'padding-line-between-statements': [
       'error',

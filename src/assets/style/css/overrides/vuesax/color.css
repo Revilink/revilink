@@ -1,0 +1,10 @@
+/* https://vuesax.com/docs/theme/#css */
+
+:root {
+  --vs-primary: 70, 0, 140;
+  --vs-background: 244, 244, 244;
+  --vs-gray-1: 255, 255, 255;
+  --vs-gray-2: 255, 255, 255;
+  --vs-gray-3: 255, 255, 255;
+  --vs-gray-4: 255, 255, 255;
+}

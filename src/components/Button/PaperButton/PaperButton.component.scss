@@ -1,0 +1,29 @@
+.paper-button {
+  position: relative;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+  border-radius: 100%;
+  outline: 0;
+  cursor: pointer;
+  place-items: center;
+
+  &:hover {
+    &:not(.paper-button--active) {
+      background-color: var(--color-hover-02);
+    }
+  }
+
+  &--disabled,
+  &[disabled] {
+    user-select: none;
+    pointer-events: none;
+  }
+
+  &--active {
+    background-color: color-mod(var(--color-active-01) a(25%));
+  }
+}
