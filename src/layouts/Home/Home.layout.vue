@@ -4,7 +4,7 @@
   AppPreloader
 
   // App Header
-  AppHeader
+  AppHeader(variant="home")
 
   // Main
   .layout__inner

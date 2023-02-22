@@ -186,7 +186,13 @@ const config: NuxtConfig = {
         defaultLocale: 'en',
         strategy: 'prefix_except_default',
         detectBrowserLanguage: false,
-        parsePages: false
+        parsePages: false,
+        pages: {
+          'Reviews/index': {
+            en: '/reviews',
+            tr: '/incelemeler'
+          }
+        }
       }
     ]
   ],

@@ -1,8 +1,8 @@
 :root {
   /* Brand */
-  --color-brand-01: #8000ff;
-  --color-brand-02: #46008c;
-  --color-brand-03: #b399ff;
+  --color-brand-01: #161616;
+  --color-brand-02: #293036;
+  --color-brand-03: #eee;
 
   /* Elements */
   --color-ui-01: #f4f4f4;
@@ -18,11 +18,11 @@
   --color-border-02: #ccc;
 
   /* Typographic */
-  --color-text-01: #000;
-  --color-text-02: #444;
-  --color-text-03: #888;
-  --color-link-01: #3f5894;
-  --color-icon-01: #aaa;
+  --color-text-01: #293036;
+  --color-text-02: #353c41;
+  --color-text-03: #555f67;
+  --color-link-01: #32516c;
+  --color-icon-01: #555f67;
 
   /* Interactive */
   --color-hover-01: #f9f9f9;

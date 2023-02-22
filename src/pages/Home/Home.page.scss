@@ -17,7 +17,7 @@
     @include font-weight-regular;
 
     strong {
-      background: linear-gradient(var(--color-brand-02), var(--color-brand-03));
+      background: linear-gradient(45deg, var(--color-brand-01), var(--color-brand-02));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }

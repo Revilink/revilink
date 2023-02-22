@@ -1,0 +1,33 @@
+<template lang="pug">
+.page.reviews-page
+  .row
+    .col-3
+      .col-11
+        span Sidebar
+    .col-9
+      .reviews-page-review-meta
+        vs-avatar.reviews-page-review-meta__avatar
+          img(v-if="true" src="https://www.sahibinden.com/favicon.ico" alt="avatar")
+          AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="22" :height="22")
+
+        .reviews-page-review-meta__body
+          h1.reviews-page-review-meta__title %18 KDV 2017 VOLKSWAGEN POLO 1.4 TDI 90 HP COMFORTLINE 145.905KM
+          h4.reviews-page-review-meta__url
+            AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="22" :height="22")
+            a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
+</template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+import { AppIcon } from '@/components/Icon'
+
+export default defineComponent({
+  components: {
+    AppIcon
+  },
+  layout: 'Default/Default.layout',
+  setup() {}
+})
+</script>
+
+<style lang="scss" src="./Reviews.page.scss"></style>
