@@ -1,10 +1,10 @@
 <template lang="pug">
 .page.reviews-page
   .row
-    .col-3
+    .col-4
       .col-11
         span Sidebar
-    .col-9
+    .col-8
       // Site Meta
       .reviews-page-review-meta
         vs-avatar.reviews-page-review-meta__avatar

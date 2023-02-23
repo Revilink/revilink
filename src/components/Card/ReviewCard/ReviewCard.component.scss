@@ -27,16 +27,72 @@
 
   &__body {
     position: relative;
-    margin-top: var(--spacer);
+    padding: calc(var(--spacer-base) / 2);
+    background-color: var(--color-ui-02);
+    border-radius: var(--border-radius-01);
   }
 
   &-review {
     position: relative;
+    margin-bottom: var(--spacer-base);
 
     &__text {
       color: var(--color-text-02);
       font-size: var(--font-size-text-21);
       line-height: var(--font-size-text-16);
+    }
+  }
+
+  &-actions {
+    position: relative;
+    display: flex;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        .paper-button {
+          background-color: var(--color-hover-02);
+        }
+      }
+
+      &--like {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mod(var(--color-danger-01) a(10%));
+
+            .app-icon {
+              color: var(--color-danger-01);
+            }
+          }
+        }
+      }
+
+      &--reply {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mod(var(--color-info-01) a(10%));
+
+            .app-icon {
+              color: var(--color-info-01);
+            }
+          }
+        }
+      }
+
+      &__button {
+        margin-right: var(--spacer);
+      }
+
+      &__label {
+        font-size: var(--font-size-text-22);
+      }
     }
   }
 }

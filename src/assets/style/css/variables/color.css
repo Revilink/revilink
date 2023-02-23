@@ -32,10 +32,10 @@
   --color-disabled-01: #c4c4c4;
 
   /* Denotative */
-  --color-danger-01: #fd0000;
-  --color-warning-01: #fff14b;
-  --color-success-01: #25d366;
-  --color-info-01: #5dc3e9;
+  --color-danger-01: rgba(255, 71, 87, 1);
+  --color-warning-01: rgba(255, 186, 0, 1);
+  --color-success-01: rgba(70, 201, 58, 1);
+  --color-info-01: rgb(27, 115, 173);
 
   /* Overlays */
   --color-overlay-01: rgba(0, 0, 0, 0.1);

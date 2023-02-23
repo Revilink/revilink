@@ -14,12 +14,41 @@
         | Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim vitae tenetur ad asperiores tempora, voluptatibus ut
         | labore numquam quis natus eius nostrum? Dolorum
         | autem eius reprehenderit officia maxime at temporibus.
+
+    .review-card-actions
+      .review-card-actions-item.review-card-actions-item--like
+        PaperButton.review-card-actions-item__button(:width="36" :height="36")
+          AppIcon(name="ri:heart-3-line" :width="18" :height="18")
+        span.review-card-actions-item__label 21
+
+      .review-card-actions-item.review-card-actions-item--reply
+        PaperButton.review-card-actions-item__button(:width="36" :height="36")
+          AppIcon(name="ri:chat-1-line" :width="18" :height="18")
+        span.review-card-actions-item__label 6
+
+      vs-tooltip.review-card-actions-item.ms-auto.review-card-actions-item--share
+        PaperButton.review-card-actions-item__button(:width="36" :height="36")
+          AppIcon(name="ri:share-line" :width="18" :height="18")
+        template(#tooltip)
+          span Share
+
+      vs-tooltip.review-card-actions-item.review-card-actions-item--share
+        PaperButton.review-card-actions-item__button(:width="36" :height="36")
+          AppIcon(name="ri:flag-line" :width="18" :height="18")
+        template(#tooltip)
+          span Report
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { PaperButton } from '@/components/Button'
+import { AppIcon } from '@/components/Icon'
 
 export default defineComponent({
+  components: {
+    PaperButton,
+    AppIcon
+  },
   setup() {}
 })
 </script>

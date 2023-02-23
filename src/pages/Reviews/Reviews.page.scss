@@ -44,11 +44,10 @@
       grid-column-gap: var(--spacer);
       grid-template-columns: 1fr auto;
       align-items: center;
-      width: 75%;
 
       a {
         display: block;
-        width: 100%;
+        width: 90%;
         margin: calc(var(--spacer-base) / 4) 0;
         overflow: hidden;
         color: var(--color-link-01);

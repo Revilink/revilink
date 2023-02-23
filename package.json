@@ -74,6 +74,8 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "nuxt-font-loader": "1.1.5",
+    "postcss": "^8.4.21",
+    "postcss-color-mod-function": "^3.0.3",
     "postcss-html": "^1.5.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.4",
