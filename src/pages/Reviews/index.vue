@@ -5,6 +5,7 @@
       .col-11
         span Sidebar
     .col-9
+      // Site Meta
       .reviews-page-review-meta
         vs-avatar.reviews-page-review-meta__avatar
           img(v-if="true" src="https://www.sahibinden.com/favicon.ico" alt="avatar")
@@ -15,15 +16,20 @@
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="22" :height="22")
             a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
+
+      // Review List
+      ReviewList
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { AppIcon } from '@/components/Icon'
+import { ReviewList } from '@/components/List'
 
 export default defineComponent({
   components: {
-    AppIcon
+    AppIcon,
+    ReviewList
   },
   layout: 'Default/Default.layout',
   setup() {}

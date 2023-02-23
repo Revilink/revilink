@@ -8,6 +8,9 @@
     display: grid;
     grid-column-gap: calc(var(--spacer-base) / 2);
     grid-template-columns: var(--avatar-height) 1fr;
+    margin-bottom: calc(var(--spacer-base) * 2);
+    padding-bottom: var(--spacer-base);
+    border-bottom: 1px solid var(--color-border-01);
 
     &__avatar {
       width: var(--avatar-width);
@@ -31,6 +34,7 @@
     &__title {
       display: block;
       font-size: var(--font-size-h2);
+      line-height: var(--font-size-h1);
 
       @include font-weight-semi-bold;
     }

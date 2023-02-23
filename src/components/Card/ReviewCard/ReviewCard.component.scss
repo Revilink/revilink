@@ -1,0 +1,42 @@
+.review-card {
+  --user-avatar-width: 48px;
+
+  position: relative;
+  display: grid;
+  grid-column-gap: calc(var(--spacer-base) / 2);
+  grid-template-columns: var(--user-avatar-width) 1fr;
+
+  &-meta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: calc(var(--spacer) * 2);
+
+    &__user {
+      color: var(--color-text-01);
+      font-size: var(--font-size-text-21);
+
+      @include font-weight-medium;
+    }
+
+    &__date {
+      color: var(--color-text-01);
+      font-size: var(--font-size-text-22);
+    }
+  }
+
+  &__body {
+    position: relative;
+    margin-top: var(--spacer);
+  }
+
+  &-review {
+    position: relative;
+
+    &__text {
+      color: var(--color-text-02);
+      font-size: var(--font-size-text-21);
+      line-height: var(--font-size-text-16);
+    }
+  }
+}

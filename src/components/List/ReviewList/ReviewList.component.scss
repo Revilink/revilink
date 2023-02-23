@@ -1,0 +1,21 @@
+.review-list {
+  position: relative;
+
+  &-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacer-base);
+
+    &__icon {
+      margin-right: calc(var(--spacer) * 2);
+    }
+
+    &__title {
+      font-size: var(--font-size-h3);
+    }
+  }
+
+  .review-card {
+    margin-bottom: var(--spacer-base);
+  }
+}
