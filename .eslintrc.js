@@ -43,6 +43,7 @@ module.exports = {
     camelcase: 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-throw-literal': 'off',
     'no-param-reassign': [
       'error',
       {

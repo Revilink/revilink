@@ -11,6 +11,20 @@ const config: NuxtConfig = {
   target: 'server',
 
   /*
+   ** Nuxt env configuration
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-env
+   */
+  env: {},
+
+  /*
+   ** Nuxt runtime configuration
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-runtime-config
+   */
+  publicRuntimeConfig: {
+    API: 'http://localhost:3004'
+  },
+
+  /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */
@@ -89,6 +103,18 @@ const config: NuxtConfig = {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
+    {
+      src: '@/services/api.injector.ts',
+      ssr: true
+    },
+    {
+      src: '@/services/rest/core/app-axios.ts',
+      ssr: true
+    },
+    {
+      src: '@/services/rest/core/api-register.ts',
+      ssr: true
+    },
     // https://vuesax.com
     {
       src: '@/plugins/vuesax.ts',
@@ -161,6 +187,8 @@ const config: NuxtConfig = {
    ** Nuxt.js modules
    */
   modules: [
+    // https://axios.nuxtjs.org
+    '@nuxtjs/axios',
     // https://i18n.nuxtjs.org
     [
       '@nuxtjs/i18n',

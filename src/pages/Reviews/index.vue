@@ -22,7 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useFetch, useContext, reactive } from '@nuxtjs/composition-api'
+import { ReviewType } from './Reviews.page.types'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
 
@@ -32,7 +33,26 @@ export default defineComponent({
     ReviewList
   },
   layout: 'Default/Default.layout',
-  setup() {}
+  setup() {
+    const context = useContext()
+
+    const review = reactive<ReviewType>({
+      page: 1,
+      items: []
+    })
+
+    const { fetch, fetchState } = useFetch(async () => {
+      const result = await context.$api.rest.review.fetchReviews()
+
+      review.items = result
+    })
+
+    return {
+      fetch,
+      fetchState,
+      review
+    }
+  }
 })
 </script>
 

@@ -1,0 +1,50 @@
+{
+  "reviews": [
+    {
+      "id": 0,
+      "createdAt": "22 Ocak 2023",
+      "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
+      "isAnonymous": false,
+      "user": {
+        "id": 0,
+        "createdAt": "1 Mayıs 2020",
+        "name": "Selim Doyranlı",
+        "email": "selimdoyranli@gmail.com",
+        "avatar": "https://i.pravatar.cc/1024?img=52"
+      },
+      "content": "bunu alanin kendine saygisi yoktur",
+      "likeCount": 0,
+      "replyCount": 0,
+      "comments": null
+    },
+    {
+      "id": 0,
+      "createdAt": "17 Aralık 2022",
+      "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
+      "isAnonymous": false,
+      "user": {
+        "name": "Abdullah Bozdağ",
+        "email": "apo_bozdag@gmail.com",
+        "avatar": "https://i.pravatar.cc/1024?img=53"
+      },
+      "content": "guzel yanliyo alin",
+      "likeCount": 21,
+      "replyCount": 1,
+      "comments": [
+        {
+          "id": 0,
+          "createdAt": "17 Aralık 2022",
+          "user": {
+            "id": 0,
+            "createdAt": "1 Mayıs 2020",
+            "name": "Selim Doyranlı",
+            "email": "selimdoyranli@gmail.com",
+            "avatar": "https://i.pravatar.cc/1024?img=52"
+          },
+          "content": "sana mi soracaz aslanim",
+          "likeCount": 5
+        }
+      ]
+    }
+  ]
+}

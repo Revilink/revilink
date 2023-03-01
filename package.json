@@ -29,7 +29,8 @@
     "lint:eslint:fix": "eslint --fix --ext .js,.ts,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
     "lint:stylelint": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\"",
     "lint:stylelint:fix": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\" --fix",
-    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line crlf"
+    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line crlf",
+    "mock:api": "json-server --watch ./src/mock/db.json --port 3004 --delay 1000"
   },
   "lint-staged": {
     "*.{ts,js,vue}": [
@@ -42,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/i18n": "^7.3.1",
     "bootstrap": "5.2.3",
@@ -72,6 +74,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
     "husky": "^4.2.5",
+    "json-server": "^0.17.2",
     "lint-staged": "^10.2.11",
     "nuxt-font-loader": "1.1.5",
     "postcss": "^8.4.21",

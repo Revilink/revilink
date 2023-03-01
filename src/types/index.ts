@@ -1,1 +1,2 @@
-export * from './message.types'
+export * from './user.types'
+export * from './review.types'
