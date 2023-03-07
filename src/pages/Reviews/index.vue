@@ -18,7 +18,7 @@
             a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
 
       // Review List
-      ReviewList
+      ReviewList(:items="review.items")
 </template>
 
 <script lang="ts">

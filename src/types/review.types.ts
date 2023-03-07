@@ -2,7 +2,7 @@ import { UserApiModelTypes, UserTypes } from './user.types'
 
 export type ReviewApiModelTypes = {
   id: number
-  createdDate: string
+  createdAt: string
   link: string
   isAnonymous: boolean
   user: UserApiModelTypes
@@ -14,7 +14,7 @@ export type ReviewApiModelTypes = {
 
 export type ReviewTypes = {
   id: number
-  createdDate: string
+  createdAt: string
   url: string
   isAnonymous: boolean
   user: UserTypes

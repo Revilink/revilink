@@ -3,7 +3,7 @@ import { ReviewApiModelTypes, ReviewTypes } from '@/types'
 export default (model: ReviewApiModelTypes) => {
   return <ReviewTypes>{
     id: model.id,
-    createdDate: model.createdDate,
+    createdAt: model.createdAt,
     url: model.link,
     isAnonymous: model.isAnonymous,
     user: model.user,

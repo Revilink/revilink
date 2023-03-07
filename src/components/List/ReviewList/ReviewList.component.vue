@@ -2,8 +2,8 @@
 .review-list
   .review-list-head
     AppIcon.review-list-head__icon(name="ph:chat-centered-dots" color="var(--color-icon-01)" :width="28" :height="28")
-    span.review-list-head__title Comments (5)
-  ReviewCard(v-for="n in 5" :key="n")
+    span.review-list-head__title Comments ({{ items.length }})
+  ReviewCard(v-for="item in items" :key="item.id" :review="item")
 
   // Pagination
   vs-pagination.review-list__pagination(v-model="list.page" :length="10 / 5")
@@ -19,6 +19,13 @@ export default defineComponent({
   components: {
     AppIcon,
     ReviewCard
+  },
+  props: {
+    items: {
+      type: Array,
+      required: false,
+      default: null
+    }
   },
   setup() {
     const list = reactive<ListType>({
