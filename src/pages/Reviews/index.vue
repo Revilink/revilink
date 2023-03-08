@@ -19,6 +19,14 @@
 
       // Review List
       ReviewList(:items="review.items")
+
+      // Comment Form Section
+      section.reviews-page-comment-form
+        span.reviews-page-comment-form__title
+          AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
+          | {{ $t('form.comment.title') }}
+
+        CommentForm
 </template>
 
 <script lang="ts">
@@ -26,11 +34,13 @@ import { defineComponent, useFetch, useContext, reactive } from '@nuxtjs/composi
 import { ReviewType } from './Reviews.page.types'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
+import { CommentForm } from '@/components/Form'
 
 export default defineComponent({
   components: {
     AppIcon,
-    ReviewList
+    ReviewList,
+    CommentForm
   },
   layout: 'Default/Default.layout',
   setup() {

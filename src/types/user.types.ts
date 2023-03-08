@@ -1,5 +1,6 @@
 export type UserApiModelTypes = {
   id: number
+  username: string
   createdAt: Date | string
   name: string
   email: string
@@ -8,6 +9,7 @@ export type UserApiModelTypes = {
 
 export type UserTypes = {
   id: number
+  username: string
   createdAt: Date | string
   name: string
   email: string

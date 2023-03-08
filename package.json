@@ -50,6 +50,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "nuxt": "2.16.0",
+    "v-autosize": "^1.0.3",
     "vuesax": "^4.0.1-alpha.25"
   },
   "devDependencies": {

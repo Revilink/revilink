@@ -3260,6 +3260,11 @@ autoprefixer@^9.0.0:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
+autosize@^4.0.2:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.4.tgz#924f13853a466b633b9309330833936d8bccce03"
+  integrity sha512-5yxLQ22O0fCRGoxGfeLSNt3J8LB1v+umtpMnPW6XjkTWXKoN0AmXAIhelJcDtFT/Y/wYWmfE+oqU10Q0b8FhaQ==
+
 available-typed-arrays@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
@@ -12430,6 +12435,13 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
+
+v-autosize@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/v-autosize/-/v-autosize-1.0.3.tgz#74e86d8a7b72690abad917f307965a86a52c3f26"
+  integrity sha512-hglWoI7tTNFi7GDvHotsID5zl15vyzU6Gzfs91WB9lowy7/N6nfZ3wQCDlf1DGxUwdRxvfOhr+Vnf6evr8QFDQ==
+  dependencies:
+    autosize "^4.0.2"
 
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"

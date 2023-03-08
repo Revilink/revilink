@@ -7,6 +7,7 @@
       "isAnonymous": false,
       "user": {
         "id": 0,
+        "username": "selimdoyranli",
         "createdAt": "1 Mayıs 2020",
         "name": "Selim Doyranlı",
         "email": "selimdoyranli@gmail.com",
@@ -23,6 +24,9 @@
       "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
       "isAnonymous": false,
       "user": {
+        "id": 1,
+        "username": "apo_bozdag",
+        "createdAt": "1 Mayıs 2020",
         "name": "Abdullah Bozdağ",
         "email": "apo_bozdag@gmail.com",
         "avatar": "https://i.pravatar.cc/1024?img=53"
@@ -36,6 +40,7 @@
           "createdAt": "17 Aralık 2022",
           "user": {
             "id": 0,
+            "username": "selimdoyranli",
             "createdAt": "1 Mayıs 2020",
             "name": "Selim Doyranlı",
             "email": "selimdoyranli@gmail.com",
@@ -61,6 +66,7 @@
           "createdAt": "12 Aralık 2022",
           "user": {
             "id": 0,
+            "username": "selimdoyranli",
             "createdAt": "1 Mayıs 2020",
             "name": "Selim Doyranlı",
             "email": "selimdoyranli@gmail.com",

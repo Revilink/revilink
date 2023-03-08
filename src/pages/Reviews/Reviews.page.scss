@@ -64,4 +64,15 @@
       }
     }
   }
+
+  &-comment-form {
+    margin-bottom: var(--spacer-base);
+
+    &__title {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacer-base);
+      font-size: var(--font-size-text-17);
+    }
+  }
 }

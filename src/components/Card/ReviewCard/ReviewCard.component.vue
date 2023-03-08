@@ -2,14 +2,17 @@
 .review-card
   vs-avatar.review-card__avatar(circle size="48")
     AppIcon(v-if="review.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
-    img(v-else :src="review.user?.avatar" alt="avatar")
+    nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
+      img(:src="review.user?.avatar" alt="avatar")
 
   .review-card__body
     .review-card-meta
       strong.review-card-meta__user
         template(v-if="review.isAnonymous") Anonymous
-        template(v-else) {{ review.user?.name }}
-      time.review-card-meta__date &nbsp; • {{ review.createdAt }}
+        nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
+          | {{ review.user?.name }}
+      time.review-card-meta__date
+        nuxt-link(:to="localePath({ name: 'comment', params: { id: review.id } })" :title="review.createdAt") • {{ review.createdAt }}
 
     .review-card-review
       p.review-card-review__text {{ review.content }}

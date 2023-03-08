@@ -16,7 +16,11 @@ export default {
     loading: 'Loading',
     application: 'Application',
     login: 'Login',
-    register: 'Register'
+    register: 'Register',
+    yes: 'Yes',
+    no: 'No',
+    anonymous: 'Anonymous',
+    send: 'Send'
   },
   hero: {
     home: {
@@ -28,6 +32,12 @@ export default {
     reviewSearch: {
       url: 'Paste URL',
       getReviews: 'Get Reviews'
+    },
+    comment: {
+      title: 'Type your review about the thing in the link',
+      content: 'You typing as {username}',
+      hint: '* Avoid profanity, hate speech, derogatory and misleading comments.',
+      anonymousSwitch: 'Post anonymously?'
     }
   }
 }

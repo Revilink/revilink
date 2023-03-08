@@ -15,7 +15,11 @@ export default {
     loading: 'Yükleniyor',
     application: 'Uygulama',
     login: 'Giriş yap',
-    register: 'Kayıt ol'
+    register: 'Kayıt ol',
+    yes: 'Evet',
+    no: 'Hayır',
+    anonymous: 'Anonim',
+    send: 'Gönder'
   },
   hero: {
     home: {
@@ -27,6 +31,12 @@ export default {
     reviewSearch: {
       url: 'Bağlantı yapıştır',
       getReviews: 'İncelemeleri Getir'
+    },
+    comment: {
+      title: 'Bağlantıdaki şey hakkında incelemeni yaz',
+      content: '{username} olarak yazıyorsun',
+      hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.',
+      anonymousSwitch: 'Anonim olarak gönderilsin mi?'
     }
   }
 }

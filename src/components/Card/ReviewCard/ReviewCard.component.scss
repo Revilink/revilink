@@ -13,15 +13,32 @@
     margin-bottom: calc(var(--spacer) * 2);
 
     &__user {
+      margin-right: var(--spacer);
       color: var(--color-text-01);
       font-size: var(--font-size-text-21);
+      text-decoration: none;
 
       @include font-weight-medium;
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
     }
 
     &__date {
       color: var(--color-text-01);
       font-size: var(--font-size-text-22);
+      text-decoration: none;
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
