@@ -19,7 +19,11 @@ export default {
     yes: 'Evet',
     no: 'Hayır',
     anonymous: 'Anonim',
-    send: 'Gönder'
+    send: 'Gönder',
+    like: 'Beğen',
+    reply: 'Yanıtla',
+    share: 'Paylaş',
+    report: 'Bildir'
   },
   hero: {
     home: {

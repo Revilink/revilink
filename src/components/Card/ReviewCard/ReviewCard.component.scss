@@ -75,8 +75,24 @@
         }
       }
 
-      &--like {
+      &.like-button {
+        --like-motion: cubic-bezier(0.19, 1, 0.22, 1);
+
         margin-right: calc(var(--spacer) * 5);
+
+        @keyframes like {
+          0% {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.2);
+          }
+
+          100% {
+            transform: scale(1);
+          }
+        }
 
         &:hover {
           .paper-button {
@@ -87,9 +103,19 @@
             }
           }
         }
+
+        &--liked {
+          .paper-button {
+            animation: like 0.4s both var(--like-motion);
+
+            .app-icon {
+              color: var(--color-danger-01);
+            }
+          }
+        }
       }
 
-      &--reply {
+      &.reply-button {
         margin-right: calc(var(--spacer) * 5);
 
         &:hover {
@@ -109,6 +135,7 @@
 
       &__label {
         font-size: var(--font-size-text-22);
+        font-variant-numeric: tabular-nums;
       }
     }
   }

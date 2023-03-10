@@ -20,7 +20,11 @@ export default {
     yes: 'Yes',
     no: 'No',
     anonymous: 'Anonymous',
-    send: 'Send'
+    send: 'Send',
+    like: 'Like',
+    reply: 'Reply',
+    share: 'Share',
+    report: 'Report'
   },
   hero: {
     home: {
