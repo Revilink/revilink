@@ -14,5 +14,16 @@ export const reviewApi = (appAxios: Function) =>
       if (isSuccess) {
         return data.map((item: ReviewApiModelTypes) => reviewTransformer(item))
       }
+    },
+
+    async fetchReview(id: number) {
+      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+        method: 'get',
+        path: `reviews/${id}`
+      })
+
+      if (isSuccess) {
+        return reviewTransformer(data)
+      }
     }
   }

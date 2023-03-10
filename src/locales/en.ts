@@ -22,9 +22,13 @@ export default {
     anonymous: 'Anonymous',
     send: 'Send',
     like: 'Like',
+    unlike: 'Unlike',
+    replies: 'Replies',
     reply: 'Reply',
     share: 'Share',
-    report: 'Report'
+    report: 'Report',
+    updatedAt: 'Last edit',
+    edit: 'Edit'
   },
   hero: {
     home: {

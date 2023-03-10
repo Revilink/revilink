@@ -9,7 +9,6 @@ export type ReviewApiModelTypes = {
   content: string
   likeCount: number
   replyCount: number
-  comments: ReviewApiModelTypes[]
 }
 
 export type ReviewTypes = {
@@ -21,5 +20,4 @@ export type ReviewTypes = {
   content: string
   likeCount: number
   replyCount: number
-  comments: ReviewTypes[]
 }

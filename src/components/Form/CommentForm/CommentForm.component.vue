@@ -15,18 +15,19 @@ form.comment-form(@submit.prevent="handleOnSubmit")
       )
       small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
-      .comment-form-card-anonymous-switch
-        small.comment-form-card-anonymous-switch__title
-          AppIcon.me-1(name="ooui:user-anonymous" color="var(--color-icon-02)" :width="16" :height="16")
-          | {{ $t('form.comment.anonymousSwitch') }}
-        vs-switch.comment-form-card-anonymous-switch__input(v-model="form.isAnonymous")
-          template(#off)
-            span {{ $t('general.no') }}
-          template(#on)
-            span {{ $t('general.yes') }}
+      .d-flex
+        .comment-form-card-anonymous-switch
+          small.comment-form-card-anonymous-switch__title
+            AppIcon.me-1(name="ooui:user-anonymous" color="var(--color-icon-02)" :width="16" :height="16")
+            | {{ $t('form.comment.anonymousSwitch') }}
+          vs-switch.comment-form-card-anonymous-switch__input(v-model="form.isAnonymous")
+            template(#off)
+              span {{ $t('general.no') }}
+            template(#on)
+              span {{ $t('general.yes') }}
 
-  // Send Button
-  vs-button.comment-form__submitButton(type="submit" size="large") {{ $t('general.send') }}
+        // Send Button
+        vs-button.comment-form__submitButton(type="submit" size="large") {{ $t('general.send') }}
 </template>
 
 <script lang="ts">

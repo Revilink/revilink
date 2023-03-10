@@ -1,19 +1,7 @@
-.review-card {
-  $review-card: '.review-card';
-
+.reply-card {
   --user-avatar-width: 48px;
 
   position: relative;
-
-  &--detailed {
-    #{$review-card} {
-      &-meta {
-        &__date {
-          display: none;
-        }
-      }
-    }
-  }
 
   &__inner {
     position: relative;
@@ -34,13 +22,11 @@
       font-size: var(--font-size-text-21);
       text-decoration: none;
 
+      @include font-weight-medium;
+
       a {
         color: inherit;
         text-decoration: inherit;
-      }
-
-      strong {
-        @include font-weight-semi-bold;
       }
     }
 
@@ -75,39 +61,6 @@
       color: var(--color-text-02);
       font-size: var(--font-size-text-21);
       line-height: var(--font-size-text-16);
-    }
-  }
-
-  &-detail {
-    position: relative;
-
-    &__item {
-      display: inline-flex;
-      padding: calc(var(--spacer) * 2) calc(var(--spacer) * 4);
-      font-size: var(--font-size-text-22);
-      background-color: transparent;
-      border: 0;
-      border-radius: calc(var(--border-radius-01) / 2);
-
-      &--button {
-        &:hover {
-          background-color: var(--color-hover-01);
-        }
-      }
-
-      strong {
-        margin-right: var(--spacer);
-      }
-    }
-
-    &__bar {
-      display: flex;
-      margin-top: calc(var(--spacer-base) / 4);
-      margin-bottom: calc(var(--spacer-base) / 2);
-      padding: calc(var(--spacer) * 2) 0;
-      border: 1px solid var(--color-border-01);
-      border-right: 0;
-      border-left: 0;
     }
   }
 
@@ -161,34 +114,6 @@
 
             .app-icon {
               color: var(--color-danger-01);
-            }
-          }
-        }
-      }
-
-      &.reply-button {
-        margin-right: calc(var(--spacer) * 5);
-
-        &:hover {
-          .paper-button {
-            background-color: color-mod(var(--color-info-01) a(10%));
-
-            .app-icon {
-              color: var(--color-info-01);
-            }
-          }
-        }
-      }
-
-      &.edit-button {
-        margin-right: calc(var(--spacer) * 5);
-
-        &:hover {
-          .paper-button {
-            background-color: color-mod(var(--color-warning-01) a(10%));
-
-            .app-icon {
-              color: var(--color-awrning-01);
             }
           }
         }

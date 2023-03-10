@@ -21,9 +21,13 @@ export default {
     anonymous: 'Anonim',
     send: 'Gönder',
     like: 'Beğen',
+    unlike: 'Vazgeç',
+    replies: 'Yanıtlar',
     reply: 'Yanıtla',
     share: 'Paylaş',
-    report: 'Bildir'
+    report: 'Bildir',
+    updatedAt: 'Son düzenleme',
+    edit: 'Düzenle'
   },
   hero: {
     home: {

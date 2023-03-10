@@ -1,49 +1,75 @@
 <template lang="pug">
-.review-card
-  vs-avatar.review-card__avatar(circle size="48")
-    AppIcon(v-if="review.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
-    nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
-      img(:src="review.user?.avatar" alt="avatar")
+.review-card(:class="[detailedClass]")
+  .review-card__inner
+    vs-avatar.review-card__avatar(circle size="48")
+      AppIcon(v-if="review.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
+      nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
+        img(:src="review.user?.avatar" alt="avatar")
 
-  .review-card__body
-    .review-card-meta
-      strong.review-card-meta__user
-        template(v-if="review.isAnonymous") {{ $t('general.anonymous') }}
-        nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
-          | {{ review.user?.name }}
-      time.review-card-meta__date
-        nuxt-link(:to="localePath({ name: 'comment', params: { id: review.id } })" :title="review.createdAt") • {{ review.createdAt }}
+    .review-card__body
+      .review-card-meta
+        .review-card-meta__user
+          template(v-if="review.isAnonymous") {{ $t('general.anonymous') }}
+          nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
+            strong {{ review.user?.name }} &nbsp;
+            span @{{ review.user?.username }}
+        time.review-card-meta__date
+          | • &nbsp;
+          nuxt-link(:to="localePath({ name: 'comment', params: { id: review.id } })" :title="review.createdAt") {{ review.createdAt }}
 
-    .review-card-review
-      p.review-card-review__text {{ review.content }}
+      .review-card-review
+        p.review-card-review__text {{ review.content }}
 
-    .review-card-actions
-      .review-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
-        PaperButton.review-card-actions-item__button(:width="36" :height="36")
-          AppIcon(v-if="isLiked" name="ri:heart-3-fill" :width="18" :height="18")
-          AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
-        span.review-card-actions-item__label
-          template(v-if="likeCount <= 0") {{ $t('general.like') }}
-          template(v-else) {{ likeCount }}
+      .review-card-detail(v-if="isDetailed")
+        .d-flex
+          time.review-card-detail__item {{ review.createdAt }}
+          time.review-card-detail__item.ms-4(v-if="review.updatedAt") • {{ $t('general.updatedAt') }} {{ review.createdAt }}
+        .review-card-detail__bar
+          button.review-card-detail__item.review-card-detail__item--button
+            strong {{ review.likeCount }}
+            span {{ $t('general.like') }}
+          button.review-card-detail__item.review-card-detail__item--button
+            strong {{ review.replyCount }}
+            span {{ $t('general.reply') }}
 
-      .review-card-actions-item.reply-button(role="button")
-        PaperButton.review-card-actions-item__button(:width="36" :height="36")
-          AppIcon(name="ri:chat-1-line" :width="18" :height="18")
-        span.review-card-actions-item__label
-          template(v-if="review.replyCount <= 0") {{ $t('general.reply') }}
-          template(v-else) {{ review.replyCount }}
+      .review-card-actions
+        .review-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(v-if="isLiked" name="ri:heart-3-fill" :width="18" :height="18")
+            AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
+          span.review-card-actions-item__label
+            template(v-if="isDetailed")
+              template(v-if="isLiked") {{ $t('general.unlike') }}
+              template(v-else) {{ $t('general.like') }}
+            template(v-else)
+              template(v-if="likeCount <= 0") {{ $t('general.like') }}
+              template(v-else) {{ likeCount }}
 
-      vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
-        PaperButton.review-card-actions-item__button(:width="36" :height="36")
-          AppIcon(name="ri:share-line" :width="18" :height="18")
-        template(#tooltip)
-          span {{ $t('general.share') }}
+        .review-card-actions-item.reply-button(role="button" @click="reply")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:chat-1-line" :width="18" :height="18")
+          span.review-card-actions-item__label
+            template(v-if="isDetailed") {{ $t('general.reply') }}
+            template(v-else)
+              template(v-if="review.replyCount <= 0") {{ $t('general.reply') }}
+              template(v-else) {{ review.replyCount }}
 
-      vs-tooltip.review-card-actions-item.report-button(role="button")
-        PaperButton.review-card-actions-item__button(:width="36" :height="36")
-          AppIcon(name="ri:flag-line" :width="18" :height="18")
-        template(#tooltip)
-          span {{ $t('general.report') }}
+        .review-card-actions-item.edit-button(v-if="true" role="button" @click="edit")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:edit-line" :width="18" :height="18")
+          span.review-card-actions-item__label {{ $t('general.edit') }}
+
+        vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:share-line" :width="18" :height="18")
+          template(#tooltip)
+            span {{ $t('general.share') }}
+
+        vs-tooltip.review-card-actions-item.report-button(role="button")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:flag-line" :width="18" :height="18")
+          template(#tooltip)
+            span {{ $t('general.report') }}
 </template>
 
 <script lang="ts">
@@ -60,9 +86,16 @@ export default defineComponent({
     review: {
       type: Object,
       required: true
+    },
+    isDetailed: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
+    const baseClassName = 'review-card'
+
     const isLiked = ref(false)
     const likeCount = ref(props.review.likeCount)
 
@@ -84,11 +117,28 @@ export default defineComponent({
       }
     })
 
+    const reply = () => {
+      emit('on-click-reply')
+    }
+
+    const edit = () => {
+      emit('on-click-edit')
+    }
+
+    const detailedClass = computed(() => {
+      if (props.isDetailed) {
+        return `${baseClassName}--detailed`
+      }
+    })
+
     return {
       isLiked,
       likeCount,
       toggleLike,
-      likedClass
+      likedClass,
+      reply,
+      edit,
+      detailedClass
     }
   }
 })

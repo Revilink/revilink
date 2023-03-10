@@ -15,8 +15,7 @@
       },
       "content": "bunu alanin kendine saygisi yoktur",
       "likeCount": 0,
-      "replyCount": 0,
-      "comments": null
+      "replyCount": 0
     },
     {
       "id": 1,
@@ -33,23 +32,7 @@
       },
       "content": "guzel yanliyo alin",
       "likeCount": 21,
-      "replyCount": 1,
-      "comments": [
-        {
-          "id": 0,
-          "createdAt": "17 Aralık 2022",
-          "user": {
-            "id": 0,
-            "username": "selimdoyranli",
-            "createdAt": "1 Mayıs 2020",
-            "name": "Selim Doyranlı",
-            "email": "selimdoyranli@gmail.com",
-            "avatar": "https://i.pravatar.cc/1024?img=52"
-          },
-          "content": "sana mi soracaz aslanim",
-          "likeCount": 5
-        }
-      ]
+      "replyCount": 1
     },
     {
       "id": 2,
@@ -59,23 +42,7 @@
       "user": null,
       "content": "dolandirici sakin almayin ben ismini vermek istemeyen kisi muratozakcil",
       "likeCount": 31,
-      "replyCount": 120,
-      "comments": [
-        {
-          "id": 0,
-          "createdAt": "12 Aralık 2022",
-          "user": {
-            "id": 0,
-            "username": "selimdoyranli",
-            "createdAt": "1 Mayıs 2020",
-            "name": "Selim Doyranlı",
-            "email": "selimdoyranli@gmail.com",
-            "avatar": "https://i.pravatar.cc/1024?img=52"
-          },
-          "content": "sana mi soracaz aslanim",
-          "likeCount": 5
-        }
-      ]
+      "replyCount": 120
     }
   ]
 }

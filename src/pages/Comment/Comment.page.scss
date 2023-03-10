@@ -1,0 +1,9 @@
+.comment-page {
+  position: relative;
+
+  &-head {
+    position: relative;
+    display: flex;
+    margin-bottom: var(--spacer-base);
+  }
+}

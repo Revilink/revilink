@@ -219,6 +219,10 @@ const config: NuxtConfig = {
           'Reviews/index': {
             en: '/reviews',
             tr: '/incelemeler'
+          },
+          'Comment/_id': {
+            en: '/comment/:id',
+            tr: '/yorum/:id'
           }
         }
       }
