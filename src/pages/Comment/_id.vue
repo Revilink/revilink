@@ -9,17 +9,31 @@
     template(v-else-if="fetchState.error")
       span {{ fetchState.error }}
     template(v-else)
-      ReviewCard(:review="review" :is-detailed="true")
+      ReviewCard(
+        :review="review"
+        :is-detailed="true"
+        @on-click-like-count="handleClickLikeCount"
+        @on-click-reply-count="handleClickReplyCount"
+      )
+
+  ReactionerUserListDialog(
+    :is-open="dialog.reactionerUserList.isOpen"
+    :reaction-type="dialog.reactionerUserList.type"
+    @on-close="dialog.reactionerUserList.isOpen = false"
+  )
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useFetch, ref } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useFetch, ref, reactive } from '@nuxtjs/composition-api'
+import { ReactionerUserListDialogTypes } from './Comment.page.types'
 import { ReviewTypes } from '@/types'
 import { ReviewCard } from '@/components/Card'
+import { ReactionerUserListDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
-    ReviewCard
+    ReviewCard,
+    ReactionerUserListDialog
   },
   layout: 'Default/Default.layout',
   setup() {
@@ -34,10 +48,30 @@ export default defineComponent({
       review.value = result
     })
 
+    const handleClickLikeCount = () => {
+      dialog.reactionerUserList.type = 'likes'
+      dialog.reactionerUserList.isOpen = true
+    }
+
+    const handleClickReplyCount = () => {
+      dialog.reactionerUserList.type = 'replies'
+      dialog.reactionerUserList.isOpen = true
+    }
+
+    const dialog = reactive({
+      reactionerUserList: {
+        isOpen: false,
+        type: 'likes'
+      } as ReactionerUserListDialogTypes
+    })
+
     return {
       fetch,
       fetchState,
-      review
+      review,
+      handleClickLikeCount,
+      handleClickReplyCount,
+      dialog
     }
   }
 })

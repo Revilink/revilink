@@ -22,6 +22,7 @@ export default {
     send: 'Gönder',
     like: 'Beğen',
     unlike: 'Vazgeç',
+    likes: 'Beğeniler',
     replies: 'Yanıtlar',
     reply: 'Yanıtla',
     share: 'Paylaş',

@@ -23,6 +23,7 @@ export default {
     send: 'Send',
     like: 'Like',
     unlike: 'Unlike',
+    likes: 'Likes',
     replies: 'Replies',
     reply: 'Reply',
     share: 'Share',

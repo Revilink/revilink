@@ -25,10 +25,10 @@
           time.review-card-detail__item {{ review.createdAt }}
           time.review-card-detail__item.ms-4(v-if="review.updatedAt") • {{ $t('general.updatedAt') }} {{ review.createdAt }}
         .review-card-detail__bar
-          button.review-card-detail__item.review-card-detail__item--button
+          button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-like-count')")
             strong {{ likeCount }}
             span {{ $t('general.like') }}
-          button.review-card-detail__item.review-card-detail__item--button
+          button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-reply-count')")
             strong {{ review.replyCount }}
             span {{ $t('general.reply') }}
 
