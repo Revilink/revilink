@@ -29,7 +29,8 @@ export default {
     report: 'Report',
     updatedAt: 'Last edit',
     edit: 'Edit',
-    delete: 'Delete'
+    delete: 'Delete',
+    cancel: 'Cancel'
   },
   hero: {
     home: {

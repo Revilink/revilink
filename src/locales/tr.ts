@@ -28,7 +28,8 @@ export default {
     report: 'Bildir',
     updatedAt: 'Son düzenleme',
     edit: 'Düzenle',
-    delete: 'Sil'
+    delete: 'Sil',
+    cancel: 'İptal'
   },
   hero: {
     home: {

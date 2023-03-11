@@ -16,7 +16,7 @@ form.comment-form(@submit.prevent="handleOnSubmit")
       small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
       .d-flex
-        .comment-form-card-anonymous-switch
+        .comment-form-card-anonymous-switch(v-if="isVisibleAnonymousSwitcher")
           small.comment-form-card-anonymous-switch__title
             AppIcon.me-1(name="ooui:user-anonymous" color="var(--color-icon-02)" :width="16" :height="16")
             | {{ $t('form.comment.anonymousSwitch') }}
@@ -43,10 +43,22 @@ export default defineComponent({
   directives: {
     autosize
   },
-  setup() {
+  props: {
+    formModel: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    isVisibleAnonymousSwitcher: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
+  setup(props) {
     const form = reactive<FormTypes>({
-      isAnonymous: false,
-      content: ''
+      isAnonymous: props.formModel?.isAnonymous || false,
+      content: props.formModel?.content || ''
     })
 
     /**

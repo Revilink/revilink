@@ -1,0 +1,11 @@
+.edit-comment-dialog {
+  z-index: var(--z-index-overlay);
+
+  .vs-dialog {
+    width: 75%;
+
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+  }
+}

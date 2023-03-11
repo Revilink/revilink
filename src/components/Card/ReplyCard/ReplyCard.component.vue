@@ -31,10 +31,10 @@
             AppIcon(name="ri:chat-1-line" :width="18" :height="18")
           span.reply-card-actions-item__label {{ $t('general.reply') }}
 
-        .reply-card-actions-item.delete-button(v-if="true" role="button" @click="deleteReply")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+        .reply-card-actions-item.delete-button(v-if="true" role="button" @click="handleClickDelete")
+          PaperButton.reply-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
-          span.review-card-actions-item__label {{ $t('general.delete') }}
+          span.reply-card-actions-item__label {{ $t('general.delete') }}
 
         vs-tooltip.reply-card-actions.share-button.ms-auto(role="button")
           PaperButton.reply-card-actions-item__button(:width="36" :height="36")
@@ -49,19 +49,21 @@
             span {{ $t('general.report') }}
 
   ReplyDialog(:is-open="form.reply.isOpen" :summary="reply" @on-close="form.reply.isOpen = false")
+  DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="reply" @on-close="form.delete.isOpen = false")
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-api'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
-import { ReplyDialog } from '@/components/Dialog'
+import { ReplyDialog, DeleteCommentDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     PaperButton,
     AppIcon,
-    ReplyDialog
+    ReplyDialog,
+    DeleteCommentDialog
   },
   props: {
     reply: {
@@ -72,6 +74,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const form = reactive({
       reply: {
+        isOpen: false
+      },
+      delete: {
         isOpen: false
       }
     })
@@ -102,7 +107,8 @@ export default defineComponent({
       emit('on-click-reply')
     }
 
-    const deleteReply = () => {
+    const handleClickDelete = () => {
+      form.delete.isOpen = true
       emit('on-click-delete')
     }
 
@@ -113,7 +119,7 @@ export default defineComponent({
       toggleLike,
       likedClass,
       handleClickReply,
-      deleteReply
+      handleClickDelete
     }
   }
 })

@@ -59,6 +59,11 @@
             AppIcon(name="ri:edit-line" :width="18" :height="18")
           span.review-card-actions-item__label {{ $t('general.edit') }}
 
+        .review-card-actions-item.delete-button(v-if="true" role="button" @click="handleClickDelete")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
+          span.review-card-actions-item__label {{ $t('general.delete') }}
+
         vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:share-line" :width="18" :height="18")
@@ -76,6 +81,8 @@
     ReplyCard(v-for="replyItem in replies" :key="replyItem.id" :reply="replyItem")
 
   ReplyDialog(:is-open="form.reply.isOpen" :summary="review" @on-close="form.reply.isOpen = false")
+  EditCommentDialog(:is-open="form.edit.isOpen" :comment="review" @on-close="form.edit.isOpen = false")
+  DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="review" @on-close="form.delete.isOpen = false")
 </template>
 
 <script lang="ts">
@@ -83,14 +90,16 @@ import { defineComponent, useContext, useFetch, reactive, ref, computed } from '
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { ReplyCard } from '@/components/Card'
-import { ReplyDialog } from '@/components/Dialog'
+import { ReplyDialog, EditCommentDialog, DeleteCommentDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     PaperButton,
     AppIcon,
     ReplyCard,
-    ReplyDialog
+    ReplyDialog,
+    EditCommentDialog,
+    DeleteCommentDialog
   },
   props: {
     review: {
@@ -110,6 +119,12 @@ export default defineComponent({
 
     const form = reactive({
       reply: {
+        isOpen: false
+      },
+      edit: {
+        isOpen: false
+      },
+      delete: {
         isOpen: false
       }
     })
@@ -141,7 +156,13 @@ export default defineComponent({
     }
 
     const handleClickEdit = () => {
+      form.edit.isOpen = true
       emit('on-click-edit')
+    }
+
+    const handleClickDelete = () => {
+      form.delete.isOpen = true
+      emit('on-click-delete')
     }
 
     const replies = ref([])
@@ -169,6 +190,7 @@ export default defineComponent({
       likedClass,
       handleClickReply,
       handleClickEdit,
+      handleClickDelete,
       replies,
       detailedClass
     }

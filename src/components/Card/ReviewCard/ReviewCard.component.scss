@@ -194,6 +194,20 @@
         }
       }
 
+      &.delete-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mod(var(--color-warning-01) a(10%));
+
+            .app-icon {
+              color: var(--color-warning-01);
+            }
+          }
+        }
+      }
+
       &__button {
         margin-right: var(--spacer);
       }
