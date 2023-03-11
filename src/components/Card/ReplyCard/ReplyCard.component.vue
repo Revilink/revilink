@@ -26,7 +26,7 @@
             template(v-if="likeCount <= 0") {{ $t('general.like') }}
             template(v-else) {{ likeCount }}
 
-        .reply-card-actions-item.reply-button(role="button")
+        .reply-card-actions-item.reply-button(role="button" @click="handleClickReply")
           PaperButton.reply-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:chat-1-line" :width="18" :height="18")
           span.reply-card-actions-item__label {{ $t('general.reply') }}
@@ -47,17 +47,21 @@
             AppIcon(name="ri:flag-line" :width="18" :height="18")
           template(#tooltip)
             span {{ $t('general.report') }}
+
+  ReplyDialog(:is-open="form.reply.isOpen" :summary="reply" @on-close="form.reply.isOpen = false")
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-api'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
+import { ReplyDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     PaperButton,
-    AppIcon
+    AppIcon,
+    ReplyDialog
   },
   props: {
     reply: {
@@ -66,6 +70,12 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    const form = reactive({
+      reply: {
+        isOpen: false
+      }
+    })
+
     const isLiked = ref(false)
     const likeCount = ref(props.reply.likeCount)
 
@@ -87,15 +97,22 @@ export default defineComponent({
       }
     })
 
+    const handleClickReply = () => {
+      form.reply.isOpen = true
+      emit('on-click-reply')
+    }
+
     const deleteReply = () => {
       emit('on-click-delete')
     }
 
     return {
+      form,
       isLiked,
       likeCount,
       toggleLike,
       likedClass,
+      handleClickReply,
       deleteReply
     }
   }

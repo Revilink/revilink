@@ -45,7 +45,7 @@
               template(v-if="likeCount <= 0") {{ $t('general.like') }}
               template(v-else) {{ likeCount }}
 
-        .review-card-actions-item.reply-button(role="button" @click="reply")
+        .review-card-actions-item.reply-button(role="button" @click="handleClickReply")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:chat-1-line" :width="18" :height="18")
           span.review-card-actions-item__label
@@ -54,7 +54,7 @@
               template(v-if="review.replyCount <= 0") {{ $t('general.reply') }}
               template(v-else) {{ review.replyCount }}
 
-        .review-card-actions-item.edit-button(v-if="true" role="button" @click="edit")
+        .review-card-actions-item.edit-button(v-if="true" role="button" @click="handleClickEdit")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:edit-line" :width="18" :height="18")
           span.review-card-actions-item__label {{ $t('general.edit') }}
@@ -74,19 +74,23 @@
   .review-card-replies(v-if="replies && replies.length > 0")
     h4.review-card-replies__title {{ $t('general.replies') }}
     ReplyCard(v-for="replyItem in replies" :key="replyItem.id" :reply="replyItem")
+
+  ReplyDialog(:is-open="form.reply.isOpen" :summary="review" @on-close="form.reply.isOpen = false")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, ref, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, reactive, ref, computed } from '@nuxtjs/composition-api'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { ReplyCard } from '@/components/Card'
+import { ReplyDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     PaperButton,
     AppIcon,
-    ReplyCard
+    ReplyCard,
+    ReplyDialog
   },
   props: {
     review: {
@@ -103,6 +107,12 @@ export default defineComponent({
     const baseClassName = 'review-card'
 
     const context = useContext()
+
+    const form = reactive({
+      reply: {
+        isOpen: false
+      }
+    })
 
     const isLiked = ref(false)
     const likeCount = ref(props.review.likeCount)
@@ -125,11 +135,12 @@ export default defineComponent({
       }
     })
 
-    const reply = () => {
+    const handleClickReply = () => {
+      form.reply.isOpen = true
       emit('on-click-reply')
     }
 
-    const edit = () => {
+    const handleClickEdit = () => {
       emit('on-click-edit')
     }
 
@@ -151,12 +162,13 @@ export default defineComponent({
     return {
       fetch,
       fetchState,
+      form,
       isLiked,
       likeCount,
       toggleLike,
       likedClass,
-      reply,
-      edit,
+      handleClickReply,
+      handleClickEdit,
       replies,
       detailedClass
     }
