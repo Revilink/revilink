@@ -28,7 +28,8 @@ export default {
     share: 'Share',
     report: 'Report',
     updatedAt: 'Last edit',
-    edit: 'Edit'
+    edit: 'Edit',
+    delete: 'Delete'
   },
   hero: {
     home: {

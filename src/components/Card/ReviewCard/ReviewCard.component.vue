@@ -26,7 +26,7 @@
           time.review-card-detail__item.ms-4(v-if="review.updatedAt") • {{ $t('general.updatedAt') }} {{ review.createdAt }}
         .review-card-detail__bar
           button.review-card-detail__item.review-card-detail__item--button
-            strong {{ review.likeCount }}
+            strong {{ likeCount }}
             span {{ $t('general.like') }}
           button.review-card-detail__item.review-card-detail__item--button
             strong {{ review.replyCount }}
@@ -70,17 +70,23 @@
             AppIcon(name="ri:flag-line" :width="18" :height="18")
           template(#tooltip)
             span {{ $t('general.report') }}
+
+  .review-card-replies(v-if="replies && replies.length > 0")
+    h4.review-card-replies__title {{ $t('general.replies') }}
+    ReplyCard(v-for="replyItem in replies" :key="replyItem.id" :reply="replyItem")
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, ref, computed } from '@nuxtjs/composition-api'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
+import { ReplyCard } from '@/components/Card'
 
 export default defineComponent({
   components: {
     PaperButton,
-    AppIcon
+    AppIcon,
+    ReplyCard
   },
   props: {
     review: {
@@ -95,6 +101,8 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const baseClassName = 'review-card'
+
+    const context = useContext()
 
     const isLiked = ref(false)
     const likeCount = ref(props.review.likeCount)
@@ -125,6 +133,15 @@ export default defineComponent({
       emit('on-click-edit')
     }
 
+    const replies = ref([])
+
+    const { fetch, fetchState } = useFetch(async () => {
+      const repliesResult = await context.$api.rest.review.fetchReplies({
+        reviewId: props.review.id
+      })
+      replies.value = repliesResult
+    })
+
     const detailedClass = computed(() => {
       if (props.isDetailed) {
         return `${baseClassName}--detailed`
@@ -132,12 +149,15 @@ export default defineComponent({
     })
 
     return {
+      fetch,
+      fetchState,
       isLiked,
       likeCount,
       toggleLike,
       likedClass,
       reply,
       edit,
+      replies,
       detailedClass
     }
   }

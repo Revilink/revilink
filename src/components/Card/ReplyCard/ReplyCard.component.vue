@@ -31,6 +31,11 @@
             AppIcon(name="ri:chat-1-line" :width="18" :height="18")
           span.reply-card-actions-item__label {{ $t('general.reply') }}
 
+        .reply-card-actions-item.delete-button(v-if="true" role="button" @click="deleteReply")
+          PaperButton.review-card-actions-item__button(:width="36" :height="36")
+            AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
+          span.review-card-actions-item__label {{ $t('general.delete') }}
+
         vs-tooltip.reply-card-actions.share-button.ms-auto(role="button")
           PaperButton.reply-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:share-line" :width="18" :height="18")
@@ -60,7 +65,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const isLiked = ref(false)
     const likeCount = ref(props.reply.likeCount)
 
@@ -82,11 +87,16 @@ export default defineComponent({
       }
     })
 
+    const deleteReply = () => {
+      emit('on-click-delete')
+    }
+
     return {
       isLiked,
       likeCount,
       toggleLike,
-      likedClass
+      likedClass,
+      deleteReply
     }
   }
 })

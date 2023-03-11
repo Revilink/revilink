@@ -27,7 +27,8 @@ export default {
     share: 'Paylaş',
     report: 'Bildir',
     updatedAt: 'Son düzenleme',
-    edit: 'Düzenle'
+    edit: 'Düzenle',
+    delete: 'Sil'
   },
   hero: {
     home: {

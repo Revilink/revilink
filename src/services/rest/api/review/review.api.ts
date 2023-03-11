@@ -1,7 +1,7 @@
-import { ReviewApiTypes } from './review.api.types'
+import { FetchRepliesTypes, ReviewApiTypes } from './review.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
-import { reviewTransformer } from '@/services/rest/transformers'
-import { ReviewApiModelTypes } from '@/types'
+import { reviewTransformer, replyTransformer } from '@/services/rest/transformers'
+import { ReviewApiModelTypes, ReplyApiModelTypes } from '@/types'
 
 export const reviewApi = (appAxios: Function) =>
   <ReviewApiTypes>{
@@ -24,6 +24,22 @@ export const reviewApi = (appAxios: Function) =>
 
       if (isSuccess) {
         return reviewTransformer(data)
+      }
+    },
+
+    async fetchReplies(params: FetchRepliesTypes) {
+      const { reviewId } = params
+
+      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+        method: 'get',
+        path: `replies`,
+        query: {
+          reviewId
+        }
+      })
+
+      if (isSuccess) {
+        return data.map((item: ReplyApiModelTypes) => replyTransformer(item))
       }
     }
   }

@@ -1,7 +1,8 @@
 import { UserApiModelTypes, UserTypes } from './user.types'
 
-export type ReviewApiModelTypes = {
+export type ReplyApiModelTypes = {
   id: number
+  reviewId: number
   createdAt: string
   updatedAt?: string
   link: string
@@ -9,11 +10,11 @@ export type ReviewApiModelTypes = {
   user: UserApiModelTypes
   content: string
   likeCount: number
-  replyCount: number
 }
 
-export type ReviewTypes = {
+export type ReplyTypes = {
   id: number
+  reviewId: number
   createdAt: string
   updatedAt?: string
   url: string
@@ -21,5 +22,4 @@ export type ReviewTypes = {
   user: UserTypes
   content: string
   likeCount: number
-  replyCount: number
 }

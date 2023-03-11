@@ -119,6 +119,34 @@
         }
       }
 
+      &.reply-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mod(var(--color-info-01) a(10%));
+
+            .app-icon {
+              color: var(--color-info-01);
+            }
+          }
+        }
+      }
+
+      &.delete-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mod(var(--color-warning-01) a(10%));
+
+            .app-icon {
+              color: var(--color-warning-01);
+            }
+          }
+        }
+      }
+
       &__button {
         margin-right: var(--spacer);
       }
@@ -126,6 +154,7 @@
       &__label {
         font-size: var(--font-size-text-22);
         font-variant-numeric: tabular-nums;
+        user-select: none;
       }
     }
   }

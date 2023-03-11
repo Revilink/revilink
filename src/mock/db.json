@@ -44,5 +44,24 @@
       "likeCount": 31,
       "replyCount": 120
     }
+  ],
+  "replies": [
+    {
+      "id": 0,
+      "reviewId": 1,
+      "createdAt": "22 Ocak 2023",
+      "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
+      "isAnonymous": false,
+      "user": {
+        "id": 0,
+        "username": "selimdoyranli",
+        "createdAt": "17 Aralık 2022",
+        "name": "Selim Doyranlı",
+        "email": "selimdoyranli@gmail.com",
+        "avatar": "https://i.pravatar.cc/1024?img=52"
+      },
+      "content": "Sana mı sorucaz aslanim",
+      "likeCount": 1
+    }
   ]
 }

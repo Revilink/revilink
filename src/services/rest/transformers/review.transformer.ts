@@ -4,6 +4,7 @@ export default (model: ReviewApiModelTypes) => {
   return <ReviewTypes>{
     id: model.id,
     createdAt: model.createdAt,
+    updatedAt: model.updatedAt,
     url: model.link,
     isAnonymous: model.isAnonymous,
     user: model.user,
