@@ -15,7 +15,7 @@
             span @{{ review.user?.username }}
         time.review-card-meta__date
           | • &nbsp;
-          nuxt-link(:to="localePath({ name: 'comment', params: { id: review.id } })" :title="review.createdAt") {{ review.createdAt }}
+          nuxt-link(:to="localePath({ name: 'Comment-id', params: { id: review.id } })" :title="review.createdAt") {{ review.createdAt }}
 
       .review-card-review
         p.review-card-review__text {{ review.content }}
@@ -76,9 +76,29 @@
           template(#tooltip)
             span {{ $t('general.report') }}
 
-  .review-card-replies(v-if="replies && replies.length > 0")
-    h4.review-card-replies__title {{ $t('general.replies') }}
-    ReplyCard(v-for="replyItem in replies" :key="replyItem.id" :reply="replyItem")
+  template(v-if="fetchState.pending")
+    .d-flex.justify-content-center.my-4
+      p Loading replies
+  template(v-else-if="fetchState.error")
+    .d-flex.justify-content-center.my-4
+      span {{ fetchState.error }}
+  template(v-else)
+    // Replies
+    .review-card-replies(v-if="reply.items && reply.items.length > 0")
+      h4.review-card-replies__title {{ $t('general.replies') }}
+      ReplyCard(v-for="replyItem in reply.items" :key="replyItem.id" :reply="replyItem")
+      vs-button.ms-auto.my-3(
+        v-if="!isDetailed && reply.items.length >= 2"
+        border
+        :to="localePath({ name: 'Comment-id', params: { id: review.id } })"
+      )
+        | {{ $t('reply.seeAllReplies') }}
+      vs-button.ms-auto.my-3(v-if="isDetailed && !reply.isFinished" border :loading="reply.isBusy" @click="loadMoreReply")
+        AppIcon.me-2(name="ri:loader-4-line")
+        | {{ $t('reply.loadMore') }}
+
+      .d-flex.justify-content-center.my-4(v-if="reply.isFinished")
+        p {{ $t('reply.repliesIsFinished') }}
 
   ReplyDialog(:is-open="form.reply.isOpen" :summary="review" @on-close="form.reply.isOpen = false")
   EditCommentDialog(:is-open="form.edit.isOpen" :comment="review" @on-close="form.edit.isOpen = false")
@@ -165,14 +185,42 @@ export default defineComponent({
       emit('on-click-delete')
     }
 
-    const replies = ref([])
+    const reply = reactive({
+      isBusy: false,
+      isFinished: false,
+      page: 1,
+      limit: props.isDetailed ? 10 : 2,
+      items: []
+    })
 
     const { fetch, fetchState } = useFetch(async () => {
-      const repliesResult = await context.$api.rest.review.fetchReplies({
-        reviewId: props.review.id
-      })
-      replies.value = repliesResult
+      if (props.review.replyCount > 0) {
+        const repliesResult = await context.$api.rest.review.fetchReplies({
+          reviewId: props.review.id,
+          page: reply.page,
+          limit: reply.limit
+        })
+        reply.items = repliesResult
+      }
     })
+
+    const loadMoreReply = async () => {
+      reply.isBusy = true
+
+      const repliesResult = await context.$api.rest.review.fetchReplies({
+        reviewId: props.review.id,
+        page: (reply.page += 1),
+        limit: reply.limit
+      })
+
+      if (repliesResult && repliesResult.length > 0) {
+        reply.items = repliesResult
+      } else {
+        reply.isFinished = true
+      }
+
+      reply.isBusy = false
+    }
 
     const detailedClass = computed(() => {
       if (props.isDetailed) {
@@ -191,7 +239,8 @@ export default defineComponent({
       handleClickReply,
       handleClickEdit,
       handleClickDelete,
-      replies,
+      reply,
+      loadMoreReply,
       detailedClass
     }
   }

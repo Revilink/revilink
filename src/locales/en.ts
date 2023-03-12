@@ -31,7 +31,8 @@ export default {
     updatedAt: 'Last edit',
     edit: 'Edit',
     delete: 'Delete',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    loadMore: 'Load more'
   },
   hero: {
     home: {
@@ -50,5 +51,10 @@ export default {
       hint: '* Avoid profanity, hate speech, derogatory and misleading comments.',
       anonymousSwitch: 'Post anonymously?'
     }
+  },
+  reply: {
+    loadMore: 'Load more reply',
+    seeAllReplies: 'See all replies',
+    repliesIsFinished: 'All replies returned'
   }
 }

@@ -17,16 +17,21 @@
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="22" :height="22")
             a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
 
-      // Review List
-      ReviewList(:items="review.items")
+      template(v-if="fetchState.pending")
+        span Loading
+      template(v-else-if="fetchState.error")
+        span {{ fetchState.error }}
+      template(v-else)
+        // Review List
+        ReviewList(:items="review.items")
 
-      // Comment Form Section
-      section.reviews-page-comment-form
-        span.reviews-page-comment-form__title
-          AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
-          | {{ $t('form.comment.title') }}
+        // Comment Form Section
+        section.reviews-page-comment-form
+          span.reviews-page-comment-form__title
+            AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
+            | {{ $t('form.comment.title') }}
 
-        CommentForm
+          CommentForm
 </template>
 
 <script lang="ts">

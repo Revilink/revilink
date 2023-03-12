@@ -30,7 +30,8 @@ export default {
     updatedAt: 'Son düzenleme',
     edit: 'Düzenle',
     delete: 'Sil',
-    cancel: 'İptal'
+    cancel: 'İptal',
+    loadMore: 'Daha fazla'
   },
   hero: {
     home: {
@@ -49,5 +50,10 @@ export default {
       hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.',
       anonymousSwitch: 'Anonim olarak gönderilsin mi?'
     }
+  },
+  reply: {
+    loadMore: 'Daha fazla yanıt getir',
+    seeAllReplies: 'Tüm yanıtları gör',
+    repliesIsFinished: 'Tüm yanıtlar getirildi'
   }
 }

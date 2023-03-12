@@ -28,13 +28,15 @@ export const reviewApi = (appAxios: Function) =>
     },
 
     async fetchReplies(params: FetchRepliesTypes) {
-      const { reviewId } = params
+      const { reviewId, page = 1, limit = 0 } = params
 
       const { isSuccess, data } = await appAxios(<AppAxiosType>{
         method: 'get',
         path: `replies`,
         query: {
-          reviewId
+          reviewId,
+          _page: page,
+          _limit: limit
         }
       })
 
