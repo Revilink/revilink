@@ -1,7 +1,8 @@
-import { ReviewApiTypes } from './rest/api'
+import { ReviewApiTypes, ScraperApiTypes } from './rest/api'
 
 type RestInstance = {
   review: ReviewApiTypes
+  scraper: ScraperApiTypes
 }
 
 type ApiInstance = {

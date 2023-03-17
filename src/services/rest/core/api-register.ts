@@ -1,8 +1,9 @@
 import { Context } from '@nuxt/types'
-import { reviewApi } from '@/services/rest/api'
+import { reviewApi, scraperApi } from '@/services/rest/api'
 
 export default function ({ app }: Context) {
   app.$api.rest = {
-    review: reviewApi(app.$appAxios)
+    review: reviewApi(app.$appAxios),
+    scraper: scraperApi(app.$appAxios)
   }
 }

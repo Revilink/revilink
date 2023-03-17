@@ -251,6 +251,17 @@ const config: NuxtConfig = {
   },
 
   /*
+   ** Server middleware configuration
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-servermiddleware/
+   */
+  serverMiddleware: [
+    {
+      path: '/site-scraper',
+      handler: '@/server/middleware/site-scraper.ts'
+    }
+  ],
+
+  /*
    ** Server configuration
    ** See https://nuxtjs.org/api/configuration-server
    */
