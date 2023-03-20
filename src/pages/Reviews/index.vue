@@ -54,8 +54,19 @@ export default defineComponent({
     const route = useRoute()
 
     const site = reactive({
+      isAllowed: false,
       meta: {}
     })
+
+    const fetchAndReadRobots = async () => {
+      const robotsResult = await context.$api.rest.scraper.fetchAndReadRobots({
+        url: route.value.query.link
+      })
+
+      site.isAllowed = robotsResult.isAllowed
+
+      console.log(robotsResult)
+    }
 
     const fetchSite = async () => {
       const siteResult = await context.$api.rest.scraper.fetchMetaTags({
@@ -68,6 +79,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      fetchAndReadRobots()
       fetchSite()
     })
 

@@ -256,6 +256,10 @@ const config: NuxtConfig = {
    */
   serverMiddleware: [
     {
+      path: '/site-robots-checker',
+      handler: '@/server/middleware/site-robots-checker.ts'
+    },
+    {
       path: '/site-scraper',
       handler: '@/server/middleware/site-scraper.ts'
     }
