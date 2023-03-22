@@ -52,6 +52,7 @@
     "node-fetch": "^3.3.1",
     "nuxt": "2.16.0",
     "page-metadata-parser": "^1.1.4",
+    "robots-parser": "^3.0.1",
     "universal-dom-parser": "^0.0.3",
     "v-autosize": "^1.0.3",
     "vuesax": "^4.0.1-alpha.25"
