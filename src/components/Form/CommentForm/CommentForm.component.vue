@@ -2,7 +2,7 @@
 form.comment-form(@submit.prevent="handleOnSubmit")
   .comment-form-card
     vs-avatar.comment-form-card__avatar(circle size="48")
-      AppIcon(v-if="form.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
+      AppIcon(v-if="form.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="24" :height="24")
       nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: user.username } })" :title="user.name")
         img(:src="user?.avatar" alt="avatar")
 

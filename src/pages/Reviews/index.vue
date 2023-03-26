@@ -6,17 +6,24 @@
         span Sidebar
     .col-8
       // Site Meta
-      template(v-if="true")
-        .reviews-page-review-meta
-          vs-avatar.reviews-page-review-meta__avatar
-            img(v-if="site.meta.icon" :src="site.meta.icon" alt="avatar")
-            AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="22" :height="22")
+      .reviews-page-review-meta
+        vs-avatar.reviews-page-review-meta__avatar
+          img.reviews-page-review-meta__avatarSpinner(
+            v-if="site.isBusy"
+            src="@/assets/media/core/loader.svg"
+            :alt="$t('general.avatar')"
+            width="24"
+            height="24"
+          )
+          template(v-else)
+            img(v-if="site.isAllowed && site.meta.icon" :src="site.meta.icon" :alt="$t('general.avatar')" width="16" height="16")
+            AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
 
-          .reviews-page-review-meta__body
-            h1.reviews-page-review-meta__title {{ site.meta.title }}
-            h4.reviews-page-review-meta__url
-              AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="22" :height="22")
-              a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
+        .reviews-page-review-meta__body
+          h1.reviews-page-review-meta__title(v-if="site.isAllowed") {{ site.meta.title }}
+          h4.reviews-page-review-meta__url
+            AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
+            a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
 
       template(v-if="fetchState.pending")
         span Loading
@@ -55,32 +62,36 @@ export default defineComponent({
 
     const site = reactive({
       isAllowed: false,
+      isBusy: false,
       meta: {}
     })
 
     const fetchAndReadRobots = async () => {
+      site.isBusy = true
+
       const robotsResult = await context.$api.rest.scraper.fetchAndReadRobots({
         url: route.value.query.link
       })
 
       site.isAllowed = robotsResult.isAllowed
 
-      console.log(robotsResult)
+      if (robotsResult.isAllowed) {
+        await scrapeSite()
+      }
+
+      site.isBusy = false
     }
 
-    const fetchSite = async () => {
+    const scrapeSite = async () => {
       const siteResult = await context.$api.rest.scraper.fetchMetaTags({
         url: route.value.query.link
       })
 
       site.meta = siteResult
-
-      console.log(siteResult)
     }
 
     onMounted(() => {
       fetchAndReadRobots()
-      fetchSite()
     })
 
     const review = reactive<ReviewType>({

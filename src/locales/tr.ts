@@ -31,7 +31,8 @@ export default {
     edit: 'Düzenle',
     delete: 'Sil',
     cancel: 'İptal',
-    loadMore: 'Daha fazla'
+    loadMore: 'Daha fazla',
+    avatar: 'Avatar'
   },
   hero: {
     home: {

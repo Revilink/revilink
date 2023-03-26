@@ -2,7 +2,7 @@
 form.review-search-form(@submit.prevent="handleOnSubmit")
   vs-input.review-search-form__urlInput(v-model="form.url" :placeholder="$t('form.reviewSearch.url')" primary)
     template(#icon)
-      AppIcon(name="material-symbols:link" color="var(--color-icon-01)" :width="22" :height="22")
+      AppIcon(name="material-symbols:link" color="var(--color-icon-01)" :width="24" :height="24")
   vs-button.review-search-form__submitButton(type="submit" size="large")
     span {{ $t('form.reviewSearch.getReviews') }}
 </template>

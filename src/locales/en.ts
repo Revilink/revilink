@@ -32,7 +32,8 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     cancel: 'Cancel',
-    loadMore: 'Load more'
+    loadMore: 'Load more',
+    avatar: 'Avatar'
   },
   hero: {
     home: {

@@ -20,10 +20,15 @@
       box-shadow: var(--box-shadow-01);
 
       img {
-        width: 100%;
-        height: 100%;
+        width: 16px;
+        height: 16px;
         object-fit: cover;
       }
+    }
+
+    &__avatarSpinner {
+      width: 24px !important;
+      height: 24px !important;
     }
 
     &__body {
@@ -40,9 +45,9 @@
     }
 
     &__url {
-      display: inline-grid;
+      display: grid;
       grid-column-gap: var(--spacer);
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr;
       align-items: center;
 
       a {
