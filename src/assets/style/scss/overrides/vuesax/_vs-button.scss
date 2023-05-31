@@ -1,0 +1,8 @@
+.vs-button {
+  $vs-button: '.vs-button';
+
+  --button-height: 42px;
+
+  height: var(--button-height);
+  padding: calc(var(--spacer-base) / 4) calc(var(--spacer-base) / 2) !important;
+}

@@ -14,4 +14,43 @@
   .router-view {
     position: relative;
   }
+
+  .memphis-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+
+    @include media-breakpoint-down(xl) {
+      opacity: 0.12 !important;
+    }
+
+    @include media-breakpoint-down(md) {
+      opacity: 0.04 !important;
+    }
+
+    &__item {
+      position: absolute;
+
+      &:nth-child(1) {
+        top: 0;
+        right: 0;
+        width: 500px;
+        filter: saturate(0);
+      }
+
+      &:nth-child(2) {
+        top: 0;
+        left: 0;
+        filter: hue-rotate(280deg) saturate(2.5);
+      }
+
+      &:nth-child(3) {
+        bottom: -50px;
+        left: 0;
+      }
+    }
+  }
 }

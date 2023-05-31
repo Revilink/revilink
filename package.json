@@ -46,6 +46,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/i18n": "^7.3.1",
+    "@vuelidate/core": "^2.0.2",
+    "@vuelidate/validators": "^2.0.2",
     "bootstrap": "5.2.3",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",

@@ -222,6 +222,14 @@ const config: NuxtConfig = {
         detectBrowserLanguage: false,
         parsePages: false,
         pages: {
+          'Auth/Register/index': {
+            en: '/register',
+            tr: '/kayit'
+          },
+          'Auth/Login/index': {
+            en: '/login',
+            tr: '/giris'
+          },
           'Reviews/index': {
             en: '/reviews',
             tr: '/incelemeler'

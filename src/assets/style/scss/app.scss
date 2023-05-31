@@ -7,6 +7,12 @@
 @import '../css/variables/font-size.css';
 @import '../css/variables/header.css';
 
+// -- Overrides
+// --
+// ---- Overrides Vuesax
+@import 'overrides/vuesax/vs-input';
+@import 'overrides/vuesax/vs-button';
+
 // Vendor
 @import '../css/vendor/animate.min.css';
 
@@ -32,3 +38,4 @@
 @import 'shared/page';
 @import 'shared/layout';
 @import 'shared/transition';
+@import 'shared/form';

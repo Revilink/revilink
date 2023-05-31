@@ -1,0 +1,32 @@
+.form {
+  position: relative;
+
+  &-head {
+    position: relative;
+    margin-bottom: var(--spacer-base);
+
+    &__logo {
+      display: inline-flex;
+      margin-bottom: calc(var(--spacer-base) / 2);
+    }
+
+    &__title {
+      color: var(--color-text-01);
+      font-size: var(--font-size-h1);
+    }
+
+    &__description {
+      color: var(--color-text-02);
+      font-size: var(--font-size-text-21);
+    }
+  }
+
+  &-item {
+    position: relative;
+    margin-bottom: calc(var(--spacer-base) / 4);
+
+    &--submit {
+      margin-top: var(--spacer-base);
+    }
+  }
+}

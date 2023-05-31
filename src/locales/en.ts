@@ -42,6 +42,80 @@ export default {
     }
   },
   form: {
+    name: 'Name',
+    yourName: 'Name',
+    lastname: 'Lastname',
+    yourLastname: 'Lastname',
+    email: 'Email',
+    yourEmail: 'Email',
+    username: 'Username',
+    yourUsername: 'Username',
+    mobilePhone: 'Phone number',
+    yourMobilePhone: 'Phone number',
+    password: 'Password',
+    yourPassword: 'Your password',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
+    passwordsDoNotMatch: 'Passwords do not match',
+    message: 'Message',
+    location: 'Location',
+    selectModel: 'Select {model}',
+    fileUpload: {
+      label: 'Upload File',
+      dragAndDrop: 'Click or drag and drop here to upload files'
+    },
+    profilePhoto: 'Profile photo',
+    yourProfilePhoto: 'Profile photo',
+    changeProfilePhoto: 'Change profile photo',
+    about: 'About',
+    tellUsAboutYourself: 'Tell us about yourself',
+    whatIsYourGender: 'What is your gender?',
+    IDontWantToIndicate: `I don't want to indicate`,
+    itDoesntMatterForUs: `It's doesn't matter for us`,
+    validation: {
+      modelAlreadyRegistered: 'This {model} already registered. Type an another',
+      enterValidModel: 'Enter a valid {model}',
+      modelIsRequired: '{model} is required',
+      max: '{model} maximum {max} character',
+      min: '{model} minimum {min} character',
+      containsInvalidCharacters: 'Contains invalid characters',
+      modelIsNotAvailable: 'This {model} is not available. Type an another',
+      termsIsRequired: 'If the terms & privacy policy applies to you, you can register',
+      makeSureAllTheFieldsAreAsDesired: 'Make sure all the fields are as desired',
+      fileUpload: {
+        maxItem: 'You can upload maximum {max} file',
+        singleMaxItemSize: 'Uploaded file must be maximum {max} {unit}',
+        eachMaxItemSize: 'Each file must be maximum {max} {unit}',
+        singleItemMismatch: 'Uploaded file must be {extensions} extension',
+        eachItemMismatch: 'Each file must have one of the {extensions} extensions'
+      },
+      url: 'Must be URL',
+      enterValidUrl: 'Type valid URL'
+    },
+    submit: 'Submit',
+    send: 'Send',
+    register: {
+      title: 'Register',
+      description: 'Sign up to turn the internet into a comment board',
+      email: {
+        placeholder: 'Email address'
+      },
+      username: {
+        placeholder: 'Username'
+      },
+      password: {
+        placeholder: 'Password'
+      },
+      rePassword: {
+        placeholder: 'Retype your password'
+      },
+      terms: `By signing up, you agree to the {terms} and {privacyPolicy}, including {cookiePolicy}`,
+      submit: {
+        action: {
+          title: 'Register'
+        }
+      }
+    },
     reviewSearch: {
       url: 'Paste URL',
       getReviews: 'Get Reviews'

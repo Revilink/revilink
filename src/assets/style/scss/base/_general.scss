@@ -30,3 +30,8 @@ body {
   @include font-family-rubik;
   @include font-weight-regular;
 }
+
+a {
+  color: var(--color-link-01);
+  text-decoration: none;
+}
