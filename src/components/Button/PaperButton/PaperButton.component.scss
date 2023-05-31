@@ -24,6 +24,6 @@
   }
 
   &--active {
-    background-color: color-mod(var(--color-active-01) a(25%));
+    background-color: color-mix(in oklab, var(--color-active-01), #fff 75%);
   }
 }

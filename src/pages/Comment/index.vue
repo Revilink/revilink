@@ -43,7 +43,7 @@ export default defineComponent({
     const review = ref<Object>({} as ReviewTypes)
 
     const { fetch, fetchState } = useFetch(async () => {
-      const result = await context.$api.rest.review.fetchReview(route.value.params.id)
+      const result = await context.$api.rest.review.fetchReview(route.value.query.id)
 
       review.value = result
     })

@@ -100,7 +100,7 @@
 
         &:hover {
           .paper-button {
-            background-color: color-mod(var(--color-danger-01) a(10%));
+            background-color: color-mix(in oklab, var(--color-danger-01), #fff 90%);
 
             .app-icon {
               color: var(--color-danger-01);
@@ -124,7 +124,7 @@
 
         &:hover {
           .paper-button {
-            background-color: color-mod(var(--color-info-01) a(10%));
+            background-color: color-mix(in oklab, var(--color-info-01), #fff 90%);
 
             .app-icon {
               color: var(--color-info-01);
@@ -138,7 +138,7 @@
 
         &:hover {
           .paper-button {
-            background-color: color-mod(var(--color-warning-01) a(10%));
+            background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
 
             .app-icon {
               color: var(--color-warning-01);

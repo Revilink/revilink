@@ -15,7 +15,7 @@
     flex-direction: column;
     margin-bottom: calc(var(--spacer-base) * 1);
     padding: calc(var(--spacer-base) / 1.5) calc(var(--spacer-base) / 2);
-    background-color: color-mod(var(--color-warning-01) a(5%));
+    background-color: color-mix(in oklab, var(--color-info-01), #fff 95%);
     border-bottom: 4px solid var(--color-border-01);
     border-left: 4px solid var(--color-border-01);
     border-radius: calc(var(--border-radius-01) / 2);

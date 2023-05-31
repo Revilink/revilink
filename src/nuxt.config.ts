@@ -8,7 +8,13 @@ const config: NuxtConfig = {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server',
+  target: 'static',
+
+  /*
+   ** Server side rendering
+   ** See https://v2.nuxt.com/docs/configuration-glossary/configuration-ssr
+   */
+  ssr: true,
 
   /*
    ** Nuxt env configuration
@@ -220,9 +226,9 @@ const config: NuxtConfig = {
             en: '/reviews',
             tr: '/incelemeler'
           },
-          'Comment/_id': {
-            en: '/comment/:id',
-            tr: '/yorum/:id'
+          'Comment/index': {
+            en: '/comment',
+            tr: '/yorum'
           }
         }
       }
