@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxtjs/auth-next", "@nuxtjs/i18n",]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxtjs/auth-next", "@nuxtjs/i18n"]
   }
 }
