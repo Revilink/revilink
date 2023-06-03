@@ -16,7 +16,7 @@
   .layout__inner
     .container
       .router-view
-        nuxt
+        nuxt(keep-alive)
 </template>
 
 <script lang="ts">

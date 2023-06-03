@@ -27,7 +27,7 @@ const config: NuxtConfig = {
    ** See https://nuxtjs.org/docs/configuration-glossary/configuration-runtime-config
    */
   publicRuntimeConfig: {
-    API: 'http://localhost:3004'
+    API: 'http://localhost:1337/api'
   },
 
   /*
@@ -195,6 +195,34 @@ const config: NuxtConfig = {
   modules: [
     // https://axios.nuxtjs.org
     '@nuxtjs/axios',
+    // https://auth.nuxtjs.org
+    [
+      '@nuxtjs/auth-next',
+      {
+        redirect: {
+          login: '/login',
+          logout: null
+        },
+        strategies: {
+          local: {
+            token: {
+              property: 'jwt',
+              global: true
+            },
+            endpoints: {
+              login: { url: `http://localhost:1337/api/auth/local`, method: 'post' },
+              logout: false,
+              user: false
+            },
+            user: {
+              property: '', // the response itself
+              autoFetch: false // User will fetch by api function in store/index
+            }
+          }
+        },
+        plugins: ['@/plugins/auth-lang-redirect.ts']
+      }
+    ],
     // https://i18n.nuxtjs.org
     [
       '@nuxtjs/i18n',
@@ -240,7 +268,9 @@ const config: NuxtConfig = {
           }
         }
       }
-    ]
+    ],
+    // https://www.npmjs.com/package/nuxt-client-init-module
+    'nuxt-client-init-module'
   ],
 
   /*

@@ -2,18 +2,22 @@
 header.app-header(:class="[variantClass]")
   .app-header__inner.container
     AppLogo(:height="34")
-    ApplicationNavButtonGroup.ms-auto
+    .ms-auto.d-flex.align-items-center
+      ApplicationNavButtonGroup
+      ProfileDropdown.ms-2(v-if="$auth.loggedIn && $auth.user")
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from '@nuxtjs/composition-api'
 import { AppLogo } from '@/components/Logo'
 import { ApplicationNavButtonGroup } from '@/components/ButtonGroup'
+import { ProfileDropdown } from '@/components/Dropdown'
 
 export default defineComponent({
   components: {
     AppLogo,
-    ApplicationNavButtonGroup
+    ApplicationNavButtonGroup,
+    ProfileDropdown
   },
   props: {
     variant: {

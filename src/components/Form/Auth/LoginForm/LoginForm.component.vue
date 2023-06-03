@@ -1,13 +1,13 @@
 <template lang="pug">
-form.form.register-form(@submit.prevent="handleSubmit")
+form.form.login-form(@submit.prevent="handleSubmit")
   .form-head
     AppLogo.form-head__logo(:height="36")
-    p.form-head__description {{ $t('form.register.description') }}
+    p.form-head__description {{ $t('form.login.description') }}
 
   .form-item
     vs-input(
       v-model="form.email"
-      :placeholder="$t('form.register.email.placeholder')"
+      :placeholder="$t('form.login.email.placeholder')"
       :maxlength="v$.email.maxLength.$params.max"
       @keydown.space.prevent
     )
@@ -21,26 +21,9 @@ form.form.register-form(@submit.prevent="handleSubmit")
 
   .form-item
     vs-input(
-      v-model="form.username"
-      :placeholder="$t('form.register.username.placeholder')"
-      :maxlength="v$.username.maxLength.$params.max"
-      @keydown.space.prevent
-    )
-      template(v-if="v$.username.$error" #message-danger)
-        span(v-if="v$.username.required.$invalid")
-          | {{ $t('form.validation.modelIsRequired', { model: $t('form.username') }) }}
-        span(v-if="v$.username.isValid.$invalid && form.username.length > 0")
-          | {{ $t('form.validation.containsInvalidCharacters') }}
-        span(v-if="v$.username.minLength.$invalid")
-          | {{ $t('form.validation.min', { min: v$.username.minLength.$params.min }) }}
-        span(v-if="v$.username.maxLength.$invalid")
-          | {{ $t('form.validation.max', { max: v$.username.maxLength.$params.max }) }}
-
-  .form-item
-    vs-input(
       v-model="form.password"
       type="password"
-      :placeholder="$t('form.register.password.placeholder')"
+      :placeholder="$t('form.login.password.placeholder')"
       icon-after
       :visible-password="isVisiblePassword"
       @click-icon="togglePasswordVisibility"
@@ -57,30 +40,23 @@ form.form.register-form(@submit.prevent="handleSubmit")
         span(v-if="v$.password.maxLength.$invalid")
           | {{ $t('form.validation.max', { max: v$.password.maxLength.$params.max }) }}
 
-  .form-item
-    i18n.terms-label(path="form.register.terms" tag="label" for="terms")
-      template(#terms)
-        a(href) Terms
-      template(#privacyPolicy)
-        a(href) Privacy policy
-      template(#cookiePolicy)
-        a(href) Cookie policy
-
   .form-item.form-item--submit
-    vs-button(:loading="state.isBusy" :disabled="state.isBusy")
-      | {{ $t('form.register.submit.action.title') }}
-      AppIcon.ms-2(name="ri:pass-pending-line")
+    .d-flex.align-items-center
+      vs-button(:loading="state.isBusy" :disabled="state.isBusy")
+        | {{ $t('form.login.submit.action.title') }}
+        AppIcon.ms-2(name="ri:pass-pending-line")
+      NuxtLink.ms-4(:to="localePath({ name: 'Auth-ResetPassword' })") {{ $t('form.login.iForgotMyPassword') }}
 
   .form-item.mt-base
-    span.me-2 {{ $t('general.doYouHaveAnAccount') }}
-    NuxtLink(:to="localePath({ name: 'Auth-Login' })") {{ $t('form.login.title') }}
+    span.me-2 {{ $t('general.doNotYouHaveAnAccountYet') }}
+    NuxtLink(:to="localePath({ name: 'Auth-Register' })") {{ $t('general.createAnAccount') }}
 </template>
 
 <script lang="ts">
 import { defineComponent, useContext, reactive, ref } from '@nuxtjs/composition-api'
 import { useVuelidate } from '@vuelidate/core'
-import { FormTypes } from './RegisterForm.component.types'
-import { registerValidator } from '@/validator'
+import { FormTypes } from './LoginForm.component.types'
+import { loginValidator } from '@/validator'
 import { AppLogo } from '@/components/Logo'
 import { AppIcon } from '@/components/Icon'
 
@@ -98,12 +74,11 @@ export default defineComponent({
 
     const form = reactive<FormTypes>({
       email: '',
-      username: '',
       password: ''
     })
 
     const rule = {
-      ...registerValidator
+      ...loginValidator
     }
 
     const v$ = useVuelidate(rule, form)
@@ -118,53 +93,44 @@ export default defineComponent({
       v$.value.$validate()
 
       if (!v$.value.$invalid) {
-        register()
+        login()
         emit('on-submit', form)
       }
     }
 
-    const register = async () => {
+    const login = async () => {
       state.isBusy = true
 
-      const { data, error } = await context.$api.rest.auth.register({ ...form })
-
-      if (data) {
-        const loginPromise: any = await context.$auth.loginWith('local', {
+      try {
+        const promise: any = await context.$auth.loginWith('local', {
           data: {
             identifier: form.email,
             password: form.password
           }
         })
 
-        if (loginPromise.data) {
-          await context.$auth.setUser(loginPromise.data.user)
+        if (promise.data) {
+          await context.$auth.setUser(promise.data.user)
+
+          emit('on-success', form)
         } else {
           window.$nuxt.$vs.notification({
-            title: loginPromise.error.status,
-            text: loginPromise.error.message,
+            title: promise.error.status,
+            text: promise.error.message,
             color: 'danger',
             position: 'bottom-center',
             flat: true
           })
         }
-
+      } catch (error: any) {
         window.$nuxt.$vs.notification({
-          title: context.i18n.t('form.register.callback.success.title'),
-          color: 'success',
-          position: 'bottom-center',
-          flat: true
-        })
-      } else {
-        window.$nuxt.$vs.notification({
-          title: error.code,
-          text: error.message,
+          title: error.response?.status,
+          text: error.response?.data?.error.message,
           color: 'danger',
           position: 'bottom-center',
           flat: true
         })
       }
-
-      emit('on-success', form)
 
       state.isBusy = false
     }
@@ -181,4 +147,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" src="./RegisterForm.component.scss"></style>
+<style lang="scss" src="./LoginForm.component.scss"></style>

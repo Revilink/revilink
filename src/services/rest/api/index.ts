@@ -1,3 +1,5 @@
+export * from './auth/auth.api'
+export * from './auth/auth.api.types'
 export * from './review/review.api'
 export * from './review/review.api.types'
 export * from './scraper/scraper.api'

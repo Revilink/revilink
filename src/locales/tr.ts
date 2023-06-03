@@ -32,7 +32,12 @@ export default {
     delete: 'Sil',
     cancel: 'İptal',
     loadMore: 'Daha fazla',
-    avatar: 'Avatar'
+    avatar: 'Avatar',
+    doYouHaveAnAccount: 'Zaten bir hesabın var mı?',
+    doNotYouHaveAnAccountYet: `Henüz bir hesabın yok mu?`,
+    createAnAccount: 'Hesap oluştur',
+    logout: 'Çıkış yap',
+    settings: 'Settings'
   },
   hero: {
     home: {
@@ -114,6 +119,25 @@ export default {
           title: 'Kayıt ol'
         }
       }
+    },
+    login: {
+      title: 'Giriş yap',
+      description: 'Giriş yaparak interneti yorum panosuna dönüştür',
+      email: {
+        placeholder: 'Email adresi'
+      },
+      username: {
+        placeholder: 'Kullanıcı adı'
+      },
+      password: {
+        placeholder: 'Parola'
+      },
+      submit: {
+        action: {
+          title: 'Giriş yap'
+        }
+      },
+      iForgotMyPassword: 'Hafızamı tazele'
     },
     reviewSearch: {
       url: 'Bağlantı yapıştır',

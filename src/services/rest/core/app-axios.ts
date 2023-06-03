@@ -23,13 +23,22 @@ const appAxios = async ({ $axios, app }: Context, params: AppAxiosType) => {
       config: {}
     })
 
-    return { isSuccess: true, data: promise.data }
+    return { data: promise.data, error: null }
   } catch (error: any) {
     if (error.response) {
-      throw {
-        message: error.response?.statusText,
-        code: error.response?.status,
-        config: error.response?.config
+      return {
+        data: null,
+        error: error.response?.data?.error
+          ? {
+              message: error.response?.data?.error.message,
+              code: error.response?.status,
+              config: error.response?.config
+            }
+          : {
+              message: error.response?.statusText,
+              code: error.response?.status,
+              config: error.response?.config
+            }
       }
     } else {
       throw new Error(error)

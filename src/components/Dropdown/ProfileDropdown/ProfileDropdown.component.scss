@@ -1,0 +1,64 @@
+.profile-dropdown {
+  $v-dropdown-menu: '.v-dropdown-menu';
+
+  position: relative;
+
+  #{$v-dropdown-menu} {
+    &__trigger {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--spacer-base) / 6) calc(var(--spacer-base) / 4);
+      border-radius: var(--border-radius-01);
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--color-hover-02);
+      }
+    }
+
+    &__container {
+      margin-top: calc(var(--spacer-base) / 2);
+      background-color: var(--color-ui-02);
+      border: 0;
+      border-radius: var(--border-radius-01);
+      box-shadow: var(--box-shadow-01);
+    }
+  }
+
+  &__username {
+    margin-left: calc(var(--spacer-base) / 4);
+
+    @include font-weight-medium;
+  }
+
+  &-list {
+    position: relative;
+
+    &-item {
+      &--logout {
+        border-top: 1px solid var(--color-border-01);
+      }
+
+      a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: calc(var(--spacer-base) / 3) calc(var(--spacer-base) / 4);
+        color: var(--color-text-02);
+
+        &:hover {
+          background-color: var(--color-hover-01);
+        }
+      }
+
+      &__icon {
+        margin-right: calc(var(--spacer-base) / 4);
+      }
+
+      &__title {
+        font-size: var(--font-size-text-20);
+      }
+    }
+  }
+}

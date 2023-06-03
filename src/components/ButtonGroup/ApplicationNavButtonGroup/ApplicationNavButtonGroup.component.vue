@@ -6,11 +6,10 @@
     template(#tooltip)
       span {{ $t('general.application') }}
 
-  vs-tooltip.application-nav-button-group__item(bottom)
-    PaperButton(:width="42" :height="42")
-      AppIcon(name="ri:user-shared-line" :width="26" :height="26")
-    template(#tooltip)
-      span {{ $t('general.login') }}
+  template(v-if="!$auth.loggedIn && !$auth.user")
+    .application-nav-button-group__item
+      PaperButton(tag="NuxtLink" :to="localePath({ name: 'Auth-Login' })" :width="42" :height="42")
+        AppIcon(name="ri:user-shared-line" :width="26" :height="26")
 </template>
 
 <script lang="ts">

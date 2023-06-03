@@ -33,7 +33,12 @@ export default {
     delete: 'Delete',
     cancel: 'Cancel',
     loadMore: 'Load more',
-    avatar: 'Avatar'
+    avatar: 'Avatar',
+    doYouHaveAnAccount: 'Do you have an account?',
+    doNotYouHaveAnAccountYet: `Don't you have account yet?`,
+    createAnAccount: 'Create an account',
+    logout: 'Logout',
+    settings: 'Settings'
   },
   hero: {
     home: {
@@ -114,7 +119,32 @@ export default {
         action: {
           title: 'Register'
         }
+      },
+      callback: {
+        success: {
+          title: 'Your account has been created',
+          description: 'You are ready to turn it into an internet comment board'
+        }
       }
+    },
+    login: {
+      title: 'Login',
+      description: 'Turn the internet into a comment board by logging in',
+      email: {
+        placeholder: 'Email address'
+      },
+      username: {
+        placeholder: 'Username'
+      },
+      password: {
+        placeholder: 'Password'
+      },
+      submit: {
+        action: {
+          title: 'Login'
+        }
+      },
+      iForgotMyPassword: 'Refresh my mind'
     },
     reviewSearch: {
       url: 'Paste URL',
