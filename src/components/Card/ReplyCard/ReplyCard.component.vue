@@ -2,15 +2,13 @@
 .reply-card
   .reply-card__inner
     vs-avatar.reply-card__avatar(circle size="48")
-      AppIcon(v-if="reply.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
-      nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
+      nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
         img(:src="reply.user?.avatar" alt="avatar")
 
     .reply-card__body
       .reply-card-meta
         strong.reply-card-meta__user
-          template(v-if="reply.isAnonymous") {{ $t('general.anonymous') }}
-          nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
+          nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
             | {{ reply.user?.name }}
         time.reply-card-meta__date • {{ reply.createdAt }}
 

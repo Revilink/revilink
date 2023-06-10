@@ -6,9 +6,8 @@ export default (model: ReviewApiModelTypes) => {
     createdAt: model.createdAt,
     updatedAt: model.updatedAt,
     url: model.link,
-    isAnonymous: model.isAnonymous,
     user: model.user,
-    content: model.content,
+    content: model.comment,
     likeCount: model.likeCount,
     replyCount: model.replyCount
   }

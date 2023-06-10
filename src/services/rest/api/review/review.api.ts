@@ -1,28 +1,42 @@
-import { FetchRepliesTypes, ReviewApiTypes } from './review.api.types'
+import {
+  FetchReviewsTypes,
+  FetchRepliesTypes,
+  ReviewApiTypes,
+  PostReviewTypes,
+  EditReviewTypes,
+  DeleteReviewTypes
+} from './review.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
-import { reviewTransformer, replyTransformer } from '@/services/rest/transformers'
-import { ReviewApiModelTypes, ReplyApiModelTypes } from '@/types'
+import { reviewsTransformer, reviewTransformer, replyTransformer } from '@/services/rest/transformers'
+import { ReplyApiModelTypes } from '@/types'
 
 export const reviewApi = (appAxios: Function) =>
   <ReviewApiTypes>{
-    async fetchReviews() {
-      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+    async fetchReviews(params: FetchReviewsTypes) {
+      const { url } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: 'reviews'
+        path: 'search',
+        query: {
+          url
+        }
       })
 
-      if (isSuccess) {
-        return data.map((item: ReviewApiModelTypes) => reviewTransformer(item))
+      if (data) {
+        return { data: reviewsTransformer(data.data) }
+      } else {
+        return { error }
       }
     },
 
     async fetchReview(id: number) {
-      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+      const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
         path: `reviews/${id}`
       })
 
-      if (isSuccess) {
+      if (data) {
         return reviewTransformer(data)
       }
     },
@@ -30,7 +44,7 @@ export const reviewApi = (appAxios: Function) =>
     async fetchReplies(params: FetchRepliesTypes) {
       const { reviewId, page = 1, limit = 0 } = params
 
-      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+      const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
         path: `replies`,
         query: {
@@ -40,8 +54,67 @@ export const reviewApi = (appAxios: Function) =>
         }
       })
 
-      if (isSuccess) {
+      if (data) {
         return data.map((item: ReplyApiModelTypes) => replyTransformer(item))
+      }
+    },
+
+    async postReview(params: PostReviewTypes) {
+      const { url, content, media } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'post',
+        path: `comments`,
+        data: {
+          data: {
+            url,
+            comment: content,
+            images: media
+          }
+        }
+      })
+
+      if (data) {
+        return { data }
+      } else {
+        return { error }
+      }
+    },
+
+    async editReview(params: EditReviewTypes) {
+      const { id, url, content, media } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'put',
+        path: `comments/${id}`,
+        data: {
+          data: {
+            url,
+            comment: content,
+            images: media
+          }
+        }
+      })
+
+      if (data) {
+        return { data }
+      } else {
+        return { error }
+      }
+    },
+
+    async deleteReview(params: DeleteReviewTypes) {
+      const { id } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'delete',
+        path: `comments/${id}`
+      })
+
+      if (data) {
+        return { data }
+      } else {
+        return { error }
       }
     }
   }

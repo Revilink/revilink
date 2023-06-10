@@ -19,7 +19,6 @@ export default {
     register: 'Register',
     yes: 'Yes',
     no: 'No',
-    anonymous: 'Anonymous',
     send: 'Send',
     like: 'Like',
     unlike: 'Unlike',
@@ -154,7 +153,14 @@ export default {
       title: 'Type your review about the thing in the link',
       content: 'You typing as {username}',
       hint: '* Avoid profanity, hate speech, derogatory and misleading comments.',
-      anonymousSwitch: 'Post anonymously?'
+      post: {
+        callback: {
+          success: {
+            title: 'OK',
+            description: 'Your comment has been submitted'
+          }
+        }
+      }
     }
   },
   reply: {

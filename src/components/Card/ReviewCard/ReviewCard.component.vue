@@ -1,21 +1,20 @@
 <template lang="pug">
-.review-card(:class="[detailedClass]")
+.review-card(:class="[detailedClass]" :data-id="review.id")
   .review-card__inner
     vs-avatar.review-card__avatar(circle size="48")
-      AppIcon(v-if="review.isAnonymous" name="ooui:user-anonymous" color="var(--color-text-01)" :width="22" :height="22")
-      nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
-        img(:src="review.user?.avatar" alt="avatar")
+      nuxt-link(to="#" :title="review.user.name")
+        img(v-if="review.user.avatar" :src="review.user.avatar" alt="avatar")
+        img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
 
     .review-card__body
       .review-card-meta
         .review-card-meta__user
-          template(v-if="review.isAnonymous") {{ $t('general.anonymous') }}
-          nuxt-link(v-else :to="localePath({ name: 'profile', params: { username: review.user.username } })" :title="review.user.name")
-            strong {{ review.user?.name }} &nbsp;
-            span @{{ review.user?.username }}
+          nuxt-link(to="#" :title="review.user.name")
+            strong {{ review.user.username }}
         time.review-card-meta__date
           | • &nbsp;
-          nuxt-link(:to="localePath({ name: 'Comment-id', params: { id: review.id } })" :title="review.createdAt") {{ review.createdAt }}
+          nuxt-link(:to="localePath({ name: 'Comment', query: { id: review.id } })" :title="review.createdAt")
+            Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .review-card-review
         p.review-card-review__text {{ review.content }}
@@ -33,7 +32,7 @@
             span {{ $t('general.reply') }}
 
       .review-card-actions
-        .review-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
+        .review-card-actions-item.like-button(v-if="false" role="button" :class="[likedClass]" @click="toggleLike")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
             AppIcon(v-if="isLiked" name="ri:heart-3-fill" :width="18" :height="18")
             AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
@@ -45,7 +44,7 @@
               template(v-if="likeCount <= 0") {{ $t('general.like') }}
               template(v-else) {{ likeCount }}
 
-        .review-card-actions-item.reply-button(role="button" @click="handleClickReply")
+        .review-card-actions-item.reply-button(v-if="false" role="button" @click="handleClickReply")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:chat-1-line" :width="18" :height="18")
           span.review-card-actions-item__label
@@ -54,15 +53,16 @@
               template(v-if="review.replyCount <= 0") {{ $t('general.reply') }}
               template(v-else) {{ review.replyCount }}
 
-        .review-card-actions-item.edit-button(v-if="true" role="button" @click="handleClickEdit")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(name="ri:edit-line" :width="18" :height="18")
-          span.review-card-actions-item__label {{ $t('general.edit') }}
+        template(v-if="$auth.loggedIn && $auth.user?.id === review.user.id")
+          .review-card-actions-item.edit-button(role="button" @click="handleClickEdit")
+            PaperButton.review-card-actions-item__button(:width="36" :height="36")
+              AppIcon(name="ri:edit-line" :width="18" :height="18")
+            span.review-card-actions-item__label {{ $t('general.edit') }}
 
-        .review-card-actions-item.delete-button(v-if="true" role="button" @click="handleClickDelete")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
-          span.review-card-actions-item__label {{ $t('general.delete') }}
+          .review-card-actions-item.delete-button(role="button" @click="handleClickDelete")
+            PaperButton.review-card-actions-item__button(:width="36" :height="36")
+              AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
+            span.review-card-actions-item__label {{ $t('general.delete') }}
 
         vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
           PaperButton.review-card-actions-item__button(:width="36" :height="36")
@@ -101,12 +101,13 @@
         p {{ $t('reply.repliesIsFinished') }}
 
   ReplyDialog(:is-open="form.reply.isOpen" :summary="review" @on-close="form.reply.isOpen = false")
-  EditCommentDialog(:is-open="form.edit.isOpen" :comment="review" @on-close="form.edit.isOpen = false")
-  DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="review" @on-close="form.delete.isOpen = false")
+  EditCommentDialog(:is-open="form.edit.isOpen" :comment="review" @on-close="form.edit.isOpen = false" @on-confirm="handleEdit")
+  DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="review" @on-close="form.delete.isOpen = false" @on-confirm="handleDelete")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, reactive, ref, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useStore, useRoute, useFetch, reactive, ref, computed } from '@nuxtjs/composition-api'
+import { ReviewTypes } from '@/types'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { ReplyCard } from '@/components/Card'
@@ -136,6 +137,8 @@ export default defineComponent({
     const baseClassName = 'review-card'
 
     const context = useContext()
+    const store = useStore()
+    const route = useRoute()
 
     const form = reactive({
       reply: {
@@ -180,9 +183,59 @@ export default defineComponent({
       emit('on-click-edit')
     }
 
+    const handleEdit = async (review: ReviewTypes) => {
+      const { data } = await context.$api.rest.review.editReview({
+        id: review.id,
+        url: route.value.query.link,
+        content: review.content,
+        media: null
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: 'Edit successfully',
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        await store.commit('review/EDIT_REVIEW', {
+          id: review.id,
+          review: {
+            content: review.content
+          }
+        })
+
+        form.edit.isOpen = false
+        emit('on-edit-success', data)
+      }
+    }
+
     const handleClickDelete = () => {
       form.delete.isOpen = true
       emit('on-click-delete')
+    }
+
+    const handleDelete = async () => {
+      const { data } = await context.$api.rest.review.deleteReview({
+        id: props.review.id
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: 'Delete successfully',
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        await store.commit('review/DELETE_REVIEW', props.review.id)
+
+        form.delete.isOpen = false
+        emit('on-delete-success')
+      }
     }
 
     const reply = reactive({
@@ -238,7 +291,9 @@ export default defineComponent({
       likedClass,
       handleClickReply,
       handleClickEdit,
+      handleEdit,
       handleClickDelete,
+      handleDelete,
       reply,
       loadMoreReply,
       detailedClass

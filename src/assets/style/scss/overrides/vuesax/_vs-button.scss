@@ -4,5 +4,6 @@
   --button-height: 42px;
 
   height: var(--button-height);
-  padding: calc(var(--spacer-base) / 4) calc(var(--spacer-base) / 2) !important;
+  padding-right: calc(var(--spacer-base) / 2) !important;
+  padding-left: calc(var(--spacer-base) / 2) !important;
 }

@@ -231,3 +231,22 @@
     }
   }
 }
+
+.highlight-flash-animation {
+  animation: highlight-flash-animation 1s var(--motion-01) infinite;
+  animation-delay: 0.2s;
+}
+
+@keyframes highlight-flash-animation {
+  0% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 0 2px var(--color-info-01);
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}

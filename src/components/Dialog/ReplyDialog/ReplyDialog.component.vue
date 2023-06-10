@@ -5,9 +5,7 @@ client-only
       h2 {{ $t('general.reply') }}
 
     .reply-dialog-summary
-      strong.reply-dialog-summary__user
-        template(v-if="summary.user") @{{ summary.user.username }}
-        template(v-else) {{ $t('general.anonymous') }}
+      strong.reply-dialog-summary__user @{{ summary.user.username }}
       p.reply-dialog-summary__content {{ summary.content }}
 
     CommentForm

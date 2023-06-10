@@ -6,7 +6,7 @@ const { getMetadata } = require('page-metadata-parser')
 export const scraperApi = (appAxios: Function) =>
   <ScraperApiTypes>{
     async fetchAndReadRobots({ url }: FetchAndReadRobotsTypes) {
-      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+      const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
         url: `${window.location.origin}/site-robots-checker`,
         query: {
@@ -17,13 +17,13 @@ export const scraperApi = (appAxios: Function) =>
         }
       })
 
-      if (isSuccess) {
+      if (data) {
         return data
       }
     },
 
     async fetchMetaTags({ url }: FetchMetaTagsTypes) {
-      const { isSuccess, data } = await appAxios(<AppAxiosType>{
+      const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
         url: `${window.location.origin}/site-scraper`,
         query: {
@@ -34,7 +34,7 @@ export const scraperApi = (appAxios: Function) =>
         }
       })
 
-      if (isSuccess) {
+      if (data) {
         const parser = new DOMParser()
         const doc = parser.parseFromString(data, 'text/html')
 

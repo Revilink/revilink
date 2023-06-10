@@ -6,7 +6,6 @@ export type ReplyApiModelTypes = {
   createdAt: string
   updatedAt?: string
   link: string
-  isAnonymous: boolean
   user: UserApiModelTypes
   content: string
   likeCount: number
@@ -18,7 +17,6 @@ export type ReplyTypes = {
   createdAt: string
   updatedAt?: string
   url: string
-  isAnonymous: boolean
   user: UserTypes
   content: string
   likeCount: number

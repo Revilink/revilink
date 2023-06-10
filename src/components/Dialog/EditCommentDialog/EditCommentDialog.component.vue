@@ -4,11 +4,12 @@ client-only
     template(#header)
       h2 {{ $t('general.edit') }}
 
-    CommentForm(:is-visible-anonymous-switcher="false" :form-model="{ content: comment.content }")
+    CommentForm(:form-model="{ id: comment.id, content: comment.content }" @on-submit="handleOnSubmit")
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, watch } from '@nuxtjs/composition-api'
+import { ReviewTypes } from '@/types'
 import { CommentForm } from '@/components/Form'
 
 export default defineComponent({
@@ -48,9 +49,14 @@ export default defineComponent({
       emit('on-close')
     }
 
+    const handleOnSubmit = (review: ReviewTypes) => {
+      emit('on-confirm', { ...props.comment, ...review })
+    }
+
     return {
       dialog,
-      handleClose
+      handleClose,
+      handleOnSubmit
     }
   }
 })

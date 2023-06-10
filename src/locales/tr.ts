@@ -18,7 +18,6 @@ export default {
     register: 'Kayıt ol',
     yes: 'Evet',
     no: 'Hayır',
-    anonymous: 'Anonim',
     send: 'Gönder',
     like: 'Beğen',
     unlike: 'Vazgeç',
@@ -146,8 +145,7 @@ export default {
     comment: {
       title: 'Bağlantıdaki şey hakkında incelemeni yaz',
       content: '{username} olarak yazıyorsun',
-      hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.',
-      anonymousSwitch: 'Anonim olarak gönderilsin mi?'
+      hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.'
     }
   },
   reply: {

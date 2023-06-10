@@ -4,7 +4,6 @@
       "id": 0,
       "createdAt": "22 Ocak 2023",
       "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
-      "isAnonymous": false,
       "user": {
         "id": 0,
         "username": "selimdoyranli",
@@ -21,7 +20,6 @@
       "id": 1,
       "createdAt": "17 Aralık 2022",
       "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
-      "isAnonymous": false,
       "user": {
         "id": 1,
         "username": "apo_bozdag",
@@ -38,8 +36,14 @@
       "id": 2,
       "createdAt": "12 Aralık 2022",
       "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
-      "isAnonymous": true,
-      "user": null,
+      "user": {
+        "id": 1,
+        "username": "apo_bozdag",
+        "createdAt": "1 Mayıs 2020",
+        "name": "Abdullah Bozdağ",
+        "email": "apo_bozdag@gmail.com",
+        "avatar": "https://i.pravatar.cc/1024?img=53"
+      },
       "content": "dolandirici sakin almayin ben ismini vermek istemeyen kisi muratozakcil",
       "likeCount": 31,
       "replyCount": 120
@@ -51,7 +55,6 @@
       "reviewId": 1,
       "createdAt": "22 Ocak 2023",
       "link": "https://www.sahibinden.com/ilan/vasita-otomobil-volkswagen-sahibinden-sunroflu-temiz-916986829",
-      "isAnonymous": false,
       "user": {
         "id": 0,
         "username": "selimdoyranli",

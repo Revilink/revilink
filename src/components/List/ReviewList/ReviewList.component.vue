@@ -2,7 +2,7 @@
 .review-list
   .review-list-head
     AppIcon.review-list-head__icon(name="uil:comment-alt-dots" color="var(--color-icon-01)" :width="28" :height="28")
-    span.review-list-head__title Comments ({{ items.length }})
+    span.review-list-head__title(v-if="items.length") Comments ({{ items.length }})
   ReviewCard(v-for="item in items" :key="item.id" :review="item")
 
   // Pagination

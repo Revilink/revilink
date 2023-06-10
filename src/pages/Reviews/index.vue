@@ -1,5 +1,5 @@
 <template lang="pug">
-.page.reviews-page
+.page.reviews-page(ref="rootRef")
   .row
     .col-4
       .col-11
@@ -25,26 +25,23 @@
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
             a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
 
-      template(v-if="fetchState.pending")
-        span Loading
-      template(v-else-if="fetchState.error")
-        span {{ fetchState.error }}
-      template(v-else)
-        // Review List
-        ReviewList(:items="review.items")
+      // Review List
+      ReviewList(v-if="reviews && reviews.length > 0" :items="reviews")
 
-        // Comment Form Section
-        section.reviews-page-comment-form
-          span.reviews-page-comment-form__title
-            AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
-            | {{ $t('form.comment.title') }}
+      // Comment Form Section
+      section.reviews-page-comment-form
+        span.reviews-page-comment-form__title
+          AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
+          | {{ $t('form.comment.title') }}
 
-          CommentForm
+        CommentForm(ref="commentFormRef" :is-busy="comment.isBusy" @on-submit="handleCommentOnSubmit")
 </template>
 
 <script lang="ts">
-import { defineComponent, useFetch, useContext, useRoute, reactive, onMounted } from '@nuxtjs/composition-api'
-import { ReviewType } from './Reviews.page.types'
+import { defineComponent, useContext, useFetch, useRoute, useStore, ref, reactive, onMounted, computed } from '@nuxtjs/composition-api'
+import { Ref } from 'vue'
+import { CommentRefTypes } from './Reviews.page.types'
+import { ReviewTypes } from '@/types'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
@@ -59,6 +56,9 @@ export default defineComponent({
   setup() {
     const context = useContext()
     const route = useRoute()
+    const store = useStore()
+
+    const rootRef: Ref<HTMLElement | null> = ref(null)
 
     const site = reactive({
       isAllowed: false,
@@ -90,26 +90,66 @@ export default defineComponent({
       site.meta = siteResult
     }
 
+    const reviews = computed(() => store.getters['review/items'])
+
+    const { fetch, fetchState } = useFetch(async () => {
+      await store.dispatch('review/fetchReviews', {
+        url: route.value.query.link
+      })
+    })
+
+    const comment = reactive({
+      isBusy: false
+    })
+
+    const commentFormRef: Ref<CommentRefTypes | null> = ref(null)
+
+    const handleCommentOnSubmit = async (review: ReviewTypes) => {
+      comment.isBusy = true
+
+      const { data } = await context.$api.rest.review.postReview({
+        url: route.value.query.link,
+        content: review.content,
+        media: null
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: 'Comment post successfully',
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        await fetch()
+
+        commentFormRef.value?.clearForm()
+
+        const reviewCardDOM = rootRef.value?.querySelector(`.review-list .review-card[data-id="${data.id}"] .review-card__body`)
+
+        reviewCardDOM?.classList.add('highlight-flash-animation')
+        setTimeout(() => {
+          reviewCardDOM?.classList.remove('highlight-flash-animation')
+        }, 3000)
+      }
+
+      comment.isBusy = false
+    }
+
     onMounted(() => {
       fetchAndReadRobots()
     })
 
-    const review = reactive<ReviewType>({
-      page: 1,
-      items: []
-    })
-
-    const { fetch, fetchState } = useFetch(async () => {
-      const reviewsResult = await context.$api.rest.review.fetchReviews()
-
-      review.items = reviewsResult
-    })
-
     return {
-      site,
+      rootRef,
       fetch,
       fetchState,
-      review
+      site,
+      reviews,
+      comment,
+      commentFormRef,
+      handleCommentOnSubmit
     }
   }
 })

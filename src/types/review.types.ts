@@ -5,9 +5,8 @@ export type ReviewApiModelTypes = {
   createdAt: string
   updatedAt?: string
   link: string
-  isAnonymous: boolean
   user: UserApiModelTypes
-  content: string
+  comment: string
   likeCount: number
   replyCount: number
 }
@@ -17,7 +16,6 @@ export type ReviewTypes = {
   createdAt: string
   updatedAt?: string
   url: string
-  isAnonymous: boolean
   user: UserTypes
   content: string
   likeCount: number

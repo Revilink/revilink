@@ -27,7 +27,7 @@ const config: NuxtConfig = {
    ** See https://nuxtjs.org/docs/configuration-glossary/configuration-runtime-config
    */
   publicRuntimeConfig: {
-    API: 'http://localhost:1337/api'
+    API: 'http://127.0.0.1:1337/api'
   },
 
   /*
@@ -130,6 +130,11 @@ const config: NuxtConfig = {
     {
       src: '@/plugins/iconify.ts',
       ssr: false
+    },
+    // https://vue-timeago.egoist.sh
+    {
+      src: '@/plugins/vue-timeago.ts',
+      ssr: false
     }
   ],
 
@@ -210,7 +215,7 @@ const config: NuxtConfig = {
               global: true
             },
             endpoints: {
-              login: { url: `http://localhost:1337/api/auth/local`, method: 'post' },
+              login: { url: `http://127.0.0.1:1337/api/auth/local`, method: 'post' },
               logout: false,
               user: false
             },

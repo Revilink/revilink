@@ -1,6 +1,3 @@
-import { ReviewTypes } from '@/types'
-
-export type ReviewType = {
-  page: number
-  items: Array<ReviewTypes>
+export interface CommentRefTypes extends HTMLElement {
+  clearForm(): void
 }

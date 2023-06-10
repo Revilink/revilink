@@ -8,7 +8,7 @@ client-only
 
     template(#footer)
       .d-flex
-        vs-button.me-2(danger @click="handleClickDelete") {{ $t('general.delete') }}
+        vs-button.me-2(danger @click="handleClickConfirm") {{ $t('general.delete') }}
         vs-button(transparent @click="handleClickCancel") {{ $t('general.cancel') }}
 </template>
 
@@ -28,6 +28,10 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    const state = reactive({
+      isBusy: false
+    })
+
     const dialog = reactive({
       isOpen: props.isOpen
     })
@@ -49,20 +53,21 @@ export default defineComponent({
       emit('on-close')
     }
 
-    const handleClickDelete = () => {
-      handleClose()
-      emit('on-delete')
+    const handleClickConfirm = () => {
+      emit('on-confirm')
     }
 
     const handleClickCancel = () => {
       handleClose()
+
       emit('on-cancel')
     }
 
     return {
+      state,
       dialog,
       handleClose,
-      handleClickDelete,
+      handleClickConfirm,
       handleClickCancel
     }
   }
