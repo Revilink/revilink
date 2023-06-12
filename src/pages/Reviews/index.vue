@@ -37,7 +37,11 @@
 
       // Pagination
       client-only
-        vs-pagination.review-list__pagination(v-model="review.page" :length="reviewsMeta.pagination.pageCount")
+        vs-pagination.my-base(
+          v-if="reviewsMeta && Object.keys(reviewsMeta).length > 0"
+          v-model="review.page"
+          :length="reviewsMeta.pagination.pageCount"
+        )
 
       // Comment Form Section
       section.reviews-page-comment-form
