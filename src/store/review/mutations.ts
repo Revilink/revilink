@@ -16,8 +16,11 @@ export default {
 
   EDIT_REVIEW(state: StateTypes, params: { id: number; review: ReviewTypes }) {
     const { id, review } = params
-    console.log(id, review)
 
     state.items = state.items.map(obj => (obj.id === id ? { ...obj, content: review.content } : obj))
+  },
+
+  SET_META(state: StateTypes, meta: Object) {
+    state.meta = meta
   }
 }

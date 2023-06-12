@@ -7,24 +7,40 @@ import {
   DeleteReviewTypes
 } from './review.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
-import { reviewsTransformer, reviewTransformer, replyTransformer } from '@/services/rest/transformers'
-import { ReplyApiModelTypes } from '@/types'
+import { reviewTransformer, replyTransformer } from '@/services/rest/transformers'
+import { ReviewApiModelTypes, ReplyApiModelTypes } from '@/types'
 
 export const reviewApi = (appAxios: Function) =>
   <ReviewApiTypes>{
     async fetchReviews(params: FetchReviewsTypes) {
-      const { url } = params
+      const { populate, filters, sort, pagination } = params
+
+      const queryDefault = {
+        populate: '*',
+        filters: '',
+        sort: 'sort=id:desc',
+        pagination: 'pagination[page]=1&pagination[pageSize]=10'
+      }
+
+      const query = {
+        populate: populate || queryDefault.populate,
+        filters: filters || queryDefault.filters,
+        sort: sort || queryDefault.sort,
+        pagination: pagination || queryDefault.pagination
+      }
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: 'search',
-        query: {
-          url
-        }
+        path: `comments?populate=${query.populate}&filters${query.filters}&${query.sort}&${query.pagination}`
       })
 
       if (data) {
-        return { data: reviewsTransformer(data.data) }
+        return {
+          data: {
+            items: data.data.map((item: ReviewApiModelTypes) => reviewTransformer(item)),
+            meta: data.meta
+          }
+        }
       } else {
         return { error }
       }
@@ -42,15 +58,13 @@ export const reviewApi = (appAxios: Function) =>
     },
 
     async fetchReplies(params: FetchRepliesTypes) {
-      const { reviewId, page = 1, limit = 0 } = params
+      const { reviewId } = params
 
       const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
         path: `replies`,
         query: {
-          reviewId,
-          _page: page,
-          _limit: limit
+          reviewId
         }
       })
 

@@ -2,14 +2,14 @@
 .review-card(:class="[detailedClass]" :data-id="review.id")
   .review-card__inner
     vs-avatar.review-card__avatar(circle size="48")
-      nuxt-link(to="#" :title="review.user.name")
+      nuxt-link(to="#" :title="review.user.username")
         img(v-if="review.user.avatar" :src="review.user.avatar" alt="avatar")
         img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
 
     .review-card__body
       .review-card-meta
         .review-card-meta__user
-          nuxt-link(to="#" :title="review.user.name")
+          nuxt-link(to="#" :title="review.user.username")
             strong {{ review.user.username }}
         time.review-card-meta__date
           | • &nbsp;

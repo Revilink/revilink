@@ -6,18 +6,16 @@ form.form.login-form(@submit.prevent="handleSubmit")
 
   .form-item
     vs-input(
-      v-model="form.email"
-      :placeholder="$t('form.login.email.placeholder')"
-      :maxlength="v$.email.maxLength.$params.max"
+      v-model="form.username"
+      :placeholder="$t('form.login.username.placeholder')"
+      :maxlength="v$.username.maxLength.$params.max"
       @keydown.space.prevent
     )
-      template(v-if="v$.email.$error" #message-danger)
-        span(v-if="v$.email.email.$invalid")
-          | {{ $t('form.validation.enterValidModel', { model: $t('form.email').toLowerCase() }) }}
-        span(v-if="v$.email.required.$invalid")
-          | {{ $t('form.validation.modelIsRequired', { model: $t('form.email') }) }}
-        span(v-if="v$.email.maxLength.$invalid")
-          | {{ $t('form.validation.max', { max: v$.email.maxLength.params.max }) }}
+      template(v-if="v$.username.$error" #message-danger)
+        span(v-if="v$.username.required.$invalid")
+          | {{ $t('form.validation.modelIsRequired', { model: $t('form.username') }) }}
+        span(v-if="v$.username.maxLength.$invalid")
+          | {{ $t('form.validation.max', { max: v$.username.maxLength.params.max }) }}
 
   .form-item
     vs-input(
@@ -73,7 +71,7 @@ export default defineComponent({
     })
 
     const form = reactive<FormTypes>({
-      email: '',
+      username: '',
       password: ''
     })
 
@@ -104,7 +102,7 @@ export default defineComponent({
       try {
         const promise: any = await context.$auth.loginWith('local', {
           data: {
-            identifier: form.email,
+            identifier: form.username,
             password: form.password
           }
         })

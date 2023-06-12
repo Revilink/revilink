@@ -1,9 +1,8 @@
-import { required, email, minLength, maxLength } from '@vuelidate/validators'
+import { required, minLength, maxLength } from '@vuelidate/validators'
 
 export default {
-  email: {
+  username: {
     required,
-    email,
     maxLength: maxLength(320)
   },
   password: {

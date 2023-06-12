@@ -1,5 +1,6 @@
 export type UserApiModelTypes = {
   id: number
+  attributes?: any
   username: string
   createdAt: Date | string
   name: string

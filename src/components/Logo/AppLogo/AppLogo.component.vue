@@ -1,5 +1,5 @@
 <template lang="pug">
-nuxt-link.app-logo(v-if="link" tag="a" to="/" title="Revilink")
+nuxt-link.app-logo(v-if="link" to="/" title="Revilink")
   img.app-logo__image(:src="logoImage" alt="Revilink" :width="width" :height="height")
 .app-logo(v-else)
   img.app-logo__image(:src="logoImage" alt="Revilink" :width="width" :height="height")

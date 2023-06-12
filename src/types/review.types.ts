@@ -2,9 +2,10 @@ import { UserApiModelTypes, UserTypes } from './user.types'
 
 export type ReviewApiModelTypes = {
   id: number
+  attributes?: any
   createdAt: string
   updatedAt?: string
-  link: string
+  url: string
   user: UserApiModelTypes
   comment: string
   likeCount: number

@@ -2,13 +2,13 @@
 .reply-card
   .reply-card__inner
     vs-avatar.reply-card__avatar(circle size="48")
-      nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
+      nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.username")
         img(:src="reply.user?.avatar" alt="avatar")
 
     .reply-card__body
       .reply-card-meta
         strong.reply-card-meta__user
-          nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.name")
+          nuxt-link(:to="localePath({ name: 'profile', params: { username: reply.user.username } })" :title="reply.user.username")
             | {{ reply.user?.name }}
         time.reply-card-meta__date • {{ reply.createdAt }}
 

@@ -1,6 +1,6 @@
-export type FetchReviewsTypes = {
-  url: string
-}
+import { ApiQueryTypes } from '@/services/rest/core/core.types'
+
+export interface FetchReviewsTypes extends ApiQueryTypes {}
 
 export type FetchRepliesTypes = {
   reviewId: number

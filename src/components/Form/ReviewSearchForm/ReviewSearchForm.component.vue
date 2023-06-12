@@ -8,7 +8,7 @@ form.review-search-form(@submit.prevent="handleOnSubmit")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRouter, reactive } from '@nuxtjs/composition-api'
 import { FormTypes } from './ReviewSearchForm.component.types'
 import { AppIcon } from '@/components/Icon'
 
@@ -17,12 +17,20 @@ export default defineComponent({
     AppIcon
   },
   setup() {
+    const context = useContext()
+    const router = useRouter()
+
     const form = reactive<FormTypes>({
       url: ''
     })
 
+    const handleOnSubmit = () => {
+      router.push(context.localePath({ name: 'Reviews', query: { link: form.url } }))
+    }
+
     return {
-      form
+      form,
+      handleOnSubmit
     }
   }
 })

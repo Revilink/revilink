@@ -26,7 +26,18 @@
             a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
 
       // Review List
-      ReviewList(v-if="reviews && reviews.length > 0" :items="reviews")
+      template(v-if="fetchState.pending")
+        p loading
+
+      template(v-else-if="fetchState.error")
+        p {{ fetchState.error }}
+
+      template(v-else)
+        ReviewList(v-if="reviews && reviews.length > 0" :items="reviews")
+
+      // Pagination
+      client-only
+        vs-pagination.review-list__pagination(v-model="review.page" :length="reviewsMeta.pagination.pageCount")
 
       // Comment Form Section
       section.reviews-page-comment-form
@@ -38,7 +49,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useFetch, useRoute, useStore, ref, reactive, onMounted, computed } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  useFetch,
+  useRoute,
+  useStore,
+  ref,
+  reactive,
+  onMounted,
+  computed,
+  watch
+} from '@nuxtjs/composition-api'
 import { Ref } from 'vue'
 import { CommentRefTypes } from './Reviews.page.types'
 import { ReviewTypes } from '@/types'
@@ -90,13 +112,27 @@ export default defineComponent({
       site.meta = siteResult
     }
 
+    const review = reactive({
+      page: 1
+    })
+
     const reviews = computed(() => store.getters['review/items'])
+    const reviewsMeta = computed(() => store.getters['review/meta'])
 
     const { fetch, fetchState } = useFetch(async () => {
       await store.dispatch('review/fetchReviews', {
-        url: route.value.query.link
+        url: route.value.query.link,
+        page: review.page
       })
     })
+
+    watch(
+      () => review.page,
+      value => {
+        review.page = value
+        fetch()
+      }
+    )
 
     const comment = reactive({
       isBusy: false
@@ -107,7 +143,7 @@ export default defineComponent({
     const handleCommentOnSubmit = async (review: ReviewTypes) => {
       comment.isBusy = true
 
-      const { data } = await context.$api.rest.review.postReview({
+      const { data, error } = await context.$api.rest.review.postReview({
         url: route.value.query.link,
         content: review.content,
         media: null
@@ -132,6 +168,14 @@ export default defineComponent({
         setTimeout(() => {
           reviewCardDOM?.classList.remove('highlight-flash-animation')
         }, 3000)
+      } else {
+        window.$nuxt.$vs.notification({
+          title: error.code,
+          text: error.message,
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
       }
 
       comment.isBusy = false
@@ -146,7 +190,9 @@ export default defineComponent({
       fetch,
       fetchState,
       site,
+      review,
       reviews,
+      reviewsMeta,
       comment,
       commentFormRef,
       handleCommentOnSubmit

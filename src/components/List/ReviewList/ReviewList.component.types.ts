@@ -1,3 +1,1 @@
-export type ListType = {
-  page: number
-}
+export type ListType = {}

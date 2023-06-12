@@ -104,7 +104,7 @@ export default {
         placeholder: 'Email adresi'
       },
       username: {
-        placeholder: 'Kullanıcı adı'
+        placeholder: 'Kullanıcı adı ya da email'
       },
       password: {
         placeholder: 'Parola'
@@ -144,8 +144,21 @@ export default {
     },
     comment: {
       title: 'Bağlantıdaki şey hakkında incelemeni yaz',
-      content: '{username} olarak yazıyorsun',
-      hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.'
+      content: {
+        placeholder: {
+          loggedIn: '{username} olarak yazıyorsun',
+          nonLoggedIn: 'Yorumunu yaz'
+        }
+      },
+      hint: '* Küfür, nefret söylemi, aşağılayıcı ve yanıltıcı yorumlardan kaçının.',
+      post: {
+        callback: {
+          success: {
+            title: 'OK',
+            description: 'Yorumun gönderildi'
+          }
+        }
+      }
     }
   },
   reply: {

@@ -133,7 +133,7 @@ export default {
         placeholder: 'Email address'
       },
       username: {
-        placeholder: 'Username'
+        placeholder: 'Username or email'
       },
       password: {
         placeholder: 'Password'
@@ -151,7 +151,12 @@ export default {
     },
     comment: {
       title: 'Type your review about the thing in the link',
-      content: 'You typing as {username}',
+      content: {
+        placeholder: {
+          loggedIn: 'You typing as {username}',
+          nonLoggedIn: 'Type your comment'
+        }
+      },
       hint: '* Avoid profanity, hate speech, derogatory and misleading comments.',
       post: {
         callback: {
