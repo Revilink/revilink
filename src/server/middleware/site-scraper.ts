@@ -1,12 +1,14 @@
 import fetch from 'node-fetch'
 import { Request, Response } from 'express'
+import { withProtocol } from 'ufo'
+
 const bodyParser = require('body-parser')
 const app = require('express')()
 
 app.use(bodyParser.json())
 
 app.all('/', (req: Request, res: Response) => {
-  const url = <string>req.query.url
+  const url = withProtocol(req.query.url as string, 'http://')
 
   const fetchSite = async (url: string) => {
     try {

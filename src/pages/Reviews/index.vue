@@ -23,7 +23,8 @@
           h1.reviews-page-review-meta__title(v-if="site.isAllowed") {{ site.meta.title }}
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
-            a(title="title" rel="noopener,norel" :href="$route.query.link" target="_blank") {{ $route.query.link }}
+            a(rel="noopener,norel" :title="$route.query.link" :href="withProtocol($route.query.link, 'http://')" target="_blank")
+              | {{ $route.query.link }}
 
       // Review List
       template(v-if="fetchState.pending")
@@ -65,9 +66,12 @@ import {
   computed,
   watch
 } from '@nuxtjs/composition-api'
-import { Ref } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
+import type { Route } from 'vue-router'
+import { withProtocol } from 'ufo'
 import { CommentRefTypes } from './Reviews.page.types'
 import { ReviewTypes } from '@/types'
+import { convertToRevilinkFormat } from '@/utils/url'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
@@ -81,8 +85,20 @@ export default defineComponent({
   layout: 'Default/Default.layout',
   setup() {
     const context = useContext()
-    const route = useRoute()
+    const route: ComputedRef<Route> = useRoute()
     const store = useStore()
+
+    // Redirect allowed format
+    context.redirect(
+      context.localePath({
+        name: 'Reviews',
+        query: {
+          link: convertToRevilinkFormat({
+            url: route.value.query.link as string
+          })
+        }
+      })
+    )
 
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
@@ -199,7 +215,8 @@ export default defineComponent({
       reviewsMeta,
       comment,
       commentFormRef,
-      handleCommentOnSubmit
+      handleCommentOnSubmit,
+      withProtocol
     }
   }
 })

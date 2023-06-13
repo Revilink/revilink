@@ -1,5 +1,6 @@
 import { ActionContext } from 'vuex'
 import { StateTypes } from './types'
+import { convertToRevilinkFormat } from '@/utils/url'
 
 export default {
   /* @ts-ignore */
@@ -8,7 +9,7 @@ export default {
 
     /* @ts-ignore */
     const { data, error } = await this.$api.rest.review.fetchReviews({
-      filters: `[url][url][$eq]=${url}`,
+      filters: `[url][url][$eq]=${convertToRevilinkFormat({ url })}`,
       pagination: `pagination[page]=${page}&pagination[pageSize]=10`
     })
 

@@ -57,6 +57,7 @@
     "nuxt-client-init-module": "^0.3.0",
     "page-metadata-parser": "^1.1.4",
     "robots-parser": "^3.0.1",
+    "ufo": "^1.1.2",
     "universal-dom-parser": "^0.0.3",
     "v-autosize": "^1.0.3",
     "v-dropdown-menu": "^2.0.2",
