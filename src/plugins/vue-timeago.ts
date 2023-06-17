@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueTimeago from 'vue-timeago'
+import { tr, enUS } from 'date-fns/locale'
 
 Vue.use(VueTimeago, {
   name: 'Timeago',
-  locale: 'tr',
+  locale: enUS,
   locales: {
-    tr: require('date-fns/locale/tr'),
-    en: require('date-fns/locale/en')
+    tr,
+    en: enUS
   }
 })

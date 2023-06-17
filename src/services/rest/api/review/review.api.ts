@@ -47,13 +47,19 @@ export const reviewApi = (appAxios: Function) =>
     },
 
     async fetchReview(id: number) {
-      const { data } = await appAxios(<AppAxiosType>{
+      const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `reviews/${id}`
+        path: `comments/${id}?populate=*`
       })
 
       if (data) {
-        return reviewTransformer(data)
+        return {
+          data: {
+            item: reviewTransformer(data.data)
+          }
+        }
+      } else {
+        return { error }
       }
     },
 

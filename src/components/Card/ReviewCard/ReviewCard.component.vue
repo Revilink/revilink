@@ -1,19 +1,22 @@
 <template lang="pug">
-.review-card(:class="[detailedClass]" :data-id="review.id")
+.review-card(ref="rootRef" :class="[detailedClass]" :data-id="review.id")
   .review-card__inner
     vs-avatar.review-card__avatar(circle size="48")
-      nuxt-link(to="#" :title="review.user.username")
+      NuxtLink(to="#" :title="review.user.username")
         img(v-if="review.user.avatar" :src="review.user.avatar" alt="avatar")
         img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
 
     .review-card__body
       .review-card-meta
         .review-card-meta__user
-          nuxt-link(to="#" :title="review.user.username")
+          NuxtLink(to="#" :title="review.user.username")
             strong {{ review.user.username }}
-        time.review-card-meta__date
+        .review-card-meta__date(v-if="!isDetailed")
           | • &nbsp;
-          nuxt-link(:to="localePath({ name: 'Comment', query: { id: review.id } })" :title="review.createdAt")
+          NuxtLink(
+            :to="localePath({ name: 'Comment', query: { id: review.id } })"
+            :title="formatToFullDate({ date: new Date(review.createdAt), locale: $i18n.locale })"
+          )
             Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .review-card-review
@@ -21,60 +24,63 @@
 
       .review-card-detail(v-if="isDetailed")
         .d-flex
-          time.review-card-detail__item {{ review.createdAt }}
-          time.review-card-detail__item.ms-4(v-if="review.updatedAt") • {{ $t('general.updatedAt') }} {{ review.createdAt }}
+          time.review-card-detail__item {{ formatToFullDate({ date: new Date(review.createdAt), locale: $i18n.locale }) }}
+          time.review-card-detail__item(v-if="review.createdAt !== review.updatedAt")
+            | {{ $t('general.updatedAt') }}
+            | {{ formatToFullDate({ date: new Date(review.updatedAt), locale: $i18n.locale }) }}
         .review-card-detail__bar
           button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-like-count')")
-            strong {{ likeCount }}
-            span {{ $t('general.like') }}
+            strong {{ like.count }}
+            span {{ $t('general.likes') }}
           button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-reply-count')")
-            strong {{ review.replyCount }}
-            span {{ $t('general.reply') }}
+            strong {{ reply.count }}
+            span {{ $t('general.replies') }}
 
-      .review-card-actions
-        .review-card-actions-item.like-button(v-if="false" role="button" :class="[likedClass]" @click="toggleLike")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(v-if="isLiked" name="ri:heart-3-fill" :width="18" :height="18")
-            AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
-          span.review-card-actions-item__label
-            template(v-if="isDetailed")
-              template(v-if="isLiked") {{ $t('general.unlike') }}
-              template(v-else) {{ $t('general.like') }}
-            template(v-else)
-              template(v-if="likeCount <= 0") {{ $t('general.like') }}
-              template(v-else) {{ likeCount }}
-
-        .review-card-actions-item.reply-button(v-if="false" role="button" @click="handleClickReply")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(name="ri:chat-1-line" :width="18" :height="18")
-          span.review-card-actions-item__label
-            template(v-if="isDetailed") {{ $t('general.reply') }}
-            template(v-else)
-              template(v-if="review.replyCount <= 0") {{ $t('general.reply') }}
-              template(v-else) {{ review.replyCount }}
-
-        template(v-if="$auth.loggedIn && $auth.user?.id === review.user.id")
-          .review-card-actions-item.edit-button(role="button" @click="handleClickEdit")
+      client-only
+        .review-card-actions
+          .review-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
-              AppIcon(name="ri:edit-line" :width="18" :height="18")
-            span.review-card-actions-item__label {{ $t('general.edit') }}
+              AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
+              AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
+            span.review-card-actions-item__label
+              template(v-if="isDetailed")
+                template(v-if="like.isActive") {{ $t('general.unlike') }}
+                template(v-else) {{ $t('general.like') }}
+              template(v-else)
+                template(v-if="like.count <= 0") {{ $t('general.like') }}
+                template(v-else) {{ like.count }}
 
-          .review-card-actions-item.delete-button(role="button" @click="handleClickDelete")
+          .review-card-actions-item.reply-button(role="button" @click="handleClickReply")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
-              AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
-            span.review-card-actions-item__label {{ $t('general.delete') }}
+              AppIcon(name="ri:chat-1-line" :width="18" :height="18")
+            span.review-card-actions-item__label
+              template(v-if="isDetailed") {{ $t('general.reply') }}
+              template(v-else)
+                template(v-if="reply.count <= 0") {{ $t('general.reply') }}
+                template(v-else) {{ reply.count }}
 
-        vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(name="ri:share-line" :width="18" :height="18")
-          template(#tooltip)
-            span {{ $t('general.share') }}
+          template(v-if="$auth.loggedIn && $auth.user.username === review.user.username")
+            .review-card-actions-item.edit-button(role="button" @click="handleClickEdit")
+              PaperButton.review-card-actions-item__button(:width="36" :height="36")
+                AppIcon(name="ri:edit-line" :width="18" :height="18")
+              span.review-card-actions-item__label {{ $t('general.edit') }}
 
-        vs-tooltip.review-card-actions-item.report-button(role="button")
-          PaperButton.review-card-actions-item__button(:width="36" :height="36")
-            AppIcon(name="ri:flag-line" :width="18" :height="18")
-          template(#tooltip)
-            span {{ $t('general.report') }}
+            .review-card-actions-item.delete-button(role="button" @click="handleClickDelete")
+              PaperButton.review-card-actions-item__button(:width="36" :height="36")
+                AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
+              span.review-card-actions-item__label {{ $t('general.delete') }}
+
+          vs-tooltip.review-card-actions.share-button.ms-auto(role="button")
+            PaperButton.review-card-actions-item__button(:width="36" :height="36")
+              AppIcon(name="ri:share-line" :width="18" :height="18")
+            template(#tooltip)
+              span {{ $t('general.share') }}
+
+          vs-tooltip.review-card-actions-item.report-button(role="button")
+            PaperButton.review-card-actions-item__button(:width="36" :height="36")
+              AppIcon(name="ri:flag-line" :width="18" :height="18")
+            template(#tooltip)
+              span {{ $t('general.report') }}
 
   template(v-if="fetchState.pending")
     .d-flex.justify-content-center.my-4
@@ -106,8 +112,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useStore, useRoute, useFetch, reactive, ref, computed } from '@nuxtjs/composition-api'
-import { ReviewTypes } from '@/types'
+import { defineComponent, useContext, useStore, useFetch, ref, reactive, computed } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
+import type { ReviewTypes } from '@/types'
+import { formatToFullDate } from '@/utils/date'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { ReplyCard } from '@/components/Card'
@@ -135,10 +143,10 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const baseClassName = 'review-card'
+    const rootRef: Ref<HTMLElement | null> = ref(null)
 
     const context = useContext()
     const store = useStore()
-    const route = useRoute()
 
     const form = reactive({
       reply: {
@@ -152,23 +160,25 @@ export default defineComponent({
       }
     })
 
-    const isLiked = ref(false)
-    const likeCount = ref(props.review.likeCount)
+    const like = reactive({
+      isActive: false,
+      count: props.review.likeCount || 0
+    })
 
     const toggleLike = () => {
-      isLiked.value = !isLiked.value
+      like.isActive = !like.isActive
 
-      if (isLiked.value) {
-        likeCount.value += 1
+      if (like.isActive) {
+        like.count += 1
       } else {
-        likeCount.value -= 1
+        like.count -= 1
       }
     }
 
     const likedClass = computed(() => {
       const likeButtonClassName = 'like-button'
 
-      if (isLiked.value) {
+      if (like.isActive) {
         return `${likeButtonClassName}--liked`
       }
     })
@@ -186,7 +196,6 @@ export default defineComponent({
     const handleEdit = async (review: ReviewTypes) => {
       const { data } = await context.$api.rest.review.editReview({
         id: review.id,
-        url: route.value.query.link,
         content: review.content,
         media: null
       })
@@ -239,6 +248,7 @@ export default defineComponent({
     }
 
     const reply = reactive({
+      count: props.review.replyCount || 0,
       isBusy: false,
       isFinished: false,
       page: 1,
@@ -282,11 +292,11 @@ export default defineComponent({
     })
 
     return {
+      rootRef,
       fetch,
       fetchState,
       form,
-      isLiked,
-      likeCount,
+      like,
       toggleLike,
       likedClass,
       handleClickReply,
@@ -296,7 +306,8 @@ export default defineComponent({
       handleDelete,
       reply,
       loadMoreReply,
-      detailedClass
+      detailedClass,
+      formatToFullDate
     }
   }
 })

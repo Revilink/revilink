@@ -2,14 +2,21 @@
 .review-list
   .review-list-head
     AppIcon.review-list-head__icon(name="uil:comment-alt-dots" color="var(--color-icon-01)" :width="28" :height="28")
-    span.review-list-head__title(v-if="items.length") Comments ({{ items.length }})
-  ReviewCard(v-for="item in items" :key="item.id" :review="item")
+    span.review-list-head__title
+      | {{ $t('general.comments') }}
+      template(v-if="items.length")
+        | &nbsp;({{ reviewsMeta.pagination.total }})
+
+  template(v-if="items && items.length > 0")
+    ReviewCard(v-for="item in items" :key="item.id" :review="item")
+  template(v-else)
+    p.mb-base No results
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useStore, computed } from '@nuxtjs/composition-api'
 import { AppIcon } from '@/components/Icon'
-import { ReviewCard } from '@/components/Card'
+import ReviewCard from '@/components/Card/ReviewCard/ReviewCard.component.vue'
 
 export default defineComponent({
   components: {
@@ -24,7 +31,13 @@ export default defineComponent({
     }
   },
   setup() {
-    return {}
+    const store = useStore()
+
+    const reviewsMeta = computed(() => store.getters['review/meta'])
+
+    return {
+      reviewsMeta
+    }
   }
 })
 </script>

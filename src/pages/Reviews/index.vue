@@ -34,7 +34,7 @@
         p {{ fetchState.error }}
 
       template(v-else)
-        ReviewList(v-if="reviews && reviews.length > 0" :items="reviews")
+        ReviewList(:items="reviews")
 
       // Pagination
       client-only
@@ -59,6 +59,7 @@ import {
   useContext,
   useFetch,
   useRoute,
+  useRouter,
   useStore,
   ref,
   reactive,
@@ -86,6 +87,7 @@ export default defineComponent({
   setup() {
     const context = useContext()
     const route: ComputedRef<Route> = useRoute()
+    const router = useRouter()
     const store = useStore()
 
     // Redirect allowed format
@@ -93,6 +95,7 @@ export default defineComponent({
       context.localePath({
         name: 'Reviews',
         query: {
+          ...route.value.query,
           link: convertToRevilinkFormat({
             url: route.value.query.link as string
           })
@@ -132,24 +135,29 @@ export default defineComponent({
       site.meta = siteResult
     }
 
-    const review = reactive({
-      page: 1
-    })
-
     const reviews = computed(() => store.getters['review/items'])
     const reviewsMeta = computed(() => store.getters['review/meta'])
 
     const { fetch, fetchState } = useFetch(async () => {
-      await store.dispatch('review/fetchReviews', {
+      const { data } = await store.dispatch('review/fetchReviews', {
         url: route.value.query.link,
         page: review.page
       })
+
+      if (data.items?.length <= 0) {
+        review.page = 1
+      }
+    })
+
+    const review = reactive({
+      page: route.value.query.page || 1
     })
 
     watch(
       () => review.page,
       value => {
         review.page = value
+        router.push({ query: { ...route.value.query, page: String(value) } })
         fetch()
       }
     )

@@ -2,7 +2,7 @@
 .page.comment-page
   .col-lg-8.mx-auto
     .comment-page-head
-      h1.comment-page-head__title Comment
+      h1.comment-page-head__title {{ $t('general.comment') }}
 
     template(v-if="fetchState.pending")
       span Loading
@@ -14,6 +14,8 @@
         :is-detailed="true"
         @on-click-like-count="handleClickLikeCount"
         @on-click-reply-count="handleClickReplyCount"
+        @on-edit-success="handleEditSuccess"
+        @on-delete-success="handleDeleteSuccess"
       )
 
   ReactionerUserListDialog(
@@ -24,7 +26,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useFetch, ref, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useRouter, useFetch, ref, reactive } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
 import { ReactionerUserListDialogTypes } from './Comment.page.types'
 import { ReviewTypes } from '@/types'
 import { ReviewCard } from '@/components/Card'
@@ -39,13 +42,16 @@ export default defineComponent({
   setup() {
     const context = useContext()
     const route = useRoute()
+    const router = useRouter()
 
-    const review = ref<Object>({} as ReviewTypes)
+    const review: Ref = ref({} as ReviewTypes)
 
     const { fetch, fetchState } = useFetch(async () => {
-      const result = await context.$api.rest.review.fetchReview(route.value.query.id)
+      const { data } = await context.$api.rest.review.fetchReview(route.value.query.id)
 
-      review.value = result
+      if (data) {
+        review.value = data.item
+      }
     })
 
     const handleClickLikeCount = () => {
@@ -56,6 +62,14 @@ export default defineComponent({
     const handleClickReplyCount = () => {
       dialog.reactionerUserList.type = 'replies'
       dialog.reactionerUserList.isOpen = true
+    }
+
+    const handleEditSuccess = async () => {
+      await fetch()
+    }
+
+    const handleDeleteSuccess = async () => {
+      await router.push(context.localePath({ name: 'Reviews', query: { link: review.value.url.url } }))
     }
 
     const dialog = reactive({
@@ -71,6 +85,8 @@ export default defineComponent({
       review,
       handleClickLikeCount,
       handleClickReplyCount,
+      handleEditSuccess,
+      handleDeleteSuccess,
       dialog
     }
   }

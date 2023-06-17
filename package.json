@@ -51,6 +51,7 @@
     "@vuelidate/validators": "^2.0.2",
     "bootstrap": "5.2.3",
     "cross-env": "^5.2.0",
+    "date-fns": "^2.30.0",
     "express": "^4.17.1",
     "node-fetch": "^3.3.1",
     "nuxt": "2.16.3",

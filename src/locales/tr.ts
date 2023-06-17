@@ -36,7 +36,9 @@ export default {
     doNotYouHaveAnAccountYet: `Henüz bir hesabın yok mu?`,
     createAnAccount: 'Hesap oluştur',
     logout: 'Çıkış yap',
-    settings: 'Settings'
+    settings: 'Ayarlar',
+    comment: 'Yorum',
+    comments: 'Yorumlar'
   },
   hero: {
     home: {

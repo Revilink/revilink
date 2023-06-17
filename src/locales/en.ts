@@ -37,7 +37,9 @@ export default {
     doNotYouHaveAnAccountYet: `Don't you have account yet?`,
     createAnAccount: 'Create an account',
     logout: 'Logout',
-    settings: 'Settings'
+    settings: 'Settings',
+    comment: 'Comment',
+    comments: 'Comments'
   },
   hero: {
     home: {

@@ -10,7 +10,7 @@
   .layout__inner
     .container
       .router-view
-        nuxt
+        Nuxt
 </template>
 
 <script lang="ts">
