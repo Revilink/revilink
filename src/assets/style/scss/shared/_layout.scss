@@ -147,7 +147,7 @@
         height: 96px;
         object-fit: cover;
         border-radius: 100%;
-        animation: none;
+        animation: 3s avatar-pulse ease infinite;
 
         @for $i from 1 through 4 {
           &:nth-child(#{$i}) {
@@ -156,17 +156,17 @@
         }
       }
 
-      @keyframes avatar-fly {
+      @keyframes avatar-pulse {
         0% {
-          transform: translateY(0);
+          transform: scale(1);
         }
 
         50% {
-          transform: translateY(6px);
+          transform: scale(1.06);
         }
 
         100% {
-          transform: translateY(0);
+          transform: scale(1);
         }
       }
     }

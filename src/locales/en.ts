@@ -174,5 +174,15 @@ export default {
     loadMore: 'Load more reply',
     seeAllReplies: 'See all replies',
     repliesIsFinished: 'All replies returned'
+  },
+  reviews: {
+    site: {
+      meta: {
+        tooltip: {
+          allowed: `The data of the web page of this link has been retrieved`,
+          noAllow: `Couldn't get the information of the web page for the link, so you only see the URL`
+        }
+      }
+    }
   }
 }

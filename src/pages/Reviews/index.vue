@@ -7,17 +7,26 @@
     .col-8
       // Site Meta
       .reviews-page-review-meta
-        vs-avatar.reviews-page-review-meta__avatar
-          img.reviews-page-review-meta__avatarSpinner(
-            v-if="site.isBusy"
-            src="@/assets/media/core/loader.svg"
-            :alt="$t('general.avatar')"
-            width="24"
-            height="24"
+        vs-tooltip(not-arrow shadow top :class="[{ 'pointer-events-none': site.isBusy }]")
+          vs-avatar.reviews-page-review-meta__avatar(
+            badge-position="top-left"
+            :badge="!site.isBusy"
+            :badge-color="site.isAllowed ? 'success' : '#ddd'"
           )
-          template(v-else)
-            img(v-if="site.isAllowed && site.meta.icon" :src="site.meta.icon" :alt="$t('general.avatar')" width="16" height="16")
-            AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
+            img.reviews-page-review-meta__avatarSpinner(
+              v-if="site.isBusy"
+              src="@/assets/media/core/loader.svg"
+              :alt="$t('general.avatar')"
+              width="24"
+              height="24"
+            )
+            template(v-else)
+              img(v-if="site.isAllowed && site.meta.icon" :src="site.meta.icon" :alt="$t('general.avatar')" width="16" height="16")
+              AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
+
+          template(#tooltip)
+            span(v-if="site.isAllowed") {{ $t('reviews.site.meta.tooltip.allowed') }}
+            span(v-else) {{ $t('reviews.site.meta.tooltip.noAllow') }}
 
         .reviews-page-review-meta__body
           h1.reviews-page-review-meta__title(v-if="site.isAllowed") {{ site.meta.title }}

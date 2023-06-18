@@ -167,5 +167,15 @@ export default {
     loadMore: 'Daha fazla yanıt getir',
     seeAllReplies: 'Tüm yanıtları gör',
     repliesIsFinished: 'Tüm yanıtlar getirildi'
+  },
+  reviews: {
+    site: {
+      meta: {
+        tooltip: {
+          allowed: `Bağlantıya ait web sayfası bilgileri alındı`,
+          noAllow: `Bağlantıya ait web sayfası bilgileri alınamadı, bu nedenle sadece URL görüyorsun`
+        }
+      }
+    }
   }
 }

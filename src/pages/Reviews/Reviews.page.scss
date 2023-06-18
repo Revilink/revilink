@@ -15,7 +15,6 @@
     &__avatar {
       width: var(--avatar-width);
       height: var(--avatar-height);
-      overflow: hidden;
       border-radius: var(--border-radius-01);
       box-shadow: var(--box-shadow-01);
 
@@ -33,13 +32,12 @@
 
     &__body {
       position: relative;
-      margin-top: calc(var(--avatar-height) / 2 - var(--font-size-h2) / 1.6);
+      margin-top: calc(var(--avatar-height) / 2 - var(--font-size-h2) / 1.8);
     }
 
     &__title {
       display: block;
       font-size: var(--font-size-h2);
-      line-height: var(--font-size-h1);
 
       @include font-weight-bold;
     }

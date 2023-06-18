@@ -157,6 +157,7 @@ const config: NuxtConfig = {
    ** https://nuxtjs.org/docs/configuration-glossary/configuration-router
    */
   router: {
+    middleware: ['vs-tooltip-destroyer.middleware'],
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'index',

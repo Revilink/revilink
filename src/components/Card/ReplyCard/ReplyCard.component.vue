@@ -34,13 +34,13 @@
             AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
           span.reply-card-actions-item__label {{ $t('general.delete') }}
 
-        vs-tooltip.reply-card-actions.share-button.ms-auto(role="button")
+        vs-tooltip.reply-card-actions.share-button.ms-auto(not-arrow shadow role="button")
           PaperButton.reply-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:share-line" :width="18" :height="18")
           template(#tooltip)
             span {{ $t('general.share') }}
 
-        vs-tooltip.reply-card-actions-item.report-button(role="button")
+        vs-tooltip.reply-card-actions-item.report-button(not-arrow shadow role="button")
           PaperButton.reply-card-actions-item__button(:width="36" :height="36")
             AppIcon(name="ri:flag-line" :width="18" :height="18")
           template(#tooltip)
