@@ -27,8 +27,8 @@ body {
   background-position: left center;
   background-size: cover;
 
-  @include font-family-rubik;
-  @include font-weight-regular;
+  @include font-family-work-sans;
+  @include font-weight-medium;
 }
 
 a {

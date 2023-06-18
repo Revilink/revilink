@@ -43,8 +43,8 @@ export default {
   },
   hero: {
     home: {
-      title: 'Revilink',
-      description: 'See <strong>reviews</strong> on the thing in the <strong>link</strong>.'
+      title: 'See <strong>reviews</strong> on the <br> thing in the <strong>link</strong>.',
+      description: 'Comment or react to any link and contribute to transforming the internet into a comment board.'
     }
   },
   form: {

@@ -7,19 +7,63 @@
   }
 
   &__title {
-    font-size: var(--font-size-h1);
+    margin-bottom: var(--spacer-base);
+    color: var(--color-text-01);
+    font-size: calc(var(--font-size-h1) * 1.7);
+
+    @include font-weight-black;
+
+    strong {
+      position: relative;
+      display: inline-flex;
+
+      @include font-weight-black;
+
+      @mixin mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        content: '';
+      }
+
+      &:first-child {
+        &::before {
+          background-color: color-mix(in oklab, var(--color-info-01), #fff 85%);
+
+          @include mark;
+        }
+      }
+
+      &:last-child {
+        &::before {
+          background-color: color-mix(in oklab, var(--color-warning-01), #fff 85%);
+
+          @include mark;
+        }
+      }
+    }
+  }
+
+  @at-root html[lang='tr'] {
+    .home-page {
+      &__title {
+        font-size: calc(var(--font-size-h1) * 1.3);
+      }
+    }
   }
 
   &__description {
     color: var(--color-text-02);
-    font-size: var(--font-size-h2);
+    font-size: var(--font-size-text-17);
+    line-height: calc(var(--font-size-text-17) * 1.2);
 
-    @include font-weight-regular;
+    @include font-weight-medium;
+  }
 
-    strong {
-      background: linear-gradient(45deg, var(--color-brand-01), var(--color-brand-02));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+  .review-search-form {
+    padding-bottom: calc(var(--spacer-base) * 4);
   }
 }

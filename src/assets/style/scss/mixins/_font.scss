@@ -3,8 +3,8 @@
     sans-serif;
 }
 
-@mixin font-family-rubik {
-  font-family: 'Rubik', sans-serif;
+@mixin font-family-work-sans {
+  font-family: 'Work Sans', sans-serif;
 }
 
 @mixin font-weight-light {
@@ -25,4 +25,12 @@
 
 @mixin font-weight-bold {
   font-weight: 700;
+}
+
+@mixin font-weight-extra-bold {
+  font-weight: 700;
+}
+
+@mixin font-weight-black {
+  font-weight: 800;
 }

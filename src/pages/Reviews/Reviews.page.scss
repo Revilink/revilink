@@ -41,7 +41,7 @@
       font-size: var(--font-size-h2);
       line-height: var(--font-size-h1);
 
-      @include font-weight-semi-bold;
+      @include font-weight-bold;
     }
 
     &__url {

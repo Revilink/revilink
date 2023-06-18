@@ -42,8 +42,8 @@ export default {
   },
   hero: {
     home: {
-      title: 'Revilink',
-      description: '<strong>Bağlantıdaki</strong> şey hakkında <strong>incelemeleri</strong> görün.'
+      title: '<strong>Bağlantıdaki</strong> şey hakkında <strong>incelemeleri</strong> görün.',
+      description: 'Herhangi bir bağlantı hakkında yorum yap ya da reaksiyon ver ve interneti yorum panosuna dönüştür'
     }
   },
   form: {

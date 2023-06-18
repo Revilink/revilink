@@ -35,6 +35,9 @@ const config: NuxtConfig = {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
+    htmlAttrs: {
+      lang: 'en'
+    },
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -121,6 +124,10 @@ const config: NuxtConfig = {
       src: '@/services/rest/core/api-register.ts',
       ssr: true
     },
+    {
+      src: '@/plugins/global-meta-tags-setter.ts',
+      ssr: true
+    },
     // https://vuesax.com
     {
       src: '@/plugins/vuesax.ts',
@@ -187,7 +194,7 @@ const config: NuxtConfig = {
     [
       'nuxt-font-loader',
       {
-        url: 'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
+        url: 'https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap',
         prefetch: true,
         preconnect: true
       }

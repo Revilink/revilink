@@ -35,9 +35,10 @@
       position: absolute;
 
       &:nth-child(1) {
-        top: 0;
-        right: 0;
-        width: 500px;
+        top: calc(var(--header-height) + var(--spacer-base));
+        right: var(--spacer-base);
+        width: 260px;
+        transform: rotate(210deg);
         filter: saturate(0);
       }
 
@@ -50,6 +51,123 @@
       &:nth-child(3) {
         bottom: -50px;
         left: 0;
+      }
+    }
+  }
+
+  .avatar-group-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+
+    .avatar-group {
+      $avatar-group: '.avatar-group';
+
+      position: absolute;
+
+      @include center(false, true);
+
+      &--left {
+        left: 0;
+
+        #{$avatar-group} {
+          &__item {
+            &:nth-child(1) {
+              top: -25vh;
+              left: 10vw;
+              width: 64px;
+              height: 64px;
+            }
+
+            &:nth-child(2) {
+              top: -10vh;
+              left: 5vw;
+              width: 64px;
+              height: 64px;
+            }
+
+            &:nth-child(3) {
+              top: -10vh;
+              left: 15vw;
+            }
+
+            &:nth-child(4) {
+              top: 7.5vh;
+              left: 7.5vw;
+            }
+
+            &:nth-child(5) {
+              top: 7.5vh;
+              right: 7.5vw;
+              width: 48px;
+              height: 48px;
+            }
+          }
+        }
+      }
+
+      &--right {
+        right: 0;
+
+        #{$avatar-group} {
+          &__item {
+            &:nth-child(1) {
+              top: -25vh;
+              right: 13vw;
+            }
+
+            &:nth-child(2) {
+              top: -5vh;
+              right: 10vw;
+              width: 64px;
+              height: 64px;
+            }
+
+            &:nth-child(3) {
+              top: -10vh;
+              right: 19vw;
+              width: 64px;
+              height: 64px;
+            }
+
+            &:nth-child(4) {
+              top: 7.5vh;
+              right: 15vw;
+            }
+          }
+        }
+      }
+
+      &__item {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 100%;
+        animation: none;
+
+        @for $i from 1 through 4 {
+          &:nth-child(#{$i}) {
+            animation-delay: ($i * 0.4s);
+          }
+        }
+      }
+
+      @keyframes avatar-fly {
+        0% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(6px);
+        }
+
+        100% {
+          transform: translateY(0);
+        }
       }
     }
   }

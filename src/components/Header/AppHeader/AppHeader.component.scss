@@ -19,12 +19,11 @@
 
   // Variants
   &--default {
-    background-color: var(--color-ui-02);
+    background-color: transparent;
+    backdrop-filter: blur(16px);
   }
 
   &--home {
-    .app-logo {
-      display: none;
-    }
+    // Home variant header
   }
 }

@@ -6,6 +6,20 @@
   // App Header
   AppHeader(variant="home")
 
+  // Avatar Group Layer
+  .avatar-group-layer
+    .avatar-group.avatar-group--left
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_1.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_7.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_3.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_4.png")
+
+    .avatar-group.avatar-group--right
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_5.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_8.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_2.png")
+      img.avatar-group__item(src="@/assets/media/elements/avatar_layer/avatar_layer_avatar_6.png")
+
   // Main
   .layout__inner
     .container
