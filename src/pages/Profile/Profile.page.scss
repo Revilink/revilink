@@ -1,0 +1,26 @@
+.profile-page {
+  position: relative;
+
+  .profile-head {
+    position: relative;
+    margin-bottom: calc(var(--spacer-base) * 2);
+  }
+
+  &-review-list {
+    position: relative;
+
+    &-head {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacer-base);
+
+      &__icon {
+        margin-right: calc(var(--spacer) * 2);
+      }
+
+      &__title {
+        font-size: var(--font-size-h3);
+      }
+    }
+  }
+}

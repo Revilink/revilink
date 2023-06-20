@@ -1,0 +1,11 @@
+.profile-layout {
+  $layout: '.layout';
+
+  position: relative;
+
+  #{$layout} {
+    &__inner {
+      position: relative;
+    }
+  }
+}

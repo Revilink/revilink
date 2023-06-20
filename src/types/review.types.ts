@@ -5,20 +5,22 @@ export type ReviewApiModelTypes = {
   attributes?: any
   createdAt: string
   updatedAt?: string
-  url: string
+  url: Object
   user: UserApiModelTypes
   comment: string
   likeCount: number
   replyCount: number
+  parent?: Object
 }
 
 export type ReviewTypes = {
   id: number
   createdAt: string
   updatedAt?: string
-  url: string
+  url: Object
   user: UserTypes
   content: string
   likeCount: number
   replyCount: number
+  parent?: Object
 }

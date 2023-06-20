@@ -1,15 +1,18 @@
 <template lang="pug">
 .review-card(ref="rootRef" :class="[detailedClass]" :data-id="review.id")
+  slot(name="prepend")
+
   .review-card__inner
     vs-avatar.review-card__avatar(circle size="48")
-      NuxtLink(to="#" :title="review.user.username")
-        img(v-if="review.user.avatar" :src="review.user.avatar" alt="avatar")
+      NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
+        img(v-if="review.user.avatar" :src="review.user.avatar" :alt="review.user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
 
     .review-card__body
+      slot(name="bodyPrepend")
       .review-card-meta
         .review-card-meta__user
-          NuxtLink(to="#" :title="review.user.username")
+          NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
             strong {{ review.user.username }}
         .review-card-meta__date(v-if="!isDetailed")
           | • &nbsp;
@@ -82,6 +85,8 @@
             template(#tooltip)
               span {{ $t('general.report') }}
 
+      slot(name="bodyAppend")
+
   template(v-if="fetchState.pending")
     .d-flex.justify-content-center.my-4
       p Loading replies
@@ -92,11 +97,16 @@
     // Replies
     .review-card-replies(v-if="reply.items && reply.items.length > 0")
       h4.review-card-replies__title {{ $t('general.replies') }}
-      ReplyCard(v-for="replyItem in reply.items" :key="replyItem.id" :reply="replyItem")
+
+      template(v-for="(replyItem, index) in reply.items")
+        template(v-if="!isDetailed ? index < 2 : true")
+          // Reply Card
+          ReplyCard(:key="replyItem.id" :reply="replyItem" :review="review" @on-delete-success="handleReplyDelete")
+
       vs-button.ms-auto.my-3(
         v-if="!isDetailed && reply.items.length >= 2"
         border
-        :to="localePath({ name: 'Comment-id', params: { id: review.id } })"
+        :to="localePath({ name: 'Comment', query: { id: review.id } })"
       )
         | {{ $t('reply.seeAllReplies') }}
       vs-button.ms-auto.my-3(v-if="isDetailed && !reply.isFinished" border :loading="reply.isBusy" @click="loadMoreReply")
@@ -106,19 +116,27 @@
       .d-flex.justify-content-center.my-4(v-if="reply.isFinished")
         p {{ $t('reply.repliesIsFinished') }}
 
-  ReplyDialog(:is-open="form.reply.isOpen" :summary="review" @on-close="form.reply.isOpen = false")
+  ReplyDialog(
+    :is-open="form.reply.isOpen"
+    :review="review"
+    :reply="review"
+    @on-close="form.reply.isOpen = false"
+    @on-submit-reply-success="handleReply"
+  )
   EditCommentDialog(:is-open="form.edit.isOpen" :comment="review" @on-close="form.edit.isOpen = false" @on-confirm="handleEdit")
   DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="review" @on-close="form.delete.isOpen = false" @on-confirm="handleDelete")
+
+  slot(name="append")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useStore, useFetch, ref, reactive, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, ref, reactive, computed } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
 import type { ReviewTypes } from '@/types'
 import { formatToFullDate } from '@/utils/date'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
-import { ReplyCard } from '@/components/Card'
+import ReplyCard from '@/components/Card/ReplyCard/ReplyCard.component.vue'
 import { ReplyDialog, EditCommentDialog, DeleteCommentDialog } from '@/components/Dialog'
 
 export default defineComponent({
@@ -146,7 +164,6 @@ export default defineComponent({
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
     const context = useContext()
-    const store = useStore()
 
     const form = reactive({
       reply: {
@@ -194,7 +211,7 @@ export default defineComponent({
     }
 
     const handleEdit = async (review: ReviewTypes) => {
-      const { data } = await context.$api.rest.review.editReview({
+      const { data, error } = await context.$api.rest.review.editReview({
         id: review.id,
         content: review.content,
         media: null
@@ -209,16 +226,12 @@ export default defineComponent({
           flat: true
         })
 
-        await store.commit('review/EDIT_REVIEW', {
-          id: review.id,
-          review: {
-            content: review.content
-          }
-        })
-
-        form.edit.isOpen = false
-        emit('on-edit-success', data)
+        emit('on-edit-success', review)
+      } else {
+        emit('on-edit-error', { ...review, ...error })
       }
+
+      emit('on-edit-confirm', review)
     }
 
     const handleClickDelete = () => {
@@ -226,9 +239,9 @@ export default defineComponent({
       emit('on-click-delete')
     }
 
-    const handleDelete = async () => {
-      const { data } = await context.$api.rest.review.deleteReview({
-        id: props.review.id
+    const handleDelete = async (review: ReviewTypes) => {
+      const { data, error } = await context.$api.rest.review.deleteReview({
+        id: review.id
       })
 
       if (data) {
@@ -240,49 +253,68 @@ export default defineComponent({
           flat: true
         })
 
-        await store.commit('review/DELETE_REVIEW', props.review.id)
-
-        form.delete.isOpen = false
-        emit('on-delete-success')
+        emit('on-delete-success', review)
+      } else {
+        emit('on-delete-error', { ...review, ...error })
       }
+
+      emit('on-delete-confirm', review)
     }
 
     const reply = reactive({
-      count: props.review.replyCount || 0,
+      count: 0,
       isBusy: false,
       isFinished: false,
       page: 1,
       limit: props.isDetailed ? 10 : 2,
-      items: []
+      items: [],
+      meta: {}
     })
 
     const { fetch, fetchState } = useFetch(async () => {
-      if (props.review.replyCount > 0) {
-        const repliesResult = await context.$api.rest.review.fetchReplies({
-          reviewId: props.review.id,
-          page: reply.page,
-          limit: reply.limit
-        })
-        reply.items = repliesResult
+      const { data } = await context.$api.rest.review.fetchReviews({
+        populate: `populate=url,user,images`,
+        filters: `filters[parent][id]=${props.review.id}`,
+        pagination: `pagination[page]=${reply.page}&pagination[pageSize]=${reply.limit}`
+      })
+
+      if (data) {
+        reply.items = data.items
+        reply.meta = data.meta
+        reply.count = data.meta?.pagination.total
       }
     })
 
     const loadMoreReply = async () => {
       reply.isBusy = true
 
-      const repliesResult = await context.$api.rest.review.fetchReplies({
-        reviewId: props.review.id,
-        page: (reply.page += 1),
-        limit: reply.limit
+      const { data } = await context.$api.rest.review.fetchReviews({
+        populate: `populate=url,user,images`,
+        filters: `filters[parent][id]=${props.review.id}`,
+        pagination: `pagination[page]=${(reply.page += 1)}&pagination[pageSize]=${reply.limit}`
       })
 
-      if (repliesResult && repliesResult.length > 0) {
-        reply.items = repliesResult
-      } else {
-        reply.isFinished = true
+      if (data) {
+        if (data.items.length > 0) {
+          /* @ts-ignore */
+          reply.items.push(...data.items)
+        } else {
+          reply.isFinished = true
+        }
       }
 
       reply.isBusy = false
+    }
+
+    const handleReply = (replyPayload: ReviewTypes) => {
+      /* @ts-ignore */
+      reply.items.unshift(replyPayload)
+      reply.count += 1
+    }
+
+    const handleReplyDelete = async () => {
+      reply.page = 1
+      await fetch()
     }
 
     const detailedClass = computed(() => {
@@ -306,6 +338,8 @@ export default defineComponent({
       handleDelete,
       reply,
       loadMoreReply,
+      handleReply,
+      handleReplyDelete,
       detailedClass,
       formatToFullDate
     }

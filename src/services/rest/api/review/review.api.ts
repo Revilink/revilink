@@ -1,14 +1,7 @@
-import {
-  FetchReviewsTypes,
-  FetchRepliesTypes,
-  ReviewApiTypes,
-  PostReviewTypes,
-  EditReviewTypes,
-  DeleteReviewTypes
-} from './review.api.types'
+import { FetchReviewsTypes, ReviewApiTypes, PostReviewTypes, EditReviewTypes, DeleteReviewTypes } from './review.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
-import { reviewTransformer, replyTransformer } from '@/services/rest/transformers'
-import { ReviewApiModelTypes, ReplyApiModelTypes } from '@/types'
+import { reviewTransformer } from '@/services/rest/transformers'
+import { ReviewApiModelTypes } from '@/types'
 
 export const reviewApi = (appAxios: Function) =>
   <ReviewApiTypes>{
@@ -16,7 +9,7 @@ export const reviewApi = (appAxios: Function) =>
       const { populate, filters, sort, pagination } = params
 
       const queryDefault = {
-        populate: '*',
+        populate: 'populate=*',
         filters: '',
         sort: 'sort=id:desc',
         pagination: 'pagination[page]=1&pagination[pageSize]=10'
@@ -31,7 +24,7 @@ export const reviewApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `comments?populate=${query.populate}&filters${query.filters}&${query.sort}&${query.pagination}`
+        path: `comments?${query.populate}&${query.filters}&${query.sort}&${query.pagination}`
       })
 
       if (data) {
@@ -49,7 +42,7 @@ export const reviewApi = (appAxios: Function) =>
     async fetchReview(id: number) {
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `comments/${id}?populate=*`
+        path: `comments/${id}?populate=parent,url,images,user`
       })
 
       if (data) {
@@ -63,30 +56,15 @@ export const reviewApi = (appAxios: Function) =>
       }
     },
 
-    async fetchReplies(params: FetchRepliesTypes) {
-      const { reviewId } = params
-
-      const { data } = await appAxios(<AppAxiosType>{
-        method: 'get',
-        path: `replies`,
-        query: {
-          reviewId
-        }
-      })
-
-      if (data) {
-        return data.map((item: ReplyApiModelTypes) => replyTransformer(item))
-      }
-    },
-
     async postReview(params: PostReviewTypes) {
-      const { url, content, media } = params
+      const { parent, url, content, media } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'post',
         path: `comments`,
         data: {
           data: {
+            parent,
             url,
             comment: content,
             images: media
@@ -95,7 +73,7 @@ export const reviewApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data }
+        return { data: reviewTransformer(data) }
       } else {
         return { error }
       }
@@ -117,7 +95,7 @@ export const reviewApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data }
+        return { data: reviewTransformer(data) }
       } else {
         return { error }
       }
@@ -132,7 +110,7 @@ export const reviewApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data }
+        return { data: reviewTransformer(data) }
       } else {
         return { error }
       }

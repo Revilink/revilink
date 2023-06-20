@@ -50,6 +50,8 @@ export default defineComponent({
     }
 
     const handleOnSubmit = (review: ReviewTypes) => {
+      handleClose()
+
       emit('on-confirm', { ...props.comment, ...review })
     }
 

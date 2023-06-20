@@ -229,6 +229,14 @@
       display: flex;
       margin-bottom: calc(var(--spacer-base) / 2);
     }
+
+    .reply-card {
+      margin-bottom: calc(var(--spacer-base) / 2);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

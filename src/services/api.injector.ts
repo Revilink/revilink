@@ -1,7 +1,8 @@
-import { AuthApiTypes, ReviewApiTypes, ScraperApiTypes } from './rest/api'
+import { AuthApiTypes, UserApiTypes, ReviewApiTypes, ScraperApiTypes } from './rest/api'
 
 type RestInstance = {
   auth: AuthApiTypes
+  user: UserApiTypes
   review: ReviewApiTypes
   scraper: ScraperApiTypes
 }

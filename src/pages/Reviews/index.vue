@@ -36,6 +36,14 @@
               | {{ $route.query.link }}
 
       // Review List
+      .reviews-page-review-list
+        .reviews-page-review-list-head
+          AppIcon.reviews-page-review-list-head__icon(name="uil:comment-alt-dots" color="var(--color-icon-01)" :width="28" :height="28")
+          span.reviews-page-review-list-head__title
+            | {{ $t('general.comments') }}
+            template(v-if="reviews && reviews.length > 0")
+              | &nbsp;({{ reviewsMeta.pagination.total }})
+
       template(v-if="fetchState.pending")
         p loading
 
@@ -79,8 +87,8 @@ import {
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
 import { withProtocol } from 'ufo'
-import { CommentRefTypes } from './Reviews.page.types'
-import { ReviewTypes } from '@/types'
+import type { CommentRefTypes } from './Reviews.page.types'
+import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
@@ -149,8 +157,11 @@ export default defineComponent({
 
     const { fetch, fetchState } = useFetch(async () => {
       const { data } = await store.dispatch('review/fetchReviews', {
-        url: route.value.query.link,
-        page: review.page
+        populate: `populate=url,user,images`,
+        filters: `filters[url][url][$eq]=${convertToRevilinkFormat({
+          url: route.value.query.link as string
+        })}&filters[parent][id][$notNull]=false`,
+        pagination: `pagination[page]=${review.page}&pagination[pageSize]=10`
       })
 
       if (data.items?.length <= 0) {
@@ -177,12 +188,12 @@ export default defineComponent({
 
     const commentFormRef: Ref<CommentRefTypes | null> = ref(null)
 
-    const handleCommentOnSubmit = async (review: ReviewTypes) => {
+    const handleCommentOnSubmit = async (formPayload: ReviewTypes) => {
       comment.isBusy = true
 
       const { data, error } = await context.$api.rest.review.postReview({
         url: route.value.query.link,
-        content: review.content,
+        content: formPayload.content,
         media: null
       })
 

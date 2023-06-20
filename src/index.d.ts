@@ -2,11 +2,6 @@ import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { Auth } from '@nuxtjs/auth-next'
 import { IVueI18nNuxt } from '@nuxtjs/i18n'
 
-declare module '*.vue' {
-  import Vue from 'vue'
-  export default Vue
-}
-
 declare module 'vue/types/vue' {
   interface Vue {
     $axios: NuxtAxiosInstance

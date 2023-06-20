@@ -1,16 +1,17 @@
 import { ActionContext } from 'vuex'
 import { StateTypes } from './types'
-import { convertToRevilinkFormat } from '@/utils/url'
+import { ApiQueryTypes } from '@/services/rest/core/core.types'
 
 export default {
   /* @ts-ignore */
-  async fetchReviews({ commit }: ActionContext<StateTypes, StateTypes>, params: { url: string; page: number }) {
-    const { url, page } = params
+  async fetchReviews({ commit }: ActionContext<StateTypes, StateTypes>, params: ApiQueryTypes) {
+    const { populate, filters, pagination } = params
 
     /* @ts-ignore */
     const { data, error } = await this.$api.rest.review.fetchReviews({
-      filters: `[url][url][$eq]=${convertToRevilinkFormat({ url })}`,
-      pagination: `pagination[page]=${page}&pagination[pageSize]=10`
+      populate,
+      filters,
+      pagination
     })
 
     if (data) {

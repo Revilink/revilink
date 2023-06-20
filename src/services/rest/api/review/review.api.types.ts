@@ -1,14 +1,16 @@
 import { ApiQueryTypes } from '@/services/rest/core/core.types'
+import { ReviewApiModelTypes } from '@/types'
 
 export interface FetchReviewsTypes extends ApiQueryTypes {}
 
 export type FetchRepliesTypes = {
-  reviewId: number
+  commentId: number
   page: number
   limit: number
 }
 
 export interface PostReviewTypes {
+  parent: ReviewApiModelTypes
   url: string
   content: string
   media: Array<string> | null
@@ -25,7 +27,6 @@ export type DeleteReviewTypes = {
 export type ReviewApiTypes = {
   fetchReviews: Function
   fetchReview: Function
-  fetchReplies: Function
   postReview: Function
   editReview: Function
   deleteReview: Function

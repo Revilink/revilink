@@ -15,10 +15,10 @@
     flex-direction: column;
     margin-bottom: calc(var(--spacer-base) * 1);
     padding: calc(var(--spacer-base) / 1.5) calc(var(--spacer-base) / 2);
-    background-color: color-mix(in oklab, var(--color-info-01), #fff 95%);
+    background-color: var(--color-ui-02);
     border-bottom: 4px solid var(--color-border-01);
     border-left: 4px solid var(--color-border-01);
-    border-radius: calc(var(--border-radius-01) / 2);
+    border-radius: calc(var(--border-radius-01) / 1);
 
     &:before {
       position: absolute;
@@ -31,15 +31,25 @@
       content: '';
     }
 
-    &__user {
-      display: block;
+    &-user {
+      display: flex;
+      align-items: center;
       margin-bottom: calc(var(--spacer-base) / 4);
-      font-size: var(--font-size-text-21);
 
-      @include font-weight-semi-bold;
+      &__avatar {
+        margin-right: calc(var(--spacer-base) / 4);
+      }
+
+      &__username {
+        color: var(--color-text-01);
+        font-size: var(--font-size-text-21);
+
+        @include font-weight-medium;
+      }
     }
 
     &__content {
+      color: var(--color-text-02);
       font-size: var(--font-size-text-21);
     }
   }
@@ -47,6 +57,17 @@
   .comment-form {
     &-card {
       margin: 0;
+
+      &__body {
+        padding: 0;
+        background: transparent;
+      }
+
+      &__textarea {
+        padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 4);
+        background-color: transparent;
+        border: 0;
+      }
     }
   }
 }

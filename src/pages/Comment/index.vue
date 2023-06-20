@@ -14,8 +14,8 @@
         :is-detailed="true"
         @on-click-like-count="handleClickLikeCount"
         @on-click-reply-count="handleClickReplyCount"
-        @on-edit-success="handleEditSuccess"
-        @on-delete-success="handleDeleteSuccess"
+        @on-edit-confirm="handleEditConfirm"
+        @on-delete-confirm="handleDeleteConfirm"
       )
 
   ReactionerUserListDialog(
@@ -64,11 +64,11 @@ export default defineComponent({
       dialog.reactionerUserList.isOpen = true
     }
 
-    const handleEditSuccess = async () => {
+    const handleEditConfirm = async () => {
       await fetch()
     }
 
-    const handleDeleteSuccess = async () => {
+    const handleDeleteConfirm = async () => {
       await router.push(context.localePath({ name: 'Reviews', query: { link: review.value.url.url } }))
     }
 
@@ -85,8 +85,8 @@ export default defineComponent({
       review,
       handleClickLikeCount,
       handleClickReplyCount,
-      handleEditSuccess,
-      handleDeleteSuccess,
+      handleEditConfirm,
+      handleDeleteConfirm,
       dialog
     }
   }

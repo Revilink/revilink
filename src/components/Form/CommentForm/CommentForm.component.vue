@@ -1,8 +1,8 @@
 <template lang="pug">
-form.comment-form(@submit.prevent="handleSubmit")
+form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
   .comment-form-card
     vs-avatar.comment-form-card__avatar(circle size="48")
-      nuxt-link(v-if="user" :to="localePath({ name: 'profile', params: { username: user.username } })" :title="user.username")
+      nuxt-link(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
         img(v-if="user.avatar" :src="user.avatar" :alt="user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="user.username")
       img(v-else src="@/assets/media/core/user.png" :alt="user.username")
@@ -17,7 +17,8 @@ form.comment-form(@submit.prevent="handleSubmit")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, reactive, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, ref, reactive, computed } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
 import autosize from 'v-autosize'
 import { FormTypes } from './CommentForm.component.types'
 
@@ -38,6 +39,10 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    const baseClassName = 'comment-form'
+
+    const rootRef: Ref<HTMLElement | null> = ref(null)
+
     const context = useContext()
 
     const form = reactive<FormTypes>({
@@ -46,6 +51,14 @@ export default defineComponent({
 
     const clearForm = () => {
       form.content = ''
+    }
+
+    const focus = () => {
+      const textareaElement = rootRef.value?.querySelector(`.${baseClassName}-card__textarea`)
+
+      if (textareaElement instanceof HTMLElement) {
+        textareaElement.focus()
+      }
     }
 
     const handleSubmit = () => {
@@ -61,8 +74,10 @@ export default defineComponent({
     })
 
     return {
+      rootRef,
       form,
       clearForm,
+      focus,
       handleSubmit,
       user: user?.value,
       contentPlaceholder

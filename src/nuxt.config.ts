@@ -263,6 +263,10 @@ const config: NuxtConfig = {
         detectBrowserLanguage: false,
         parsePages: false,
         pages: {
+          'Profile/index': {
+            en: '/profile',
+            tr: '/profil'
+          },
           'Auth/Register/index': {
             en: '/register',
             tr: '/kayit'

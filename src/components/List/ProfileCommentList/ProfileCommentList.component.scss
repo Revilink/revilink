@@ -1,0 +1,28 @@
+.profile-comment-list {
+  position: relative;
+
+  .review-card {
+    margin-bottom: var(--spacer-base);
+  }
+
+  &-url {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    margin-bottom: calc(var(--spacer-base) / 2);
+    padding: calc(var(--spacer-base) / 4) calc(var(--spacer-base) / 2);
+    background-color: var(--color-ui-03);
+    border-radius: var(--border-radius-01);
+
+    &__icon {
+      margin-right: var(--spacer);
+    }
+
+    &__title {
+      margin-bottom: var(--spacer);
+      font-size: var(--font-size-text-20);
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
+  }
+}

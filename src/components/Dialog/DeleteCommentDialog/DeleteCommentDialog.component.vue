@@ -54,7 +54,7 @@ export default defineComponent({
     }
 
     const handleClickConfirm = () => {
-      emit('on-confirm')
+      emit('on-confirm', { ...props.comment })
     }
 
     const handleClickCancel = () => {
