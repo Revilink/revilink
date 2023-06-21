@@ -8,7 +8,7 @@ client-only
       .reply-dialog-summary-user
         vs-avatar.reply-dialog-summary-user__avatar(circle size="32")
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
-            img(v-if="review.user.avatar" :src="review.user.avatar" :alt="review.user.username")
+            img(v-if="review.user.avatar" :src="review.user.avatar.formats.thumbnail.url" :alt="review.user.username")
             img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
         strong.reply-dialog-summary-user__username @{{ review.user.username }}
       p.reply-dialog-summary__content {{ review.content }}

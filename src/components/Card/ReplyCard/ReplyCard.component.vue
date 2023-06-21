@@ -3,7 +3,7 @@
   .reply-card__inner
     vs-avatar.reply-card__avatar(circle size="48")
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: reply.user.username } })" :title="reply.user.username")
-        img(v-if="reply.user.avatar" :src="reply.user.avatar" :alt="reply.user.username")
+        img(v-if="reply.user.avatar" :src="reply.user.avatar.formats.thumbnail.url" :alt="reply.user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="reply.user.username")
 
     .reply-card__body

@@ -5,7 +5,7 @@
   .review-card__inner
     vs-avatar.review-card__avatar(circle size="48")
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
-        img(v-if="review.user.avatar" :src="review.user.avatar" :alt="review.user.username")
+        img(v-if="review.user.avatar" :src="review.user.avatar.formats.thumbnail.url" :alt="review.user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
 
     .review-card__body
@@ -273,7 +273,7 @@ export default defineComponent({
 
     const { fetch, fetchState } = useFetch(async () => {
       const { data } = await context.$api.rest.review.fetchReviews({
-        populate: `populate=url,user,images`,
+        populate: `populate=url,user,user.avatar,images`,
         filters: `filters[parent][id]=${props.review.id}`,
         pagination: `pagination[page]=${reply.page}&pagination[pageSize]=${reply.limit}`
       })
@@ -289,7 +289,7 @@ export default defineComponent({
       reply.isBusy = true
 
       const { data } = await context.$api.rest.review.fetchReviews({
-        populate: `populate=url,user,images`,
+        populate: `populate=url,user,user.avatar,images`,
         filters: `filters[parent][id]=${props.review.id}`,
         pagination: `pagination[page]=${(reply.page += 1)}&pagination[pageSize]=${reply.limit}`
       })

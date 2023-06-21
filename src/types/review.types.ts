@@ -2,7 +2,7 @@ import { UserApiModelTypes, UserTypes } from './user.types'
 
 export type ReviewApiModelTypes = {
   id: number
-  attributes?: any
+  attributes?: Record<string, any>
   createdAt: string
   updatedAt?: string
   url: Object

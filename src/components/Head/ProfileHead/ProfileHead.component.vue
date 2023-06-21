@@ -2,7 +2,7 @@
 .profile-head
   .profile-head__media
     vs-avatar.profile-head__avatar(circle size="64")
-      img(v-if="user.avatar" :src="user.avatar" :alt="user.username")
+      img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
       img(v-else src="@/assets/media/core/user.png" :alt="user.username")
   .profile-head__body
     h1.profile-head__username {{ user.username }}

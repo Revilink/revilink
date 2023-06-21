@@ -9,7 +9,7 @@ export const userApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `users?filters[username]=${username}&populate=information,avatar`
+        path: `users?filters[username]=${username}&populate=avatar,information`
       })
 
       if (data) {

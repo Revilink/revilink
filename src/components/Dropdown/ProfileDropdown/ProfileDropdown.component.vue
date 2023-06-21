@@ -3,7 +3,11 @@
   DropdownMenu(direction="right" :overlay="false" :is-open="isOpen" @closed="onClose")
     template(#trigger)
       vs-avatar.profile-dropdown-avatar(size="36" circle)
-        img.profile-dropdown-avatar__image(v-if="$auth.user.avatar" :src="$auth.user.avatar" :alt="$auth.user.username")
+        img.profile-dropdown-avatar__image(
+          v-if="$auth.user.avatar"
+          :src="$auth.user.avatar.formats.thumbnail.url"
+          :alt="$auth.user.username"
+        )
         img.profile-dropdown-avatar__image(v-else src="@/assets/media/core/user.png" :alt="$auth.user.username")
       span.profile-dropdown__username {{ $auth.user.username }}
     template(#body)

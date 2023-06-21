@@ -157,7 +157,7 @@ export default defineComponent({
 
     const { fetch, fetchState } = useFetch(async () => {
       const { data } = await store.dispatch('review/fetchReviews', {
-        populate: `populate=url,user,images`,
+        populate: `populate=url,user,user.avatar,images`,
         filters: `filters[url][url][$eq]=${convertToRevilinkFormat({
           url: route.value.query.link as string
         })}&filters[parent][id][$notNull]=false`,

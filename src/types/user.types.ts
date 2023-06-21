@@ -1,3 +1,9 @@
+type AvatarTypes = {
+  id: number
+  data?: Record<string, any>
+  attributes?: Record<string, any>
+}
+
 type UserInformationTypes = {
   id: number
   fullname?: string
@@ -6,13 +12,13 @@ type UserInformationTypes = {
 
 export type UserApiModelTypes = {
   id: number
-  attributes?: any
+  attributes?: Record<string, any>
   username: string
   createdAt: Date | string
   updatedAt: Date | string
   name: string
   email: string
-  avatar: string
+  avatar: AvatarTypes
   confirmed: boolean
   blocked: boolean
   provider: string
@@ -26,7 +32,7 @@ export type UserTypes = {
   updatedAt: Date | string
   name: string
   email: string
-  avatar: string
+  avatar: AvatarTypes
   confirmed: boolean
   blocked: boolean
   provider: string

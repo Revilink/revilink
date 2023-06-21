@@ -1,5 +1,6 @@
 import { RegisterTypes, AuthApiTypes } from './auth.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
+import { userTransformer } from '@/services/rest/transformers'
 
 export const authApi = (appAxios: Function) =>
   <AuthApiTypes>{
@@ -26,12 +27,15 @@ export const authApi = (appAxios: Function) =>
     async fetchMe() {
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: 'users/me'
+        path: 'users/me?populate=avatar,information'
       })
 
-      return {
-        data,
-        error
+      if (data) {
+        return {
+          data: userTransformer(data)
+        }
+      } else {
+        return { error }
       }
     }
   }

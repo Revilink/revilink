@@ -78,7 +78,7 @@ export default defineComponent({
       }
 
       const { data: reviewsData } = await store.dispatch('review/fetchReviews', {
-        populate: `populate=url,user,images`,
+        populate: `populate=url,user,user.avatar,images`,
         filters: `filters[user][username]=${route.value.query.username}&filters[parent][id][$notNull]=false`,
         pagination: `pagination[page]=${review.page}&pagination[pageSize]=10`
       })

@@ -3,7 +3,7 @@ form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
   .comment-form-card
     vs-avatar.comment-form-card__avatar(circle size="48")
       nuxt-link(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
-        img(v-if="user.avatar" :src="user.avatar" :alt="user.username")
+        img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="user.username")
       img(v-else src="@/assets/media/core/user.png" :alt="user.username")
 
