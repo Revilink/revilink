@@ -1,19 +1,19 @@
 <template lang="pug">
-form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
-  .comment-form-card
-    vs-avatar.comment-form-card__avatar(circle size="48")
-      nuxt-link(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
-        img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
+form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
+  .form__inner
+    .comment-form-card
+      vs-avatar.comment-form-card__avatar(circle size="48")
+        NuxtLink(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
+          img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
+          img(v-else src="@/assets/media/core/user.png" :alt="user.username")
         img(v-else src="@/assets/media/core/user.png" :alt="user.username")
-      img(v-else src="@/assets/media/core/user.png" :alt="user.username")
 
-    .comment-form-card__body
-      // eslint-disable vue/attributes-order
-      textarea.comment-form-card__textarea(v-model="form.content" :placeholder="contentPlaceholder" v-autosize)
-      small.comment-form-card__hint {{ $t('form.comment.hint') }}
+      .comment-form-card__body
+        textarea.comment-form-card__textarea(v-model="form.content" v-autosize :placeholder="contentPlaceholder" spellcheck="false")
+        small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
-      // Send Button
-      vs-button.comment-form__submitButton(type="submit" size="large" :loading="isBusy" :disabled="isBusy") {{ $t('general.send') }}
+        // Send Button
+        vs-button.comment-form__submitButton(type="submit" size="large" :loading="isBusy" :disabled="isBusy") {{ $t('general.send') }}
 </template>
 
 <script lang="ts">

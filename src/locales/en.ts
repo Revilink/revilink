@@ -37,9 +37,12 @@ export default {
     doNotYouHaveAnAccountYet: `Don't you have account yet?`,
     createAnAccount: 'Create an account',
     logout: 'Logout',
-    settings: 'Settings',
     comment: 'Comment',
-    comments: 'Comments'
+    comments: 'Comments',
+    settings: 'Settings',
+    settingsFor: 'Settings for',
+    profile: 'Profile',
+    account: 'Account'
   },
   hero: {
     home: {
@@ -100,6 +103,7 @@ export default {
     },
     submit: 'Submit',
     send: 'Send',
+    saveInformations: 'Save informations',
     register: {
       title: 'Register',
       description: 'Sign up to turn the internet into a comment board',
@@ -165,6 +169,37 @@ export default {
           success: {
             title: 'OK',
             description: 'Your comment has been submitted'
+          }
+        }
+      }
+    },
+    settings: {
+      settingsForUser: `{text} {nbsp} {user}`,
+      profile: {
+        user: {
+          title: 'User',
+          phone: {
+            helperText: `Don't worry we won't send you spam messages, we will use it for your safety.`
+          }
+        },
+        basic: {
+          title: 'Basic',
+          isEmailPublic: {
+            label: 'Show your e-mail address on your profile?'
+          },
+          birthDate: {
+            label: 'Birthdate',
+            helperText: ''
+          }
+        }
+      },
+      account: {
+        password: {
+          title: 'Change Password',
+          change: {
+            oldPassword: 'Old password',
+            password: 'New password',
+            cPassword: 'Retype your new password'
           }
         }
       }

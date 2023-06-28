@@ -17,7 +17,7 @@
             AppIcon.profile-dropdown-list-item__icon(name="ri:user-3-line")
             span.profile-dropdown-list-item__title {{ $auth.user.username }}
         li.profile-dropdown-list-item
-          NuxtLink(to)
+          NuxtLink(:to="localePath({ name: 'Settings-Profile' })")
             AppIcon.profile-dropdown-list-item__icon(name="ri:settings-3-line")
             span.profile-dropdown-list-item__title {{ $t('general.settings') }}
         li.profile-dropdown-list-item.profile-dropdown-list-item--logout(@click="$auth.logout()")

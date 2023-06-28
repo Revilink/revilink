@@ -1,10 +1,17 @@
 <template lang="pug">
-form.review-search-form(@submit.prevent="handleOnSubmit")
-  vs-input.review-search-form__urlInput(v-model="form.url" :placeholder="$t('form.reviewSearch.url')" primary)
-    template(#icon)
-      AppIcon(name="material-symbols:link" color="var(--color-icon-02)" :width="24" :height="24")
-  vs-button.review-search-form__submitButton(type="submit" size="large")
-    span {{ $t('form.reviewSearch.getReviews') }}
+form.form.review-search-form(@submit.prevent="handleOnSubmit")
+  .form__inner
+    vs-input.review-search-form__urlInput(
+      v-model="form.url"
+      :placeholder="$t('form.reviewSearch.url')"
+      spellcheck="false"
+      theme="light"
+      primary
+    )
+      template(#icon)
+        AppIcon(name="material-symbols:link" color="var(--color-icon-02)" :width="24" :height="24")
+    vs-button.review-search-form__submitButton(type="submit" size="large")
+      span {{ $t('form.reviewSearch.getReviews') }}
 </template>
 
 <script lang="ts">

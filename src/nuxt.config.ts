@@ -142,6 +142,11 @@ const config: NuxtConfig = {
     {
       src: '@/plugins/vue-timeago.ts',
       ssr: false
+    },
+    // https://github.com/zhanziyang/vue-croppa
+    {
+      src: '@/plugins/vue-croppa.ts',
+      ssr: true
     }
   ],
 
@@ -282,6 +287,10 @@ const config: NuxtConfig = {
           'Comment/index': {
             en: '/comment',
             tr: '/yorum'
+          },
+          'Settings/Profile/index': {
+            en: '/settings/profile',
+            tr: '/ayarlar/profil'
           }
         }
       }

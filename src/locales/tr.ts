@@ -36,9 +36,12 @@ export default {
     doNotYouHaveAnAccountYet: `Henüz bir hesabın yok mu?`,
     createAnAccount: 'Hesap oluştur',
     logout: 'Çıkış yap',
-    settings: 'Ayarlar',
     comment: 'Yorum',
-    comments: 'Yorumlar'
+    comments: 'Yorumlar',
+    settings: 'Ayarlar',
+    settingsFor: 'için ayarlar',
+    profile: 'Profil',
+    account: 'Hesap'
   },
   hero: {
     home: {
@@ -99,6 +102,7 @@ export default {
     },
     submit: 'Gönder',
     send: 'Gönder',
+    saveInformations: 'Bilgileri kaydet',
     register: {
       title: 'Kayıt ol',
       description: 'İnterneti yorum panosuna dönüştürmek için kaydol',
@@ -158,6 +162,37 @@ export default {
           success: {
             title: 'OK',
             description: 'Yorumun gönderildi'
+          }
+        }
+      }
+    },
+    settings: {
+      settingsForUser: `{user} {nbsp} {text}`,
+      profile: {
+        user: {
+          title: 'Kullanıcı',
+          phone: {
+            helperText: 'Endişelenme sana spam mesaj göndermeyiz, bunu güvenliğin için kullanacağız.'
+          }
+        },
+        basic: {
+          title: 'Temel',
+          isEmailPublic: {
+            label: 'E-mail adresin profilinde gösterilsin mi?'
+          },
+          birthDate: {
+            label: 'Doğum tarihin nedir?',
+            helperText: 'Yıllar karışıyo dumanlara...'
+          }
+        }
+      },
+      account: {
+        password: {
+          title: 'Parola Değişikliği',
+          change: {
+            oldPassword: 'Eski parolan',
+            password: 'Parolanı belirle',
+            cPassword: 'Yeni parolanı tekrar yazmalısın'
           }
         }
       }

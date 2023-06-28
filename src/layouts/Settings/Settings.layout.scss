@@ -1,0 +1,19 @@
+.settings-layout {
+  $layout: '.layout';
+
+  position: relative;
+
+  #{$layout} {
+    &__inner {
+      position: relative;
+    }
+  }
+
+  .page {
+    .form {
+      padding: calc(var(--spacer-base) / 2) var(--spacer-base);
+      background-color: var(--color-ui-02);
+      border-radius: var(--border-radius-01);
+    }
+  }
+}

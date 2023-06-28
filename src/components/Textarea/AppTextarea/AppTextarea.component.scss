@@ -1,0 +1,33 @@
+.app-textarea {
+  $app-textarea: '.app-textarea';
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+
+  &[theme='light'] {
+    #{$app-textarea} {
+      &__textarea {
+        background-color: var(--color-field-02);
+      }
+    }
+  }
+
+  &__textarea {
+    position: relative;
+    width: 100%;
+  }
+
+  &-character-counter {
+    position: relative;
+    display: inline-flex;
+    margin-top: calc(var(--spacer) * 2);
+
+    &__value {
+      font-size: var(--font-size-text-23);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}

@@ -4,11 +4,13 @@ client-only
     template(#header)
       h2 {{ $t('general.edit') }}
 
-    CommentForm(:form-model="{ id: comment.id, content: comment.content }" @on-submit="handleOnSubmit")
+    CommentForm(ref="commentFormRef" :form-model="{ id: comment.id, content: comment.content }" @on-submit="handleOnSubmit")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from '@nuxtjs/composition-api'
+import { defineComponent, ref, reactive, watch } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
+import type { CommentRefTypes } from './EditCommentDialog.component.types'
 import { ReviewTypes } from '@/types'
 import { CommentForm } from '@/components/Form'
 
@@ -32,11 +34,18 @@ export default defineComponent({
       isOpen: props.isOpen
     })
 
+    const commentFormRef: Ref<CommentRefTypes | null> = ref(null)
+
     watch(
       () => props.isOpen,
       value => {
         if (value) {
           dialog.isOpen = true
+
+          const FOCUS_DELAY = 200
+          setTimeout(() => {
+            commentFormRef.value?.focus()
+          }, FOCUS_DELAY)
         } else {
           dialog.isOpen = false
         }
@@ -57,6 +66,7 @@ export default defineComponent({
 
     return {
       dialog,
+      commentFormRef,
       handleClose,
       handleOnSubmit
     }

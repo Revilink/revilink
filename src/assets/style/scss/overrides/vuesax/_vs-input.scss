@@ -1,33 +1,90 @@
 .vs-input {
   $vs-input-parent: '.vs-input-parent';
   $vs-input: '.vs-input';
+  $input-width: 100%;
+  $input-min-height: 42px;
+  $icon-width: 42px;
+  $icon-height: 100%;
+  $icon-min-height: 42px;
 
-  --input-height: 42px;
-
-  width: 100% !important;
-  height: var(--input-height);
+  width: $input-width !important;
+  min-height: $input-min-height !important;
+  padding-right: calc(var(--spacer) * 4) !important;
+  padding-left: calc(var(--spacer) * 4) !important;
+  background-color: var(--color-field-01) !important;
   border-bottom: 1px solid var(--color-border-03) !important;
   border-radius: var(--border-radius-01) !important;
+  transition: 0s all !important;
 
-  &:focus ~ .vs-input__icon {
-    transform: none !important;
+  &[theme='light'] {
+    background-color: var(--color-field-02) !important;
+
+    ~ .vs-input__icon {
+      background-color: var(--color-field-02) !important;
+    }
   }
 
-  &:focus ~ .vs-input__label {
-    opacity: 0 !important;
+  &:focus {
+    border-bottom-color: transparent !important;
+  }
+
+  &:focus ~ .vs-input__icon {
+    border-bottom-color: transparent !important;
+  }
+
+  &:-webkit-autofill ~ .vs-input__label {
+    &:not(&--label) {
+      opacity: 0 !important;
+    }
+  }
+
+  #{$vs-input} {
+    &:not(.vs-input-content--has-label) {
+      &:focus ~ .vs-input__icon {
+        transform: none !important;
+      }
+
+      &:focus ~ .vs-input__label {
+        opacity: 0 !important;
+      }
+    }
+  }
+
+  &--has-icon {
+    &:not(&--after) {
+      padding-left: calc(#{$icon-width} + var(--spacer) * 2) !important;
+    }
+
+    &:not(&--after) {
+      ~ .vs-input__label {
+        left: calc(#{$icon-width} + var(--spacer) * 2 + var(--spacer) / 2) !important;
+      }
+    }
   }
 
   &__label {
-    color: var(--color-text-03) !important;
+    left: calc(var(--spacer) * 4 + var(--spacer) / 2) !important;
+    color: var(--color-text-01) !important;
+    font-size: var(--font-size-text-22);
     opacity: 1 !important;
+    transition: 0s all !important;
+
+    &--label {
+      bottom: var(--spacer) !important;
+    }
   }
 
   &__icon {
-    min-height: 42px !important;
+    width: $icon-width !important;
+    height: $icon-height !important;
+    min-height: $icon-min-height !important;
+    background-color: var(--color-field-01) !important;
     border-bottom: 1px solid var(--color-border-03);
+    border-radius: var(--border-radius-01) !important;
     border-bottom-right-radius: 0 !important;
     box-shadow: none !important;
     transform: none !important;
+    transition: 0s all !important;
 
     &--after {
       border-bottom-right-radius: var(--border-radius-01) !important;
