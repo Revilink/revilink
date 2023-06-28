@@ -2,6 +2,6 @@
   position: relative;
 
   .avatar-upload {
-    margin-bottom: calc(var(--spacer-base) * 2);
+    margin-bottom: calc(var(--spacer-base) * 2 + var(--spacer) * 2);
   }
 }

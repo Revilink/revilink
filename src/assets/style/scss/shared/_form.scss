@@ -64,12 +64,12 @@
     display: block;
     flex-direction: column;
     width: 150px;
-    height: 150px;
+    height: auto;
     margin: 0 auto;
 
     .croppa-container {
       width: inherit;
-      height: inherit;
+      height: 150px;
       border-radius: 100%;
 
       canvas {

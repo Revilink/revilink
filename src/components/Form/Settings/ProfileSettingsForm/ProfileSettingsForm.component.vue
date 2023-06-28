@@ -228,8 +228,6 @@ export default defineComponent({
     }
 
     const saveProfileSettings = async () => {
-      state.isBusy = true
-
       if (context.$auth.user?.avatar && !avatarUploadRef.value?.hasImage()) {
         deleteAvatar()
         context.$auth.user.avatar = null
@@ -262,8 +260,6 @@ export default defineComponent({
           flat: true
         })
       }
-
-      state.isBusy = false
     }
 
     return {
