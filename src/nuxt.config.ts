@@ -252,6 +252,7 @@ const config: NuxtConfig = {
             title: 'English',
             code: 'en',
             iso: 'en-US',
+            icon: 'circle-flags:us',
             file: 'en.ts'
           },
           {
@@ -259,6 +260,7 @@ const config: NuxtConfig = {
             title: 'Türkçe',
             code: 'tr',
             iso: 'tr-TR',
+            icon: 'circle-flags:tr',
             file: 'tr.ts'
           }
         ],

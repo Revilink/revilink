@@ -121,14 +121,18 @@ export default defineComponent({
           max: avatar.config.fileSizeLimit / 1024 / 1024,
           unit: 'MB'
         }),
-        color: 'danger'
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
       })
     }
 
     const showAvatarFileTypeMismatchMessage = () => {
       window.$nuxt.$vs.notification({
         title: context.i18n.t('form.validation.fileUpload.singleItemMismatch', { extensions: avatar.config.accept }),
-        color: 'danger'
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
       })
     }
 

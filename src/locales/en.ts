@@ -42,7 +42,8 @@ export default {
     settings: 'Settings',
     settingsFor: 'Settings for',
     profile: 'Profile',
-    account: 'Account'
+    account: 'Account',
+    websiteLanguage: 'Website language'
   },
   hero: {
     home: {

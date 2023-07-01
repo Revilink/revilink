@@ -41,7 +41,8 @@ export default {
     settings: 'Ayarlar',
     settingsFor: 'için ayarlar',
     profile: 'Profil',
-    account: 'Hesap'
+    account: 'Hesap',
+    websiteLanguage: 'Site dili'
   },
   hero: {
     home: {
