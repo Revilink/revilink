@@ -159,7 +159,7 @@ export default defineComponent({
           flat: true
         })
 
-        const { data: updateUserData } = await context.$api.rest.auth.updateUser({
+        const { data: updateUserData } = await context.$api.rest.auth.updateMe({
           id: context.$auth.user?.id,
           avatar: uploadedFile.id
         })
@@ -245,7 +245,7 @@ export default defineComponent({
         }, 0.8)
       }
 
-      const { data, error } = await context.$api.rest.auth.updateUser({
+      const { data, error } = await context.$api.rest.auth.updateMe({
         ...form
       })
 

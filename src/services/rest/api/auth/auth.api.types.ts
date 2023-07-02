@@ -6,8 +6,7 @@ export type RegisterTypes = {
   password: string | number
 }
 
-export type UpdateUserTypes = {
-  id: number
+export type UpdateMeTypes = {
   avatar?: number | null // File id
   username: string
   information?: UserInformationTypes
@@ -16,5 +15,5 @@ export type UpdateUserTypes = {
 export type AuthApiTypes = {
   register: Function
   fetchMe: Function
-  updateUser: Function
+  updateMe: Function
 }

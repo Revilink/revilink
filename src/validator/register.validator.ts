@@ -1,4 +1,5 @@
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
+import { USERNAME_REGEX } from '../../system/constants'
 
 export default {
   email: {
@@ -10,8 +11,8 @@ export default {
     required,
     minLength: minLength(3),
     maxLength: maxLength(30),
-    isValid(value: boolean) {
-      const regex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/ as any
+    isValid(value: string) {
+      const regex = USERNAME_REGEX
       const isValid = regex.test(value)
 
       return isValid

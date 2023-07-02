@@ -1,4 +1,4 @@
-import { AuthApiTypes, RegisterTypes, UpdateUserTypes } from './auth.api.types'
+import { AuthApiTypes, RegisterTypes, UpdateMeTypes } from './auth.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
 import { userTransformer } from '@/services/rest/transformers'
 
@@ -38,12 +38,12 @@ export const authApi = (appAxios: Function) =>
       }
     },
 
-    async updateUser(params: UpdateUserTypes) {
-      const { id, avatar, username, information } = params
+    async updateMe(params: UpdateMeTypes) {
+      const { avatar, username, information } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
-        path: `users/${id}?populate=avatar,information`,
+        path: `users/me?populate=avatar,information`,
         data: {
           avatar,
           username,
