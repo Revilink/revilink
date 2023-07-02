@@ -13,13 +13,7 @@
             :badge="!site.isBusy"
             :badge-color="site.isAllowed ? 'success' : '#ddd'"
           )
-            img.reviews-page-review-meta__avatarSpinner(
-              v-if="site.isBusy"
-              src="@/assets/media/core/loader.svg"
-              :alt="$t('general.avatar')"
-              width="24"
-              height="24"
-            )
+            AppLoading(v-if="site.isBusy" :size="20")
             template(v-else)
               img(v-if="site.isAllowed && site.meta.icon" :src="site.meta.icon" :alt="$t('general.avatar')" width="16" height="16")
               AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
@@ -44,25 +38,24 @@
             template(v-if="reviews && reviews.length > 0")
               | &nbsp;({{ reviewsMeta.pagination.total }})
 
-      template(v-if="fetchState.pending")
-        p loading
+        template(v-if="fetchState.pending")
+          AppLoading.py-base
 
-      template(v-else-if="fetchState.error")
-        p {{ fetchState.error }}
+        template(v-else-if="fetchState.error")
+          p {{ fetchState.error }}
 
-      template(v-else)
-        ReviewList(:items="reviews")
+        template(v-else)
+          ReviewList(:items="reviews")
 
-      // Pagination
-      client-only
+        // Pagination
         vs-pagination.my-base(
-          v-if="reviewsMeta && Object.keys(reviewsMeta).length > 0"
+          v-if="reviews && reviews.length > 0 && reviewsMeta && Object.keys(reviewsMeta).length > 0 && reviewsMeta.pagination.pageCount > 1"
           v-model="review.page"
           :length="reviewsMeta.pagination.pageCount"
         )
 
       // Comment Form Section
-      section.reviews-page-comment-form
+      section.reviews-page-comment-form.my-base.py-base
         span.reviews-page-comment-form__title
           AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
           | {{ $t('form.comment.title') }}
@@ -88,17 +81,20 @@ import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
 import { withProtocol } from 'ufo'
 import type { CommentRefTypes } from './Reviews.page.types'
+import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
 import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
     AppIcon,
     ReviewList,
-    CommentForm
+    CommentForm,
+    AppLoading
   },
   layout: 'Default/Default.layout',
   setup() {
@@ -158,9 +154,11 @@ export default defineComponent({
     const { fetch, fetchState } = useFetch(async () => {
       const { data } = await store.dispatch('review/fetchReviews', {
         populate: `populate=url,user,user.avatar,images`,
-        filters: `filters[url][url][$eq]=${convertToRevilinkFormat({
-          url: route.value.query.link as string
-        })}&filters[parent][id][$notNull]=false`,
+        filters: `filters[url][url][$eq]=${encodeBase64(
+          convertToRevilinkFormat({
+            url: route.value.query.link as string
+          })
+        )}&filters[parent][id][$notNull]=false`,
         pagination: `pagination[page]=${review.page}&pagination[pageSize]=10`
       })
 
@@ -175,10 +173,17 @@ export default defineComponent({
 
     watch(
       () => review.page,
-      value => {
+      async value => {
         review.page = value
-        router.push({ query: { ...route.value.query, page: String(value) } })
-        fetch()
+        await router.push({ query: { ...route.value.query, page: String(value) } })
+        await fetch()
+      }
+    )
+
+    watch(
+      () => route.value.query.page,
+      value => {
+        review.page = Number(value || 1)
       }
     )
 

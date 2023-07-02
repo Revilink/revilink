@@ -7,8 +7,11 @@
       ReviewCard(:key="item.id" :review="item" @on-edit-success="handleEditSuccess" @on-delete-success="handleDeleteSuccess")
       slot(name="itemAppend")
   template(v-else)
-    slot(v-if="$slots.noResults" name="noResults")
-    p.mb-base(v-else) No results
+    .review-list__noResults
+      slot(v-if="$slots.noResults" name="noResults")
+      BasicState(:title="$t('state.empty.noReviewComments.title')" :description="$t('state.empty.noReviewComments.description')")
+        template(#head)
+          img(src="@/assets/media/elements/state/no_chat.svg" width="256")
   slot(name="append")
 </template>
 
@@ -16,10 +19,12 @@
 import { defineComponent, useStore } from '@nuxtjs/composition-api'
 import { ReviewTypes } from '@/types'
 import ReviewCard from '@/components/Card/ReviewCard/ReviewCard.component.vue'
+import { BasicState } from '@/components/State'
 
 export default defineComponent({
   components: {
-    ReviewCard
+    ReviewCard,
+    BasicState
   },
   props: {
     items: {

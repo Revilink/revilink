@@ -89,7 +89,7 @@
 
   template(v-if="fetchState.pending")
     .d-flex.justify-content-center.my-4
-      p Loading replies
+      AppLoading.py-base
   template(v-else-if="fetchState.error")
     .d-flex.justify-content-center.my-4
       span {{ fetchState.error }}
@@ -109,7 +109,13 @@
         :to="localePath({ name: 'Comment', query: { id: review.id } })"
       )
         | {{ $t('reply.seeAllReplies') }}
-      vs-button.ms-auto.my-3(v-if="isDetailed && !reply.isFinished" border :loading="reply.isBusy" @click="loadMoreReply")
+      vs-button.ms-auto.my-3(
+        v-if="isDetailed && !reply.isFinished"
+        border
+        :disabled="reply.isBusy"
+        :loading="reply.isBusy"
+        @click="loadMoreReply"
+      )
         AppIcon.me-2(name="ri:loader-4-line")
         | {{ $t('reply.loadMore') }}
 
@@ -138,6 +144,7 @@ import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import ReplyCard from '@/components/Card/ReplyCard/ReplyCard.component.vue'
 import { ReplyDialog, EditCommentDialog, DeleteCommentDialog } from '@/components/Dialog'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
@@ -146,7 +153,8 @@ export default defineComponent({
     ReplyCard,
     ReplyDialog,
     EditCommentDialog,
-    DeleteCommentDialog
+    DeleteCommentDialog,
+    AppLoading
   },
   props: {
     review: {

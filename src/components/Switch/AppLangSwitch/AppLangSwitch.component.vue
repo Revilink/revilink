@@ -42,7 +42,7 @@ export default defineComponent({
           target: `.${baseClassName}`
         })
         setTimeout(() => {
-          window.location.replace(context.localePath(route.value.path))
+          window.location.replace(context.localePath({ path: route.value.path, query: { ...route.value.query } }))
         }, 1000)
       }
     )

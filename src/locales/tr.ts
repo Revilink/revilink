@@ -213,5 +213,49 @@ export default {
         }
       }
     }
+  },
+  state: {
+    empty: {
+      noResults: {
+        title: 'Burası boş görünüyor',
+        description: ''
+      },
+      noMoreResults: {
+        title: 'Daha fazla bir şey yok',
+        description: ''
+      },
+      listEmpty: {
+        title: 'Liste şu anda boş',
+        description: ''
+      },
+      empty: {
+        title: 'Burası boş görünüyor',
+        description: ''
+      },
+      noComments: {
+        title: 'Henüz yorum yazılmadı',
+        description: ''
+      },
+      noMoreComments: {
+        title: 'Tüm yorumlar bu kadar',
+        description: ''
+      },
+      noReviews: {
+        title: 'Henüz inceleme yok',
+        description: ''
+      },
+      noReviewComments: {
+        title: 'Yorum yok',
+        description: 'Bağlantıdaki şey hakkında henüz yorum yapılmadı'
+      },
+      profileNoReviewComments: {
+        title: 'Yorum yok',
+        description: 'Bu profil henüz bir bağlantı yorumlamadı'
+      },
+      noMoreReviews: {
+        title: 'Tüm incelemeler bu kadar',
+        description: ''
+      }
+    }
   }
 }

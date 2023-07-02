@@ -25,11 +25,6 @@
       }
     }
 
-    &__avatarSpinner {
-      width: 24px !important;
-      height: 24px !important;
-    }
-
     &__body {
       position: relative;
       margin-top: calc(var(--avatar-height) / 2 - var(--font-size-h2) / 1.8);

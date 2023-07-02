@@ -128,6 +128,10 @@ const config: NuxtConfig = {
       src: '@/plugins/global-meta-tags-setter.ts',
       ssr: true
     },
+    {
+      src: '@/plugins/encode-decode.ts',
+      ssr: true
+    },
     // https://vuesax.com
     {
       src: '@/plugins/vuesax.ts',

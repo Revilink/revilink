@@ -2,6 +2,7 @@ import { FetchReviewsTypes, ReviewApiTypes, PostReviewTypes, EditReviewTypes, De
 import { AppAxiosType } from '@/services/rest/core/core.types'
 import { reviewTransformer } from '@/services/rest/transformers'
 import { ReviewApiModelTypes } from '@/types'
+import { encodeBase64 } from '@/utils/encode-decode'
 
 export const reviewApi = (appAxios: Function) =>
   <ReviewApiTypes>{
@@ -65,7 +66,7 @@ export const reviewApi = (appAxios: Function) =>
         data: {
           data: {
             parent,
-            url,
+            url: encodeBase64(url),
             comment: content,
             images: media
           }

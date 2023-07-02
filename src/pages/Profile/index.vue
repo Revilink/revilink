@@ -16,7 +16,7 @@
               | &nbsp;({{ reviewsMeta.pagination.total }})
 
         template(v-if="fetchState.pending")
-          p loading
+          AppLoading.py-base
 
         template(v-else-if="fetchState.error")
           p {{ fetchState.error }}
@@ -25,12 +25,11 @@
           ProfileCommentList(:items="reviews")
 
         // Pagination
-        client-only
-          vs-pagination.my-base(
-            v-if="reviewsMeta && Object.keys(reviewsMeta).length > 0"
-            v-model="review.page"
-            :length="reviewsMeta.pagination.pageCount"
-          )
+        vs-pagination.my-base(
+          v-if="reviews && reviews.length > 0 && reviewsMeta && Object.keys(reviewsMeta).length > 0"
+          v-model="review.page"
+          :length="reviewsMeta.pagination.pageCount"
+        )
 </template>
 
 <script lang="ts">
@@ -49,12 +48,14 @@ import {
 import { ProfileHead } from '@/components/Head'
 import { ProfileCommentList } from '@/components/List'
 import { AppIcon } from '@/components/Icon'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
     ProfileHead,
     ProfileCommentList,
-    AppIcon
+    AppIcon,
+    AppLoading
   },
   layout: 'Profile/Profile.layout',
   setup() {
@@ -96,10 +97,17 @@ export default defineComponent({
 
     watch(
       () => review.page,
-      value => {
+      async value => {
         review.page = value
-        router.push({ query: { ...route.value.query, page: String(value) } })
-        fetch()
+        await router.push({ query: { ...route.value.query, page: String(value) } })
+        await fetch()
+      }
+    )
+
+    watch(
+      () => route.value.query.page,
+      value => {
+        review.page = Number(value || 1)
       }
     )
 

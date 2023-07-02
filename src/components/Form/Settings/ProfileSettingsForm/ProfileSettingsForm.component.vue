@@ -6,7 +6,7 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
   .form__inner
     .form-item
       .avatar-upload
-        img.avatar-upload__loading(v-if="state.isBusy" src="@/assets/media/core/loader.svg")
+        AppLoading.avatar-upload__loading(v-if="state.isBusy")
         client-only
           croppa(
             ref="avatarUploadRef"
@@ -87,10 +87,12 @@ import type { AvatarUploadRefTypes, AvatarTypes } from './ProfileSettingsForm.co
 import type { UserTypes } from '@/types'
 import { profileSettingsValidator } from '@/validator'
 import { AppTextarea } from '@/components/Textarea'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
-    AppTextarea
+    AppTextarea,
+    AppLoading
   },
   setup(_, { emit }) {
     const context = useContext()

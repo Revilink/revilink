@@ -220,5 +220,49 @@ export default {
         }
       }
     }
+  },
+  state: {
+    empty: {
+      noResults: {
+        title: 'This place looks empty',
+        description: ''
+      },
+      noMoreResults: {
+        title: 'Nothing more to show',
+        description: ''
+      },
+      listEmpty: {
+        title: 'The list is currently empty',
+        description: ''
+      },
+      empty: {
+        title: 'This place looks empty',
+        description: ''
+      },
+      noComments: {
+        title: 'No comments yet',
+        description: ''
+      },
+      noMoreComments: {
+        title: 'No more comments',
+        description: ''
+      },
+      noReviews: {
+        title: 'No reviews yet',
+        description: ''
+      },
+      noReviewComments: {
+        title: 'No comments',
+        description: 'No comments have been made about the thing in the link yet'
+      },
+      profileNoReviewComments: {
+        title: 'No Comments',
+        description: 'This profile has not yet reviewed a link'
+      },
+      noMoreReviews: {
+        title: 'No more reviews',
+        description: ''
+      }
+    }
   }
 }

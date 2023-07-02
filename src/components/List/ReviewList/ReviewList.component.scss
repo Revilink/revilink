@@ -4,4 +4,9 @@
   .review-card {
     margin-bottom: var(--spacer-base);
   }
+
+  &__noResults {
+    margin-block-end: calc(var(--spacer-base) * 2);
+    filter: grayscale(1);
+  }
 }

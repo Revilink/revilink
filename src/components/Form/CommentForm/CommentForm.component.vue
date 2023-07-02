@@ -13,7 +13,7 @@ form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
         small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
         // Send Button
-        vs-button.comment-form__submitButton(type="submit" size="large" :loading="isBusy" :disabled="isBusy") {{ $t('general.send') }}
+        vs-button.comment-form__submitButton.ms-auto(type="submit" size="large" :loading="isBusy" :disabled="isBusy") {{ $t('general.send') }}
 </template>
 
 <script lang="ts">

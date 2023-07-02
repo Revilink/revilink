@@ -5,7 +5,7 @@
       h1.comment-page-head__title {{ $t('general.comment') }}
 
     template(v-if="fetchState.pending")
-      span Loading
+      AppLoading.py-base
     template(v-else-if="fetchState.error")
       span {{ fetchState.error }}
     template(v-else)
@@ -32,11 +32,13 @@ import { ReactionerUserListDialogTypes } from './Comment.page.types'
 import { ReviewTypes } from '@/types'
 import { ReviewCard } from '@/components/Card'
 import { ReactionerUserListDialog } from '@/components/Dialog'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
     ReviewCard,
-    ReactionerUserListDialog
+    ReactionerUserListDialog,
+    AppLoading
   },
   layout: 'Default/Default.layout',
   setup() {
