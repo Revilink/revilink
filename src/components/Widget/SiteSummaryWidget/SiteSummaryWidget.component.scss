@@ -1,0 +1,33 @@
+.site-summary-widget {
+  position: relative;
+  padding: calc(var(--spacer-base) / 2);
+  background-color: var(--color-ui-02);
+  border-radius: var(--border-radius-01);
+  box-shadow: var(--box-shadow-01);
+
+  &-head {
+    position: relative;
+    margin-block-end: var(--spacer-base);
+
+    &__title {
+      color: var(--color-text-01);
+      font-size: var(--font-size-text-20);
+
+      @include font-weight-semi-bold;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__description {
+    color: var(--color-text-03);
+    font-size: var(--font-size-text-21);
+    line-height: 1.5;
+  }
+
+  .blob-loading {
+    margin: var(--spacer-base) auto;
+  }
+}

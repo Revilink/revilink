@@ -257,5 +257,14 @@ export default {
         description: ''
       }
     }
+  },
+  widget: {
+    siteSummary: {
+      title: 'Domain hakkında',
+      loading: {
+        title: 'Yükleniyor',
+        description: 'Yapay zeka domain özetini hazırlıyor...'
+      }
+    }
   }
 }

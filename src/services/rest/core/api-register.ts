@@ -7,6 +7,6 @@ export default function ({ app }: Context) {
     user: userApi(app.$appAxios),
     file: fileApi(app.$appAxios),
     review: reviewApi(app.$appAxios),
-    scraper: scraperApi(app.$appAxios)
+    scraper: scraperApi(app.$appAxios, app)
   }
 }

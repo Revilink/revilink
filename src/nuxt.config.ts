@@ -24,10 +24,14 @@ const config: NuxtConfig = {
 
   /*
    ** Nuxt runtime configuration
-   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-runtime-config
+   ** See https://v2.nuxt.com/docs/directory-structure/nuxt-config#runtimeconfig
    */
   publicRuntimeConfig: {
-    API: 'http://127.0.0.1:1337/api'
+    API: process.env.API
+  },
+
+  privateRuntimeConfig: {
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY
   },
 
   /*
@@ -338,6 +342,10 @@ const config: NuxtConfig = {
     {
       path: '/site-scraper',
       handler: '@/server/middleware/site-scraper.ts'
+    },
+    {
+      path: '/site-ai-summary',
+      handler: '@/server/middleware/site-ai-summary.ts'
     }
   ],
 

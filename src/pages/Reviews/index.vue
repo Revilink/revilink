@@ -3,7 +3,7 @@
   .row
     .col-4
       .col-11
-        span Sidebar
+        SiteSummaryWidget
     .col-8
       // Site Meta
       .reviews-page-review-meta
@@ -88,13 +88,15 @@ import { AppIcon } from '@/components/Icon'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
 import { AppLoading } from '@/components/Loading'
+import { SiteSummaryWidget } from '@/components/Widget'
 
 export default defineComponent({
   components: {
     AppIcon,
     ReviewList,
     CommentForm,
-    AppLoading
+    AppLoading,
+    SiteSummaryWidget
   },
   layout: 'Default/Default.layout',
   setup() {

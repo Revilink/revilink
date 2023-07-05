@@ -264,5 +264,14 @@ export default {
         description: ''
       }
     }
+  },
+  widget: {
+    siteSummary: {
+      title: 'About the domain',
+      loading: {
+        title: 'Loading',
+        description: 'AI prepares domain summary...'
+      }
+    }
   }
 }
