@@ -20,7 +20,11 @@ app.all('/', (req: Request, res: Response) => {
       let isAllowed
 
       try {
-        const response = await fetch(robotsUrl)
+        const response = await fetch(robotsUrl, {
+          headers: {
+            'User-Agent': 'RevilinkBot'
+          }
+        })
         const body = await response.text()
 
         const robots = robotsParser(robotsUrl, body)
@@ -42,7 +46,11 @@ app.all('/', (req: Request, res: Response) => {
       let isAllowed
 
       try {
-        const htmlResponse = await fetch(url)
+        const htmlResponse = await fetch(url, {
+          headers: {
+            'User-Agent': 'RevilinkBot'
+          }
+        })
         const html = await htmlResponse.text()
         const parser = new DOMParser()
         const doc = parser.parseFromString(html, 'text/html')

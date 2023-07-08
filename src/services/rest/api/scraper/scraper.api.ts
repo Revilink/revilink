@@ -14,9 +14,6 @@ export const scraperApi = (appAxios: Function, app: NuxtAppOptions) =>
         url: `${window.location.origin}/site-robots-checker`,
         query: {
           url
-        },
-        headers: {
-          'User-Agent': 'RevilinkBot'
         }
       })
 

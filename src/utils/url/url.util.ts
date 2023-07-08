@@ -15,11 +15,9 @@ export const removeProtocolAndWWW = (url: string) => {
  * @returns {string} Stripped url
  */
 export const removeTrailingSlash = (url: string) => {
-  if (url.endsWith('/')) {
-    return withoutTrailingSlash(url.slice(0, -1), true)
-  } else {
-    return withoutTrailingSlash(url, true)
-  }
+  const _url = decodeURIComponent(url)
+
+  return withoutTrailingSlash(_url, true).replace(/\/+$/, '')
 }
 
 /**
