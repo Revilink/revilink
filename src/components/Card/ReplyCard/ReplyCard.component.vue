@@ -57,8 +57,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, reactive, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, reactive } from '@nuxtjs/composition-api'
 import { ReviewTypes } from '@/types'
+import { useCommentLike } from '@/hooks'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { ReplyDialog, DeleteCommentDialog } from '@/components/Dialog'
@@ -92,28 +93,8 @@ export default defineComponent({
       }
     })
 
-    const like = reactive({
-      isActive: false,
-      count: props.reply.likeCount || 0
-    })
-
-    const toggleLike = () => {
-      like.isActive = !like.isActive
-
-      if (like.isActive) {
-        like.count += 1
-      } else {
-        like.count -= 1
-      }
-    }
-
-    const likedClass = computed(() => {
-      const likeButtonClassName = 'like-button'
-
-      if (like.isActive) {
-        return `${likeButtonClassName}--liked`
-      }
-    })
+    const { like, fetchMyLike, toggleLike, likedClass } = useCommentLike(props.reply)
+    fetchMyLike()
 
     const handleClickReply = () => {
       form.reply.isOpen = true

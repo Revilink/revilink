@@ -1,10 +1,20 @@
-import { FetchReviewsTypes, ReviewApiTypes, PostReviewTypes, EditReviewTypes, DeleteReviewTypes } from './review.api.types'
+import { NuxtAppOptions } from '@nuxt/types'
+import {
+  FetchReviewsTypes,
+  ReviewApiTypes,
+  PostReviewTypes,
+  EditReviewTypes,
+  DeleteReviewTypes,
+  FetchCommentLikesTypes,
+  LikeReviewTypes,
+  UnLikeReviewTypes
+} from './review.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
 import { reviewTransformer } from '@/services/rest/transformers'
 import { ReviewApiModelTypes } from '@/types'
 import { encodeBase64 } from '@/utils/encode-decode'
 
-export const reviewApi = (appAxios: Function) =>
+export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
   <ReviewApiTypes>{
     async fetchReviews(params: FetchReviewsTypes) {
       const { populate, filters, sort, pagination } = params
@@ -49,7 +59,7 @@ export const reviewApi = (appAxios: Function) =>
       if (data) {
         return {
           data: {
-            item: reviewTransformer(data.data)
+            item: reviewTransformer(data)
           }
         }
       } else {
@@ -112,6 +122,86 @@ export const reviewApi = (appAxios: Function) =>
 
       if (data) {
         return { data: reviewTransformer(data) }
+      } else {
+        return { error }
+      }
+    },
+
+    async fetchCommentLikes(params: FetchCommentLikesTypes) {
+      const { populate, filters, sort, pagination } = params
+
+      const queryDefault = {
+        populate: 'populate=*',
+        filters: '',
+        sort: 'sort=id:desc',
+        pagination: 'pagination[page]=1&pagination[pageSize]=10'
+      }
+
+      const query = {
+        populate: populate || queryDefault.populate,
+        filters: filters || queryDefault.filters,
+        sort: sort || queryDefault.sort,
+        pagination: pagination || queryDefault.pagination
+      }
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'get',
+        path: `comment-likes?${query.populate}&${query.filters}&${query.sort}&${query.pagination}`
+      })
+
+      if (data) {
+        return {
+          data: {
+            items: data.data,
+            meta: data.meta
+          }
+        }
+      } else {
+        return { error }
+      }
+    },
+
+    async likeReview(params: LikeReviewTypes) {
+      const { id } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'post',
+        path: `comment-likes`,
+        data: {
+          data: {
+            comment: id,
+            user: app.$auth.user?.id
+          }
+        }
+      })
+
+      if (data) {
+        return {
+          data: {
+            item: data.data,
+            meta: data.meta
+          }
+        }
+      } else {
+        return { error }
+      }
+    },
+
+    async unlikeReview(params: UnLikeReviewTypes) {
+      const { likeId } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'delete',
+        path: `comment-likes/${likeId}`
+      })
+
+      if (data) {
+        return {
+          data: {
+            item: data.data,
+            meta: data.meta
+          }
+        }
       } else {
         return { error }
       }

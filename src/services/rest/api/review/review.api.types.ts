@@ -24,10 +24,23 @@ export type DeleteReviewTypes = {
   id: number
 }
 
+export interface FetchCommentLikesTypes extends ApiQueryTypes {}
+
+export type LikeReviewTypes = {
+  id: number
+}
+
+export type UnLikeReviewTypes = {
+  likeId: number
+}
+
 export type ReviewApiTypes = {
   fetchReviews: Function
   fetchReview: Function
   postReview: Function
   editReview: Function
   deleteReview: Function
+  fetchCommentLikes: Function
+  likeReview: Function
+  unlikeReview: Function
 }

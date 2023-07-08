@@ -140,6 +140,7 @@ import { defineComponent, useContext, useFetch, ref, reactive, computed } from '
 import type { Ref } from 'vue'
 import type { ReviewTypes } from '@/types'
 import { formatToFullDate } from '@/utils/date'
+import { useCommentLike } from '@/hooks'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import ReplyCard from '@/components/Card/ReplyCard/ReplyCard.component.vue'
@@ -185,28 +186,8 @@ export default defineComponent({
       }
     })
 
-    const like = reactive({
-      isActive: false,
-      count: props.review.likeCount || 0
-    })
-
-    const toggleLike = () => {
-      like.isActive = !like.isActive
-
-      if (like.isActive) {
-        like.count += 1
-      } else {
-        like.count -= 1
-      }
-    }
-
-    const likedClass = computed(() => {
-      const likeButtonClassName = 'like-button'
-
-      if (like.isActive) {
-        return `${likeButtonClassName}--liked`
-      }
-    })
+    const { like, fetchMyLike, toggleLike, likedClass } = useCommentLike(props.review)
+    fetchMyLike()
 
     const handleClickReply = () => {
       form.reply.isOpen = true
@@ -280,16 +261,16 @@ export default defineComponent({
     })
 
     const { fetch, fetchState } = useFetch(async () => {
-      const { data } = await context.$api.rest.review.fetchReviews({
+      const { data: replies } = await context.$api.rest.review.fetchReviews({
         populate: `populate=url,user,user.avatar,images`,
         filters: `filters[parent][id]=${props.review.id}`,
         pagination: `pagination[page]=${reply.page}&pagination[pageSize]=${reply.limit}`
       })
 
-      if (data) {
-        reply.items = data.items
-        reply.meta = data.meta
-        reply.count = data.meta?.pagination.total
+      if (replies) {
+        reply.items = replies.items
+        reply.meta = replies.meta
+        reply.count = replies.meta?.pagination.total
       }
     })
 
