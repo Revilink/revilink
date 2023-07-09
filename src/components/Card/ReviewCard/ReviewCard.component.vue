@@ -35,7 +35,7 @@
           button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-like-count')")
             strong {{ like.count }}
             span {{ $t('general.likes') }}
-          button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-reply-count')")
+          button.review-card-detail__item.review-card-detail__item--button.pointer-events-none
             strong {{ reply.count }}
             span {{ $t('general.replies') }}
 
@@ -186,8 +186,8 @@ export default defineComponent({
       }
     })
 
-    const { like, fetchMyLike, toggleLike, likedClass } = useCommentLike(props.review)
-    fetchMyLike()
+    const { like, getMyLike, toggleLike, likedClass } = useCommentLike(props.review)
+    getMyLike()
 
     const handleClickReply = () => {
       form.reply.isOpen = true

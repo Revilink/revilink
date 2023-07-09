@@ -8,9 +8,10 @@ export type ReviewApiModelTypes = {
   url: Object
   user: UserApiModelTypes
   comment: string
-  likeCount: number
-  replyCount: number
   parent?: Object
+  likeCount: number
+  myLike?: Object
+  replyCount: number
 }
 
 export type ReviewTypes = {
@@ -20,7 +21,8 @@ export type ReviewTypes = {
   url: Object
   user: UserTypes
   content: string
-  likeCount: number
-  replyCount: number
   parent?: Object
+  likeCount: number
+  myLike?: Object
+  replyCount: number
 }

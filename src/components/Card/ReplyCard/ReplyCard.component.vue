@@ -93,8 +93,8 @@ export default defineComponent({
       }
     })
 
-    const { like, fetchMyLike, toggleLike, likedClass } = useCommentLike(props.reply)
-    fetchMyLike()
+    const { like, getMyLike, toggleLike, likedClass } = useCommentLike(props.reply)
+    getMyLike()
 
     const handleClickReply = () => {
       form.reply.isOpen = true

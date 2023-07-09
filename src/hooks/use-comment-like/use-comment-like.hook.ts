@@ -10,16 +10,10 @@ export default (comment: CommentTypes) => {
     count: comment.likeCount || 0
   })
 
-  const fetchMyLike = async () => {
+  const getMyLike = () => {
     if (context.$auth.loggedIn && context.$auth.user) {
-      const { data: myLikes } = await context.$api.rest.review.fetchCommentLikes({
-        populate: `populate=comment,user`,
-        filters: `filters[comment][id]=${comment.id}&filters[user][id]=${context.$auth.user?.id}`,
-        pagination: `pagination[page]=1&pagination[pageSize]=1`
-      })
-
-      if (myLikes.items?.length > 0) {
-        like.myLike = myLikes.items[0]
+      if (comment.myLike) {
+        like.myLike = comment.myLike
         like.isActive = true
       }
     }
@@ -81,7 +75,7 @@ export default (comment: CommentTypes) => {
 
   return {
     like,
-    fetchMyLike,
+    getMyLike,
     toggleLike,
     likedClass
   }

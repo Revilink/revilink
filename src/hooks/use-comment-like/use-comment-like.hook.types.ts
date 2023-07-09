@@ -1,6 +1,7 @@
 export type CommentTypes = {
   id?: number
   likeCount?: number
+  myLike?: Object
 }
 
 export type MyLikeTypes = {

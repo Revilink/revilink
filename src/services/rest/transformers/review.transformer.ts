@@ -11,6 +11,7 @@ export default (model: ReviewApiModelTypes) => {
     user: model.attributes?.user || model.user ? userTransformer(model.attributes?.user.data || model.user) : null,
     content: model.attributes?.comment || model.comment,
     likeCount: model.attributes?.likeCount || model.likeCount,
+    myLike: model.attributes?.myLike || model.myLike,
     replyCount: model.attributes?.replyCount || model.replyCount
   }
 }
