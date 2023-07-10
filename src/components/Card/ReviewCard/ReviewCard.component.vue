@@ -14,7 +14,7 @@
         .review-card-meta__user
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
             strong {{ review.user.username }}
-        .review-card-meta__date(v-if="!isDetailed")
+        .review-card-meta__date
           | • &nbsp;
           NuxtLink(
             :to="localePath({ name: 'Comment', query: { id: review.id } })"
@@ -95,13 +95,13 @@
       span {{ fetchState.error }}
   template(v-else)
     // Replies
-    .review-card-replies(v-if="reply.items && reply.items.length > 0")
+    .review-card-replies(v-if="withReplies && reply.items && reply.items.length > 0")
       h4.review-card-replies__title {{ $t('general.replies') }}
 
       template(v-for="(replyItem, index) in reply.items")
         template(v-if="!isDetailed ? index < 2 : true")
           // Reply Card
-          ReplyCard(:key="replyItem.id" :reply="replyItem" :review="review" @on-delete-success="handleReplyDelete")
+          ReplyCard(:key="replyItem.id" :reply="replyItem" @on-edit-success="handleReplyEdit" @on-delete-success="handleReplyDelete")
 
       vs-button.ms-auto.my-3(
         v-if="!isDetailed && reply.items.length >= 2"
@@ -166,6 +166,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    withReplies: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   setup(props, { emit }) {
@@ -261,16 +266,18 @@ export default defineComponent({
     })
 
     const { fetch, fetchState } = useFetch(async () => {
-      const { data: replies } = await context.$api.rest.review.fetchReviews({
-        populate: `populate=url,user,user.avatar,images`,
-        filters: `filters[parent][id]=${props.review.id}`,
-        pagination: `pagination[page]=${reply.page}&pagination[pageSize]=${reply.limit}`
-      })
+      if (props.withReplies) {
+        const { data: replies } = await context.$api.rest.review.fetchReviews({
+          populate: `populate=url,user,user.avatar,images`,
+          filters: `filters[parent][id]=${props.review.id}`,
+          pagination: `pagination[page]=${reply.page}&pagination[pageSize]=${reply.limit}`
+        })
 
-      if (replies) {
-        reply.items = replies.items
-        reply.meta = replies.meta
-        reply.count = replies.meta?.pagination.total
+        if (replies) {
+          reply.items = replies.items
+          reply.meta = replies.meta
+          reply.count = replies.meta?.pagination.total
+        }
       }
     })
 
@@ -301,6 +308,11 @@ export default defineComponent({
       reply.count += 1
     }
 
+    const handleReplyEdit = async () => {
+      reply.page = 1
+      await fetch()
+    }
+
     const handleReplyDelete = async () => {
       reply.page = 1
       await fetch()
@@ -328,6 +340,7 @@ export default defineComponent({
       reply,
       loadMoreReply,
       handleReply,
+      handleReplyEdit,
       handleReplyDelete,
       detailedClass,
       formatToFullDate

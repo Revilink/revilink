@@ -8,6 +8,9 @@ declare module 'vue/types/vue' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $encodeBase64: any
+    $isBase64: any
+    $decodeBase64: any
   }
 }
 
@@ -17,6 +20,9 @@ declare module '@nuxt/types' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $encodeBase64: any
+    $isBase64: any
+    $decodeBase64: any
   }
 
   interface Context {
@@ -24,6 +30,9 @@ declare module '@nuxt/types' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $encodeBase64: any
+    $isBase64: any
+    $decodeBase64: any
   }
 }
 

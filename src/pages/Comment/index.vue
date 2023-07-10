@@ -1,22 +1,48 @@
 <template lang="pug">
 .page.comment-page
   .col-lg-8.mx-auto
-    .comment-page-head
-      h1.comment-page-head__title {{ $t('general.comment') }}
-
     template(v-if="fetchState.pending")
       AppLoading.py-base
     template(v-else-if="fetchState.error")
       span {{ fetchState.error }}
     template(v-else)
-      ReviewCard(
-        :review="review"
-        :is-detailed="true"
-        @on-click-like-count="handleClickLikeCount"
-        @on-click-reply-count="handleClickReplyCount"
-        @on-edit-confirm="handleEditConfirm"
-        @on-delete-confirm="handleDeleteConfirm"
-      )
+      .comment-page-head
+        h1.comment-page-head__title
+          template(v-if="review.parent") {{ $t('general.reply') }}
+          template(v-else) {{ $t('general.comment') }}
+      UrlLinkCard(:url="$decodeBase64(review.url.url)")
+      // Reply
+      template(v-if="review.parent")
+        .comment-page-reply
+          .comment-page-reply-parent
+            ReviewCard(
+              :review="review.parent"
+              :is-detailed="true"
+              :with-replies="false"
+              @on-click-like-count="handleClickLikeCount"
+              @on-click-reply-count="handleClickReplyCount"
+              @on-edit-success="handleEditSuccess"
+              @on-delete-success="handleDeleteSuccess"
+            )
+          ReplyCard(
+            :reply="review"
+            :is-detailed="true"
+            @on-click-like-count="handleClickLikeCount"
+            @on-click-reply-count="handleClickReplyCount"
+            @on-edit-success="handleEditSuccess"
+            @on-delete-success="handleDeleteSuccess"
+          )
+
+      // Main Comment
+      template(v-else)
+        ReviewCard(
+          :review="review"
+          :is-detailed="true"
+          @on-click-like-count="handleClickLikeCount"
+          @on-click-reply-count="handleClickReplyCount"
+          @on-edit-success="handleEditSuccess"
+          @on-delete-success="handleDeleteSuccess"
+        )
 
   ReactionerUserListDialog(
     :is-open="dialog.reactionerUserList.isOpen"
@@ -26,17 +52,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useRouter, useFetch, ref, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useRouter, useFetch, ref, reactive, watch } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
-import { ReactionerUserListDialogTypes } from './Comment.page.types'
-import { ReviewTypes } from '@/types'
-import { ReviewCard } from '@/components/Card'
+import type { ReactionerUserListDialogTypes } from './Comment.page.types'
+import type { ReviewTypes } from '@/types'
+import { UrlLinkCard, ReviewCard, ReplyCard } from '@/components/Card'
 import { ReactionerUserListDialog } from '@/components/Dialog'
 import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
+    UrlLinkCard,
     ReviewCard,
+    ReplyCard,
     ReactionerUserListDialog,
     AppLoading
   },
@@ -66,12 +94,12 @@ export default defineComponent({
       dialog.reactionerUserList.isOpen = true
     }
 
-    const handleEditConfirm = async () => {
+    const handleEditSuccess = async () => {
       await fetch()
     }
 
-    const handleDeleteConfirm = async () => {
-      await router.push(context.localePath({ name: 'Reviews', query: { link: review.value.url.url } }))
+    const handleDeleteSuccess = async () => {
+      await router.push(context.localePath({ name: 'Reviews', query: { link: context.$decodeBase64(review.value.url.url) } }))
     }
 
     const dialog = reactive({
@@ -81,14 +109,21 @@ export default defineComponent({
       } as ReactionerUserListDialogTypes
     })
 
+    watch(
+      () => route.value.query.id,
+      async () => {
+        await fetch()
+      }
+    )
+
     return {
       fetch,
       fetchState,
       review,
       handleClickLikeCount,
       handleClickReplyCount,
-      handleEditConfirm,
-      handleDeleteConfirm,
+      handleEditSuccess,
+      handleDeleteSuccess,
       dialog
     }
   }

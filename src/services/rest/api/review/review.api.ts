@@ -53,13 +53,14 @@ export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
     async fetchReview(id: number) {
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `comments/${id}?populate=parent,url,images,user`
+        path: `comments/${id}?populate=parent,parent.comment,parent.user,parent.user.avatar,url,images,user,user.avatar`
       })
 
       if (data) {
         return {
           data: {
-            item: reviewTransformer(data)
+            item: reviewTransformer(data.data),
+            meta: data.meta
           }
         }
       } else {

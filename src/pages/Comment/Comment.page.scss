@@ -6,4 +6,51 @@
     display: flex;
     margin-bottom: var(--spacer-base);
   }
+
+  .url-link-card {
+    margin-block-end: var(--spacer-base);
+  }
+
+  .review-card {
+    &__body {
+      border: 2px solid var(--color-brand-01);
+    }
+  }
+
+  &-reply {
+    &-parent {
+      margin-block-end: var(--spacer-base);
+
+      .review-card {
+        &:before {
+          --avatar-size: 46px;
+
+          position: absolute;
+          top: var(--avatar-size);
+          left: calc(var(--avatar-size) / 2);
+          z-index: -1;
+          width: 0;
+          height: 100%;
+          border: 2px solid var(--color-border-01);
+          opacity: 1;
+          content: '';
+        }
+
+        &__body {
+          border: 0;
+        }
+
+        .reply-button {
+          display: none;
+        }
+      }
+    }
+
+    .reply-card {
+      &__body {
+        z-index: 1;
+        border: 2px solid var(--color-brand-01);
+      }
+    }
+  }
 }

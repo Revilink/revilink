@@ -7,12 +7,7 @@
       client-only
         ReviewCard(:review="item" @on-edit-success="handleEditSuccess" @on-delete-success="handleDeleteSuccess")
           template(#bodyPrepend)
-            NuxtLink.profile-comment-list-url(
-              :to="localePath({ name: 'Reviews', query: { link: $decodeBase64(item.url.url) } })"
-              :title="$decodeBase64(item.url.url)"
-            )
-              AppIcon.profile-comment-list-url__icon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
-              span.profile-comment-list-url__title {{ $decodeBase64(item.url.url) }}
+            UrlLinkCard(:url="$decodeBase64(item.url.url)")
       slot(name="itemAppend")
   template(v-else)
     .profile-comment-list__noResults
@@ -30,13 +25,13 @@
 import { defineComponent, useStore } from '@nuxtjs/composition-api'
 import { ReviewTypes } from '@/types'
 import ReviewCard from '@/components/Card/ReviewCard/ReviewCard.component.vue'
-import { AppIcon } from '@/components/Icon'
+import { UrlLinkCard } from '@/components/Card'
 import { BasicState } from '@/components/State'
 
 export default defineComponent({
   components: {
     ReviewCard,
-    AppIcon,
+    UrlLinkCard,
     BasicState
   },
   props: {

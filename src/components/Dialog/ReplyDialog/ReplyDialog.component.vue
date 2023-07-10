@@ -82,7 +82,7 @@ export default defineComponent({
 
       const { data, error } = await context.$api.rest.review.postReview({
         parent: props.review,
-        url: props.review.url.url,
+        url: context.$decodeBase64(props.review.url.url),
         content: formPayload.content,
         media: null
       })

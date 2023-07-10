@@ -5,16 +5,6 @@
 
   position: relative;
 
-  &--detailed {
-    #{$review-card} {
-      &-meta {
-        &__date {
-          display: none;
-        }
-      }
-    }
-  }
-
   &__inner {
     position: relative;
     display: grid;

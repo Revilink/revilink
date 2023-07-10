@@ -14,7 +14,8 @@
             strong {{ reply.user.username }}
         .reply-card-meta__date
           | • &nbsp;
-          Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
+          NuxtLink(:to="localePath({ name: 'Comment', query: { id: reply.id } })")
+            Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .reply-card-review
         p.reply-card-review__text {{ reply.content }}
@@ -35,6 +36,11 @@
             span.reply-card-actions-item__label {{ $t('general.reply') }}
 
           template(v-if="$auth.loggedIn && $auth.user.username === reply.user.username")
+            .reply-card-actions-item.edit-button(role="button" @click="handleClickEdit")
+              PaperButton.reply-card-actions-item__button(:width="36" :height="36")
+                AppIcon(name="ri:edit-line" :width="18" :height="18")
+              span.reply-card-actions-item__label {{ $t('general.edit') }}
+
             .reply-card-actions-item.delete-button(role="button" @click="handleClickDelete")
               PaperButton.reply-card-actions-item__button(:width="36" :height="36")
                 AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
@@ -52,7 +58,7 @@
             template(#tooltip)
               span {{ $t('general.report') }}
 
-  ReplyDialog(:is-open="form.reply.isOpen" :review="review" :reply="reply" @on-close="form.reply.isOpen = false")
+  EditCommentDialog(:is-open="form.edit.isOpen" :comment="reply" @on-close="form.edit.isOpen = false" @on-confirm="handleEdit")
   DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="reply" @on-close="form.delete.isOpen = false" @on-confirm="handleDelete")
 </template>
 
@@ -62,21 +68,17 @@ import { ReviewTypes } from '@/types'
 import { useCommentLike } from '@/hooks'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
-import { ReplyDialog, DeleteCommentDialog } from '@/components/Dialog'
+import { EditCommentDialog, DeleteCommentDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     PaperButton,
     AppIcon,
-    ReplyDialog,
+    EditCommentDialog,
     DeleteCommentDialog
   },
   props: {
     reply: {
-      type: Object,
-      required: true
-    },
-    review: {
       type: Object,
       required: true
     }
@@ -85,7 +87,7 @@ export default defineComponent({
     const context = useContext()
 
     const form = reactive({
-      reply: {
+      edit: {
         isOpen: false
       },
       delete: {
@@ -97,8 +99,36 @@ export default defineComponent({
     getMyLike()
 
     const handleClickReply = () => {
-      form.reply.isOpen = true
       emit('on-click-reply')
+    }
+
+    const handleClickEdit = () => {
+      form.edit.isOpen = true
+      emit('on-click-edit')
+    }
+
+    const handleEdit = async (review: ReviewTypes) => {
+      const { data, error } = await context.$api.rest.review.editReview({
+        id: review.id,
+        content: review.content,
+        media: null
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: 'Edit successfully',
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        emit('on-edit-success', review)
+      } else {
+        emit('on-edit-error', { ...review, ...error })
+      }
+
+      emit('on-edit-confirm', review)
     }
 
     const handleClickDelete = () => {
@@ -134,6 +164,8 @@ export default defineComponent({
       toggleLike,
       likedClass,
       handleClickReply,
+      handleClickEdit,
+      handleEdit,
       handleClickDelete,
       handleDelete
     }

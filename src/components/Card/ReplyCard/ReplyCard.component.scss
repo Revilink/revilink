@@ -75,7 +75,7 @@
 
       &:hover {
         .paper-button {
-          background-color: var(--color-hover-02);
+          background-color: var(--color-hover-01);
         }
       }
 
@@ -128,6 +128,20 @@
 
             .app-icon {
               color: var(--color-info-01);
+            }
+          }
+        }
+      }
+
+      &.edit-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
+
+            .app-icon {
+              color: var(--color-warning-01);
             }
           }
         }
