@@ -15,7 +15,14 @@
           )
             AppLoading(v-if="site.isBusy" :size="20")
             template(v-else)
-              img(v-if="site.isAllowed && site.meta.icon" :src="site.meta.icon" :alt="$t('general.avatar')" width="16" height="16")
+              img(
+                v-if="site.isAllowed && site.meta.icon"
+                :src="site.meta.icon"
+                :alt="$t('general.avatar')"
+                width="16"
+                height="16"
+                @error="site.meta.icon = false"
+              )
               AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
 
           template(#tooltip)
