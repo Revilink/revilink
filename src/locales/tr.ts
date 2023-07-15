@@ -258,6 +258,14 @@ export default {
       }
     }
   },
+  reaction: {
+    heart: 'Harika!',
+    bookmark: 'Yararlı',
+    smile: 'Eğlenceli',
+    wow: 'Şaşırtıcı',
+    thinking: 'Düşündürücü',
+    angry: 'Berbat'
+  },
   widget: {
     siteSummary: {
       title: 'Domain hakkında',

@@ -265,6 +265,14 @@ export default {
       }
     }
   },
+  reaction: {
+    heart: 'Cool!',
+    bookmark: 'Useful',
+    smile: 'Funny',
+    wow: 'WOW',
+    thinking: 'Engrossing',
+    angry: 'Terrible'
+  },
   widget: {
     siteSummary: {
       title: 'About the domain',

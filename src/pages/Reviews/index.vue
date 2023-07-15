@@ -36,6 +36,14 @@
             a(rel="noopener,norel" :title="$route.query.link" :href="withProtocol($route.query.link, 'http://')" target="_blank")
               | {{ $route.query.link }}
 
+          // Reactions
+          .reviews-page-reactions
+            ReactionButtonGroup(
+              :reaction-count="reaction.reactionCount"
+              :my-reaction="reaction.myReaction"
+              @on-click-reaction-button="handleReaction"
+            )
+
       // Review List
       .reviews-page-review-list
         .reviews-page-review-list-head
@@ -87,11 +95,12 @@ import {
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
 import { withProtocol } from 'ufo'
-import type { CommentRefTypes } from './Reviews.page.types'
+import type { UrlTypes, ReactionTypes, CommentRefTypes } from './Reviews.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
 import { AppIcon } from '@/components/Icon'
+import { ReactionButtonGroup } from '@/components/ButtonGroup'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
 import { AppLoading } from '@/components/Loading'
@@ -100,6 +109,7 @@ import { SiteSummaryWidget } from '@/components/Widget'
 export default defineComponent({
   components: {
     AppIcon,
+    ReactionButtonGroup,
     ReviewList,
     CommentForm,
     AppLoading,
@@ -161,7 +171,22 @@ export default defineComponent({
     const reviewsMeta = computed(() => store.getters['review/meta'])
 
     const { fetch, fetchState } = useFetch(async () => {
-      const { data } = await store.dispatch('review/fetchReviews', {
+      const { data: urlData } = await context.$api.rest.url.fetchUrl({
+        filters: `filters[url][$eq]=${encodeBase64(
+          convertToRevilinkFormat({
+            url: route.value.query.link as string
+          })
+        )}`
+      })
+
+      if (urlData?.item) {
+        url.value = urlData.item
+
+        reaction.reactionCount = urlData.item.reactionCount
+        reaction.myReaction = urlData.item.myReaction
+      }
+
+      const { data: reviewsData } = await store.dispatch('review/fetchReviews', {
         populate: `populate=url,user,user.avatar,images`,
         filters: `filters[url][url][$eq]=${encodeBase64(
           convertToRevilinkFormat({
@@ -171,10 +196,89 @@ export default defineComponent({
         pagination: `pagination[page]=${review.page}&pagination[pageSize]=10`
       })
 
-      if (data.items?.length <= 0) {
+      if (reviewsData.items?.length <= 0) {
         review.page = 1
       }
     })
+
+    const url = ref<UrlTypes>({})
+
+    const reaction = reactive<ReactionTypes>({
+      reactionCount: {},
+      myReaction: {}
+    })
+
+    const handleReaction = async (type: string) => {
+      if (type === reaction.myReaction?.type) {
+        const { data, error } = await context.$api.rest.url.deleteReaction(reaction.myReaction.id)
+
+        if (data) {
+          reaction.myReaction = {}
+
+          if (reaction.reactionCount) {
+            reaction.reactionCount[data.type.toLowerCase()] -= 1
+          }
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else if (reaction.myReaction && Object.keys(reaction.myReaction).length > 0) {
+        // Decrease count from active reaction
+        if (reaction.myReaction.type) {
+          if (reaction.reactionCount) {
+            reaction.reactionCount[reaction.myReaction?.type.toLowerCase()] -= 1
+          }
+        }
+
+        const { data, error } = await context.$api.rest.url.updateReaction({
+          id: reaction.myReaction.id,
+          type,
+          urlId: url.value.id
+        })
+
+        if (data) {
+          reaction.myReaction = data
+
+          if (reaction.reactionCount) {
+            reaction.reactionCount[data.type.toLowerCase()] += 1
+          }
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else {
+        const { data, error } = await context.$api.rest.url.postReaction({
+          type,
+          urlId: url.value.id
+        })
+
+        if (data) {
+          reaction.myReaction = data
+
+          if (reaction.reactionCount) {
+            reaction.reactionCount[data.type.toLowerCase()] += 1
+          }
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      }
+    }
 
     const review = reactive({
       page: route.value.query.page || 1
@@ -252,6 +356,9 @@ export default defineComponent({
       fetch,
       fetchState,
       site,
+      url,
+      reaction,
+      handleReaction,
       review,
       reviews,
       reviewsMeta,

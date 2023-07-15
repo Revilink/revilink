@@ -1,0 +1,52 @@
+.reaction-button-group {
+  position: relative;
+  display: inline-flex;
+
+  .reaction-button {
+    $reaction-button: '.reaction-button';
+
+    position: relative;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+
+    &--active {
+      #{$reaction-button} {
+        &__icon {
+          svg {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+
+    &:hover {
+      #{$reaction-button} {
+        &__icon {
+          svg {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    &__icon {
+      position: relative;
+
+      svg {
+        transform-origin: bottom;
+        transition: 0.4s var(--motion-01);
+      }
+    }
+
+    &__label {
+      display: inline-block;
+      color: var(--color-text-03);
+      font-size: var(--font-size-text-23);
+      cursor: pointer;
+      margin-block-start: var(--spacer);
+
+      @include font-weight-extra-bold;
+    }
+  }
+}

@@ -12,10 +12,10 @@ const avatarTransformer = (model: Record<string, any>) => {
 export default (model: UserApiModelTypes) => {
   return <UserTypes>{
     id: model.id,
-    username: model.attributes?.username || model.username,
     createdAt: model.attributes?.createdAt || model.createdAt,
     updatedAt: model.attributes?.updatedAt || model.updatedAt,
     email: model.attributes?.email || model.email,
+    username: model.attributes?.username || model.username,
     avatar: model.attributes?.avatar?.data || model.avatar ? avatarTransformer(model.attributes?.avatar.data || model.avatar) : null,
     confirmed: model.attributes?.confirmed || model.confirmed,
     blocked: model.attributes?.blocked || model.blocked,
