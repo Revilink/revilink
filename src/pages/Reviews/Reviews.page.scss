@@ -12,6 +12,12 @@
     padding-bottom: var(--spacer-base);
     border-bottom: 1px solid var(--color-border-01);
 
+    &__avatarTooltip {
+      display: inline-flex;
+      width: var(--avatar-width);
+      height: var(--avatar-height);
+    }
+
     &__avatar {
       width: var(--avatar-width);
       height: var(--avatar-height);

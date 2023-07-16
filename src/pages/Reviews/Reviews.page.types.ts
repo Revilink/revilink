@@ -5,6 +5,7 @@ export interface CommentRefTypes extends HTMLElement {
 
 export type UrlTypes = {
   id?: number
+  url?: string
 }
 
 type MyReactionTypes = {

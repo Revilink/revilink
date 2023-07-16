@@ -7,7 +7,7 @@
     .col-8
       // Site Meta
       .reviews-page-review-meta
-        vs-tooltip(not-arrow shadow top :class="[{ 'pointer-events-none': site.isBusy }]")
+        vs-tooltip.reviews-page-review-meta__avatarTooltip(not-arrow shadow top :class="[{ 'pointer-events-none': site.isBusy }]")
           vs-avatar.reviews-page-review-meta__avatar(
             badge-position="top-left"
             :badge="!site.isBusy"
@@ -53,11 +53,11 @@
             template(v-if="reviews && reviews.length > 0")
               | &nbsp;({{ reviewsMeta.pagination.total }})
 
-        template(v-if="fetchState.pending")
+        template(v-if="reviewsFetchState.pending")
           AppLoading.py-base
 
-        template(v-else-if="fetchState.error")
-          p {{ fetchState.error }}
+        template(v-else-if="reviewsFetchState.error")
+          p {{ reviewsFetchState.error }}
 
         template(v-else)
           ReviewList(:items="reviews")
@@ -137,6 +137,24 @@ export default defineComponent({
 
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
+    // Url
+    const url = ref<UrlTypes>({})
+
+    const { fetch: urlFetch, fetchState: urlFetchState } = useFetch(async () => {
+      const { data } = await context.$api.rest.url.fetchUrl({
+        filters: `filters[url][$eq]=${encodeBase64(
+          convertToRevilinkFormat({
+            url: route.value.query.link as string
+          })
+        )}`
+      })
+
+      if (data?.item) {
+        url.value = data.item
+      }
+    })
+
+    // Website
     const site = reactive({
       isAllowed: false,
       isBusy: false,
@@ -167,26 +185,20 @@ export default defineComponent({
       site.meta = siteResult
     }
 
+    // Comments
+    const review = reactive({
+      page: route.value.query.page || 1
+    })
     const reviews = computed(() => store.getters['review/items'])
     const reviewsMeta = computed(() => store.getters['review/meta'])
+    const comment = reactive({
+      isBusy: false
+    })
 
-    const { fetch, fetchState } = useFetch(async () => {
-      const { data: urlData } = await context.$api.rest.url.fetchUrl({
-        filters: `filters[url][$eq]=${encodeBase64(
-          convertToRevilinkFormat({
-            url: route.value.query.link as string
-          })
-        )}`
-      })
+    const commentFormRef: Ref<CommentRefTypes | null> = ref(null)
 
-      if (urlData?.item) {
-        url.value = urlData.item
-
-        reaction.reactionCount = urlData.item.reactionCount
-        reaction.myReaction = urlData.item.myReaction
-      }
-
-      const { data: reviewsData } = await store.dispatch('review/fetchReviews', {
+    const { fetch: reviewsFetch, fetchState: reviewsFetchState } = useFetch(async () => {
+      const { data } = await store.dispatch('review/fetchReviews', {
         populate: `populate=url,user,user.avatar,images`,
         filters: `filters[url][url][$eq]=${encodeBase64(
           convertToRevilinkFormat({
@@ -196,92 +208,9 @@ export default defineComponent({
         pagination: `pagination[page]=${review.page}&pagination[pageSize]=10`
       })
 
-      if (reviewsData.items?.length <= 0) {
+      if (data.items?.length <= 0) {
         review.page = 1
       }
-    })
-
-    const url = ref<UrlTypes>({})
-
-    const reaction = reactive<ReactionTypes>({
-      reactionCount: {},
-      myReaction: {}
-    })
-
-    const handleReaction = async (type: string) => {
-      if (type === reaction.myReaction?.type) {
-        const { data, error } = await context.$api.rest.url.deleteReaction(reaction.myReaction.id)
-
-        if (data) {
-          reaction.myReaction = {}
-
-          if (reaction.reactionCount) {
-            reaction.reactionCount[data.type.toLowerCase()] -= 1
-          }
-        } else {
-          window.$nuxt.$vs.notification({
-            title: error.code,
-            text: error.message,
-            color: 'danger',
-            position: 'bottom-center',
-            flat: true
-          })
-        }
-      } else if (reaction.myReaction && Object.keys(reaction.myReaction).length > 0) {
-        // Decrease count from active reaction
-        if (reaction.myReaction.type) {
-          if (reaction.reactionCount) {
-            reaction.reactionCount[reaction.myReaction?.type.toLowerCase()] -= 1
-          }
-        }
-
-        const { data, error } = await context.$api.rest.url.updateReaction({
-          id: reaction.myReaction.id,
-          type,
-          urlId: url.value.id
-        })
-
-        if (data) {
-          reaction.myReaction = data
-
-          if (reaction.reactionCount) {
-            reaction.reactionCount[data.type.toLowerCase()] += 1
-          }
-        } else {
-          window.$nuxt.$vs.notification({
-            title: error.code,
-            text: error.message,
-            color: 'danger',
-            position: 'bottom-center',
-            flat: true
-          })
-        }
-      } else {
-        const { data, error } = await context.$api.rest.url.postReaction({
-          type,
-          urlId: url.value.id
-        })
-
-        if (data) {
-          reaction.myReaction = data
-
-          if (reaction.reactionCount) {
-            reaction.reactionCount[data.type.toLowerCase()] += 1
-          }
-        } else {
-          window.$nuxt.$vs.notification({
-            title: error.code,
-            text: error.message,
-            color: 'danger',
-            position: 'bottom-center',
-            flat: true
-          })
-        }
-      }
-    }
-
-    const review = reactive({
-      page: route.value.query.page || 1
     })
 
     watch(
@@ -289,7 +218,7 @@ export default defineComponent({
       async value => {
         review.page = value
         await router.push({ query: { ...route.value.query, page: String(value) } })
-        await fetch()
+        await reviewsFetch()
       }
     )
 
@@ -299,12 +228,6 @@ export default defineComponent({
         review.page = Number(value || 1)
       }
     )
-
-    const comment = reactive({
-      isBusy: false
-    })
-
-    const commentFormRef: Ref<CommentRefTypes | null> = ref(null)
 
     const handleCommentOnSubmit = async (formPayload: ReviewTypes) => {
       comment.isBusy = true
@@ -324,7 +247,7 @@ export default defineComponent({
           flat: true
         })
 
-        await fetch()
+        await reviewsFetch()
 
         commentFormRef.value?.clearForm()
 
@@ -347,24 +270,106 @@ export default defineComponent({
       comment.isBusy = false
     }
 
+    // Reactions
+    const reaction = reactive<ReactionTypes>({
+      reactionCount: {},
+      myReaction: {}
+    })
+
+    const fetchUrlReactions = async () => {
+      const { data } = await context.$api.rest.url.fetchUrlReactions({
+        filters: `filters[url][url][$eq]=${encodeBase64(
+          convertToRevilinkFormat({
+            url: route.value.query.link as string
+          })
+        )}`
+      })
+
+      if (data) {
+        reaction.reactionCount = data.meta.reactionCount
+        reaction.myReaction = data.meta.myReaction
+      }
+    }
+
+    fetchUrlReactions()
+
+    const handleReaction = async (type: string) => {
+      if (type === reaction.myReaction?.type) {
+        const { data, error } = await context.$api.rest.url.deleteReaction(reaction.myReaction.id)
+
+        if (data) {
+          reaction.myReaction = {}
+
+          await fetchUrlReactions()
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else if (reaction.myReaction && Object.keys(reaction.myReaction).length > 0) {
+        const { data, error } = await context.$api.rest.url.updateReaction({
+          id: reaction.myReaction.id,
+          urlId: url.value.id,
+          type
+        })
+
+        if (data) {
+          await fetchUrlReactions()
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else {
+        const { data, error } = await context.$api.rest.url.postReaction({
+          url: route.value.query.link,
+          type
+        })
+
+        if (data) {
+          url.value = data.url
+
+          await fetchUrlReactions()
+        } else {
+          window.$nuxt.$vs.notification({
+            title: error.code,
+            text: error.message,
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      }
+    }
+
     onMounted(() => {
       fetchAndReadRobots()
     })
 
     return {
       rootRef,
-      fetch,
-      fetchState,
-      site,
       url,
-      reaction,
-      handleReaction,
+      urlFetch,
+      urlFetchState,
+      site,
       review,
+      reviewsFetchState,
+      reviewsFetch,
       reviews,
       reviewsMeta,
       comment,
       commentFormRef,
       handleCommentOnSubmit,
+      reaction,
+      handleReaction,
       withProtocol
     }
   }

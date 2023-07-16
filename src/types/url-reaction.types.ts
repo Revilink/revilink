@@ -4,6 +4,7 @@ export type UrlReactionApiModelTypes = {
   createdAt: Date | string
   updatedAt?: Date | string
   type: string
+  url?: Object
 }
 
 export type UrlReactionTypes = {
@@ -11,4 +12,5 @@ export type UrlReactionTypes = {
   createdAt: Date | string
   updatedAt?: Date | string
   type: string
+  url?: Object
 }
