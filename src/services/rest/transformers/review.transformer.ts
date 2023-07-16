@@ -1,12 +1,12 @@
 import { ReviewApiModelTypes, ReviewTypes } from '@/types'
-import { userTransformer } from '@/services/rest/transformers'
+import { urlTransformer, userTransformer } from '@/services/rest/transformers'
 
 const baseTransformer = (model: ReviewApiModelTypes) => {
   return <ReviewTypes>{
     id: model.id,
     createdAt: model.attributes?.createdAt || model.createdAt,
     updatedAt: model.attributes?.updatedAt || model.updatedAt,
-    url: model.attributes?.url?.data.attributes || model.url,
+    url: model.attributes?.url || model.url ? urlTransformer(model.attributes?.url?.data || model.url) : null,
     user: model.attributes?.user || model.user ? userTransformer(model.attributes?.user.data || model.user) : null,
     content: model.attributes?.comment || model.comment,
     likeCount: model.attributes?.likeCount || model.likeCount,
