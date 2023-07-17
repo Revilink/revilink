@@ -2,7 +2,7 @@
 .app-textarea
   textarea.app-textarea__textarea(v-autosize="$attrs['v-autosize']" v-bind="$attrs" :value="value" v-on="$listeners")
   .app-textarea-character-counter(v-if="characterCounter && $attrs['maxlength']")
-    span.app-textarea-character-counter__value {{ value.length }} / {{ String($attrs['maxlength']) }}
+    span.app-textarea-character-counter__value(v-if="value && value.length > 0") {{ value.length }} / {{ String($attrs['maxlength']) }}
 </template>
 
 <script lang="ts">
@@ -27,13 +27,13 @@ export default defineComponent({
     }
   },
   setup(props, { attrs }) {
-    const checkValidChracterCounter = () => {
+    const checkValidCharacterCounter = () => {
       if (props.characterCounter && !attrs.maxlength) {
         console.warn('Type a maxlength value for character counter')
       }
     }
 
-    checkValidChracterCounter()
+    checkValidCharacterCounter()
   }
 })
 </script>
