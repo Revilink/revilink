@@ -17,6 +17,7 @@ export type UserApiModelTypes = {
   updatedAt?: Date | string
   username: string
   email: string
+  password: string | number
   avatar: AvatarTypes
   confirmed: boolean
   blocked: boolean
@@ -30,6 +31,7 @@ export type UserTypes = {
   updatedAt?: Date | string
   email: string
   username: string
+  password: string | number
   avatar: AvatarTypes
   confirmed: boolean
   blocked: boolean

@@ -53,6 +53,23 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
 
     .form-item
       vs-input(
+        v-model="form.email"
+        :label="$t('form.email')"
+        :placeholder="$t('form.email')"
+        spellcheck="false"
+        :maxlength="v$.email.maxLength.$params.max"
+        @keydown.space.prevent
+      )
+        template(v-if="v$.email.$error" #message-danger)
+          span(v-if="v$.email.email.$invalid")
+            | {{ $t('form.validation.enterValidModel', { model: $t('form.email').toLowerCase() }) }}
+          span(v-if="v$.email.required.$invalid")
+            | {{ $t('form.validation.modelIsRequired', { model: $t('form.email') }) }}
+          span(v-if="v$.email.maxLength.$invalid")
+            | {{ $t('form.validation.max', { max: v$.email.maxLength.params.max }) }}
+
+    .form-item
+      vs-input(
         v-model="form.information.fullname"
         :label="$t('form.name')"
         :placeholder="$t('form.name')"
@@ -212,6 +229,7 @@ export default defineComponent({
     const form = reactive({
       id: user.id,
       username: user.username,
+      email: user.email,
       information: {
         fullname: user.information?.fullname,
         bio: user.information?.bio
@@ -257,6 +275,12 @@ export default defineComponent({
           position: 'bottom-center',
           flat: true
         })
+
+        const { data } = await context.$api.rest.auth.fetchMe()
+
+        if (data) {
+          context.$auth.setUser(data)
+        }
       } else {
         window.$nuxt.$vs.notification({
           title: error.code,

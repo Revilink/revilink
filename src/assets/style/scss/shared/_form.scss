@@ -36,6 +36,7 @@
     $settings-form: '.settings-form';
 
     position: relative;
+    margin-block-end: calc(var(--spacer-base) * 2);
 
     #{$settings-form} {
       &-title {

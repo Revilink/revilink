@@ -193,7 +193,7 @@ export default {
           change: {
             oldPassword: 'Eski parolan',
             password: 'Parolanı belirle',
-            cPassword: 'Yeni parolanı tekrar yazmalısın'
+            confirmPassword: 'Yeni parolanı tekrar yazmalısın'
           }
         }
       }

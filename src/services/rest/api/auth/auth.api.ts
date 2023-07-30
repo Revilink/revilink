@@ -26,7 +26,7 @@ export const authApi = (appAxios: Function) =>
     async fetchMe() {
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: 'users/me?populate=avatar,information'
+        path: 'users/me'
       })
 
       if (data) {
@@ -39,14 +39,17 @@ export const authApi = (appAxios: Function) =>
     },
 
     async updateMe(params: UpdateMeTypes) {
-      const { avatar, username, information } = params
+      const { avatar, username, email, password, confirmPassword, information } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
-        path: `users/me?populate=avatar,information`,
+        path: `users/me`,
         data: {
           avatar,
           username,
+          email,
+          password,
+          confirmPassword,
           information
         }
       })

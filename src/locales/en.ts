@@ -200,7 +200,7 @@ export default {
           change: {
             oldPassword: 'Old password',
             password: 'New password',
-            cPassword: 'Retype your new password'
+            confirmPassword: 'Retype your new password'
           }
         }
       }

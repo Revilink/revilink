@@ -9,6 +9,9 @@ export type RegisterTypes = {
 export type UpdateMeTypes = {
   avatar?: number | null // File id
   username: string
+  email: string
+  password: string | number
+  confirmPassword: string | number
   information?: UserInformationTypes
 }
 

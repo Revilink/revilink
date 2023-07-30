@@ -301,6 +301,10 @@ const config: NuxtConfig = {
           'Settings/Profile/index': {
             en: '/settings/profile',
             tr: '/ayarlar/profil'
+          },
+          'Settings/Account/index': {
+            en: '/settings/account',
+            tr: '/ayarlar/hesap'
           }
         }
       }
