@@ -10,17 +10,26 @@ form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
 
       .comment-form-card__body
         textarea.comment-form-card__textarea(v-model="form.content" v-autosize :placeholder="contentPlaceholder" spellcheck="false")
+        // Validation messages
+        template(v-if="v$.content.$error")
+          small.color-text-danger(v-if="v$.content.required.$invalid")
+            | {{ $t('form.validation.modelIsRequired', { model: $t('general.comment') }) }}
+
+        // Hint
         small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
         // Send Button
-        vs-button.comment-form__submitButton.ms-auto(type="submit" size="large" :loading="isBusy" :disabled="isBusy") {{ $t('general.send') }}
+        vs-button.comment-form__submitButton.ms-auto(type="submit" size="large" :loading="state.isBusy" :disabled="state.isBusy")
+          | {{ $t('general.send') }}
 </template>
 
 <script lang="ts">
 import { defineComponent, useContext, ref, reactive, computed } from '@nuxtjs/composition-api'
-import type { Ref } from 'vue'
 import autosize from 'v-autosize'
-import { FormTypes } from './CommentForm.component.types'
+import { useVuelidate } from '@vuelidate/core'
+import type { Ref } from 'vue'
+import type { FormTypes } from './CommentForm.component.types'
+import { commentValidator } from '@/validator'
 
 export default defineComponent({
   directives: {
@@ -45,9 +54,13 @@ export default defineComponent({
 
     const context = useContext()
 
+    const state = reactive({
+      isBusy: props.isBusy
+    })
+
     const form = reactive<FormTypes>({
       content: props.formModel?.content || ''
-    })
+    }) as any
 
     const clearForm = () => {
       form.content = ''
@@ -61,8 +74,19 @@ export default defineComponent({
       }
     }
 
+    const rule = {
+      ...commentValidator
+    }
+
+    const v$ = useVuelidate(rule, form)
+
     const handleSubmit = () => {
-      emit('on-submit', form)
+      v$.value.$validate()
+
+      if (!v$.value.$invalid) {
+        v$.value.$reset()
+        emit('on-submit', form)
+      }
     }
 
     const user = computed(() => context.$auth.loggedIn && context.$auth.user)
@@ -75,6 +99,8 @@ export default defineComponent({
 
     return {
       rootRef,
+      state,
+      v$,
       form,
       clearForm,
       focus,

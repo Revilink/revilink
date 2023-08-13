@@ -33,7 +33,8 @@
 
     &__hint {
       display: block;
-      margin-bottom: calc(var(--spacer-base) / 1);
+      margin-block-start: var(--spacer);
+      margin-block-end: var(--spacer-base);
       color: var(--color-text-03);
       font-size: var(--font-size-text-23);
     }
