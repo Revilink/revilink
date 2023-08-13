@@ -64,6 +64,10 @@ export default defineComponent({
         icon: 'fluent-emoji:bookmark'
       },
       {
+        type: reactionTypeEnum.DISLIKE,
+        icon: 'fluent-emoji:thumbs-down-medium-light'
+      },
+      {
         type: reactionTypeEnum.SMILE,
         icon: 'fluent-emoji:grinning-face-with-smiling-eyes'
       },

@@ -261,6 +261,7 @@ export default {
   reaction: {
     heart: 'Harika!',
     bookmark: 'Yararlı',
+    dislike: 'Beğenmedim',
     smile: 'Eğlenceli',
     wow: 'Şaşırtıcı',
     thinking: 'Düşündürücü',

@@ -268,6 +268,7 @@ export default {
   reaction: {
     heart: 'Cool!',
     bookmark: 'Useful',
+    dislike: 'Dislike',
     smile: 'Funny',
     wow: 'WOW',
     thinking: 'Engrossing',
