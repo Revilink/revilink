@@ -8,13 +8,40 @@ const config: NuxtConfig = {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server',
+  target: 'static',
+
+  /*
+   ** Server side rendering
+   ** See https://v2.nuxt.com/docs/configuration-glossary/configuration-ssr
+   */
+  ssr: true,
+
+  /*
+   ** Nuxt env configuration
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-env
+   */
+  env: {},
+
+  /*
+   ** Nuxt runtime configuration
+   ** See https://v2.nuxt.com/docs/directory-structure/nuxt-config#runtimeconfig
+   */
+  publicRuntimeConfig: {
+    API: process.env.API
+  },
+
+  privateRuntimeConfig: {
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY
+  },
 
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
+    htmlAttrs: {
+      lang: 'en'
+    },
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -88,7 +115,48 @@ const config: NuxtConfig = {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '@/services/api.injector.ts',
+      ssr: true
+    },
+    {
+      src: '@/services/rest/core/app-axios.ts',
+      ssr: true
+    },
+    {
+      src: '@/services/rest/core/api-register.ts',
+      ssr: true
+    },
+    {
+      src: '@/plugins/global-meta-tags-setter.ts',
+      ssr: true
+    },
+    {
+      src: '@/plugins/encode-decode.ts',
+      ssr: true
+    },
+    // https://vuesax.com
+    {
+      src: '@/plugins/vuesax.ts',
+      ssr: true
+    },
+    // https://docs.iconify.design/icon-components/vue
+    {
+      src: '@/plugins/iconify.ts',
+      ssr: false
+    },
+    // https://vue-timeago.egoist.sh
+    {
+      src: '@/plugins/vue-timeago.ts',
+      ssr: false
+    },
+    // https://github.com/zhanziyang/vue-croppa
+    {
+      src: '@/plugins/vue-croppa.ts',
+      ssr: true
+    }
+  ],
 
   /*
    ** Auto import components
@@ -102,6 +170,7 @@ const config: NuxtConfig = {
    ** https://nuxtjs.org/docs/configuration-glossary/configuration-router
    */
   router: {
+    middleware: ['vs-tooltip-destroyer.middleware'],
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'index',
@@ -134,13 +203,115 @@ const config: NuxtConfig = {
       {
         files: ['./{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}']
       }
+    ],
+    // https://www.npmjs.com/package/nuxt-font-loader
+    [
+      'nuxt-font-loader',
+      {
+        url: 'https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap',
+        prefetch: true,
+        preconnect: true
+      }
     ]
   ],
 
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    // https://axios.nuxtjs.org
+    '@nuxtjs/axios',
+    // https://auth.nuxtjs.org
+    [
+      '@nuxtjs/auth-next',
+      {
+        redirect: {
+          login: '/login',
+          logout: null
+        },
+        strategies: {
+          local: {
+            token: {
+              property: 'jwt',
+              global: true
+            },
+            endpoints: {
+              login: { url: `http://127.0.0.1:1337/api/auth/local`, method: 'post' },
+              logout: false,
+              user: false
+            },
+            user: {
+              property: '', // the response itself
+              autoFetch: false // User will fetch by api function in store/index
+            }
+          }
+        },
+        plugins: ['@/plugins/auth-lang-redirect.ts']
+      }
+    ],
+    // https://i18n.nuxtjs.org
+    [
+      '@nuxtjs/i18n',
+      {
+        lazy: true,
+        locales: [
+          {
+            name: 'English',
+            title: 'English',
+            code: 'en',
+            iso: 'en-US',
+            icon: 'circle-flags:us',
+            file: 'en.ts'
+          },
+          {
+            name: 'Turkish',
+            title: 'Türkçe',
+            code: 'tr',
+            iso: 'tr-TR',
+            icon: 'circle-flags:tr',
+            file: 'tr.ts'
+          }
+        ],
+        langDir: 'locales/',
+        defaultLocale: 'en',
+        strategy: 'prefix_except_default',
+        detectBrowserLanguage: false,
+        parsePages: false,
+        pages: {
+          'Profile/index': {
+            en: '/profile',
+            tr: '/profil'
+          },
+          'Auth/Register/index': {
+            en: '/register',
+            tr: '/kayit'
+          },
+          'Auth/Login/index': {
+            en: '/login',
+            tr: '/giris'
+          },
+          'Reviews/index': {
+            en: '/reviews',
+            tr: '/incelemeler'
+          },
+          'Comment/index': {
+            en: '/comment',
+            tr: '/yorum'
+          },
+          'Settings/Profile/index': {
+            en: '/settings/profile',
+            tr: '/ayarlar/profil'
+          },
+          'Settings/Account/index': {
+            en: '/settings/account',
+            tr: '/ayarlar/hesap'
+          }
+        }
+      }
+    ],
+    // https://www.npmjs.com/package/nuxt-client-init-module
+    'nuxt-client-init-module'
+  ],
 
   /*
    ** Typescript configuration
@@ -162,6 +333,25 @@ const config: NuxtConfig = {
   build: {
     extractCSS: process.env.NODE_ENV === 'production'
   },
+
+  /*
+   ** Server middleware configuration
+   ** See https://nuxtjs.org/docs/configuration-glossary/configuration-servermiddleware/
+   */
+  serverMiddleware: [
+    {
+      path: '/site-robots-checker',
+      handler: '@/server/middleware/site-robots-checker.ts'
+    },
+    {
+      path: '/site-scraper',
+      handler: '@/server/middleware/site-scraper.ts'
+    },
+    {
+      path: '/site-ai-summary',
+      handler: '@/server/middleware/site-ai-summary.ts'
+    }
+  ],
 
   /*
    ** Server configuration

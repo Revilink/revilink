@@ -1,13 +1,49 @@
 <template lang="pug">
-.app-logo
-  span.app-logo__title 💚 nuxt2-boilerplate
+NuxtLink.app-logo(v-if="link" :to="localePath('/')" title="Revilink")
+  img.app-logo__image(:src="logoImage" alt="Revilink" :width="width" :height="height")
+.app-logo(v-else)
+  img.app-logo__image(:src="logoImage" alt="Revilink" :width="width" :height="height")
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, computed } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {}
+  props: {
+    link: {
+      type: String,
+      required: false,
+      default: '/'
+    },
+    full: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    width: {
+      type: [Number, String],
+      required: false,
+      default: 'auto'
+    },
+    height: {
+      type: [Number, String],
+      required: false,
+      default: 512
+    }
+  },
+  setup(props) {
+    const logoImage = computed(() => {
+      if (props.full) {
+        return require(`@/assets/media/core/logo/revilink_logo_512_full.png`)
+      } else {
+        return require(`@/assets/media/core/logo/revilink_logo_512.png`)
+      }
+    })
+
+    return {
+      logoImage
+    }
+  }
 })
 </script>
 

@@ -1,0 +1,250 @@
+.review-card {
+  $review-card: '.review-card';
+
+  --user-avatar-width: 48px;
+
+  position: relative;
+
+  &__inner {
+    position: relative;
+    display: grid;
+    grid-column-gap: calc(var(--spacer-base) / 2);
+    grid-template-columns: var(--user-avatar-width) 1fr;
+  }
+
+  &-meta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: calc(var(--spacer) * 2);
+
+    &__user {
+      margin-right: var(--spacer);
+      color: var(--color-text-01);
+      font-size: var(--font-size-text-21);
+      text-decoration: none;
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      strong {
+        @include font-weight-semi-bold;
+      }
+    }
+
+    &__date {
+      color: var(--color-text-01);
+      font-size: var(--font-size-text-22);
+      text-decoration: none;
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__body {
+    position: relative;
+    padding: calc(var(--spacer-base) / 2);
+    background-color: var(--color-ui-02);
+    border-radius: var(--border-radius-01);
+  }
+
+  &-review {
+    position: relative;
+    margin-bottom: var(--spacer-base);
+
+    &__text {
+      color: var(--color-text-02);
+      font-size: var(--font-size-text-21);
+      line-height: var(--font-size-text-16);
+    }
+  }
+
+  &-detail {
+    position: relative;
+
+    &__item {
+      display: inline-flex;
+      padding: calc(var(--spacer) * 2) calc(var(--spacer) * 4);
+      font-size: var(--font-size-text-22);
+      background-color: transparent;
+      border: 0;
+      border-radius: calc(var(--border-radius-01) / 2);
+
+      &--button {
+        &:hover {
+          background-color: var(--color-hover-01);
+        }
+      }
+
+      strong {
+        margin-right: var(--spacer);
+      }
+    }
+
+    &__bar {
+      display: flex;
+      margin-top: calc(var(--spacer-base) / 4);
+      margin-bottom: calc(var(--spacer-base) / 2);
+      padding: calc(var(--spacer) * 2) 0;
+      border: 1px solid var(--color-border-01);
+      border-right: 0;
+      border-left: 0;
+    }
+  }
+
+  &-actions {
+    position: relative;
+    display: flex;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        .paper-button {
+          background-color: var(--color-hover-01);
+        }
+      }
+
+      &.like-button {
+        --like-motion: cubic-bezier(0.19, 1, 0.22, 1);
+
+        margin-right: calc(var(--spacer) * 5);
+
+        @keyframes like {
+          0% {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.2);
+          }
+
+          100% {
+            transform: scale(1);
+          }
+        }
+
+        &:hover {
+          .paper-button {
+            background-color: color-mix(in oklab, var(--color-danger-01), #fff 90%);
+
+            .app-icon {
+              color: var(--color-danger-01);
+            }
+          }
+        }
+
+        &--liked {
+          .paper-button {
+            animation: like 0.4s both var(--like-motion);
+
+            .app-icon {
+              color: var(--color-danger-01);
+            }
+          }
+        }
+      }
+
+      &.reply-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mix(in oklab, var(--color-info-01), #fff 90%);
+
+            .app-icon {
+              color: var(--color-info-01);
+            }
+          }
+        }
+      }
+
+      &.edit-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
+
+            .app-icon {
+              color: var(--color-warning-01);
+            }
+          }
+        }
+      }
+
+      &.delete-button {
+        margin-right: calc(var(--spacer) * 5);
+
+        &:hover {
+          .paper-button {
+            background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
+
+            .app-icon {
+              color: var(--color-warning-01);
+            }
+          }
+        }
+      }
+
+      &__button {
+        margin-right: var(--spacer);
+      }
+
+      &__label {
+        font-size: var(--font-size-text-22);
+        font-variant-numeric: tabular-nums;
+        user-select: none;
+      }
+    }
+  }
+
+  &-replies {
+    position: relative;
+    margin-top: var(--spacer-base);
+    margin-left: calc(var(--user-avatar-width) + (var(--user-avatar-width) / 2));
+
+    &__title {
+      display: flex;
+      margin-bottom: calc(var(--spacer-base) / 2);
+    }
+
+    .reply-card {
+      margin-bottom: calc(var(--spacer-base) / 2);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.highlight-flash-animation {
+  animation: highlight-flash-animation 1s var(--motion-01) infinite;
+  animation-delay: 0.2s;
+}
+
+@keyframes highlight-flash-animation {
+  0% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 0 2px var(--color-info-01);
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}

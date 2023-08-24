@@ -35,14 +35,16 @@ module.exports = {
         ignoreTemplateLiterals: true
       }
     ],
-    'no-multiple-empty-lines': [2, { max: 2 }],
     semi: ['error', 'never'],
+    camelcase: 'off',
     'arrow-parens': ['error', 'as-needed'],
+    'no-multiple-empty-lines': [2, { max: 2 }],
     'no-extend-native': 'off',
     'space-before-function-paren': 'off',
-    camelcase: 'off',
+    'import/no-duplicates': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-throw-literal': 'off',
     'no-param-reassign': [
       'error',
       {
@@ -77,6 +79,7 @@ module.exports = {
     'vue/attribute-hyphenation': ['error', 'always'],
     'vue/v-on-event-hyphenation': ['error', 'always'],
     'vue/html-self-closing': 'off',
+    'vue/no-v-html': 'off',
     'vue/order-in-components': ['error'],
     'padding-line-between-statements': [
       'error',

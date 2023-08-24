@@ -1,0 +1,17 @@
+.profile-comment-list {
+  position: relative;
+
+  .review-card {
+    margin-bottom: var(--spacer-base);
+  }
+
+  .url-link-card {
+    background-color: var(--color-ui-03);
+    margin-block-end: calc(var(--spacer-base) / 2);
+  }
+
+  &__noResults {
+    margin-block-end: calc(var(--spacer-base) * 2);
+    filter: grayscale(1);
+  }
+}

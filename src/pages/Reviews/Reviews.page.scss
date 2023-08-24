@@ -1,0 +1,105 @@
+.reviews-page {
+  position: relative;
+
+  &-review-meta {
+    --avatar-width: 46px;
+    --avatar-height: 46px;
+
+    display: grid;
+    grid-column-gap: calc(var(--spacer-base) / 2);
+    grid-template-columns: var(--avatar-height) 1fr;
+    margin-bottom: calc(var(--spacer-base) * 2);
+    padding-bottom: var(--spacer-base);
+    border-bottom: 1px solid var(--color-border-01);
+
+    &__avatarTooltip {
+      display: inline-flex;
+      width: var(--avatar-width);
+      height: var(--avatar-height);
+    }
+
+    &__avatar {
+      width: var(--avatar-width);
+      height: var(--avatar-height);
+      border-radius: var(--border-radius-01);
+      box-shadow: var(--box-shadow-01);
+
+      img {
+        width: 16px;
+        height: 16px;
+        object-fit: cover;
+      }
+    }
+
+    &__body {
+      position: relative;
+      margin-top: calc(var(--avatar-height) / 2 - var(--font-size-h2) / 1.8);
+    }
+
+    &__title {
+      display: block;
+      font-size: var(--font-size-h2);
+
+      @include font-weight-bold;
+    }
+
+    &__url {
+      display: grid;
+      grid-column-gap: var(--spacer);
+      grid-template-columns: auto 1fr;
+      align-items: center;
+
+      a {
+        display: block;
+        width: 90%;
+        margin: calc(var(--spacer-base) / 4) 0;
+        overflow: hidden;
+        color: var(--color-link-01);
+        font-size: var(--font-size-h5);
+        white-space: nowrap;
+        text-decoration: none;
+        text-overflow: ellipsis;
+
+        @include font-weight-regular;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &-reactions {
+    position: relative;
+    margin-block-start: var(--spacer-base);
+  }
+
+  &-review-list {
+    position: relative;
+
+    &-head {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacer-base);
+
+      &__icon {
+        margin-right: calc(var(--spacer) * 2);
+      }
+
+      &__title {
+        font-size: var(--font-size-h3);
+      }
+    }
+  }
+
+  &-comment-form {
+    margin-bottom: var(--spacer-base);
+
+    &__title {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacer-base);
+      font-size: var(--font-size-text-17);
+    }
+  }
+}

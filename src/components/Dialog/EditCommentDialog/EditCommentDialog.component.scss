@@ -1,0 +1,28 @@
+.edit-comment-dialog {
+  z-index: var(--z-index-overlay);
+
+  .vs-dialog {
+    width: 75%;
+
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+  }
+
+  .comment-form {
+    &-card {
+      margin: 0;
+
+      &__body {
+        padding: 0;
+        background: transparent;
+      }
+
+      &__textarea {
+        padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 4);
+        background-color: transparent;
+        border: 0;
+      }
+    }
+  }
+}

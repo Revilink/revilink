@@ -8,8 +8,9 @@
 
   // Main
   .layout__inner
-    .router-view
-      nuxt
+    .container
+      .router-view
+        Nuxt
 </template>
 
 <script lang="ts">

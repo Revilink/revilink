@@ -1,0 +1,116 @@
+.blob-loading {
+  position: relative;
+  z-index: 4;
+  width: var(--width);
+  height: var(--height);
+
+  @keyframes animate {
+    0% {
+      background-position: -1000%;
+    }
+
+    100% {
+      background-position: 1000%;
+    }
+  }
+
+  .blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--width);
+    height: var(--height);
+    background: linear-gradient(45deg, #161616 0%, #445563 100%);
+    background-size: 200% 200%;
+    box-shadow: 0 0 200px 0 rgba(22, 22, 22, 0.7), 0 0 50px 0 rgba(68, 85, 99, 0.7);
+    transform: translate(-50%, -50%);
+    animation: ai-blob 3s, gradient 12s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .blob1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    width: calc(var(--width) + 20px);
+    height: calc(var(--height) + 20px);
+    background-color: #034f9c0b;
+    transform: translate(-50%, -50%);
+    animation: ai-blob 4s linear infinite;
+    animation-direction: reverse;
+  }
+
+  .blob2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: calc(var(--width) + 30px);
+    height: calc(var(--height) + 30px);
+    background-color: #11b9e320;
+    transform: translate(-50%, -50%);
+    animation: ai-blob 5s linear infinite;
+  }
+
+  .blob3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: calc(var(--width) + 40px);
+    height: calc(var(--height) + 40px);
+    background-color: #2024a820;
+    transform: translate(-50%, -50%);
+    animation: ai-blob 3.5s linear infinite;
+  }
+
+  @keyframes ai-blob {
+    0% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+
+    20% {
+      border-radius: 60% 40% 40% 60% / 60% 25% 75% 40%;
+    }
+
+    40% {
+      border-radius: 70% 30% 65% 35% / 80% 45% 55% 20%;
+    }
+
+    60% {
+      border-radius: 30% 70% 70% 30% / 20% 30% 70% 80%;
+    }
+
+    80% {
+      border-radius: 40% 60% 40% 60% / 70% 55% 45% 30%;
+    }
+
+    100% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  &__title {
+    color: #eee;
+    font-size: var(--font-size-h6);
+
+    @include font-weight-medium;
+    @include center(true, true);
+  }
+}

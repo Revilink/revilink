@@ -1,0 +1,11 @@
+.login-form {
+  position: relative;
+
+  .form-item {
+    &--submit {
+      a {
+        color: var(--color-text-03);
+      }
+    }
+  }
+}

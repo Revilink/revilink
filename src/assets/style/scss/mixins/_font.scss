@@ -3,10 +3,34 @@
     sans-serif;
 }
 
+@mixin font-family-work-sans {
+  font-family: 'Work Sans', sans-serif;
+}
+
+@mixin font-weight-light {
+  font-weight: 300;
+}
+
 @mixin font-weight-regular {
   font-weight: 400;
 }
 
+@mixin font-weight-medium {
+  font-weight: 500;
+}
+
+@mixin font-weight-semi-bold {
+  font-weight: 600;
+}
+
 @mixin font-weight-bold {
   font-weight: 700;
+}
+
+@mixin font-weight-extra-bold {
+  font-weight: 800;
+}
+
+@mixin font-weight-black {
+  font-weight: 900;
 }

@@ -1,0 +1,48 @@
+.comment-form {
+  position: relative;
+
+  &-card {
+    --user-avatar-width: 48px;
+
+    position: relative;
+    display: grid;
+    grid-column-gap: calc(var(--spacer-base) / 2);
+    grid-template-columns: var(--user-avatar-width) 1fr;
+    margin-bottom: calc(var(--spacer-base) / 2);
+
+    &__body {
+      position: relative;
+      padding: calc(var(--spacer-base) / 2);
+      background-color: var(--color-ui-02);
+      border-radius: var(--border-radius-01);
+    }
+
+    &__textarea {
+      display: block;
+      width: 100%;
+      min-height: 92px;
+      margin-bottom: calc(var(--spacer-base) / 4);
+      padding: calc(var(--spacer-base) / 3);
+      font: inherit;
+      background-color: var(--color-field-02);
+      border: 1px solid var(--color-border-01);
+      border-radius: calc(var(--border-radius-01) / 2);
+      outline: none;
+      resize: none;
+    }
+
+    &__hint {
+      display: block;
+      margin-block-start: var(--spacer);
+      margin-block-end: var(--spacer-base);
+      color: var(--color-text-03);
+      font-size: var(--font-size-text-23);
+    }
+  }
+
+  &__submitButton {
+    display: block;
+    min-width: 92px;
+    margin-left: auto;
+  }
+}

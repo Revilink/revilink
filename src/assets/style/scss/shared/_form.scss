@@ -1,0 +1,112 @@
+.form {
+  $form: '.form';
+
+  position: relative;
+
+  &-head {
+    position: relative;
+    margin-bottom: var(--spacer-base);
+
+    &__logo {
+      display: inline-flex;
+      margin-bottom: calc(var(--spacer-base) / 2);
+    }
+
+    &__title {
+      color: var(--color-text-01);
+      font-size: var(--font-size-h1);
+    }
+
+    &__description {
+      color: var(--color-text-02);
+      font-size: var(--font-size-text-21);
+    }
+  }
+
+  &-item {
+    position: relative;
+    margin-bottom: calc(var(--spacer-base) / 4);
+
+    &--submit {
+      margin-top: var(--spacer-base);
+    }
+  }
+
+  &.settings-form {
+    $settings-form: '.settings-form';
+
+    position: relative;
+    margin-block-end: calc(var(--spacer-base) * 2);
+
+    #{$settings-form} {
+      &-title {
+        margin-bottom: calc(var(--spacer-base) + var(--spacer) * 2);
+        color: var(--color-text-01);
+        font-size: var(--font-size-h2);
+
+        @include font-weight-semi-bold;
+      }
+    }
+
+    #{$form} {
+      &__inner {
+        max-width: 100%;
+      }
+
+      &-item {
+        margin-bottom: calc(var(--spacer-base) + var(--spacer));
+      }
+    }
+  }
+
+  .avatar-upload {
+    position: relative;
+    display: flex;
+    display: block;
+    flex-direction: column;
+    width: 150px;
+    height: auto;
+    margin: 0 auto;
+
+    .croppa-container {
+      width: inherit;
+      height: 150px;
+      border-radius: 100%;
+
+      canvas {
+        width: inherit !important;
+        height: inherit !important;
+        background-color: transparent;
+        background-image: url('~assets/media/core/user.png');
+        background-position: center;
+        background-size: cover;
+        border-radius: 100%;
+      }
+    }
+
+    &__loading {
+      position: absolute;
+      top: -7.5px;
+      right: -7.5px;
+      width: 30px;
+      height: 30px;
+      padding: var(--spacer);
+      background-color: var(--color-ui-02);
+      border-radius: 100%;
+      box-shadow: var(--box-shadow-01);
+    }
+
+    &__label {
+      position: relative;
+      display: block;
+      margin-top: calc(var(--spacer-base) / 2);
+      color: var(--color-text-03);
+      font-size: var(--font-size-text-22);
+      text-align: center;
+
+      * {
+        color: inherit;
+      }
+    }
+  }
+}

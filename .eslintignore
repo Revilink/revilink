@@ -1,3 +1,4 @@
+*.json
 .nuxt/
 .nuxt-storybook
 dist

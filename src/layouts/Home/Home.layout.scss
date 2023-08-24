@@ -1,0 +1,12 @@
+.home-layout {
+  $layout: '.layout';
+
+  position: relative;
+
+  #{$layout} {
+    &__inner {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

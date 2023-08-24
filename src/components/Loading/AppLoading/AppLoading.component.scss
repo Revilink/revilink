@@ -1,0 +1,25 @@
+.app-loading {
+  $vs-loading: '.vs-loading';
+
+  position: relative;
+  display: block;
+
+  #{$vs-loading} {
+    display: flex;
+    padding: 0;
+    background-color: transparent;
+
+    &__load {
+      &__animation {
+        width: var(--width);
+        height: var(--height);
+      }
+
+      &__text {
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+}
