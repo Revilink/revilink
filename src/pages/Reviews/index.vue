@@ -3,7 +3,10 @@
   .row
     .col-4
       .col-11
-        SiteSummaryWidget
+        // Link extra widget
+        LinkExtraWidget
+        // Site summary widget
+        SiteSummaryWidget(v-if="false")
     .col-8
       // Site Meta
       .reviews-page-review-meta
@@ -104,7 +107,7 @@ import { ReactionButtonGroup } from '@/components/ButtonGroup'
 import { ReviewList } from '@/components/List'
 import { CommentForm } from '@/components/Form'
 import { AppLoading } from '@/components/Loading'
-import { SiteSummaryWidget } from '@/components/Widget'
+import { LinkExtraWidget, SiteSummaryWidget } from '@/components/Widget'
 
 export default defineComponent({
   components: {
@@ -113,6 +116,7 @@ export default defineComponent({
     ReviewList,
     CommentForm,
     AppLoading,
+    LinkExtraWidget,
     SiteSummaryWidget
   },
   layout: 'Default/Default.layout',

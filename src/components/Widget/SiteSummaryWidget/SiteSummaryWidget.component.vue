@@ -2,18 +2,18 @@
 ClientOnly
   .widget.site-summary-widget
     // Head
-    .site-summary-widget-head
-      .site-summary-widget-head__title {{ $t('widget.siteSummary.title') }}
+    .widget-head
+      .widget-head__title {{ $t('widget.siteSummary.title') }}
 
     // Body
-    .site-summary-widget__body
+    .widget__body
       template(v-if="fetchState.pending")
         BlobLoading
         span.mx-auto.py-6.text-center.d-block {{ $t('widget.siteSummary.loading.description') }}
       template(v-else-if="fetchState.error")
         p {{ fetchState.error.message }}
       template(v-else)
-        p.site-summary-widget__description {{ site.summary }}
+        p.widget__description {{ site.summary }}
 </template>
 
 <script lang="ts">
