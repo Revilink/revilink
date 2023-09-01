@@ -9,7 +9,16 @@ form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
         img(v-else src="@/assets/media/core/user.png" :alt="user.username")
 
       .comment-form-card__body
-        textarea.comment-form-card__textarea(v-model="form.content" v-autosize :placeholder="contentPlaceholder" spellcheck="false")
+        AppTextarea.comment-form-card__textarea(
+          :value="form.content"
+          character-counter
+          :maxlength="v$.content.maxLength.$params.max"
+          rows="4"
+          autosize
+          :placeholder="contentPlaceholder"
+          spellcheck="false"
+          @input="input => { form.content = input.target.value.trim() }"
+        )
         // Validation messages
         template(v-if="v$.content.$error")
           small.color-text-danger(v-if="v$.content.required.$invalid")
@@ -25,15 +34,15 @@ form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
 
 <script lang="ts">
 import { defineComponent, useContext, ref, reactive, computed } from '@nuxtjs/composition-api'
-import autosize from 'v-autosize'
 import { useVuelidate } from '@vuelidate/core'
 import type { Ref } from 'vue'
 import type { FormTypes } from './CommentForm.component.types'
 import { commentValidator } from '@/validator'
+import { AppTextarea } from '@/components/Textarea'
 
 export default defineComponent({
-  directives: {
-    autosize
+  components: {
+    AppTextarea
   },
   props: {
     formModel: {
@@ -67,7 +76,7 @@ export default defineComponent({
     }
 
     const focus = () => {
-      const textareaElement = rootRef.value?.querySelector(`.${baseClassName}-card__textarea`)
+      const textareaElement = rootRef.value?.querySelector(`.${baseClassName}-card__textarea textarea`)
 
       if (textareaElement instanceof HTMLElement) {
         textareaElement.focus()

@@ -15,6 +15,7 @@
     flex-direction: column;
     margin-bottom: calc(var(--spacer-base) * 1);
     padding: calc(var(--spacer-base) / 1.5) calc(var(--spacer-base) / 2);
+    white-space: pre-line;
     background-color: var(--color-ui-02);
     border-bottom: 4px solid var(--color-border-01);
     border-left: 4px solid var(--color-border-01);

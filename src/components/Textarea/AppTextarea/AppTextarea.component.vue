@@ -2,7 +2,9 @@
 .app-textarea
   textarea.app-textarea__textarea(v-autosize="$attrs['v-autosize']" v-bind="$attrs" :value="value" v-on="$listeners")
   .app-textarea-character-counter(v-if="characterCounter && $attrs['maxlength']")
-    span.app-textarea-character-counter__value(v-if="value && value.length > 0") {{ value.length }} / {{ String($attrs['maxlength']) }}
+    span.app-textarea-character-counter__value
+      template(v-if="value && value.length > 0") {{ value.length }} / {{ String($attrs['maxlength']) }}
+      template(v-else) 0 / {{ String($attrs['maxlength']) }}
 </template>
 
 <script lang="ts">

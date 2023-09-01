@@ -10,5 +10,6 @@
   &__comment {
     position: relative;
     margin-bottom: var(--spacer-base);
+    white-space: pre-line;
   }
 }
