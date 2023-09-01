@@ -275,6 +275,14 @@ export default {
     angry: 'Terrible'
   },
   widget: {
+    siteExtra: {
+      title: 'More about the link',
+      nav: {
+        webArchive: {
+          title: 'Web archive'
+        }
+      }
+    },
     siteSummary: {
       title: 'About the domain',
       loading: {

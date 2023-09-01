@@ -1,0 +1,27 @@
+.link-extra-widget {
+  position: relative;
+
+  &-nav {
+    position: relative;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 4);
+      color: var(--color-text-02);
+      border-radius: var(--border-radius-01);
+
+      &:hover {
+        background-color: var(--color-hover-01);
+      }
+
+      &__icon {
+        margin-inline-end: calc(var(--spacer-base) / 2);
+      }
+
+      &__title {
+        font-size: var(--font-size-text-20);
+      }
+    }
+  }
+}

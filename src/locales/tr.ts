@@ -268,6 +268,14 @@ export default {
     angry: 'Berbat'
   },
   widget: {
+    siteExtra: {
+      title: 'Link hakkında daha fazla',
+      nav: {
+        webArchive: {
+          title: 'Web arşivi'
+        }
+      }
+    },
     siteSummary: {
       title: 'Domain hakkında',
       loading: {
