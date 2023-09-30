@@ -2,7 +2,7 @@
 .page.profile-page
   .row
     .col.col-4
-      span Sidebar
+      // Sidebar
     .col.col-8
       ProfileHead(:user="user")
 
