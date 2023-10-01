@@ -1,6 +1,7 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { Auth } from '@nuxtjs/auth-next'
 import { IVueI18nNuxt } from '@nuxtjs/i18n'
+import { $content } from '@nuxt/content'
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -8,6 +9,7 @@ declare module 'vue/types/vue' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $content: $content
     $encodeBase64: any
     $isBase64: any
     $decodeBase64: any
@@ -20,6 +22,7 @@ declare module '@nuxt/types' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $content: $content
     $encodeBase64: any
     $isBase64: any
     $decodeBase64: any
@@ -30,6 +33,7 @@ declare module '@nuxt/types' {
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
+    $content: $content
     $encodeBase64: any
     $isBase64: any
     $decodeBase64: any

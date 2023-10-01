@@ -19,9 +19,13 @@
       }
 
       &__textarea {
-        padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 4);
-        background-color: transparent;
-        border: 0;
+        &.app-textarea {
+          textarea {
+            padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 4);
+            background-color: transparent;
+            border: 0;
+          }
+        }
       }
     }
   }

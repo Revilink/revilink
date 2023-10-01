@@ -18,7 +18,11 @@ export default {
     login: 'Login',
     register: 'Register',
     yes: 'Yes',
+    ok: 'Okay',
+    okShort: 'OK',
+    iUnderstand: 'I understand',
     no: 'No',
+    reject: 'Reject',
     send: 'Send',
     like: 'Like',
     unlike: 'Unlike',
@@ -289,6 +293,31 @@ export default {
         title: 'Loading',
         description: 'AI prepares domain summary...'
       }
+    },
+    cmsPages: {
+      title: 'Pages'
+    }
+  },
+  cms: {
+    about: {
+      title: 'About us',
+      route: 'about-us'
+    },
+    terms: {
+      title: 'Terms',
+      route: 'terms'
+    },
+    privacyPolicy: {
+      title: 'Privacy policy',
+      route: 'privacy-policy'
+    },
+    cookiePolicy: {
+      title: 'Cookie policy',
+      route: 'cookie-policy'
+    },
+    revilinkDataScraper: {
+      title: 'Revilink Data Scraper',
+      route: 'revilink-data-scraper'
     }
   }
 }

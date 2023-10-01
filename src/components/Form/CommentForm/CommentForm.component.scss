@@ -18,17 +18,20 @@
     }
 
     &__textarea {
-      display: block;
-      width: 100%;
-      min-height: 92px;
-      margin-bottom: calc(var(--spacer-base) / 4);
-      padding: calc(var(--spacer-base) / 3);
-      font: inherit;
-      background-color: var(--color-field-02);
-      border: 1px solid var(--color-border-01);
-      border-radius: calc(var(--border-radius-01) / 2);
-      outline: none;
-      resize: none;
+      &.app-textarea {
+        textarea {
+          display: block;
+          width: 100%;
+          min-height: 92px;
+          margin-bottom: calc(var(--spacer-base) / 4);
+          padding: calc(var(--spacer-base) / 3);
+          font: inherit;
+          background-color: var(--color-field-02);
+          border: 1px solid var(--color-border-01);
+          border-radius: calc(var(--border-radius-01) / 2);
+          resize: none;
+        }
+      }
     }
 
     &__hint {
