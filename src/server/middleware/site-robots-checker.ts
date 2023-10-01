@@ -22,15 +22,16 @@ app.all('/', (req: Request, res: Response) => {
       try {
         const response = await fetch(robotsUrl, {
           headers: {
-            'User-Agent': 'RevilinkBot'
+            'User-Agent': userAgent
           }
         })
+
         const body = await response.text()
 
         const robots = robotsParser(robotsUrl, body)
         const _isAllowed = robots.isAllowed(url, userAgent)
 
-        console.log(`Is allowed by robots.txt: ${_isAllowed}`)
+        console.log(`${_isAllowed ? '✅' : '⚠️'}  Is allowed by robots.txt: ${_isAllowed}`)
 
         isAllowed = _isAllowed
       } catch (error) {
@@ -42,62 +43,39 @@ app.all('/', (req: Request, res: Response) => {
       return isAllowed
     }
 
-    const checkRobotsMeta = async () => {
+    const checkRevilinkBotMeta = async () => {
       let isAllowed
 
       try {
         const htmlResponse = await fetch(url, {
           headers: {
-            'User-Agent': 'RevilinkBot'
+            'User-Agent': userAgent
           }
         })
+
         const html = await htmlResponse.text()
         const parser = new DOMParser()
         const doc = parser.parseFromString(html, 'text/html')
-        const metaRobots = doc.querySelector('meta[name="robots"]')
         const metaRevilinkBot = doc.querySelector('meta[name="RevilinkBot"]')
 
-        if (metaRobots) {
-          const content = metaRobots.getAttribute('content')
-          const noIndex = content.toLowerCase().includes('noindex')
-          const none = content.toLowerCase().includes('none')
+        // Check RevilinkBot meta
+        if (metaRevilinkBot) {
+          const content = metaRevilinkBot.getAttribute('content')
+          const noScrape = content.toLowerCase().includes('no-scrape')
 
-          if (noIndex || none) {
+          if (noScrape) {
             isAllowed = false
 
-            console.warn(`⚠️ Meta [Robots]: noindex: ${noIndex}, none: ${none}`)
+            console.warn(`⚠️ Meta [RevilinkBot]: no-scrape: ${noScrape}`)
           } else {
             isAllowed = true
 
-            console.log('✅ Meta [Robots] noindex || none not setted.')
+            console.log('✅ Meta [RevilinkBot] no-scrape not setted')
           }
         } else {
-          console.log('✅ Meta [Robots] tag not found')
+          console.log('✅ Meta [RevilinkBot] tag not found')
 
           isAllowed = true
-        }
-
-        // When is allowed from Meta [Robots], check for meta RevilinkBot
-        if (isAllowed) {
-          if (metaRevilinkBot) {
-            const content = metaRevilinkBot.getAttribute('content')
-            const noIndex = content.toLowerCase().includes('noindex')
-            const none = content.toLowerCase().includes('none')
-
-            if (noIndex || none) {
-              isAllowed = false
-
-              console.warn(`⚠️ Meta [RevilinkBot]: noindex: ${noIndex}, none: ${none}`)
-            } else {
-              isAllowed = true
-
-              console.log('✅ Meta [RevilinkBot] noindex || none not setted.')
-            }
-          } else {
-            console.log('✅ Meta [RevilinkBot] tag not found')
-
-            isAllowed = true
-          }
         }
       } catch (error) {
         console.error('Robots meta fetch error')
@@ -111,9 +89,9 @@ app.all('/', (req: Request, res: Response) => {
     const isAllowedRobotsTxt = await checkRobotsTxt()
 
     if (isAllowedRobotsTxt) {
-      const isAllowedRobotsMeta = await checkRobotsMeta()
+      const isAllowedRevilinkBotMeta = await checkRevilinkBotMeta()
 
-      if (isAllowedRobotsMeta) {
+      if (isAllowedRevilinkBotMeta) {
         res.send({
           isAllowed: true
         })

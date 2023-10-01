@@ -305,8 +305,19 @@ const config: NuxtConfig = {
           'Settings/Account/index': {
             en: '/settings/account',
             tr: '/ayarlar/hesap'
+          },
+          'Cms/index': {
+            en: '/cms',
+            tr: '/cms'
           }
         }
+      }
+    ],
+    // https://www.npmjs.com/package/@nuxt/content
+    [
+      '@nuxt/content',
+      {
+        liveEdit: false
       }
     ],
     // https://www.npmjs.com/package/nuxt-client-init-module

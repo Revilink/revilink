@@ -17,7 +17,11 @@ export default {
     login: 'Giriş yap',
     register: 'Kayıt ol',
     yes: 'Evet',
+    ok: 'Tamam',
+    okShort: 'Tamam',
+    iUnderstand: 'Anladım',
     no: 'Hayır',
+    reject: 'Reddet',
     send: 'Gönder',
     like: 'Beğen',
     unlike: 'Vazgeç',
@@ -282,6 +286,31 @@ export default {
         title: 'Yükleniyor',
         description: 'Yapay zeka domain özetini hazırlıyor...'
       }
+    },
+    cmsPages: {
+      title: 'Sayfalar'
+    }
+  },
+  cms: {
+    about: {
+      title: 'Hakkımızda',
+      route: 'hakkimizda'
+    },
+    terms: {
+      title: 'Kullanım koşulları',
+      route: 'kullanim-kosullari'
+    },
+    privacyPolicy: {
+      title: 'Gizlilik politikası',
+      route: 'gizlilik-politikasi'
+    },
+    cookiePolicy: {
+      title: 'Çerez politikası',
+      route: 'cerez-politikasi'
+    },
+    revilinkDataScraper: {
+      title: 'Revilink Veri Kazıyıcı',
+      route: 'revilink-veri-kaziyici'
     }
   }
 }

@@ -1,0 +1,11 @@
+.cms-pages-widget {
+  position: relative;
+
+  .vs-sidebar {
+    background-color: var(--color-ui-02) !important;
+
+    &-content {
+      box-shadow: none !important;
+    }
+  }
+}
