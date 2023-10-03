@@ -36,7 +36,7 @@ export default defineComponent({
 
     const { fetch, fetchState } = useFetch(async () => {
       try {
-        const result = await context.$content(route.value.query.page).fetch()
+        const result = await context.$content(route.value.params.slug).fetch()
         doc.value = result
       } catch {
         context.redirect(context.localePath({ name: 'index' }))
@@ -44,7 +44,7 @@ export default defineComponent({
     })
 
     watch(
-      () => route.value.query.page,
+      () => route.value.params.slug,
       async value => {
         if (value) {
           await fetch()

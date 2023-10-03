@@ -8,7 +8,7 @@ const config: NuxtConfig = {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'static',
+  target: 'server',
 
   /*
    ** Server side rendering
@@ -305,10 +305,6 @@ const config: NuxtConfig = {
           'Settings/Account/index': {
             en: '/settings/account',
             tr: '/ayarlar/hesap'
-          },
-          'Cms/index': {
-            en: '/cms',
-            tr: '/cms'
           }
         }
       }
