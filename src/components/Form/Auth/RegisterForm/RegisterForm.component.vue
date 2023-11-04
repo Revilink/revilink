@@ -67,11 +67,14 @@ form.form.register-form(@submit.prevent="handleSubmit")
     .form-item
       i18n.terms-label(path="form.register.terms" tag="label" for="terms")
         template(#terms)
-          a(:href="localePath({ name: 'Cms', query: { page: $t('cms.terms.route') } })" target="_blank") {{ $t('cms.terms.title') }}
+          a(:href="localePath({ name: 'cms-page-slug', params: { slug: $t('cms.terms.route') } })" target="_blank")
+            | {{ $t('cms.terms.title') }}
         template(#privacyPolicy)
-          a(:href="localePath({ name: 'Cms', query: { page: $t('cms.privacyPolicy.route') } })" target="_blank") {{ $t('cms.privacyPolicy.title') }}
+          a(:href="localePath({ name: 'cms-page-slug', params: { slug: $t('cms.privacyPolicy.route') } })" target="_blank")
+            | {{ $t('cms.privacyPolicy.title') }}
         template(#cookiePolicy)
-          a(:href="localePath({ name: 'Cms', query: { page: $t('cms.cookiePolicy.route') } })" target="_blank") {{ $t('cms.cookiePolicy.title') }}
+          a(:href="localePath({ name: 'cms-page-slug', params: { slug: $t('cms.cookiePolicy.route') } })" target="_blank")
+            | {{ $t('cms.cookiePolicy.title') }}
 
     .form-item.form-item--submit
       vs-button(:loading="state.isBusy" :disabled="state.isBusy")
