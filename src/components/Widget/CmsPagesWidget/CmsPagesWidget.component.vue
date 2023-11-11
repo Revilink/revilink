@@ -5,7 +5,7 @@
   .widget__body
     vs-sidebar(v-model="active" relative open)
       template(v-for="item in nav.items")
-        vs-sidebar-item(:id="item.link" :key="item.link" :to="localePath({ name: 'Cms', query: { page: item.link } })") {{ item.title }}
+        vs-sidebar-item(:id="item.link" :key="item.link" :to="localePath({ name: 'cms-page-slug', params: { slug: item.link } })") {{ item.title }}
 </template>
 
 <script lang="ts">
