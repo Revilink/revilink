@@ -20,6 +20,9 @@
     "url": "https://github.com/selimdoyranli/revilink"
   },
   "license": "MIT",
+  "engines": {
+    "node": "18.0.0"
+  },
   "scripts": {
     "dev": "nuxt src",
     "build": "nuxt build src",
