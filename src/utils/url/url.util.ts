@@ -1,4 +1,4 @@
-import { withProtocol, withoutTrailingSlash } from 'ufo'
+const { withoutTrailingSlash, withProtocol } = require('ufo')
 
 /**
  * @function removeProtocolAndWWW Remove protocol and www for url
@@ -56,11 +56,26 @@ export const cleanDirtyParams = ({ url }: { url: string }) => {
  * @returns {string} Stripped url
  */
 export const convertToRevilinkFormat = ({ url }: { url: string }) => {
-  return removeProtocolAndWWW(
-    removeTrailingSlash(
-      cleanDirtyParams({
-        url: withProtocol(url, 'http://')
-      })
-    )
-  )
+  let _url = url
+
+  // If url is a domain
+  if (!_url.includes('://')) {
+    _url = withProtocol(_url, 'http://')
+  }
+
+  // If url starts with https convert to http
+  if (_url.startsWith('https://')) {
+    _url = withProtocol(removeProtocolAndWWW(_url), 'http://')
+  }
+
+  // If url starts with http://www. or https://www. convert to http://
+  if (_url.startsWith('http://www.') || _url.startsWith('https://www.')) {
+    _url = withProtocol(removeProtocolAndWWW(_url), 'http://')
+  }
+
+  // Apply unecessary params and trailing slash cleaner
+  _url = cleanDirtyParams({ url: _url })
+  _url = removeTrailingSlash(_url)
+
+  return _url
 }

@@ -36,8 +36,8 @@
           h1.reviews-page-review-meta__title(v-if="site.isAllowed") {{ site.meta.title }}
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
-            a(rel="noopener,norel" :title="$route.query.link" :href="withProtocol($route.query.link, 'http://')" target="_blank")
-              | {{ $route.query.link }}
+            a(rel="noopener,norel" :title="$route.query.link" :href="convertToRevilinkFormat({ url: $route.query.link })" target="_blank")
+              | {{ convertToRevilinkFormat({ url: $route.query.link }) }}
 
           // Reactions
           .reviews-page-reactions
@@ -97,7 +97,6 @@ import {
 } from '@nuxtjs/composition-api'
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
-import { withProtocol } from 'ufo'
 import type { UrlTypes, ReactionTypes, CommentRefTypes } from './Reviews.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
@@ -125,19 +124,6 @@ export default defineComponent({
     const route: ComputedRef<Route> = useRoute()
     const router = useRouter()
     const store = useStore()
-
-    // Redirect allowed format
-    context.redirect(
-      context.localePath({
-        name: 'Reviews',
-        query: {
-          ...route.value.query,
-          link: convertToRevilinkFormat({
-            url: route.value.query.link as string
-          })
-        }
-      })
-    )
 
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
@@ -169,7 +155,9 @@ export default defineComponent({
       site.isBusy = true
 
       const robotsResult = await context.$api.rest.scraper.fetchAndReadRobots({
-        url: route.value.query.link
+        url: convertToRevilinkFormat({
+          url: route.value.query.link as string
+        })
       })
 
       site.isAllowed = robotsResult.isAllowed
@@ -183,7 +171,9 @@ export default defineComponent({
 
     const scrapeSite = async () => {
       const siteResult = await context.$api.rest.scraper.fetchMetaTags({
-        url: route.value.query.link
+        url: convertToRevilinkFormat({
+          url: route.value.query.link as string
+        })
       })
 
       site.meta = siteResult
@@ -237,7 +227,9 @@ export default defineComponent({
       comment.isBusy = true
 
       const { data, error } = await context.$api.rest.review.postReview({
-        url: route.value.query.link,
+        url: convertToRevilinkFormat({
+          url: route.value.query.link as string
+        }),
         content: formPayload.content,
         media: null
       })
@@ -334,7 +326,9 @@ export default defineComponent({
         }
       } else {
         const { data, error } = await context.$api.rest.url.postReaction({
-          url: route.value.query.link,
+          url: convertToRevilinkFormat({
+            url: route.value.query.link as string
+          }),
           type
         })
 
@@ -374,7 +368,7 @@ export default defineComponent({
       handleCommentOnSubmit,
       reaction,
       handleReaction,
-      withProtocol
+      convertToRevilinkFormat
     }
   }
 })

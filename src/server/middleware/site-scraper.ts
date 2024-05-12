@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import { Request, Response } from 'express'
-import { withProtocol } from 'ufo'
 
 const bodyParser = require('body-parser')
 const app = require('express')()
@@ -8,7 +7,7 @@ const app = require('express')()
 app.use(bodyParser.json())
 
 app.all('/', (req: Request, res: Response) => {
-  const url = withProtocol(req.query.url as string, 'http://')
+  const url = req.query.url as string
 
   const fetchSite = async (url: string) => {
     try {
