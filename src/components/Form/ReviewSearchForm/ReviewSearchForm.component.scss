@@ -1,13 +1,17 @@
 .review-search-form {
   position: relative;
 
+  .form-item {
+    position: relative;
+    margin-block-end: var(--spacer-base);
+  }
+
   &__urlInput {
     $vs-input: '.vs-input';
     --input-height: 56px;
     --input-font-size: var(--font-size-text-20);
 
     position: relative;
-    margin: var(--spacer-base) 0;
     border-radius: var(--border-radius-01);
     box-shadow: var(--box-shadow-01);
 
@@ -33,6 +37,7 @@
   }
 
   &__submitButton {
+    display: block;
     min-width: 148px;
     height: calc(56px - #{$spacer} * 2);
     padding: 0 calc(var(--spacer-base) / 4);

@@ -60,6 +60,7 @@
     color: var(--color-text-02);
     font-size: var(--font-size-text-17);
     line-height: calc(var(--font-size-text-17) * 1.2);
+    margin-block-end: var(--spacer-base);
 
     @include font-weight-medium;
   }
