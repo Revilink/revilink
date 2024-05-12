@@ -1,8 +1,8 @@
-import { parseURL, withProtocol } from 'ufo'
 import { NuxtAppOptions } from '@nuxt/types'
 import { ScraperApiTypes, FetchAndReadRobotsTypes, FetchMetaTagsTypes } from './scraper.api.types'
 import { AppAxiosType } from '@/services/rest/core/core.types'
 import { removeProtocolAndWWW } from '@/utils/url'
+const { parseURL } = require('ufo')
 const DOMParser = require('universal-dom-parser')
 const { getMetadata } = require('page-metadata-parser')
 
@@ -25,7 +25,7 @@ export const scraperApi = (appAxios: Function, app: NuxtAppOptions) =>
     async fetchMetaTags(params: FetchMetaTagsTypes) {
       const { url } = params
 
-      const _url = withProtocol(url, 'http://')
+      const _url = url
 
       const { data } = await appAxios(<AppAxiosType>{
         method: 'get',
@@ -48,7 +48,7 @@ export const scraperApi = (appAxios: Function, app: NuxtAppOptions) =>
     async fetchSiteAiSummary(params: FetchMetaTagsTypes) {
       const { url } = params
 
-      const { host } = parseURL(withProtocol(url, 'http://'))
+      const { host } = parseURL(url)
 
       const domain = removeProtocolAndWWW(host as string)
 

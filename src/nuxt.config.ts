@@ -236,7 +236,7 @@ const config: NuxtConfig = {
               global: true
             },
             endpoints: {
-              login: { url: `${process.env.API}/api/auth/local`, method: 'post' },
+              login: { url: `${process.env.API}/auth/local`, method: 'post' },
               logout: false,
               user: false
             },
