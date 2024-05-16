@@ -18,32 +18,32 @@
       display: inline-flex;
 
       @include font-weight-black;
+    }
 
-      @mixin mark {
-        position: absolute;
-        top: 0;
-        left: -15px;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        border-radius: var(--border-radius-01);
-        content: '';
+    @mixin mark {
+      position: absolute;
+      top: 0;
+      left: -15px;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--border-radius-01);
+      content: '';
+    }
+
+    .mark-reviews {
+      &::before {
+        background-color: color-mix(in oklab, var(--color-warning-01), #fff 85%);
+
+        @include mark;
       }
+    }
 
-      &:first-child {
-        &::before {
-          background-color: color-mix(in oklab, var(--color-warning-01), #fff 85%);
+    .mark-link {
+      &::before {
+        background-color: color-mix(in oklab, var(--color-link-01), #fff 85%);
 
-          @include mark;
-        }
-      }
-
-      &:last-child {
-        &::before {
-          background-color: color-mix(in oklab, var(--color-link-01), #fff 85%);
-
-          @include mark;
-        }
+        @include mark;
       }
     }
   }
@@ -61,6 +61,7 @@
     font-size: var(--font-size-text-17);
     line-height: calc(var(--font-size-text-17) * 1.2);
     margin-block-end: var(--spacer-base);
+    white-space: pre-line;
 
     @include font-weight-medium;
   }
