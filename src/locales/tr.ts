@@ -50,8 +50,8 @@ export default {
   },
   hero: {
     home: {
-      title: '<strong>Bağlantıdaki</strong> şey hakkında <strong>incelemeleri</strong> görün.',
-      description: 'Herhangi bir bağlantı hakkında yorum yap ya da reaksiyon ver ve interneti yorum panosuna dönüştür'
+      title: '<strong class="mark-link">Bağlantıdaki</strong> şey hakkında <strong class="mark-reviews">incelemeleri</strong> görün.',
+      description: 'Herhangi bir bağlantı hakkında yorum yap ya da reaksiyon ver ve \n interneti yorum panosuna dönüştür'
     }
   },
   form: {

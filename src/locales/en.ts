@@ -51,8 +51,8 @@ export default {
   },
   hero: {
     home: {
-      title: 'See <strong>reviews</strong> on the <br> thing in the <strong>link</strong>.',
-      description: 'Comment or react to any link and contribute to transforming the internet into a comment board.'
+      title: 'See <strong class="mark-reviews">reviews</strong> on the <br> thing in the <strong class="mark-link">link</strong>.',
+      description: 'Comment or react to any link and contribute to transforming \n the internet into a comment board.'
     }
   },
   form: {

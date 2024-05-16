@@ -1,6 +1,6 @@
 <template lang="pug">
 .page.home-page
-  .col-lg-7.mx-auto
+  .col-lg-8.mx-auto
     h1.home-page__title(v-html="$t('hero.home.title')")
     h2.home-page__description {{ $t('hero.home.description') }}
 

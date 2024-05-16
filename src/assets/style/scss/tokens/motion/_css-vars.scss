@@ -1,0 +1,7 @@
+@use './maps' as motion;
+
+:root {
+  @each $name, $value in motion.$motions {
+    --motion-#{$name}: #{$value};
+  }
+}

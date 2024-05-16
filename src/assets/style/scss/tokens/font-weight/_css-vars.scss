@@ -1,0 +1,7 @@
+@use './maps' as font-weight;
+
+:root {
+  @each $name, $value in font-weight.$weights {
+    --font-weight-#{$name}: #{$value};
+  }
+}

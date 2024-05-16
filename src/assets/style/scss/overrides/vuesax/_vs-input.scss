@@ -11,6 +11,7 @@
   min-height: $input-min-height !important;
   padding-right: calc(var(--spacer) * 4) !important;
   padding-left: calc(var(--spacer) * 4) !important;
+  color: var(--color-text-01) !important;
   background-color: var(--color-field-01) !important;
   border-bottom: 1px solid var(--color-border-03) !important;
   border-radius: var(--border-radius-01) !important;
@@ -29,6 +30,7 @@
   }
 
   &:focus ~ .vs-input__icon {
+    color: unset !important;
     border-bottom-color: transparent !important;
   }
 
@@ -64,7 +66,7 @@
 
   &__label {
     left: calc(var(--spacer) * 4 + var(--spacer) / 2) !important;
-    color: var(--color-text-01) !important;
+    color: var(--color-text-02) !important;
     font-size: var(--font-size-text-22);
     opacity: 1 !important;
     transition: 0s all !important;
