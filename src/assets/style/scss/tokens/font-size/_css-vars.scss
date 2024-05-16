@@ -22,6 +22,6 @@
   --font-size-h6: 14px;
 
   @each $key, $value in font-size.$sizes {
-    --font-size-text-#{$key}: #{$value}px;
+    --font-size-text-#{$key}: #{$value};
   }
 }
