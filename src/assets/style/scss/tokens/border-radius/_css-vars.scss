@@ -1,0 +1,7 @@
+@use './maps' as border-radius;
+
+:root {
+  @each $index, $value in border-radius.$border-radius {
+    --border-radius-#{$index}: #{$value};
+  }
+}

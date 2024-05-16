@@ -1,0 +1,11 @@
+$sizes: ();
+@for $i from 1 through 25 {
+  $size-key: if($i < 10, '0#{$i}', '#{$i}');
+  $size-value: 56 - ($i - 1) * 2;
+  $sizes: map-merge(
+    $sizes,
+    (
+      $size-key: #{$size-value}
+    )
+  );
+}

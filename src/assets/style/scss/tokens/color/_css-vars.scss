@@ -1,0 +1,9 @@
+@use './maps' as color;
+
+:root {
+  @each $name, $values in color.$colors {
+    @each $index, $color in $values {
+      --color-#{$name}-#{$index}: #{$color};
+    }
+  }
+}

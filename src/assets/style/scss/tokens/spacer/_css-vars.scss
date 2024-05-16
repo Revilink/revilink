@@ -1,0 +1,9 @@
+@use './maps' as spacer;
+
+:root {
+  --spacer: #{spacer.$spacer};
+
+  @each $name, $value in spacer.$spacers {
+    --spacer-#{$name}: #{$value};
+  }
+}

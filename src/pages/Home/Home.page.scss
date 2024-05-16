@@ -32,7 +32,7 @@
 
       &:first-child {
         &::before {
-          background-color: color-mix(in oklab, var(--color-info-01), #fff 85%);
+          background-color: color-mix(in oklab, var(--color-warning-01), #fff 85%);
 
           @include mark;
         }
@@ -40,7 +40,7 @@
 
       &:last-child {
         &::before {
-          background-color: color-mix(in oklab, var(--color-warning-01), #fff 85%);
+          background-color: color-mix(in oklab, var(--color-link-01), #fff 85%);
 
           @include mark;
         }

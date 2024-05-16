@@ -1,0 +1,7 @@
+@use './maps' as box-shadow;
+
+:root {
+  @each $index, $value in box-shadow.$box-shadows {
+    --box-shadow-#{$index}: #{$value};
+  }
+}

@@ -1,0 +1,7 @@
+@use './maps' as breakpoint;
+
+:root {
+  @each $breakpoint, $value in breakpoint.$breakpoints {
+    --breakpoint-#{$breakpoint}: #{$value};
+  }
+}

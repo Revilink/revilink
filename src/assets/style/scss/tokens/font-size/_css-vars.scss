@@ -1,0 +1,27 @@
+@use './maps' as font-size;
+
+:root {
+  /* Heading */
+
+  /* h1 */
+  --font-size-h1: 42px;
+
+  /* h2 */
+  --font-size-h2: 32px;
+
+  /* h3 */
+  --font-size-h3: 28px;
+
+  /* h4 */
+  --font-size-h4: 20px;
+
+  /* h5 */
+  --font-size-h5: 16px;
+
+  /* h6 */
+  --font-size-h6: 14px;
+
+  @each $key, $value in font-size.$sizes {
+    --font-size-text-#{$key}: #{$value}px;
+  }
+}

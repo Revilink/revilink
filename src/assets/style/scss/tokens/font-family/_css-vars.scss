@@ -1,0 +1,11 @@
+@use './maps' as font-family;
+
+:root {
+  @each $name, $family-list in font-family.$font-families {
+    $family-string: '';
+    @each $family in $family-list {
+      $family-string: if($family-string == '', $family, $family-string + ', ' + $family);
+    }
+    --font-family-#{$name}: #{$family-string};
+  }
+}

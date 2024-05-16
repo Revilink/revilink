@@ -1,0 +1,7 @@
+@use './maps' as z-index;
+
+:root {
+  @each $name, $value in z-index.$z-indexes {
+    --z-index-#{$name}: #{$value};
+  }
+}
