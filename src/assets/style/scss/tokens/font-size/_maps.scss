@@ -1,11 +1,18 @@
 $sizes: ();
+$initial-size: 56px;
+$decrement: 2px;
+
 @for $i from 1 through 25 {
-  $size-key: if($i < 10, '0#{$i}', '#{$i}');
-  $size-value: 56 - ($i - 1) * 2;
+  $index: if($i < 10, '0#{$i}', '#{$i}');
   $sizes: map-merge(
     $sizes,
     (
-      $size-key: #{$size-value}
+      '#{$index}':
+        $initial-size -
+        (
+          $i - 1
+        ) *
+        $decrement
     )
   );
 }
