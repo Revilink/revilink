@@ -23,7 +23,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        endOfLine: 'crlf'
+        endOfLine: 'lf'
       }
     ],
     'max-len': [
