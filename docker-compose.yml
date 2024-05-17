@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  revilink:
+    image: revilink:${TAG:-latest}
+    deploy:
+      restart_policy:
+        condition: any
+    environment:
+      API: "${API}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+    ports:
+      - "3001:3001"
+    networks:
+      - revilink_network
+      
+networks:
+  revilink_network:
+    driver: overlay

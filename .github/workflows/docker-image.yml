@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo API=${{ vars.API }} >> .env
+        cat .env
+
+    - name: Build the Docker image
+      run: docker build -f Dockerfile . --tag revilink:${{ github.ref_name }}
+
+    - name: Set Tag Env
+      run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Deploy Swarm
+      run: docker stack deploy -c ./docker-compose.yml revilink

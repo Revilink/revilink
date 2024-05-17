@@ -367,7 +367,7 @@ const config: NuxtConfig = {
   server: {
     host: '0.0.0.0', // default: localhost,
     timing: false,
-    port: 3000
+    port: process.env.NUXT_PORT || 3000
   }
 }
 
