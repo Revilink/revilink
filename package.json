@@ -32,7 +32,7 @@
     "lint:eslint:fix": "eslint --fix --ext .js,.ts,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
     "lint:stylelint": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\"",
     "lint:stylelint:fix": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\" --fix",
-    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line crlf",
+    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line lf",
     "mock:api": "json-server --watch ./src/mock/db.json --port 3004 --delay 1000"
   },
   "lint-staged": {

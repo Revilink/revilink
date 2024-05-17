@@ -23,12 +23,6 @@ module.exports = {
     'stylelint-config-rational-order/plugin'
   ],
   rules: {
-    indentation: [
-      2,
-      {
-        baseIndentLevel: 0
-      }
-    ],
     'color-named': 'never',
     'color-function-notation': 'legacy',
     'at-rule-no-unknown': null,
