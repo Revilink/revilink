@@ -112,6 +112,14 @@ export default {
     register: {
       title: 'Register',
       description: 'Sign up to turn the internet into a comment board',
+      provider: {
+        google: {
+          title: 'Sign up with Google'
+        },
+        apple: {
+          title: 'Sign up with Apple'
+        }
+      },
       email: {
         placeholder: 'Email address'
       },
@@ -140,6 +148,14 @@ export default {
     login: {
       title: 'Login',
       description: 'Turn the internet into a comment board by logging in',
+      provider: {
+        google: {
+          title: 'Login with Google'
+        },
+        apple: {
+          title: 'Login with Apple'
+        }
+      },
       email: {
         placeholder: 'Email address'
       },

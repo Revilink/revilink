@@ -1,10 +1,19 @@
 <template lang="pug">
-form.form.login-form(@submit.prevent="handleSubmit")
+form.form.auth-form.login-form(@submit.prevent="handleSubmit")
   .form-head
     AppLogo.form-head__logo(:height="36")
     p.form-head__description {{ $t('form.login.description') }}
 
   .form__inner
+    .form-item
+      .auth-provider-buttons
+        vs-button.auth-provider-button.auth-provider-button--google(active type="button" @click="$auth.loginWith('google')")
+          AppIcon.ms-2(name="logos:google-icon")
+          | {{ $t('form.login.provider.google.title') }}
+        vs-button.auth-provider-button.auth-provider-button--apple(active type="button")
+          AppIcon.ms-2(name="logos:apple")
+          | {{ $t('form.login.provider.apple.title') }}
+
     .form-item
       vs-input(
         v-model="form.username"

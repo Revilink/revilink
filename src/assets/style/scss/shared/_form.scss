@@ -32,6 +32,29 @@
     }
   }
 
+  &.auth-form {
+    .auth-provider-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacer);
+    }
+
+    .auth-provider-button {
+      position: relative;
+      color: var(--color-text-01);
+      background-color: var(--color-ui-02);
+      box-shadow: var(--box-shadow-01);
+
+      &:hover {
+        background-color: var(--color-hover-01);
+      }
+
+      .app-icon {
+        margin-inline-end: calc(var(--spacer) * 2);
+      }
+    }
+  }
+
   &.settings-form {
     $settings-form: '.settings-form';
 

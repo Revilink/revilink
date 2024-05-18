@@ -23,6 +23,21 @@ export const authApi = (appAxios: Function) =>
       }
     },
 
+    async fetchGoogleUser(token: string) {
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'get',
+        path: `auth/google/callback?access_token=${token}`
+      })
+
+      if (data) {
+        return {
+          data
+        }
+      } else {
+        return { error }
+      }
+    },
+
     async fetchMe() {
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',

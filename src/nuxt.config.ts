@@ -244,6 +244,12 @@ const config: NuxtConfig = {
               property: '', // the response itself
               autoFetch: false // User will fetch by api function in store/index
             }
+          },
+          google: {
+            clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+            codeChallengeMethod: 'S256',
+            responseType: 'code',
+            redirectUri: `http://localhost:3000/auth/google/callback`
           }
         },
         plugins: ['@/plugins/auth-lang-redirect.ts']
