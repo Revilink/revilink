@@ -18,6 +18,7 @@ export type UpdateMeTypes = {
 export type AuthApiTypes = {
   register: Function
   fetchGoogleUser: Function
+  fetchGoogleProfilePhoto: Function
   fetchMe: Function
   updateMe: Function
 }

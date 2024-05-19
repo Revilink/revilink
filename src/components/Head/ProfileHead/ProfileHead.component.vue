@@ -2,8 +2,8 @@
 .profile-head
   .profile-head__media
     vs-avatar.profile-head__avatar(circle size="64")
-      img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
-      img(v-else src="@/assets/media/core/user.png" :alt="user.username")
+      img.profile-dropdown-avatar__image(v-if="getAvatarSrc({ user })" :src="getAvatarSrc({ user })" :alt="user.username")
+      img.profile-dropdown-avatar__image(v-else src="@/assets/media/core/user.png" :alt="user.username")
   .profile-head__body
     h1.profile-head__username {{ user.username }}
     strong.profile-head__fullname(v-if="user.information?.fullname") {{ user.information.fullname }}
@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { useAuth } from '@/hooks'
 
 export default defineComponent({
   props: {
@@ -20,7 +21,13 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {}
+  setup() {
+    const { getAvatarSrc } = useAuth()
+
+    return {
+      getAvatarSrc
+    }
+  }
 })
 </script>
 

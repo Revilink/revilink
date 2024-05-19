@@ -221,6 +221,8 @@ const config: NuxtConfig = {
   modules: [
     // https://axios.nuxtjs.org
     '@nuxtjs/axios',
+    // https://www.npmjs.com/package/cookie-universal-nuxt
+    'cookie-universal-nuxt',
     // https://auth.nuxtjs.org
     [
       '@nuxtjs/auth-next',
@@ -247,9 +249,8 @@ const config: NuxtConfig = {
           },
           google: {
             clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
-            codeChallengeMethod: 'S256',
-            responseType: 'code',
-            redirectUri: `http://localhost:3000/auth/google/callback`
+            codeChallengeMethod: '',
+            responseType: 'code'
           }
         },
         plugins: ['@/plugins/auth-lang-redirect.ts']

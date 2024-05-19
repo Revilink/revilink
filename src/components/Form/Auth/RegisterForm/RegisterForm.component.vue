@@ -6,13 +6,14 @@ form.form.auth-form.register-form(@submit.prevent="handleSubmit")
 
   .form__inner
     .form-item
-      .auth-provider-buttons
-        vs-button.auth-provider-button.auth-provider-button--google(active type="button" href="http://localhost:1337/api/connect/google")
-          AppIcon.ms-2(name="logos:google-icon")
-          | {{ $t('form.register.provider.google.title') }}
-        vs-button.auth-provider-button.auth-provider-button--apple(active type="button")
-          AppIcon.ms-2(name="logos:apple")
-          | {{ $t('form.register.provider.apple.title') }}
+      ClientOnly
+        .auth-provider-buttons
+          vs-button.auth-provider-button.auth-provider-button--google(active type="button" :href="`${$config.API}/connect/google`")
+            AppIcon.ms-2(name="logos:google-icon")
+            | {{ $t('form.register.provider.google.title') }}
+          vs-button.auth-provider-button.auth-provider-button--apple(v-if="false" active type="button")
+            AppIcon.ms-2(name="logos:apple")
+            | {{ $t('form.register.provider.apple.title') }}
     .form-item
       vs-input(
         v-model="form.email"

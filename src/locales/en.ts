@@ -10,10 +10,11 @@ export default {
     error: 'Error',
     anErrorOccurred: 'An error has occurred',
     tryAgain: 'Try again',
-    chooseLanguage: 'Choose a language'
+    redirecting: 'If you are not redirected, click here'
   },
   general: {
     loading: 'Loading',
+    redirecting: 'Redirecting',
     application: 'Application',
     login: 'Login',
     register: 'Register',

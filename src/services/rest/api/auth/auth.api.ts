@@ -1,8 +1,10 @@
-import { AuthApiTypes, RegisterTypes, UpdateMeTypes } from './auth.api.types'
-import { AppAxiosType } from '@/services/rest/core/core.types'
+import type { Context } from '@nuxt/types'
+import axios from 'axios'
+import type { AuthApiTypes, RegisterTypes, UpdateMeTypes } from './auth.api.types'
+import type { AppAxiosType } from '@/services/rest/core/core.types'
 import { userTransformer } from '@/services/rest/transformers'
 
-export const authApi = (appAxios: Function) =>
+export const authApi = (app: Context, appAxios: Function) =>
   <AuthApiTypes>{
     async register(params: RegisterTypes) {
       const { email, username, password } = params
@@ -23,18 +25,27 @@ export const authApi = (appAxios: Function) =>
       }
     },
 
-    async fetchGoogleUser(token: string) {
-      const { data, error } = await appAxios(<AppAxiosType>{
-        method: 'get',
-        path: `auth/google/callback?access_token=${token}`
+    async fetchGoogleUser(callbackParams: string) {
+      const { data } = await axios.get(`${app.$config.API}/auth/google/callback?${callbackParams}`, {
+        headers: {
+          Authorization: `${callbackParams}`
+        }
       })
 
       if (data) {
         return {
           data
         }
-      } else {
-        return { error }
+      }
+    },
+
+    async fetchGoogleProfilePhoto({ accessToken }: { accessToken: string }) {
+      const { data } = await axios.get(`https://people.googleapis.com/v1/people/me?personFields=photos&access_token=${accessToken}`)
+
+      if (data) {
+        return {
+          data
+        }
       }
     },
 

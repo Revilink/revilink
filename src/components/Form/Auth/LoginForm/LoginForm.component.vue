@@ -6,13 +6,14 @@ form.form.auth-form.login-form(@submit.prevent="handleSubmit")
 
   .form__inner
     .form-item
-      .auth-provider-buttons
-        vs-button.auth-provider-button.auth-provider-button--google(active type="button" @click="$auth.loginWith('google')")
-          AppIcon.ms-2(name="logos:google-icon")
-          | {{ $t('form.login.provider.google.title') }}
-        vs-button.auth-provider-button.auth-provider-button--apple(active type="button")
-          AppIcon.ms-2(name="logos:apple")
-          | {{ $t('form.login.provider.apple.title') }}
+      ClientOnly
+        .auth-provider-buttons
+          vs-button.auth-provider-button.auth-provider-button--google(active type="button" :href="`${$config.API}/connect/google`")
+            AppIcon.ms-2(name="logos:google-icon")
+            | {{ $t('form.login.provider.google.title') }}
+          vs-button.auth-provider-button.auth-provider-button--apple(v-if="false" active type="button")
+            AppIcon.ms-2(name="logos:apple")
+            | {{ $t('form.login.provider.apple.title') }}
 
     .form-item
       vs-input(

@@ -9,10 +9,12 @@ export default {
   error: {
     error: 'Hata',
     anErrorOccurred: 'Bir hata oluştu',
-    tryAgain: 'Tekrar dene'
+    tryAgain: 'Tekrar dene',
+    redirecting: 'Eğer yönlendirilmediysen, buraya tıkla'
   },
   general: {
     loading: 'Yükleniyor',
+    redirecting: 'Yönlendiriliyor',
     application: 'Uygulama',
     login: 'Giriş yap',
     register: 'Kayıt ol',

@@ -3,7 +3,7 @@ import { authApi, userApi, fileApi, urlApi, reviewApi, scraperApi } from '@/serv
 
 export default function ({ app }: Context) {
   app.$api.rest = {
-    auth: authApi(app.$appAxios),
+    auth: authApi(app as Context, app.$appAxios),
     user: userApi(app.$appAxios),
     file: fileApi(app.$appAxios),
     url: urlApi(app.$appAxios, app),

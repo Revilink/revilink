@@ -3,113 +3,128 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
   .form-head
     h1.settings-form-title {{ $t('general.profile') }}
 
-  .form__inner
-    .form-item
-      .avatar-upload
-        AppLoading.avatar-upload__loading(v-if="state.isBusy")
-        client-only
-          croppa(
-            ref="avatarUploadRef"
-            v-model="avatar.file"
-            placeholder
-            :disabled="state.isBusy"
-            :initial-image="$auth.loggedIn && $auth.user?.avatar?.formats.thumbnail.url"
-            :file-size-limit="Number(avatar.config.fileSizeLimit)"
-            :accept="avatar.config.accept"
-            :prevent-white-space="avatar.config.preventWhiteSpace"
-            :show-remove-button="avatar.config.showRemoveButton && !state.isBusy"
-            :zoom-speed="avatar.config.zoomSpeed"
-            :width="avatar.config.width"
-            :height="avatar.config.height"
-            @file-choose="handleAvatarChoose"
-            @zoom="handleDirtyAvatar"
-            @move="handleDirtyAvatar"
-            @image-remove="handleAvatarRemove"
-            @file-size-exceed="showAvatarFileSizeExceedMessage"
-            @file-type-mismatch="showAvatarFileTypeMismatchMessage"
-          )
-          label.avatar-upload__label.cursor-pointer(@click="$refs.avatarUploadRef.chooseFile()")
-            strong
-              a(@click.prevent) {{ $t('form.changeProfilePhoto') }}
+  template(v-if="fetchState.pending")
+    AppLoading.d-block.py-10
 
-    .form-item
-      vs-input(
-        v-model="form.username"
-        :label="$t('form.username')"
-        :placeholder="$t('form.username')"
-        spellcheck="false"
-        :maxlength="v$.username.maxLength.$params.max"
-        @keydown.space.prevent
-      )
-        template(v-if="v$.username.$error" #message-danger)
-          span(v-if="v$.username.required.$invalid")
-            | {{ $t('form.validation.modelIsRequired', { model: $t('form.username') }) }}
-          span(v-if="v$.username.isValid.$invalid && form.username.length > 0")
-            | {{ $t('form.validation.containsInvalidCharacters') }}
-          span(v-if="v$.username.minLength.$invalid")
-            | {{ $t('form.validation.min', { min: v$.username.minLength.$params.min }) }}
-          span(v-if="v$.username.maxLength.$invalid")
-            | {{ $t('form.validation.max', { max: v$.username.maxLength.$params.max }) }}
+  template(v-if="fetchState.error")
+    BasicState(:title="$t('error.error')" :description="getFetchError(fetchState.error).message")
+      template(#head)
+        img(src="@/assets/media/elements/state/network.svg" width="256")
+      template(#footer)
+        vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
 
-    .form-item
-      vs-input(
-        v-model="form.email"
-        :label="$t('form.email')"
-        :placeholder="$t('form.email')"
-        spellcheck="false"
-        :maxlength="v$.email.maxLength.$params.max"
-        @keydown.space.prevent
-      )
-        template(v-if="v$.email.$error" #message-danger)
-          span(v-if="v$.email.email.$invalid")
-            | {{ $t('form.validation.enterValidModel', { model: $t('form.email').toLowerCase() }) }}
-          span(v-if="v$.email.required.$invalid")
-            | {{ $t('form.validation.modelIsRequired', { model: $t('form.email') }) }}
-          span(v-if="v$.email.maxLength.$invalid")
-            | {{ $t('form.validation.max', { max: v$.email.maxLength.params.max }) }}
+  ClientOnly(v-else)
+    .form__inner(v-if="!fetchState.pending && !fetchState.error")
+      .form-item
+        .avatar-upload
+          AppLoading.avatar-upload__loading(v-if="state.isBusy")
+          client-only
+            croppa(
+              ref="avatarUploadRef"
+              v-model="avatar.file"
+              placeholder
+              :disabled="state.isBusy"
+              :initial-image="$auth.loggedIn && $auth.user?.avatar?.formats.thumbnail.url"
+              :file-size-limit="Number(avatar.config.fileSizeLimit)"
+              :accept="avatar.config.accept"
+              :prevent-white-space="avatar.config.preventWhiteSpace"
+              :show-remove-button="avatar.config.showRemoveButton && !state.isBusy"
+              :zoom-speed="avatar.config.zoomSpeed"
+              :width="avatar.config.width"
+              :height="avatar.config.height"
+              @file-choose="handleAvatarChoose"
+              @zoom="handleDirtyAvatar"
+              @move="handleDirtyAvatar"
+              @image-remove="handleAvatarRemove"
+              @file-size-exceed="showAvatarFileSizeExceedMessage"
+              @file-type-mismatch="showAvatarFileTypeMismatchMessage"
+            )
+            label.avatar-upload__label.cursor-pointer(@click="$refs.avatarUploadRef.chooseFile()")
+              strong
+                a(@click.prevent) {{ $t('form.changeProfilePhoto') }}
 
-    .form-item
-      vs-input(
-        v-model="form.information.fullname"
-        :label="$t('form.name')"
-        :placeholder="$t('form.name')"
-        spellcheck="false"
-        :maxlength="v$.information.fullname.maxLength.$params.max"
-      )
-        template(v-if="v$.information.fullname.$error" #message-danger)
-          span(v-if="v$.information.fullname.maxLength.$invalid")
-            | {{ $t('form.validation.max', { max: v$.information.fullname.maxLength.params.max }) }}
+      .form-item
+        vs-input(
+          v-model="form.username"
+          :label="$t('form.username')"
+          :placeholder="$t('form.username')"
+          spellcheck="false"
+          :maxlength="v$.username.maxLength.$params.max"
+          @keydown.space.prevent
+        )
+          template(v-if="v$.username.$error" #message-danger)
+            span(v-if="v$.username.required.$invalid")
+              | {{ $t('form.validation.modelIsRequired', { model: $t('form.username') }) }}
+            span(v-if="v$.username.isValid.$invalid && form.username.length > 0")
+              | {{ $t('form.validation.containsInvalidCharacters') }}
+            span(v-if="v$.username.minLength.$invalid")
+              | {{ $t('form.validation.min', { min: v$.username.minLength.$params.min }) }}
+            span(v-if="v$.username.maxLength.$invalid")
+              | {{ $t('form.validation.max', { max: v$.username.maxLength.$params.max }) }}
 
-    .form-item
-      AppTextarea(
-        :value="form.information.bio"
-        character-counter
-        maxlength="120"
-        rows="4"
-        autosize
-        placeholder="bio"
-        spellcheck="false"
-        @input="input => { form.information.bio = input.target.value.trim() }"
-      )
+      .form-item
+        vs-input(
+          v-model="form.email"
+          :label="$t('form.email')"
+          :placeholder="$t('form.email')"
+          spellcheck="false"
+          :readonly="$auth.strategy.name === 'google'"
+          :disabled="$auth.strategy.name === 'google'"
+          :maxlength="v$.email.maxLength.$params.max"
+          @keydown.space.prevent
+        )
+          template(v-if="v$.email.$error" #message-danger)
+            span(v-if="v$.email.email.$invalid")
+              | {{ $t('form.validation.enterValidModel', { model: $t('form.email').toLowerCase() }) }}
+            span(v-if="v$.email.required.$invalid")
+              | {{ $t('form.validation.modelIsRequired', { model: $t('form.email') }) }}
+            span(v-if="v$.email.maxLength.$invalid")
+              | {{ $t('form.validation.max', { max: v$.email.maxLength.params.max }) }}
 
-    .form-item.form-item--submit
-      vs-button(:loading="state.isBusy" :disabled="state.isBusy") {{ $t('form.saveInformations') }}
+      .form-item
+        vs-input(
+          v-model="form.information.fullname"
+          :label="$t('form.name')"
+          :placeholder="$t('form.name')"
+          spellcheck="false"
+          :maxlength="v$.information.fullname.maxLength.$params.max"
+        )
+          template(v-if="v$.information.fullname.$error" #message-danger)
+            span(v-if="v$.information.fullname.maxLength.$invalid")
+              | {{ $t('form.validation.max', { max: v$.information.fullname.maxLength.params.max }) }}
+
+      .form-item
+        AppTextarea(
+          :value="form.information.bio"
+          character-counter
+          maxlength="120"
+          rows="4"
+          autosize
+          placeholder="bio"
+          spellcheck="false"
+          @input="input => { form.information.bio = input.target.value.trim() }"
+        )
+
+      .form-item.form-item--submit
+        vs-button(:loading="state.isBusy" :disabled="state.isBusy") {{ $t('form.saveInformations') }}
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, ref, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useFetch, ref, reactive } from '@nuxtjs/composition-api'
 import { useVuelidate } from '@vuelidate/core'
 import type { Ref } from 'vue'
 import type { AvatarUploadRefTypes, AvatarTypes } from './ProfileSettingsForm.component.types'
-import type { UserTypes } from '@/types'
+import { setFetchError, getFetchError } from '@/utils/fetch-error'
 import { profileSettingsValidator } from '@/validator'
 import { AppTextarea } from '@/components/Textarea'
 import { AppLoading } from '@/components/Loading'
+import { BasicState } from '@/components/State'
 
 export default defineComponent({
   components: {
     AppTextarea,
-    AppLoading
+    AppLoading,
+    BasicState
   },
   setup(_, { emit }) {
     const context = useContext()
@@ -224,17 +239,33 @@ export default defineComponent({
       state.isEdited = true
     }
 
-    const user = context.$auth.user as UserTypes
+    const { fetch, fetchState } = useFetch(async () => {
+      const { data, error } = await context.$api.rest.auth.fetchMe()
+
+      if (data) {
+        form.id = data.id
+        form.username = data.username
+        form.email = data.email
+        form.information.fullname = data.information?.fullname
+        form.information.bio = data.information?.bio
+      }
+
+      if (error) {
+        console.log(error)
+
+        setFetchError(error)
+      }
+    })
 
     const form = reactive({
-      id: user.id,
-      username: user.username,
-      email: user.email,
+      id: null,
+      username: '',
+      email: '',
       information: {
-        fullname: user.information?.fullname,
-        bio: user.information?.bio
+        fullname: '',
+        bio: ''
       }
-    } as any)
+    }) as any
 
     const rule = {
       ...profileSettingsValidator
@@ -293,6 +324,9 @@ export default defineComponent({
     }
 
     return {
+      fetch,
+      fetchState,
+      getFetchError,
       state,
       avatarUploadRef,
       avatar,

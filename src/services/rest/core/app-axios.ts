@@ -5,6 +5,9 @@ const appAxios = async ({ $axios, app }: Context, params: AppAxiosType) => {
   const { method = 'get', url, path, query, data, cache, headers } = params
 
   $axios.onRequest(config => {
+    config.headers = config.headers || {}
+    config.headers.common = config.headers.common || {}
+
     if (config.headers.common['Content-Type']) {
       config.headers.common['Content-Type'] = 'application/json'
     }

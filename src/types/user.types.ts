@@ -1,7 +1,8 @@
-type AvatarTypes = {
+export type AvatarTypes = {
   id: number
   data?: Record<string, any>
   attributes?: Record<string, any>
+  formats?: Record<string, any>
 }
 
 export type UserInformationTypes = {
