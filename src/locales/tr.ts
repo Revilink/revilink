@@ -113,6 +113,14 @@ export default {
     register: {
       title: 'Kayıt ol',
       description: 'İnterneti yorum panosuna dönüştürmek için kaydol',
+      provider: {
+        google: {
+          title: 'Google ile kayıt ol'
+        },
+        apple: {
+          title: 'Apple ile kayıt ol'
+        }
+      },
       email: {
         placeholder: 'Email adresi'
       },
@@ -135,6 +143,14 @@ export default {
     login: {
       title: 'Giriş yap',
       description: 'Giriş yaparak interneti yorum panosuna dönüştür',
+      provider: {
+        google: {
+          title: 'Google ile giriş yap'
+        },
+        apple: {
+          title: 'Apple ile giriş yap'
+        }
+      },
       email: {
         placeholder: 'Email adresi'
       },
