@@ -20,7 +20,11 @@ const config: NuxtConfig = {
    ** Nuxt env configuration
    ** See https://nuxtjs.org/docs/configuration-glossary/configuration-env
    */
-  env: {},
+  env: {
+    API: process.env.API || '',
+    GOOGLE_AUTH_CLIENT_ID: process.env.GOOGLE_AUTH_CLIENT_ID || '',
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY || ''
+  },
 
   /*
    ** Nuxt runtime configuration
