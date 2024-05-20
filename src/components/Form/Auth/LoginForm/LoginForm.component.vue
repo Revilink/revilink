@@ -58,7 +58,7 @@ form.form.auth-form.login-form(@submit.prevent="handleSubmit")
         vs-button(:loading="state.isBusy" :disabled="state.isBusy")
           | {{ $t('form.login.submit.action.title') }}
           AppIcon.ms-2(name="ri:pass-pending-line")
-        NuxtLink.ms-4(:to="localePath({ name: 'Auth-ResetPassword' })") {{ $t('form.login.iForgotMyPassword') }}
+        NuxtLink.ms-4(:to="localePath({ name: 'Auth-ForgotPassword' })") {{ $t('form.login.iForgotMyPassword') }}
 
     .form-item.mt-base
       span.me-2 {{ $t('general.doNotYouHaveAnAccountYet') }}

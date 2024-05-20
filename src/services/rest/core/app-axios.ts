@@ -23,6 +23,7 @@ const appAxios = async ({ $axios, app }: Context, params: AppAxiosType) => {
       data,
       cache,
       headers,
+      timeout: 15000,
       config: {}
     })
 
@@ -44,7 +45,13 @@ const appAxios = async ({ $axios, app }: Context, params: AppAxiosType) => {
             }
       }
     } else {
-      throw new Error(error)
+      return {
+        data: null,
+        error: {
+          message: error.message,
+          code: error.code
+        }
+      }
     }
   }
 }

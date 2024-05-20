@@ -1,5 +1,7 @@
 export { default as RegisterForm } from './Auth/RegisterForm/RegisterForm.component.vue'
 export { default as LoginForm } from './Auth/LoginForm/LoginForm.component.vue'
+export { default as ForgotPasswordForm } from './Auth/ForgotPasswordForm/ForgotPasswordForm.component.vue'
+export { default as ResetPasswordForm } from './Auth/ResetPasswordForm/ResetPasswordForm.component.vue'
 export { default as ReviewSearchForm } from './ReviewSearchForm/ReviewSearchForm.component.vue'
 export { default as CommentForm } from './CommentForm/CommentForm.component.vue'
 export { default as ProfileSettingsForm } from './Settings/ProfileSettingsForm/ProfileSettingsForm.component.vue'

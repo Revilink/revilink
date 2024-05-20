@@ -125,7 +125,7 @@ export default {
         placeholder: 'Email adresi'
       },
       username: {
-        placeholder: 'Kullanıcı adı ya da email'
+        placeholder: 'Kullanıcı adı'
       },
       password: {
         placeholder: 'Parola'
@@ -155,7 +155,7 @@ export default {
         placeholder: 'Email adresi'
       },
       username: {
-        placeholder: 'Kullanıcı adı'
+        placeholder: 'Kullanıcı adı ya da email'
       },
       password: {
         placeholder: 'Parola'
@@ -166,6 +166,34 @@ export default {
         }
       },
       iForgotMyPassword: 'Hafızamı tazele'
+    },
+    forgotPassword: {
+      title: `Endişeye mahal yok endişeye`,
+      description: 'Parolanı sıfırlamak için aşağıya email adresini veya kullanıcı adını gir',
+      email: {
+        placeholder: 'Email'
+      },
+      username: {
+        placeholder: 'Email ya da kullanıcı adı'
+      },
+      submit: {
+        action: {
+          title: 'Parolamı Sıfırla'
+        }
+      },
+      iRemembered: 'Oh! Hatırladım',
+      sent: {
+        title: 'Bir email gönderdik',
+        description: 'Parolanı sıfırlamak için email adresine bir bağlantı gönderdik. Lütfen kontrol et'
+      }
+    },
+    resetPassword: {
+      title: 'Parolanı Sıfırla',
+      description: 'Formu kullanarak parolanı sıfırlayabilirsin',
+      success: {
+        title: 'Parolan sıfırlandı',
+        description: 'Parolanı sıfırladın, artık yeni parolan ile giriş yapabilirsin'
+      }
     },
     reviewSearch: {
       url: 'Bağlantı yapıştır',

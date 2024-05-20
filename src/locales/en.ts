@@ -173,6 +173,34 @@ export default {
       },
       iForgotMyPassword: 'Refresh my mind'
     },
+    forgotPassword: {
+      title: `Don't worry, be happy!`,
+      description: 'Type your email address or username below for reset your password',
+      username: {
+        placeholder: 'Username'
+      },
+      email: {
+        placeholder: 'Email address'
+      },
+      submit: {
+        action: {
+          title: 'Reset password'
+        }
+      },
+      iRemembered: 'Oh! I remembered',
+      sent: {
+        title: 'We sent you an email',
+        description: 'We have sent a link to your email address to reset the password'
+      }
+    },
+    resetPassword: {
+      title: 'Reset password',
+      description: 'You can reset your password using the form',
+      success: {
+        title: 'Your password has been reset',
+        description: 'You have reset your password, now you can login with your new password'
+      }
+    },
     reviewSearch: {
       url: 'Paste URL',
       getReviews: 'Get Reviews'

@@ -3,16 +3,20 @@ import { UserInformationTypes } from '@/types'
 export type RegisterTypes = {
   email: string
   username: string
-  password: string | number
+  password: string
 }
 
 export type UpdateMeTypes = {
   avatar?: number | null // File id
   username: string
   email: string
-  password: string | number
-  confirmPassword: string | number
+  password: string
+  confirmPassword: string
   information?: UserInformationTypes
+}
+
+export type ForgotPasswordTypes = {
+  email: string
 }
 
 export type AuthApiTypes = {
@@ -21,4 +25,5 @@ export type AuthApiTypes = {
   fetchGoogleProfilePhoto: Function
   fetchMe: Function
   updateMe: Function
+  forgotPassword: Function
 }

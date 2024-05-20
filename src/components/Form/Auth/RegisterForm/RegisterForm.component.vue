@@ -173,7 +173,11 @@ export default defineComponent({
           position: 'bottom-center',
           flat: true
         })
-      } else {
+
+        emit('on-success', form)
+      }
+
+      if (error) {
         window.$nuxt.$vs.notification({
           title: error.code,
           text: error.message,
@@ -182,8 +186,6 @@ export default defineComponent({
           flat: true
         })
       }
-
-      emit('on-success', form)
 
       state.isBusy = false
     }

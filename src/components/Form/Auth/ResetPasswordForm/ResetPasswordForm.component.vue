@@ -1,9 +1,9 @@
 <template lang="pug">
-form.form.settings-form.account-settings-form(@submit.prevent="handleSubmit")
+form.form.auth-form.reset-password-form(@submit.prevent="handleSubmit")
   .form-head
-    h1.settings-form-title {{ $t('general.account') }}
+    h1 {{ $t('form.resetPassword.title') }}
 
-  h4.my-base {{ $t('form.settings.account.password.title') }}
+  h4.my-base {{ $t('form.resetPassword.description') }}
   .form__inner
     .form-item
       vs-input(
@@ -11,6 +11,7 @@ form.form.settings-form.account-settings-form(@submit.prevent="handleSubmit")
         type="password"
         :placeholder="$t('form.settings.account.password.change.password')"
         spellcheck="false"
+        theme="light"
         icon-after
         :visible-password="isVisiblePassword"
         @click-icon="togglePasswordVisibility"
@@ -31,6 +32,7 @@ form.form.settings-form.account-settings-form(@submit.prevent="handleSubmit")
       vs-input(
         v-model="form.confirmPassword"
         type="password"
+        theme="light"
         :placeholder="$t('form.settings.account.password.change.confirmPassword')"
         spellcheck="false"
         icon-after
@@ -157,4 +159,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" src="./AccountSettingsForm.component.scss"></style>
+<style lang="scss" src="./ResetPasswordForm.component.scss"></style>

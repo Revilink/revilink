@@ -99,7 +99,9 @@ export default defineComponent({
         handleClose()
 
         emit('on-submit-reply-success', { ...data, user: { ...context.$auth.user } })
-      } else {
+      }
+
+      if (error) {
         window.$nuxt.$vs.notification({
           title: error.code,
           text: error.message,

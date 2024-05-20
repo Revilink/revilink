@@ -297,6 +297,22 @@ const config: NuxtConfig = {
             en: '/login',
             tr: '/giris'
           },
+          'Auth/ForgotPassword/index': {
+            en: '/forgot-password',
+            tr: '/parolami-unuttum'
+          },
+          'Auth/ForgotPassword/Sent/index': {
+            en: '/forgot-password/sent',
+            tr: '/parolami-unuttum/gonderildi'
+          },
+          'Auth/ForgotPassword/Reset/index': {
+            en: '/forgot-password/reset',
+            tr: '/parolami-unuttum/sifirla'
+          },
+          'Auth/ForgotPassword/Success/index': {
+            en: '/forgot-password/success',
+            tr: '/parolami-unuttum/basarili'
+          },
           'Reviews/index': {
             en: '/reviews',
             tr: '/incelemeler'

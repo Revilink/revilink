@@ -13,8 +13,10 @@
     }
 
     &__title {
-      color: var(--color-text-01);
+      display: block;
+      color: var(--color-text-02);
       font-size: var(--font-size-h1);
+      margin-block-end: calc(var(--spacer-base) / 2);
     }
 
     &__description {

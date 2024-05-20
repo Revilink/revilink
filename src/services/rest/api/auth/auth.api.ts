@@ -1,6 +1,6 @@
 import type { Context } from '@nuxt/types'
 import axios from 'axios'
-import type { AuthApiTypes, RegisterTypes, UpdateMeTypes } from './auth.api.types'
+import type { AuthApiTypes, RegisterTypes, UpdateMeTypes, ForgotPasswordTypes } from './auth.api.types'
 import type { AppAxiosType } from '@/services/rest/core/core.types'
 import { userTransformer } from '@/services/rest/transformers'
 
@@ -86,6 +86,23 @@ export const authApi = (app: Context, appAxios: Function) =>
         }
       } else {
         return { error }
+      }
+    },
+
+    async forgotPassword(params: ForgotPasswordTypes) {
+      const { email } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'post',
+        path: 'auth/forgot-password',
+        data: {
+          email
+        }
+      })
+
+      return {
+        data,
+        error
       }
     }
   }
