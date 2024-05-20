@@ -1,5 +1,7 @@
 export { default as registerValidator } from './register.validator'
 export { default as loginValidator } from './login.validator'
+export { default as forgotPasswordValidator } from './forgot-password.validator'
+export { default as resetPasswordValidator } from './reset-password.validator'
 export { default as profileSettingsValidator } from './profile-settings.validator'
 export { default as accountSettingsValidator } from './account-settings.validator'
 export { default as reviewSearchValidator } from './review-search.validator'

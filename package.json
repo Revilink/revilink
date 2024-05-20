@@ -54,6 +54,7 @@
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "bootstrap": "5.2.3",
+    "cookie-universal-nuxt": "^2.2.2",
     "cross-env": "^5.2.0",
     "date-fns": "^2.30.0",
     "express": "^4.17.1",

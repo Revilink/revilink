@@ -253,7 +253,9 @@ export default defineComponent({
         setTimeout(() => {
           reviewCardDOM?.classList.remove('highlight-flash-animation')
         }, 3000)
-      } else {
+      }
+
+      if (error) {
         window.$nuxt.$vs.notification({
           title: error.code,
           text: error.message,
@@ -297,7 +299,9 @@ export default defineComponent({
           reaction.myReaction = {}
 
           await fetchUrlReactions()
-        } else {
+        }
+
+        if (error) {
           window.$nuxt.$vs.notification({
             title: error.code,
             text: error.message,
@@ -315,7 +319,9 @@ export default defineComponent({
 
         if (data) {
           await fetchUrlReactions()
-        } else {
+        }
+
+        if (error) {
           window.$nuxt.$vs.notification({
             title: error.code,
             text: error.message,
@@ -336,7 +342,9 @@ export default defineComponent({
           url.value = data.url
 
           await fetchUrlReactions()
-        } else {
+        }
+
+        if (error) {
           window.$nuxt.$vs.notification({
             title: error.code,
             text: error.message,

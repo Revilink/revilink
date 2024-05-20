@@ -1,10 +1,19 @@
 <template lang="pug">
-form.form.register-form(@submit.prevent="handleSubmit")
+form.form.auth-form.register-form(@submit.prevent="handleSubmit")
   .form-head
     AppLogo.form-head__logo(:height="36")
     p.form-head__description {{ $t('form.register.description') }}
 
   .form__inner
+    .form-item
+      ClientOnly
+        .auth-provider-buttons
+          vs-button.auth-provider-button.auth-provider-button--google(active type="button" :href="`${$config.API}/connect/google`")
+            AppIcon.ms-2(name="logos:google-icon")
+            | {{ $t('form.register.provider.google.title') }}
+          vs-button.auth-provider-button.auth-provider-button--apple(v-if="false" active type="button")
+            AppIcon.ms-2(name="logos:apple")
+            | {{ $t('form.register.provider.apple.title') }}
     .form-item
       vs-input(
         v-model="form.email"
@@ -164,7 +173,11 @@ export default defineComponent({
           position: 'bottom-center',
           flat: true
         })
-      } else {
+
+        emit('on-success', form)
+      }
+
+      if (error) {
         window.$nuxt.$vs.notification({
           title: error.code,
           text: error.message,
@@ -173,8 +186,6 @@ export default defineComponent({
           flat: true
         })
       }
-
-      emit('on-success', form)
 
       state.isBusy = false
     }

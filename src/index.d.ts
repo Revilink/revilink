@@ -6,6 +6,7 @@ import { $content } from '@nuxt/content'
 declare module 'vue/types/vue' {
   interface Vue {
     $axios: NuxtAxiosInstance
+    $cookies: Cookies
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
@@ -19,6 +20,7 @@ declare module 'vue/types/vue' {
 declare module '@nuxt/types' {
   interface NuxtAppOptions {
     $axios: NuxtAxiosInstance
+    $cookies: Cookies
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
@@ -30,6 +32,7 @@ declare module '@nuxt/types' {
 
   interface Context {
     $axios: NuxtAxiosInstance
+    $cookies: Cookies
     $vs: any
     $auth: Auth
     i18n: IVueI18nNuxt
@@ -43,6 +46,7 @@ declare module '@nuxt/types' {
 declare module 'vuex/types/index' {
   interface Store<S> {
     $axios: NuxtAxiosInstance
+    $cookies: Cookies
     $vs: any
     $auth: Auth
   }

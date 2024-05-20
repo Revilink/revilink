@@ -119,12 +119,18 @@ export default defineComponent({
           flat: true
         })
 
-        const { data } = await context.$api.rest.auth.fetchMe()
+        const { data: fetchMeData, error: fetchMeError } = await context.$api.rest.auth.fetchMe()
 
-        if (data) {
-          context.$auth.setUser(data)
+        if (fetchMeData) {
+          context.$auth.setUser(fetchMeData)
         }
-      } else {
+
+        if (fetchMeError) {
+          window.location.href = context.localePath('/')
+        }
+      }
+
+      if (error) {
         window.$nuxt.$vs.notification({
           title: error.code,
           text: error.message,

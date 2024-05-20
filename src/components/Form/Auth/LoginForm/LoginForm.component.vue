@@ -1,10 +1,20 @@
 <template lang="pug">
-form.form.login-form(@submit.prevent="handleSubmit")
+form.form.auth-form.login-form(@submit.prevent="handleSubmit")
   .form-head
     AppLogo.form-head__logo(:height="36")
     p.form-head__description {{ $t('form.login.description') }}
 
   .form__inner
+    .form-item
+      ClientOnly
+        .auth-provider-buttons
+          vs-button.auth-provider-button.auth-provider-button--google(active type="button" :href="`${$config.API}/connect/google`")
+            AppIcon.ms-2(name="logos:google-icon")
+            | {{ $t('form.login.provider.google.title') }}
+          vs-button.auth-provider-button.auth-provider-button--apple(v-if="false" active type="button")
+            AppIcon.ms-2(name="logos:apple")
+            | {{ $t('form.login.provider.apple.title') }}
+
     .form-item
       vs-input(
         v-model="form.username"
@@ -48,7 +58,7 @@ form.form.login-form(@submit.prevent="handleSubmit")
         vs-button(:loading="state.isBusy" :disabled="state.isBusy")
           | {{ $t('form.login.submit.action.title') }}
           AppIcon.ms-2(name="ri:pass-pending-line")
-        NuxtLink.ms-4(:to="localePath({ name: 'Auth-ResetPassword' })") {{ $t('form.login.iForgotMyPassword') }}
+        NuxtLink.ms-4(:to="localePath({ name: 'Auth-ForgotPassword' })") {{ $t('form.login.iForgotMyPassword') }}
 
     .form-item.mt-base
       span.me-2 {{ $t('general.doNotYouHaveAnAccountYet') }}

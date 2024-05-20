@@ -4,7 +4,7 @@ nav.settings-nav
     AppIcon.settings-nav-item__icon(name="carbon:user")
     span.settings-nav-item__title {{ $t('general.profile') }}
 
-  NuxtLink.settings-nav-item(:to="localePath({ name: 'Settings-Account' })")
+  NuxtLink.settings-nav-item(v-if="$auth.strategy.name === 'local'" :to="localePath({ name: 'Settings-Account' })")
     AppIcon.settings-nav-item__icon(name="carbon:tools")
     span.settings-nav-item__title {{ $t('general.account') }}
 </template>

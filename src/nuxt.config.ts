@@ -221,6 +221,8 @@ const config: NuxtConfig = {
   modules: [
     // https://axios.nuxtjs.org
     '@nuxtjs/axios',
+    // https://www.npmjs.com/package/cookie-universal-nuxt
+    'cookie-universal-nuxt',
     // https://auth.nuxtjs.org
     [
       '@nuxtjs/auth-next',
@@ -244,6 +246,11 @@ const config: NuxtConfig = {
               property: '', // the response itself
               autoFetch: false // User will fetch by api function in store/index
             }
+          },
+          google: {
+            clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+            codeChallengeMethod: '',
+            responseType: 'code'
           }
         },
         plugins: ['@/plugins/auth-lang-redirect.ts']
@@ -289,6 +296,22 @@ const config: NuxtConfig = {
           'Auth/Login/index': {
             en: '/login',
             tr: '/giris'
+          },
+          'Auth/ForgotPassword/index': {
+            en: '/forgot-password',
+            tr: '/parolami-unuttum'
+          },
+          'Auth/ForgotPassword/Sent/index': {
+            en: '/forgot-password/sent',
+            tr: '/parolami-unuttum/gonderildi'
+          },
+          'Auth/ForgotPassword/Reset/index': {
+            en: '/forgot-password/reset',
+            tr: '/parolami-unuttum/sifirla'
+          },
+          'Auth/ForgotPassword/Success/index': {
+            en: '/forgot-password/success',
+            tr: '/parolami-unuttum/basarili'
           },
           'Reviews/index': {
             en: '/reviews',
