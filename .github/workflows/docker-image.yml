@@ -17,6 +17,8 @@ jobs:
       run: |
         touch .env
         echo API=${{ vars.API }} >> .env
+        echo GOOGLE_AUTH_CLIENT_ID=${{ vars.GOOGLE_AUTH_CLIENT_ID }} >> .env
+        echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env
         cat .env
 
     - name: Build the Docker image
