@@ -5,6 +5,7 @@ export default {
   email: {
     required,
     email,
+    minLength: minLength(5),
     maxLength: maxLength(320)
   },
   username: {

@@ -1,9 +1,10 @@
 import { required, minLength, maxLength } from '@vuelidate/validators'
-import { registerValidator } from '@/validator'
 
 export default {
   username: {
-    ...registerValidator.username
+    required,
+    minLength: minLength(3),
+    maxLength: maxLength(320)
   },
   password: {
     required,

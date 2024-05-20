@@ -1,44 +1,65 @@
-import { Context } from '@nuxt/types'
+import type { Context } from '@nuxt/types'
+
+type SetUserParamTypes = Pick<Context, '$auth' | '$api' | '$cookies'>
+
+const setUser = async ({ $auth, $api, $cookies }: SetUserParamTypes) => {
+  const logout = async () => {
+    await $auth.setStrategy('local')
+    await $auth.setUserToken('')
+    await $auth.setUser(null)
+    await $auth.logout()
+
+    await $cookies.remove('google_auth_callback_params')
+    await $cookies.remove('google_auth_access_token')
+    await $cookies.remove('google_auth_jwt_token')
+  }
+
+  if ($auth.strategy.name === 'local' && $auth.loggedIn) {
+    const { data, error } = await $api.rest.auth.fetchMe()
+
+    if (data) {
+      $auth.setUser(data)
+    }
+
+    if (error) {
+      await logout()
+    }
+  }
+
+  if ($auth.strategy.name === 'google' && $cookies.get('google_auth_jwt_token')) {
+    const { data, error } = await $api.rest.auth.fetchMe()
+
+    if (data) {
+      await $auth.setStrategy('google')
+      await $auth.setUserToken(`${$cookies.get('google_auth_jwt_token')}`)
+      await $auth.setUser(data)
+    }
+
+    if (error) {
+      await logout()
+    }
+  }
+}
 
 export const actions = {
-  async nuxtServerInit({ _ }: unknown, { $auth, $api }: Context) {
-    if ($auth.loggedIn) {
-      const { data } = await $api.rest.auth.fetchMe()
-
-      if (data) {
-        $auth.setUser(data)
-      }
-    }
+  async nuxtServerInit({ _ }: unknown, { $auth, $api, $cookies }: Context) {
+    await setUser({ $auth, $api, $cookies })
 
     // Watch Auth State
     $auth.$storage.watchState('loggedIn', async loggedIn => {
       if (loggedIn) {
-        const { data } = await $api.rest.auth.fetchMe()
-
-        if (data) {
-          $auth.setUser(data)
-        }
+        await setUser({ $auth, $api, $cookies })
       }
     })
   },
 
-  async nuxtClientInit({ _ }: unknown, { $auth, $api }: Context) {
-    if ($auth.loggedIn) {
-      const { data } = await $api.rest.auth.fetchMe()
-
-      if (data) {
-        $auth.setUser(data)
-      }
-    }
+  async nuxtClientInit({ _ }: unknown, { $auth, $api, $cookies }: Context) {
+    await setUser({ $auth, $api, $cookies })
 
     // Watch Auth State
     $auth.$storage.watchState('loggedIn', async loggedIn => {
       if (loggedIn) {
-        const { data } = await $api.rest.auth.fetchMe()
-
-        if (data) {
-          $auth.setUser(data)
-        }
+        await setUser({ $auth, $api, $cookies })
       }
     })
   }

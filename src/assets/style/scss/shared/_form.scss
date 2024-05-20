@@ -13,8 +13,10 @@
     }
 
     &__title {
-      color: var(--color-text-01);
+      display: block;
+      color: var(--color-text-02);
       font-size: var(--font-size-h1);
+      margin-block-end: calc(var(--spacer-base) / 2);
     }
 
     &__description {
@@ -29,6 +31,29 @@
 
     &--submit {
       margin-top: var(--spacer-base);
+    }
+  }
+
+  &.auth-form {
+    .auth-provider-buttons {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: var(--spacer);
+    }
+
+    .auth-provider-button {
+      position: relative;
+      color: var(--color-text-01);
+      background-color: var(--color-ui-02);
+      box-shadow: var(--box-shadow-01);
+
+      &:hover {
+        background-color: var(--color-hover-01);
+      }
+
+      .app-icon {
+        margin-inline-end: calc(var(--spacer) * 2);
+      }
     }
   }
 
