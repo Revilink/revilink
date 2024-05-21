@@ -119,6 +119,9 @@ export default defineComponent({
           data: {
             identifier: form.username,
             password: form.password
+          },
+          headers: {
+            'Accept-Language': context.i18n.locale
           }
         })
 
