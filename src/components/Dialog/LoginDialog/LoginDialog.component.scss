@@ -8,7 +8,14 @@
 
     &__content {
       width: var(--breakpoint-md);
+      max-width: var(--breakpoint-md);
       padding: var(--spacer-base);
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+        max-width: 100%;
+        padding: calc(var(--spacer-base) / 2);
+      }
     }
   }
 }

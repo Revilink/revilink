@@ -1,0 +1,8 @@
+.application-dialog {
+  .vs-dialog {
+    @include media-breakpoint-down(md) {
+      transform: scale(0.9);
+      transform-origin: top;
+    }
+  }
+}

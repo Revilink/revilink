@@ -5,6 +5,15 @@
     position: relative;
     display: flex;
     margin-bottom: var(--spacer-base);
+
+    &__title {
+      position: relative;
+      font-size: var(--font-size-h2);
+
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-h3);
+      }
+    }
   }
 
   .url-link-card {

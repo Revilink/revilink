@@ -11,6 +11,11 @@
     --input-height: 56px;
     --input-font-size: var(--font-size-text-20);
 
+    @include media-breakpoint-down(md) {
+      --input-height: 48px;
+      --input-font-size: var(--font-size-text-22);
+    }
+
     position: relative;
     border-radius: var(--border-radius-01);
     box-shadow: var(--box-shadow-01);
@@ -47,7 +52,13 @@
   &__submitButton {
     display: block;
     min-width: 148px;
-    height: calc(56px - #{$spacer} * 2);
+    height: calc(var(--input-height) - #{$spacer} * 2);
     padding: 0 calc(var(--spacer-base) / 4);
+
+    @include media-breakpoint-down(md) {
+      min-width: 120px;
+      height: calc(var(--input-height) - #{$spacer} / 2);
+      padding: 0 !important;
+    }
   }
 }

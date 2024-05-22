@@ -13,10 +13,19 @@
     display: flex;
     justify-content: space-between;
 
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+
     &__description {
       color: var(--color-text-04);
       font-weight: var(--font-weight-regular);
       font-size: var(--font-size-text-22);
+
+      @include media-breakpoint-down(lg) {
+        font-size: var(--font-size-text-24);
+        margin-block-end: calc(var(--spacer) * 2);
+      }
     }
   }
 }

@@ -10,11 +10,8 @@
   height: var(--header-height);
   background-color: transparent;
 
-  &__inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &--reveal {
+    backdrop-filter: blur(8px);
   }
 
   // Variants
@@ -25,5 +22,29 @@
 
   &--home {
     // Home variant header
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .app-logo {
+    position: relative;
+    width: auto;
+    height: 34px;
+
+    @include media-breakpoint-down(md) {
+      width: auto;
+      height: 32px;
+    }
+
+    &__image {
+      position: relative;
+      width: auto;
+      height: 100%;
+    }
   }
 }

@@ -4,11 +4,30 @@
   &-card {
     --user-avatar-width: 48px;
 
+    @include media-breakpoint-down(md) {
+      --user-avatar-width: 32px;
+    }
+
     position: relative;
     display: grid;
     grid-column-gap: calc(var(--spacer-base) / 2);
     grid-template-columns: var(--user-avatar-width) 1fr;
     margin-bottom: calc(var(--spacer-base) / 2);
+
+    @include media-breakpoint-down(md) {
+      grid-column-gap: calc(var(--spacer-base) / 4);
+    }
+
+    &__avatar {
+      position: relative;
+      width: var(--user-avatar-width);
+
+      .vs-avatar,
+      img {
+        width: var(--user-avatar-width);
+        height: var(--user-avatar-width);
+      }
+    }
 
     &__body {
       position: relative;
@@ -48,5 +67,9 @@
     display: block;
     min-width: 92px;
     margin-left: auto;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 !important;
+    }
   }
 }

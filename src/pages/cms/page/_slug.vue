@@ -1,7 +1,7 @@
 <template lang="pug">
 .page.cms-page
   .row
-    .col.col-8
+    .col-12.col-lg-8
       template(v-if="fetchState.pending")
         .d-flex.justify-content-center.my-4
           AppLoading.py-base
@@ -12,9 +12,10 @@
 
       template(v-else)
         nuxt-content.app-content(:document="doc")
-    .col.col-4
-      aside.sidebar.col-11
-        CmsPagesWidget
+    .col-12.col-lg-4.d-flex.justify-content-end
+      .col-12.col-lg-11.vh-100
+        aside.sidebar
+          CmsPagesWidget
 </template>
 
 <script lang="ts">

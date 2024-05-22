@@ -64,6 +64,10 @@
     width: 100%;
     min-height: 100vh;
 
+    @include media-breakpoint-down(xl) {
+      opacity: 0;
+    }
+
     .avatar-group {
       $avatar-group: '.avatar-group';
 
@@ -71,8 +75,33 @@
 
       @include center(false, true);
 
+      @include media-breakpoint-down(3xl) {
+        margin-block-start: -48px;
+        transform: scale(0.8);
+      }
+
+      @include media-breakpoint-down(2xl) {
+        transform: scale(0.7);
+      }
+
+      @include media-breakpoint-down(xl) {
+        top: 33vh;
+      }
+
       &--left {
         left: 0;
+
+        @include media-breakpoint-down(4xl) {
+          left: -40px;
+        }
+
+        @include media-breakpoint-down(3xl) {
+          left: -32px;
+        }
+
+        @include media-breakpoint-down(2xl) {
+          left: 0;
+        }
 
         #{$avatar-group} {
           &-item {
@@ -112,6 +141,18 @@
 
       &--right {
         right: 0;
+
+        @include media-breakpoint-down(4xl) {
+          right: -58px;
+        }
+
+        @include media-breakpoint-down(3xl) {
+          right: -50px;
+        }
+
+        @include media-breakpoint-down(2xl) {
+          right: 0;
+        }
 
         #{$avatar-group} {
           &-item {

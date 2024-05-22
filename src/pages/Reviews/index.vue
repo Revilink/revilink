@@ -1,13 +1,14 @@
 <template lang="pug">
 .page.reviews-page(ref="rootRef")
-  .row
-    .col-4
-      .col-11
-        // Link extra widget
-        LinkExtraWidget
-        // Site summary widget
-        SiteSummaryWidget(v-if="false")
-    .col-8
+  .row.flex-column-reverse.flex-lg-row
+    .col-12.col-lg-4
+      .col-12.col-lg-11
+        aside.sidebar
+          // Link extra widget
+          LinkExtraWidget
+          // Site summary widget
+          SiteSummaryWidget(v-if="false")
+    .col-12.col-lg-8
       // Site Meta
       .reviews-page-review-meta
         vs-tooltip.reviews-page-review-meta__avatarTooltip(not-arrow shadow top :class="[{ 'pointer-events-none': site.isBusy }]")

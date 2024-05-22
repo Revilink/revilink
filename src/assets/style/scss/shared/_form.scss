@@ -7,9 +7,22 @@
     position: relative;
     margin-bottom: var(--spacer-base);
 
+    @include media-breakpoint-down(md) {
+      margin-bottom: calc(var(--spacer-base) / 2);
+    }
+
     &__logo {
       display: inline-flex;
       margin-bottom: calc(var(--spacer-base) / 2);
+
+      @include media-breakpoint-down(md) {
+        height: 32px;
+
+        img {
+          width: auto;
+          height: 32px;
+        }
+      }
     }
 
     &__title {
@@ -17,11 +30,19 @@
       color: var(--color-text-02);
       font-size: var(--font-size-h1);
       margin-block-end: calc(var(--spacer-base) / 2);
+
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-h2);
+      }
     }
 
     &__description {
       color: var(--color-text-02);
       font-size: var(--font-size-text-21);
+
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-text-21);
+      }
     }
   }
 
@@ -31,6 +52,10 @@
 
     &--submit {
       margin-top: var(--spacer-base);
+
+      .vs-button {
+        padding: var(--spacer) !important;
+      }
     }
   }
 
