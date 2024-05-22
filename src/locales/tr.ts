@@ -10,7 +10,21 @@ export default {
     error: 'Hata',
     anErrorOccurred: 'Bir hata oluştu',
     tryAgain: 'Tekrar dene',
-    redirecting: 'Eğer yönlendirilmediysen, buraya tıkla'
+    redirecting: 'Eğer yönlendirilmediysen, buraya tıkla',
+    failed: 'İşlem başarısız oldu',
+    sendFailed: 'Gönderme başarısız oldu',
+    updateFailed: 'Güncelleme başarısız oldu',
+    editFailed: 'Düzenleme başarısız oldu',
+    deleteFailed: 'Silme başarısız oldu',
+    uploadFailed: 'Yükleme başarısız oldu'
+  },
+  success: {
+    successfuly: 'İşlem başarılı',
+    sendSuccessfully: 'Gönderildi',
+    updateSuccessfully: 'Güncellendi',
+    editSuccessfully: 'Düzenleme başarılı',
+    deleteSuccessfully: 'Silindi',
+    uploadSuccessfully: 'Yükleme başarılı'
   },
   general: {
     loading: 'Yükleniyor',

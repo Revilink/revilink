@@ -10,7 +10,21 @@ export default {
     error: 'Error',
     anErrorOccurred: 'An error has occurred',
     tryAgain: 'Try again',
-    redirecting: 'If you are not redirected, click here'
+    redirecting: 'If you are not redirected, click here',
+    failed: 'Failed',
+    sendFailed: 'Send failed',
+    updateFailed: 'Update failed',
+    editFailed: 'Edit failed',
+    deleteFailed: 'Delete failed',
+    uploadFailed: 'Upload failed'
+  },
+  success: {
+    successfuly: 'Successfully',
+    sendSuccessfully: 'Send successfully',
+    updateSuccessfully: 'Update successfully',
+    editSuccessfully: 'Edit successfully',
+    deleteSuccessfully: 'Delete successfully',
+    uploadSuccessfully: 'Upload successfully'
   },
   general: {
     loading: 'Loading',

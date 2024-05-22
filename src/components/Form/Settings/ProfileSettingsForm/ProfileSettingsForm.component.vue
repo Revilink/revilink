@@ -185,7 +185,7 @@ export default defineComponent({
 
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Upload successfully',
+          text: context.i18n.t('success.uploadSuccessfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true
@@ -202,8 +202,8 @@ export default defineComponent({
           }
         } else {
           window.$nuxt.$vs.notification({
-            title: 'Error',
-            text: 'Update failed',
+            title: context.i18n.t('error.error'),
+            text: context.i18n.t('error.updateFailed'),
             color: 'danger',
             position: 'bottom-center',
             flat: true
@@ -301,7 +301,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Update successfully',
+          text: context.i18n.t('success.updateSuccessfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true

@@ -90,7 +90,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Comment post successfully',
+          text: context.i18n.t('form.comment.post.callback.success.description'),
           color: 'success',
           position: 'bottom-center',
           flat: true

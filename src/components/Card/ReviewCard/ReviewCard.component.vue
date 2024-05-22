@@ -214,7 +214,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Edit successfully',
+          text: context.i18n.t('success.editSuccessfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true
@@ -241,7 +241,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Delete successfully',
+          text: context.i18n.t('success.deleteSuccessfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true
