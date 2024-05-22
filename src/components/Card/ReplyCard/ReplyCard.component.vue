@@ -15,7 +15,8 @@
         .reply-card-meta__date
           | • &nbsp;
           NuxtLink(:to="localePath({ name: 'Comment', query: { id: reply.id } })")
-            Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
+            ClientOnly
+              Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .reply-card-review
         p.reply-card-review__text {{ reply.content }}

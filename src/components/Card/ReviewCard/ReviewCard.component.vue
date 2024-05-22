@@ -20,7 +20,8 @@
             :to="localePath({ name: 'Comment', query: { id: review.id } })"
             :title="formatToFullDate({ date: new Date(review.createdAt), locale: $i18n.locale })"
           )
-            Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
+            ClientOnly
+              Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .review-card-review
         p.review-card-review__text {{ review.content }}
