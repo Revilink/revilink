@@ -1,6 +1,6 @@
 <template lang="pug">
 ClientOnly
-  form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
+  form.form.comment-form(ref="rootRef" auth-control @submit.prevent="handleSubmit")
     .form__inner
       .comment-form-card
         vs-avatar.comment-form-card__avatar(circle size="48")

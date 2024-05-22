@@ -1,7 +1,7 @@
 <template lang="pug">
 .reaction-button-group(:class="[isBusyClass]")
   template(v-for="(reaction, index) in reactions")
-    vs-tooltip.me-4(
+    vs-tooltip.reaction-button-tooltip(
       :key="index"
       auth-control
       not-arrow

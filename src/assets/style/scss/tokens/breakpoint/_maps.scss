@@ -1,8 +1,12 @@
 $breakpoints: (
   xs: 0,
+  2xs: 375px,
+  3xs: 425px,
   sm: 576px,
   md: 768px,
   lg: 992px,
   xl: 1200px,
-  xxl: 1400px
+  2xl: 1400px,
+  3xl: 1600px,
+  4xl: 1920px
 );

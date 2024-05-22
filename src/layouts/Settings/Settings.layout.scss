@@ -9,6 +9,12 @@
     }
   }
 
+  .sidebar {
+    @include media-breakpoint-down(lg) {
+      margin-block-end: var(--spacer-base);
+    }
+  }
+
   .page {
     .form {
       padding: calc(var(--spacer-base) / 2) var(--spacer-base);

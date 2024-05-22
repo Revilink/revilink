@@ -8,6 +8,11 @@
     img {
       display: block;
       max-width: 100%;
+
+      @include media-breakpoint-down(md) {
+        max-width: 50%;
+        margin: 0 auto;
+      }
     }
   }
 
@@ -17,11 +22,27 @@
     color: var(--color-text-02);
     text-align: center;
     margin-block-start: var(--spacer-base);
+
+    @include media-breakpoint-down(md) {
+      margin-block-start: calc(var(--spacer-base) / 2);
+    }
   }
 
   &__title {
     color: var(--color-text-01);
     font-size: var(--font-size-h3);
     margin-block-end: calc(var(--spacer-base) / 2);
+
+    @include media-breakpoint-down(md) {
+      font-size: var(--font-size-h4);
+    }
+  }
+
+  &__description {
+    font-size: var(--font-size-text-21);
+
+    @include media-breakpoint-down(md) {
+      font-size: var(--font-size-text-22);
+    }
   }
 }

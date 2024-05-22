@@ -1,5 +1,5 @@
 <template lang="pug">
-header.app-header(:class="[variantClass]")
+header.app-header(:class="[revealClass, variantClass]")
   .app-header__inner.container
     AppLogo(:height="34")
     .ms-auto.d-flex.align-items-center
@@ -8,7 +8,8 @@ header.app-header(:class="[variantClass]")
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, onUnmounted, ref, computed } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
 import { AppLogo } from '@/components/Logo'
 import { ApplicationNavButtonGroup } from '@/components/ButtonGroup'
 import { ProfileDropdown } from '@/components/Dropdown'
@@ -30,6 +31,25 @@ export default defineComponent({
   setup(props) {
     const baseClassName = 'app-header'
 
+    const isScrolledWindow: Ref<boolean> = ref(false)
+
+    const handleScroll = () => {
+      const scrollThreshold = 64
+      isScrolledWindow.value = window.scrollY > scrollThreshold
+    }
+
+    onMounted(() => {
+      window.addEventListener('scroll', handleScroll)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll)
+    })
+
+    const revealClass = computed(() => {
+      return isScrolledWindow.value ? `${baseClassName}--reveal` : null
+    })
+
     const variantClass = computed(() => {
       if (props.variant === 'home') {
         return `${baseClassName}--home`
@@ -39,6 +59,7 @@ export default defineComponent({
     })
 
     return {
+      revealClass,
       variantClass
     }
   }

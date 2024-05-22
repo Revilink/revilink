@@ -67,7 +67,8 @@ export default {
   },
   hero: {
     home: {
-      title: 'İnternetteki herhangi bir <strong class="mark-link">link</strong> hakkında <strong class="mark-reviews">yorum</strong> yap.',
+      title:
+        'İnternetteki herhangi bir <br> <strong class="mark-link">link</strong> hakkında <strong class="mark-reviews">yorum</strong> yap.',
       description: 'Herhangi bir link hakkında yorum yap, reaksiyon ver ve interneti yorum panosuna dönüştür'
     }
   },

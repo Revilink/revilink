@@ -1,9 +1,9 @@
 <template lang="pug">
 .page.profile-page
   .row
-    .col.col-4
-      // Sidebar
-    .col.col-8
+    .col-12.col-lg-4
+      aside.sidebar
+    .col-12.col-lg-8
       ProfileHead(:user="user")
 
       // Review List

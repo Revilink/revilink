@@ -13,7 +13,7 @@
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: reply.user.username } })" :title="reply.user.username")
             strong {{ reply.user.username }}
         .reply-card-meta__date
-          | • &nbsp;
+          span.d-none.d-md-block •&nbsp;
           NuxtLink(:to="localePath({ name: 'Comment', query: { id: reply.id } })")
             ClientOnly
               Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
@@ -47,7 +47,7 @@
                 AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
               span.reply-card-actions-item__label {{ $t('general.delete') }}
 
-          vs-tooltip.reply-card-actions.share-button.ms-auto(not-arrow shadow role="button")
+          vs-tooltip.reply-card-actions.share-button.ms-auto(v-if="false" not-arrow shadow role="button")
             PaperButton.reply-card-actions-item__button(:width="36" :height="36")
               AppIcon(name="ri:share-line" :width="18" :height="18")
             template(#tooltip)

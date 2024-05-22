@@ -1,4 +1,8 @@
 :root {
   --header-height: 64px;
   --header-position: fixed;
+
+  @include media-breakpoint-down(md) {
+    --header-height: 56px;
+  }
 }

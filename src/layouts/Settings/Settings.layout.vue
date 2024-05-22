@@ -20,8 +20,8 @@
             h2 {{ $t('general.settingsFor', { model: null }) }}
       .row
         .col.col-12.col-xl-4
-          .col.col-11
-            section.sidebar.sidebar--sticky
+          .col.col-12.col-xl-11
+            aside.sidebar.sidebar--sticky
               SettingsNav
         .col.col-12.col-xl-8
           .router-view

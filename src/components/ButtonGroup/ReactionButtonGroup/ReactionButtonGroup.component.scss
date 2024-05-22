@@ -23,10 +23,23 @@
     }
   }
 
+  .reaction-button-tooltip {
+    position: relative;
+    display: inline-block;
+    margin-inline-end: calc(var(--spacer) * 6);
+
+    @include media-breakpoint-down(sm) {
+      margin-inline-end: calc(var(--spacer) * 4);
+    }
+  }
+
   .reaction-button {
     $reaction-button: '.reaction-button';
 
     position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
     background-color: transparent;
     border: 0;
     outline: none;
@@ -61,8 +74,16 @@
 
     &__icon {
       position: relative;
+      display: inline-flex;
+
+      @include media-breakpoint-down(sm) {
+        width: 28px !important;
+        height: 28px !important;
+      }
 
       svg {
+        width: inherit;
+        height: inherit;
         transform-origin: bottom;
         transition: 0.4s var(--motion-01);
       }
@@ -76,6 +97,11 @@
       margin-block-start: var(--spacer);
 
       @include font-weight-extra-bold;
+
+      @include media-breakpoint-down(sm) {
+        font-size: var(--font-size-text-24);
+        margin-block-start: calc(var(--spacer) * 2);
+      }
     }
   }
 }

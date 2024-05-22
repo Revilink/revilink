@@ -15,7 +15,7 @@
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
             strong {{ review.user.username }}
         .review-card-meta__date
-          | • &nbsp;
+          span.d-none.d-md-block •&nbsp;
           NuxtLink(
             :to="localePath({ name: 'Comment', query: { id: review.id } })"
             :title="formatToFullDate({ date: new Date(review.createdAt), locale: $i18n.locale })"
@@ -74,7 +74,7 @@
                 AppIcon(name="ri:delete-bin-6-line" :width="18" :height="18")
               span.review-card-actions-item__label {{ $t('general.delete') }}
 
-          vs-tooltip.review-card-actions.share-button.ms-auto(not-arrow shadow role="button")
+          vs-tooltip.review-card-actions.share-button.ms-auto(v-if="false" not-arrow shadow role="button")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
               AppIcon(name="ri:share-line" :width="18" :height="18")
             template(#tooltip)
@@ -110,7 +110,7 @@
         :to="localePath({ name: 'Comment', query: { id: review.id } })"
       )
         | {{ $t('reply.seeAllReplies') }}
-      vs-button.ms-auto.my-3(
+      vs-button.load-more-button.ms-auto.my-3(
         v-if="isDetailed && !reply.isFinished"
         border
         :disabled="reply.isBusy"

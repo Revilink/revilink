@@ -6,13 +6,32 @@
   background-color: var(--color-ui-02);
   border-radius: var(--border-radius-01);
 
+  @include media-breakpoint-down(md) {
+    padding: calc(var(--spacer-base) / 6) calc(var(--spacer-base) / 3);
+    padding-inline-end: calc(var(--spacer-base) / 2);
+  }
+
   &__icon {
     margin-right: var(--spacer);
+
+    @include media-breakpoint-down(md) {
+      width: 20px !important;
+      height: 20px !important;
+
+      svg {
+        width: inherit;
+        height: inherit;
+      }
+    }
   }
 
   &__title {
     font-size: var(--font-size-text-20);
     text-overflow: ellipsis;
     word-wrap: break-word;
+
+    @include media-breakpoint-down(md) {
+      font-size: var(--font-size-text-21);
+    }
   }
 }

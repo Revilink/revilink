@@ -1,6 +1,10 @@
 .reply-card {
   --user-avatar-width: 48px;
 
+  @include media-breakpoint-down(md) {
+    --user-avatar-width: 32px;
+  }
+
   position: relative;
 
   &__inner {
@@ -8,6 +12,21 @@
     display: grid;
     grid-column-gap: calc(var(--spacer-base) / 2);
     grid-template-columns: var(--user-avatar-width) 1fr;
+
+    @include media-breakpoint-down(md) {
+      grid-column-gap: calc(var(--spacer-base) / 4);
+    }
+  }
+
+  &__avatar {
+    position: relative;
+    width: var(--user-avatar-width);
+
+    .vs-avatar,
+    img {
+      width: var(--user-avatar-width);
+      height: var(--user-avatar-width);
+    }
   }
 
   &-meta {
@@ -15,6 +34,11 @@
     display: flex;
     align-items: center;
     margin-bottom: calc(var(--spacer) * 2);
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     &__user {
       margin-right: var(--spacer);
@@ -31,9 +55,14 @@
     }
 
     &__date {
+      display: inline-flex;
       color: var(--color-text-01);
       font-size: var(--font-size-text-22);
       text-decoration: none;
+
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-text-23);
+      }
 
       a {
         color: inherit;
@@ -56,6 +85,10 @@
   &-review {
     position: relative;
     margin-bottom: var(--spacer-base);
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: calc(var(--spacer-base) / 2);
+    }
 
     &__text {
       color: var(--color-text-02);
@@ -137,6 +170,10 @@
       &.edit-button {
         margin-right: calc(var(--spacer) * 5);
 
+        @include media-breakpoint-down(md) {
+          margin-right: calc(var(--spacer) * 2);
+        }
+
         &:hover {
           .paper-button {
             background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
@@ -146,10 +183,20 @@
             }
           }
         }
+
+        .review-card-actions-item__label {
+          @include media-breakpoint-down(md) {
+            display: none;
+          }
+        }
       }
 
       &.delete-button {
         margin-right: calc(var(--spacer) * 5);
+
+        @include media-breakpoint-down(md) {
+          margin-right: calc(var(--spacer) * 2);
+        }
 
         &:hover {
           .paper-button {
@@ -158,6 +205,12 @@
             .app-icon {
               color: var(--color-warning-01);
             }
+          }
+        }
+
+        .review-card-actions-item__label {
+          @include media-breakpoint-down(md) {
+            display: none;
           }
         }
       }
