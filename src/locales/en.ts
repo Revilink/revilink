@@ -3,7 +3,7 @@ export default {
     name: 'Revilink',
     domain: 'revilink.io',
     description: 'Comment on any link on the internet',
-    copyright: `revilink.io by <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a>`,
+    copyright: `All rights reserved &copy; 2024. <a href="https://revilink.io" title="Comment on any link on the internet">revilink.io</a> by <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a>`,
     publisher: 'selimdoyranli'
   },
   error: {

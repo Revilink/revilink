@@ -3,7 +3,7 @@ export default {
     name: 'Revilink',
     domain: 'revilink.io',
     description: 'İnternetteki her hangi bir link hakkında yorum yap',
-    copyright: `revilink.io <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a> tarafından`,
+    copyright: `Tüm hakları saklıdır. revilink.io <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a> tarafından`,
     publisher: 'selimdoyranli'
   },
   error: {

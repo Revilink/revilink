@@ -1,0 +1,22 @@
+.app-footer {
+  position: sticky;
+  top: 100%;
+  bottom: 0;
+  z-index: var(--z-index-footer);
+  display: block;
+  padding: calc(var(--spacer) * 4) 0;
+  background-color: transparent;
+  border-top: 1px solid transparent;
+
+  &-copyright {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    &__description {
+      color: var(--color-text-04);
+      font-weight: var(--font-weight-regular);
+      font-size: var(--font-size-text-22);
+    }
+  }
+}

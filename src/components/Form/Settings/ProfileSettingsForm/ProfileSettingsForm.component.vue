@@ -251,8 +251,6 @@ export default defineComponent({
       }
 
       if (error) {
-        console.log(error)
-
         setFetchError(error)
       }
     })
