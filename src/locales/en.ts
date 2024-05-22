@@ -63,7 +63,10 @@ export default {
     settingsFor: 'Settings for',
     profile: 'Profile',
     account: 'Account',
-    websiteLanguage: 'Website language'
+    websiteLanguage: 'Website language',
+    loadingProfile: 'Loading profile',
+    loadingComments: 'Loading comments',
+    loadingReplies: 'Loading replies'
   },
   hero: {
     home: {

@@ -14,9 +14,9 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
         vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
 
   ClientOnly(v-else)
-    .form__inner(v-if="!fetchState.pending && !fetchState.error")
+    .form__inner.pt-1(v-if="!fetchState.pending && !fetchState.error")
       .form-item
-        .avatar-upload
+        .avatar-upload(v-if="false")
           AppLoading.avatar-upload__loading(v-if="state.isBusy")
           client-only
             croppa(

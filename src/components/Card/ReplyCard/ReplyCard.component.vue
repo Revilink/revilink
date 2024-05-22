@@ -1,10 +1,9 @@
 <template lang="pug">
 .reply-card(:data-id="reply.id")
   .reply-card__inner
-    vs-avatar.reply-card__avatar(circle size="48")
+    .reply-card__avatar
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: reply.user.username } })" :title="reply.user.username")
-        img(v-if="reply.user.avatar" :src="reply.user.avatar.formats.thumbnail.url" :alt="reply.user.username")
-        img(v-else src="@/assets/media/core/user.png" :alt="reply.user.username")
+        AppAvatar(:user="reply.user" :size="48")
 
     .reply-card__body
       slot(name="bodyPrepend")
@@ -67,12 +66,14 @@
 import { defineComponent, useContext, reactive } from '@nuxtjs/composition-api'
 import { ReviewTypes } from '@/types'
 import { useCommentLike } from '@/hooks'
+import { AppAvatar } from '@/components/Avatar'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import { EditCommentDialog, DeleteCommentDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
+    AppAvatar,
     PaperButton,
     AppIcon,
     EditCommentDialog,

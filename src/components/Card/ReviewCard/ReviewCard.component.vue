@@ -3,10 +3,9 @@
   slot(name="prepend")
 
   .review-card__inner
-    vs-avatar.review-card__avatar(circle size="48")
+    .review-card__avatar(circle size="48")
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
-        img(v-if="review.user.avatar" :src="review.user.avatar.formats.thumbnail.url" :alt="review.user.username")
-        img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
+        AppAvatar(:user="review.user" :size="48")
 
     .review-card__body
       slot(name="bodyPrepend")
@@ -90,7 +89,7 @@
 
   template(v-if="fetchState.pending")
     .d-flex.justify-content-center.my-4
-      AppLoading.py-base
+      AppLoading.py-base(relative :title="$t('general.loadingReplies')")
   template(v-else-if="fetchState.error")
     .d-flex.justify-content-center.my-4
       span {{ fetchState.error }}
@@ -142,6 +141,7 @@ import type { Ref } from 'vue'
 import type { ReviewTypes } from '@/types'
 import { formatToFullDate } from '@/utils/date'
 import { useCommentLike } from '@/hooks'
+import { AppAvatar } from '@/components/Avatar'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
 import ReplyCard from '@/components/Card/ReplyCard/ReplyCard.component.vue'
@@ -150,6 +150,7 @@ import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
+    AppAvatar,
     PaperButton,
     AppIcon,
     ReplyCard,
