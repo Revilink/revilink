@@ -143,7 +143,14 @@
     &-item {
       display: flex;
       align-items: center;
+      color: var(--color-icon-01);
       cursor: pointer;
+
+      @media (hover: none) {
+        svg {
+          color: var(--color-icon-01) !important;
+        }
+      }
 
       &:hover {
         .paper-button {
@@ -185,7 +192,13 @@
             animation: like 0.4s both var(--like-motion);
 
             .app-icon {
-              color: var(--color-danger-01);
+              color: var(--color-danger-01) !important;
+              fill: var(--color-danger-01) !important;
+
+              svg {
+                color: var(--color-danger-01) !important;
+                fill: var(--color-danger-01) !important;
+              }
             }
           }
         }
@@ -238,10 +251,10 @@
 
         &:hover {
           .paper-button {
-            background-color: color-mix(in oklab, var(--color-warning-01), #fff 90%);
+            background-color: color-mix(in oklab, var(--color-danger-02), #fff 90%);
 
             .app-icon {
-              color: var(--color-warning-01);
+              color: var(--color-danger-02);
             }
           }
         }
@@ -259,8 +272,8 @@
 
       &__label {
         font-size: var(--font-size-text-22);
-        font-variant-numeric: tabular-nums;
         user-select: none;
+        font-variant-numeric: tabular-nums;
       }
     }
   }
