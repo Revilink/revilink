@@ -1,0 +1,9 @@
+.app-avatar {
+  position: relative;
+  display: flex;
+
+  &__avatar {
+    width: 100%;
+    height: 100%;
+  }
+}

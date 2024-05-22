@@ -6,10 +6,9 @@ client-only
 
     .reply-dialog-summary
       .reply-dialog-summary-user
-        vs-avatar.reply-dialog-summary-user__avatar(circle size="32")
+        .reply-dialog-summary-user__avatar
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
-            img(v-if="review.user.avatar" :src="review.user.avatar.formats.thumbnail.url" :alt="review.user.username")
-            img(v-else src="@/assets/media/core/user.png" :alt="review.user.username")
+            AppAvatar(:user="review.user" :size="32")
         strong.reply-dialog-summary-user__username @{{ review.user.username }}
       p.reply-dialog-summary__content {{ review.content }}
 
@@ -21,10 +20,12 @@ import { defineComponent, useContext, ref, reactive, watch } from '@nuxtjs/compo
 import type { Ref } from 'vue'
 import type { CommentRefTypes } from './ReplyDialog.component.types'
 import type { ReviewTypes } from '@/types'
+import { AppAvatar } from '@/components/Avatar'
 import { CommentForm } from '@/components/Form'
 
 export default defineComponent({
   components: {
+    AppAvatar,
     CommentForm
   },
   props: {

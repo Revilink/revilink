@@ -63,7 +63,10 @@ export default {
     settingsFor: 'için ayarlar',
     profile: 'Profil',
     account: 'Hesap',
-    websiteLanguage: 'Site dili'
+    websiteLanguage: 'Site dili',
+    loadingProfile: 'Profil yükleniyor',
+    loadingComments: 'Yorumlar yükleniyor',
+    loadingReplies: 'Yanıtlar yükleniyor'
   },
   hero: {
     home: {

@@ -1,6 +1,7 @@
 <template lang="pug">
 client-only
-  .app-loading(ref="rootRef" :style="[{ '--width': `${size}px`, '--height': `${size}px` }]")
+  .app-loading(v-bind="$attrs" ref="rootRef")
+    .app-loading__loading(:style="[{ '--width': `${size}px`, '--height': `${size}px` }]")
 </template>
 
 <script lang="ts">
@@ -13,16 +14,24 @@ export default defineComponent({
       type: [Number, String],
       required: false,
       default: 24
+    },
+    title: {
+      type: String,
+      required: false,
+      default: null
     }
   },
-  setup() {
+  setup(props) {
+    const baseClassName = 'app-loading'
+
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
     onMounted(async () => {
       await nextTick()
 
       window.$nuxt.$vs.loading({
-        target: rootRef.value
+        target: rootRef.value?.querySelector(`.${baseClassName}__loading`),
+        text: props.title
       })
     })
 

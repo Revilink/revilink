@@ -4,6 +4,12 @@
   position: relative;
   display: block;
 
+  &[relative] {
+    .vs-loading {
+      position: relative;
+    }
+  }
+
   #{$vs-loading} {
     display: flex;
     padding: 0;

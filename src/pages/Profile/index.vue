@@ -4,7 +4,13 @@
     .col-12.col-lg-4
       aside.sidebar
     .col-12.col-lg-8
-      ProfileHead(:user="user")
+      template(v-if="fetchState.pending")
+        AppLoading.py-base(:title="$t('general.loadingProfile')")
+      template(v-else-if="fetchState.error")
+        p.color-text-danger {{ fetchState.error }}
+        vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
+      template(v-else)
+        ProfileHead(:user="user")
 
       // Review List
       .profile-page-review-list
@@ -16,10 +22,11 @@
               | &nbsp;({{ reviewsMeta.pagination.total }})
 
         template(v-if="fetchState.pending")
-          AppLoading.py-base
+          AppLoading.py-base(:title="$t('general.loadingComments')")
 
         template(v-else-if="fetchState.error")
-          p {{ fetchState.error }}
+          p.color-text-danger {{ fetchState.error }}
+          vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
 
         template(v-else)
           ProfileCommentList(:items="reviews")

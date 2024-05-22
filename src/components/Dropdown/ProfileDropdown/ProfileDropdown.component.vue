@@ -2,13 +2,7 @@
 .profile-dropdown.dropdown
   DropdownMenu(direction="right" :overlay="false" :is-open="isOpen" @closed="onClose")
     template(#trigger)
-      vs-avatar.profile-dropdown-avatar(size="36" circle)
-        img.profile-dropdown-avatar__image(
-          v-if="getAvatarSrc({ user: $auth.user })"
-          :src="getAvatarSrc({ user: $auth.user })"
-          :alt="$auth.user.username"
-        )
-        img.profile-dropdown-avatar__image(v-else src="@/assets/media/core/user.png" :alt="$auth.user.username")
+      AppAvatar.profile-dropdown-avatar(:user="$auth.user" :size="36")
       span.profile-dropdown__username {{ $auth.user.username }}
     template(#body)
       ul.profile-dropdown-list
@@ -29,13 +23,15 @@
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import DropdownMenu from 'v-dropdown-menu/vue2'
-import { useAuth } from '@/hooks'
 import 'v-dropdown-menu/dist/vue2/v-dropdown-menu.css'
+import { useAuth } from '@/hooks'
+import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
 
 export default defineComponent({
   components: {
     DropdownMenu,
+    AppAvatar,
     AppIcon
   },
   setup() {

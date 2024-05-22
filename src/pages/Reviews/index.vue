@@ -60,7 +60,7 @@
               | &nbsp;({{ reviewsMeta.pagination.total }})
 
         template(v-if="reviewsFetchState.pending")
-          AppLoading.py-base
+          AppLoading.py-base(:title="$t('general.loadingComments')")
 
         template(v-else-if="reviewsFetchState.error")
           p {{ reviewsFetchState.error }}

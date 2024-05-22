@@ -3,11 +3,10 @@ ClientOnly
   form.form.comment-form(ref="rootRef" auth-control @submit.prevent="handleSubmit")
     .form__inner
       .comment-form-card
-        vs-avatar.comment-form-card__avatar(circle size="48")
+        .comment-form-card__avatar(circle size="48")
           NuxtLink(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
-            img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
-            img(v-else src="@/assets/media/core/user.png" :alt="user.username")
-          img(v-else src="@/assets/media/core/user.png" :alt="user.username")
+            AppAvatar(:user="user" :size="48")
+          AppAvatar(v-else :size="48")
 
         .comment-form-card__body
           AppTextarea.comment-form-card__textarea(
@@ -39,10 +38,12 @@ import { useVuelidate } from '@vuelidate/core'
 import type { Ref } from 'vue'
 import type { FormTypes } from './CommentForm.component.types'
 import { commentValidator } from '@/validator'
+import { AppAvatar } from '@/components/Avatar'
 import { AppTextarea } from '@/components/Textarea'
 
 export default defineComponent({
   components: {
+    AppAvatar,
     AppTextarea
   },
   props: {
