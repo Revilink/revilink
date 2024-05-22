@@ -9,6 +9,7 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
         theme="light"
         :maxlength="v$.url.maxLength.$params.max"
         primary
+        @paste.prevent="handleOnPaste"
         @keyup.space.prevent
       )
         template(#icon)
@@ -62,10 +63,17 @@ export default defineComponent({
       }
     }
 
+    const handleOnPaste = (event: ClipboardEvent) => {
+      form.url = event.clipboardData?.getData('text') || ''
+
+      handleOnSubmit()
+    }
+
     return {
       v$,
       form,
-      handleOnSubmit
+      handleOnSubmit,
+      handleOnPaste
     }
   }
 })
