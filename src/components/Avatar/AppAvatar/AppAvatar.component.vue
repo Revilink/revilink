@@ -4,7 +4,7 @@
     Avatar(:size="size" variant="beam" :colors="colors" :name="userObject.username")
     // img.app-avatar__image(v-if="user && getAvatarSrc({ user })?.length > 0" :src="getAvatarSrc({ user })" :alt="user.username")
   vs-avatar(v-else circle :size="String(size)")
-    img.app-avatar__image(src="@/assets/media/core/user.png" loading="lazy" alt="Avatar")
+    Avatar(:size="size" variant="beam" :colors="colors" name="revilink")
 </template>
 
 <script lang="ts">
