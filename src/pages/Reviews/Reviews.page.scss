@@ -56,7 +56,7 @@
       word-wrap: break-word;
 
       @include media-breakpoint-down(lg) {
-        width: calc(100% - var(--spacer-base));
+        width: calc(100% - var(--spacer-base) * 2.4);
       }
     }
 
