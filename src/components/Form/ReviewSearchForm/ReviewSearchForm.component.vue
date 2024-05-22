@@ -3,9 +3,11 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
   .form__inner
     .form-item
       vs-input.review-search-form__urlInput(
+        ref="urlInputRef"
         v-model="form.url"
         :placeholder="$t('form.reviewSearch.url')"
         spellcheck="false"
+        autofocus
         theme="light"
         :maxlength="v$.url.maxLength.$params.max"
         primary
@@ -28,7 +30,8 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRouter, ref, reactive, onMounted, nextTick } from '@nuxtjs/composition-api'
+import type { Ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { FormTypes } from './ReviewSearchForm.component.types'
 import { AppIcon } from '@/components/Icon'
@@ -41,6 +44,8 @@ export default defineComponent({
   setup(_, { emit }) {
     const context = useContext()
     const router = useRouter()
+
+    const urlInputRef: Ref = ref(null)
 
     const form = reactive<FormTypes>({
       url: ''
@@ -69,7 +74,21 @@ export default defineComponent({
       handleOnSubmit()
     }
 
+    const focusToUrlInput = async () => {
+      await nextTick()
+      console.log(urlInputRef.value)
+
+      setTimeout(() => {
+        urlInputRef.value?.$el?.querySelector('input')?.focus()
+      }, 0)
+    }
+
+    onMounted(() => {
+      focusToUrlInput()
+    })
+
     return {
+      urlInputRef,
       v$,
       form,
       handleOnSubmit,
