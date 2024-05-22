@@ -76,7 +76,6 @@ export default defineComponent({
 
     const focusToUrlInput = async () => {
       await nextTick()
-      console.log(urlInputRef.value)
 
       setTimeout(() => {
         urlInputRef.value?.$el?.querySelector('input')?.focus()
