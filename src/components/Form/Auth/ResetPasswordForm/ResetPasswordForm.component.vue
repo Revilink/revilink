@@ -115,7 +115,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: 'Update successfully',
+          text: context.i18n.t('success.updateSuccessfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true
