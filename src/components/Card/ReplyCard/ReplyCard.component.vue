@@ -15,14 +15,15 @@
         .reply-card-meta__date
           | • &nbsp;
           NuxtLink(:to="localePath({ name: 'Comment', query: { id: reply.id } })")
-            Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
+            ClientOnly
+              Timeago(:datetime="reply.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .reply-card-review
         p.reply-card-review__text {{ reply.content }}
 
       client-only
         .reply-card-actions
-          .reply-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
+          .reply-card-actions-item.like-button(role="button" auth-control :class="[likedClass]" @click="toggleLike")
             PaperButton.reply-card-actions-item__button(:width="36" :height="36")
               AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
               AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
@@ -52,7 +53,7 @@
             template(#tooltip)
               span {{ $t('general.share') }}
 
-          vs-tooltip.reply-card-actions-item.report-button(not-arrow shadow role="button")
+          vs-tooltip.reply-card-actions-item.report-button(v-if="false" not-arrow shadow role="button")
             PaperButton.reply-card-actions-item__button(:width="36" :height="36")
               AppIcon(name="ri:flag-line" :width="18" :height="18")
             template(#tooltip)

@@ -2,7 +2,7 @@ export default {
   app: {
     name: 'Revilink',
     domain: 'revilink.io',
-    description: 'Bağlantıdaki şey hakkında incelemeleri görün.',
+    description: 'İnternetteki her hangi bir link hakkında yorum yap',
     copyright: `revilink.io <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a> tarafından`,
     publisher: 'selimdoyranli'
   },
@@ -56,6 +56,7 @@ export default {
     doNotYouHaveAnAccountYet: `Henüz bir hesabın yok mu?`,
     createAnAccount: 'Hesap oluştur',
     logout: 'Çıkış yap',
+    loggingOut: 'Çıkış yapılıyor',
     comment: 'Yorum',
     comments: 'Yorumlar',
     settings: 'Ayarlar',
@@ -66,8 +67,8 @@ export default {
   },
   hero: {
     home: {
-      title: '<strong class="mark-link">Bağlantıdaki</strong> şey hakkında <strong class="mark-reviews">incelemeleri</strong> görün.',
-      description: 'Herhangi bir bağlantı hakkında yorum yap ya da reaksiyon ver ve \n interneti yorum panosuna dönüştür'
+      title: 'İnternetteki herhangi bir <strong class="mark-link">link</strong> hakkında <strong class="mark-reviews">yorum</strong> yap.',
+      description: 'Herhangi bir link hakkında yorum yap, reaksiyon ver ve interneti yorum panosuna dönüştür'
     }
   },
   form: {
@@ -198,7 +199,7 @@ export default {
       iRemembered: 'Oh! Hatırladım',
       sent: {
         title: 'Bir email gönderdik',
-        description: 'Parolanı sıfırlamak için email adresine bir bağlantı gönderdik. Lütfen kontrol et'
+        description: 'Parolanı sıfırlamak için email adresine bir link gönderdik. Lütfen kontrol et'
       }
     },
     resetPassword: {
@@ -210,11 +211,12 @@ export default {
       }
     },
     reviewSearch: {
-      url: 'Bağlantı yapıştır',
-      getReviews: 'İncelemeleri Getir'
+      url: 'Link yaz veya yapıştır',
+      description: 'Herhangi bir link hakkında yorum yap, reaksiyon ver ve interneti yorum panosuna dönüştür',
+      submit: 'Git'
     },
     comment: {
-      title: 'Bağlantıdaki şey hakkında incelemeni yaz',
+      title: 'Linkteki şey hakkında incelemeni yaz',
       content: {
         placeholder: {
           loggedIn: '{username} olarak yazıyorsun',
@@ -272,8 +274,8 @@ export default {
     site: {
       meta: {
         tooltip: {
-          allowed: `Bağlantıya ait web sayfası bilgileri alındı`,
-          noAllow: `Bağlantıya ait web sayfası bilgileri alınamadı, bu nedenle sadece URL görüyorsun`
+          allowed: `Linke ait web sayfası bilgileri alındı`,
+          noAllow: `Linke ait web sayfası bilgileri alınamadı, bu nedenle sadece URL görüyorsun`
         }
       }
     }
@@ -310,11 +312,11 @@ export default {
       },
       noReviewComments: {
         title: 'Yorum yok',
-        description: 'Bağlantıdaki şey hakkında henüz yorum yapılmadı'
+        description: 'Linkteki şey hakkında henüz yorum yapılmadı'
       },
       profileNoReviewComments: {
         title: 'Yorum yok',
-        description: 'Bu profil henüz bir bağlantı yorumlamadı'
+        description: 'Bu profil henüz bir link yorumlamadı'
       },
       noMoreReviews: {
         title: 'Tüm incelemeler bu kadar',

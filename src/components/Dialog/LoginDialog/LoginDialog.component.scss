@@ -1,0 +1,14 @@
+.login-dialog {
+  $vs-dialog: '.vs-dialog';
+
+  #{$vs-dialog} {
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+
+    &__content {
+      width: var(--breakpoint-md);
+      padding: var(--spacer-base);
+    }
+  }
+}

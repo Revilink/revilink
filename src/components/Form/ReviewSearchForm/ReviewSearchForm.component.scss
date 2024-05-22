@@ -36,6 +36,14 @@
     }
   }
 
+  &__description {
+    color: var(--color-text-03);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-text-23);
+    margin-block-start: calc(var(--spacer) * 4);
+    margin-inline-start: calc(var(--spacer) * 2);
+  }
+
   &__submitButton {
     display: block;
     min-width: 148px;

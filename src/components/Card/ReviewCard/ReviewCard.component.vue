@@ -20,7 +20,8 @@
             :to="localePath({ name: 'Comment', query: { id: review.id } })"
             :title="formatToFullDate({ date: new Date(review.createdAt), locale: $i18n.locale })"
           )
-            Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
+            ClientOnly
+              Timeago(:datetime="review.createdAt" :auto-update="60" :locale="$i18n.locale")
 
       .review-card-review
         p.review-card-review__text {{ review.content }}
@@ -32,16 +33,16 @@
             | {{ $t('general.updatedAt') }}
             | {{ formatToFullDate({ date: new Date(review.updatedAt), locale: $i18n.locale }) }}
         .review-card-detail__bar
-          button.review-card-detail__item.review-card-detail__item--button(@click="$emit('on-click-like-count')")
+          button.review-card-detail__item.review-card-detail__item--button.pointer-events-none(auth-control)
             strong {{ like.count }}
             span {{ $t('general.likes') }}
-          button.review-card-detail__item.review-card-detail__item--button.pointer-events-none
+          button.review-card-detail__item.review-card-detail__item--button.pointer-events-none(auth-control)
             strong {{ reply.count }}
             span {{ $t('general.replies') }}
 
       client-only
         .review-card-actions
-          .review-card-actions-item.like-button(role="button" :class="[likedClass]" @click="toggleLike")
+          .review-card-actions-item.like-button(role="button" auth-control :class="[likedClass]" @click="toggleLike")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
               AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
               AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
@@ -53,7 +54,7 @@
                 template(v-if="like.count <= 0") {{ $t('general.like') }}
                 template(v-else) {{ like.count }}
 
-          .review-card-actions-item.reply-button(role="button" @click="handleClickReply")
+          .review-card-actions-item.reply-button(role="button" auth-control @click="handleClickReply")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
               AppIcon(name="ri:chat-1-line" :width="18" :height="18")
             span.review-card-actions-item__label
@@ -79,7 +80,7 @@
             template(#tooltip)
               span {{ $t('general.share') }}
 
-          vs-tooltip.review-card-actions-item.report-button(not-arrow shadow role="button")
+          vs-tooltip.review-card-actions-item.report-button(v-if="false" not-arrow shadow role="button")
             PaperButton.review-card-actions-item__button(:width="36" :height="36")
               AppIcon(name="ri:flag-line" :width="18" :height="18")
             template(#tooltip)

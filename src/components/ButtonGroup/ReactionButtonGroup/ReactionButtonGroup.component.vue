@@ -1,8 +1,15 @@
 <template lang="pug">
-.reaction-button-group
+.reaction-button-group(:class="[isBusyClass]")
   template(v-for="(reaction, index) in reactions")
-    vs-tooltip.me-4(:key="index" not-arrow shadow top @click.native.prevent="$emit('on-click-reaction-button', reaction.type)")
-      button.reaction-button(role="button" :class="[getReactionButtonActiveClass(reaction.type)]")
+    vs-tooltip.me-4(
+      :key="index"
+      auth-control
+      not-arrow
+      shadow
+      top
+      @click.native.prevent="$emit('on-click-reaction-button', reaction.type, index)"
+    )
+      button.reaction-button(role="button" :class="[getReactionButtonActiveClass(reaction.type), getReactionButtonIsBusyClass(index)]")
         AppIcon.reaction-button__icon(:name="reaction.icon" :width="36" :height="36")
         label.reaction-button__label(v-if="state.reactionCount") {{ state.reactionCount[reaction.type.toLowerCase()] }}
       template(#tooltip)
@@ -10,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, watch } from '@nuxtjs/composition-api'
+import { defineComponent, ref, reactive, watch, computed } from '@nuxtjs/composition-api'
 import { reactionTypeEnum } from '@/enums'
 import { AppIcon } from '@/components/Icon'
 
@@ -28,9 +35,21 @@ export default defineComponent({
       type: Object,
       required: false,
       default: null
+    },
+    isBusy: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    busyReactionIndex: {
+      type: Number,
+      required: false,
+      default: null
     }
   },
   setup(props) {
+    const baseClassName = 'reaction-button-group'
+
     const state = reactive({
       reactionCount: props.reactionCount,
       myReaction: props.myReaction
@@ -85,16 +104,26 @@ export default defineComponent({
       }
     ])
 
+    const isBusyClass = computed(() => props.isBusy && `${baseClassName}--isBusy`)
+
     const getReactionButtonActiveClass = (type: string) => {
       if (state.myReaction?.type === type) {
         return `reaction-button--active`
       }
     }
 
+    const getReactionButtonIsBusyClass = (index: number) => {
+      if (props.isBusy && props.busyReactionIndex === index) {
+        return `reaction-button--isBusy`
+      }
+    }
+
     return {
       state,
       reactions,
-      getReactionButtonActiveClass
+      isBusyClass,
+      getReactionButtonActiveClass,
+      getReactionButtonIsBusyClass
     }
   }
 })

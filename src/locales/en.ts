@@ -2,7 +2,7 @@ export default {
   app: {
     name: 'Revilink',
     domain: 'revilink.io',
-    description: 'See reviews on the thing in the link.',
+    description: 'Comment on any link on the internet',
     copyright: `revilink.io by <a href="https://selimdoyranli.com" title="selimdoyranli" target="_blank">@selimdoyranli</a>`,
     publisher: 'selimdoyranli'
   },
@@ -56,6 +56,7 @@ export default {
     doNotYouHaveAnAccountYet: `Don't you have account yet?`,
     createAnAccount: 'Create an account',
     logout: 'Logout',
+    loggingOut: 'Logging out',
     comment: 'Comment',
     comments: 'Comments',
     settings: 'Settings',
@@ -66,8 +67,8 @@ export default {
   },
   hero: {
     home: {
-      title: 'See <strong class="mark-reviews">reviews</strong> on the <br> thing in the <strong class="mark-link">link</strong>.',
-      description: 'Comment or react to any link and contribute to transforming \n the internet into a comment board.'
+      title: '<strong class="mark-reviews">Comment</strong> on any <strong class="mark-link">link</strong> <br> on the internet.',
+      description: 'Comment or react to any link and contribute to transforming the internet into a comment board.'
     }
   },
   form: {
@@ -216,8 +217,9 @@ export default {
       }
     },
     reviewSearch: {
-      url: 'Paste URL',
-      getReviews: 'Get Reviews'
+      url: 'Type or paste a link',
+      description: 'Comment or react to any link and contribute to transforming the internet into a comment board',
+      submit: 'Go'
     },
     comment: {
       title: 'Type your review about the thing in the link',

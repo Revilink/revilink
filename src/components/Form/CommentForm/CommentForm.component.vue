@@ -1,35 +1,36 @@
 <template lang="pug">
-form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
-  .form__inner
-    .comment-form-card
-      vs-avatar.comment-form-card__avatar(circle size="48")
-        NuxtLink(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
-          img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
+ClientOnly
+  form.form.comment-form(ref="rootRef" @submit.prevent="handleSubmit")
+    .form__inner
+      .comment-form-card
+        vs-avatar.comment-form-card__avatar(circle size="48")
+          NuxtLink(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
+            img(v-if="user.avatar" :src="user.avatar.formats.thumbnail.url" :alt="user.username")
+            img(v-else src="@/assets/media/core/user.png" :alt="user.username")
           img(v-else src="@/assets/media/core/user.png" :alt="user.username")
-        img(v-else src="@/assets/media/core/user.png" :alt="user.username")
 
-      .comment-form-card__body
-        AppTextarea.comment-form-card__textarea(
-          :value="form.content"
-          character-counter
-          :maxlength="v$.content.maxLength.$params.max"
-          rows="4"
-          autosize
-          :placeholder="contentPlaceholder"
-          spellcheck="false"
-          @input="input => { form.content = input.target.value.trim() }"
-        )
-        // Validation messages
-        template(v-if="v$.content.$error")
-          small.color-text-danger(v-if="v$.content.required.$invalid")
-            | {{ $t('form.validation.modelIsRequired', { model: $t('general.comment') }) }}
+        .comment-form-card__body
+          AppTextarea.comment-form-card__textarea(
+            :value="form.content"
+            character-counter
+            :maxlength="v$.content.maxLength.$params.max"
+            rows="4"
+            autosize
+            :placeholder="contentPlaceholder"
+            spellcheck="false"
+            @input="input => { form.content = input.target.value.trim() }"
+          )
+          // Validation messages
+          template(v-if="v$.content.$error")
+            small.color-text-danger(v-if="v$.content.required.$invalid")
+              | {{ $t('form.validation.modelIsRequired', { model: $t('general.comment') }) }}
 
-        // Hint
-        small.comment-form-card__hint {{ $t('form.comment.hint') }}
+          // Hint
+          small.comment-form-card__hint {{ $t('form.comment.hint') }}
 
-        // Send Button
-        vs-button.comment-form__submitButton.ms-auto(type="submit" size="large" :loading="state.isBusy" :disabled="state.isBusy")
-          | {{ $t('general.send') }}
+          // Send Button
+          vs-button.comment-form__submitButton.ms-auto(type="submit" size="large" :loading="state.isBusy" :disabled="state.isBusy")
+            | {{ $t('general.send') }}
 </template>
 
 <script lang="ts">

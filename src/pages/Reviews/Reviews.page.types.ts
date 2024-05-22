@@ -14,6 +14,8 @@ type MyReactionTypes = {
 }
 
 export type ReactionTypes = {
+  isBusy: boolean
+  busyReactionIndex: number | null
   reactionCount?: Record<string, number>
   myReaction: MyReactionTypes
 }
