@@ -56,6 +56,7 @@ export default {
     doNotYouHaveAnAccountYet: `Don't you have account yet?`,
     createAnAccount: 'Create an account',
     logout: 'Logout',
+    loggingOut: 'Logging out',
     comment: 'Comment',
     comments: 'Comments',
     settings: 'Settings',

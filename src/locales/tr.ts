@@ -56,6 +56,7 @@ export default {
     doNotYouHaveAnAccountYet: `Henüz bir hesabın yok mu?`,
     createAnAccount: 'Hesap oluştur',
     logout: 'Çıkış yap',
+    loggingOut: 'Çıkış yapılıyor',
     comment: 'Yorum',
     comments: 'Yorumlar',
     settings: 'Ayarlar',

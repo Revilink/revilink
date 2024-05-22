@@ -140,6 +140,10 @@ const config: NuxtConfig = {
       src: '@/plugins/encode-decode.ts',
       ssr: true
     },
+    {
+      src: '@/plugins/auth-control.ts',
+      ssr: false
+    },
     // https://vuesax.com
     {
       src: '@/plugins/vuesax.ts',
@@ -316,6 +320,10 @@ const config: NuxtConfig = {
           'Auth/ForgotPassword/Success/index': {
             en: '/forgot-password/success',
             tr: '/parolami-unuttum/basarili'
+          },
+          'Auth/Logout/Callback/index': {
+            en: '/logout/callback',
+            tr: '/cikis/cikis-yapiliyor'
           },
           'Reviews/index': {
             en: '/reviews',

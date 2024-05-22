@@ -20,8 +20,8 @@
           NuxtLink(:to="localePath({ name: 'Settings-Profile' })")
             AppIcon.profile-dropdown-list-item__icon(name="ri:settings-3-line")
             span.profile-dropdown-list-item__title {{ $t('general.settings') }}
-        li.profile-dropdown-list-item.profile-dropdown-list-item--logout(@click="logout")
-          NuxtLink(to)
+        li.profile-dropdown-list-item.profile-dropdown-list-item--logout
+          NuxtLink(:to="localePath({ name: 'Auth-Logout-Callback' })")
             AppIcon.profile-dropdown-list-item__icon(name="ri:logout-box-r-line")
             span.profile-dropdown-list-item__title {{ $t('general.logout') }}
 </template>
@@ -39,7 +39,7 @@ export default defineComponent({
     AppIcon
   },
   setup() {
-    const { getAvatarSrc, logout } = useAuth()
+    const { getAvatarSrc } = useAuth()
 
     const isOpen = ref(false)
 
@@ -50,8 +50,7 @@ export default defineComponent({
     return {
       getAvatarSrc,
       isOpen,
-      onClose,
-      logout
+      onClose
     }
   }
 })

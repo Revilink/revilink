@@ -42,6 +42,8 @@
           // Reactions
           .reviews-page-reactions
             ReactionButtonGroup(
+              :is-busy="reaction.isBusy || reviewsFetchState.pending"
+              :busy-reaction-index="reaction.busyReactionIndex"
               :reaction-count="reaction.reactionCount"
               :my-reaction="reaction.myReaction"
               @on-click-reaction-button="handleReaction"
@@ -270,9 +272,15 @@ export default defineComponent({
 
     // Reactions
     const reaction = reactive<ReactionTypes>({
+      isBusy: false,
+      busyReactionIndex: null,
       reactionCount: {},
       myReaction: {}
     })
+
+    const setBusyReactionIndex = (index: number | null) => {
+      reaction.busyReactionIndex = index
+    }
 
     const fetchUrlReactions = async () => {
       const { data } = await context.$api.rest.url.fetchUrlReactions({
@@ -291,7 +299,10 @@ export default defineComponent({
 
     fetchUrlReactions()
 
-    const handleReaction = async (type: string) => {
+    const handleReaction = async (type: string, index: number) => {
+      reaction.isBusy = true
+      setBusyReactionIndex(index)
+
       if (type === reaction.myReaction?.type) {
         const { data, error } = await context.$api.rest.url.deleteReaction(reaction.myReaction.id)
 
@@ -354,6 +365,9 @@ export default defineComponent({
           })
         }
       }
+
+      reaction.isBusy = false
+      setBusyReactionIndex(null)
     }
 
     onMounted(() => {
