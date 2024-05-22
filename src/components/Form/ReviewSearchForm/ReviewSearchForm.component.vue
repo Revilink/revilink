@@ -19,9 +19,11 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
         small.d-block.color-text-danger.my-6
           | {{ $t('form.validation.enterValidUrl') }}
 
+      h2.review-search-form__description {{ $t('form.reviewSearch.description') }}
+
     .form-item
       vs-button.review-search-form__submitButton(type="submit" size="large")
-        span {{ $t('form.reviewSearch.getReviews') }}
+        span {{ $t('form.reviewSearch.submit') }}
 </template>
 
 <script lang="ts">
