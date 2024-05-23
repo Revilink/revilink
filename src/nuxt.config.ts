@@ -1,5 +1,7 @@
 import { NuxtConfig } from '@nuxt/types'
 
+require('dotenv').config()
+
 const config: NuxtConfig = {
   // https://nuxtjs.org/docs/configuration-glossary/configuration-srcdir
   srcDir: '',
@@ -227,6 +229,8 @@ const config: NuxtConfig = {
    ** Nuxt.js modules
    */
   modules: [
+    // https://www.npmjs.com/package/@nuxtjs/dotenv
+    ['@nuxtjs/dotenv', {}],
     // https://axios.nuxtjs.org
     '@nuxtjs/axios',
     // https://www.npmjs.com/package/cookie-universal-nuxt
