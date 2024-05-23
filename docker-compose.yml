@@ -9,6 +9,7 @@ services:
     environment:
       API: "${API}"
       OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      GOOGLE_AUTH_CLIENT_ID: "${GOOGLE_AUTH_CLIENT_ID}"
     ports:
       - "3001:3001"
     networks:
