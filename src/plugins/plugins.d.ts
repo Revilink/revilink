@@ -1,6 +1,6 @@
 declare module 'vuesax'
 declare module 'v-autosize'
-declare module 'v-dropdown-menu/vue2'
+declare module 'v-dropdown-menu'
 declare module 'vue-timeago'
 declare module 'vue-croppa'
 declare module 'vue2-boring-avatars'

@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
-import DropdownMenu from 'v-dropdown-menu/vue2'
-import 'v-dropdown-menu/dist/vue2/v-dropdown-menu.css'
+import DropdownMenu from 'v-dropdown-menu'
+import 'v-dropdown-menu/dist/v-dropdown-menu.css'
 import { useAuth } from '@/hooks'
 import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
