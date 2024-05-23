@@ -33,7 +33,7 @@ export default () => {
    * @returns {string} Avatar url
    */
   const getAvatarSrc: GetAvatarSrcTypes = ({ user }) => {
-    return user?.avatar?.formats?.thumbnail?.url || ''
+    return `${context.$config.API.replace('/api', '')}${user?.avatar?.formats?.thumbnail?.url}` || ''
   }
 
   /**

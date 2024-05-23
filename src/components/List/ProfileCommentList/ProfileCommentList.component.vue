@@ -17,7 +17,7 @@
         :description="$t('state.empty.profileNoReviewComments.description')"
       )
         template(#head)
-          img(src="@/assets/media/elements/state/no_chat.svg" width="256")
+          img(src="/media/elements/state/no_chat.svg" width="256")
   slot(name="append")
 </template>
 

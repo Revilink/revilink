@@ -9,14 +9,14 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
   template(v-if="fetchState.error")
     BasicState(:title="$t('error.error')" :description="getFetchError(fetchState.error).message")
       template(#head)
-        img(src="@/assets/media/elements/state/network.svg" width="256")
+        img(src="/media/elements/state/network.svg" width="256")
       template(#footer)
         vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
 
   ClientOnly(v-else)
     .form__inner.pt-1(v-if="!fetchState.pending && !fetchState.error")
       .form-item
-        .avatar-upload(v-if="false")
+        .avatar-upload
           AppLoading.avatar-upload__loading(v-if="state.isBusy")
           client-only
             croppa(
@@ -24,7 +24,7 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
               v-model="avatar.file"
               placeholder
               :disabled="state.isBusy"
-              :initial-image="$auth.loggedIn && $auth.user?.avatar?.formats.thumbnail.url"
+              :initial-image="$auth.loggedIn && getAvatarSrc({ user: $auth.user })"
               :file-size-limit="Number(avatar.config.fileSizeLimit)"
               :accept="avatar.config.accept"
               :prevent-white-space="avatar.config.preventWhiteSpace"
@@ -116,6 +116,7 @@ import type { Ref } from 'vue'
 import type { AvatarUploadRefTypes, AvatarTypes } from './ProfileSettingsForm.component.types'
 import { setFetchError, getFetchError } from '@/utils/fetch-error'
 import { profileSettingsValidator } from '@/validator'
+import { useAuth } from '@/hooks'
 import { AppTextarea } from '@/components/Textarea'
 import { AppLoading } from '@/components/Loading'
 import { BasicState } from '@/components/State'
@@ -128,6 +129,8 @@ export default defineComponent({
   },
   setup(_, { emit }) {
     const context = useContext()
+
+    const { getAvatarSrc } = useAuth()
 
     const state = reactive({
       isBusy: false,
@@ -326,6 +329,7 @@ export default defineComponent({
       fetchState,
       getFetchError,
       state,
+      getAvatarSrc,
       avatarUploadRef,
       avatar,
       showAvatarFileSizeExceedMessage,

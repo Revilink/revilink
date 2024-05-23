@@ -1,21 +1,16 @@
 <template lang="pug">
 .app-avatar
-  vs-avatar(v-if="userObject" circle :size="String(size)")
-    Avatar(:size="size" variant="beam" :colors="colors" :name="userObject.username")
-    // img.app-avatar__image(v-if="user && getAvatarSrc({ user })?.length > 0" :src="getAvatarSrc({ user })" :alt="user.username")
+  vs-avatar(v-if="user?.avatar && getAvatarSrc({ user })?.length > 0" circle :size="String(size)")
+    img.app-avatar__image(loading="lazy" :src="getAvatarSrc({ user })" :alt="user.username")
   vs-avatar(v-else circle :size="String(size)")
-    Avatar(:size="size" variant="beam" :colors="colors" name="revilink")
+    img.app-avatar__image(loading="lazy" src="/media/core/user.png" alt="Avatar")
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from '@nuxtjs/composition-api'
-import Avatar from 'vue2-boring-avatars'
+import { defineComponent, ref, watch } from '@nuxtjs/composition-api'
 import { useAuth } from '@/hooks'
 
 export default defineComponent({
-  components: {
-    Avatar
-  },
   props: {
     user: {
       type: Object,
@@ -45,14 +40,9 @@ export default defineComponent({
       }
     )
 
-    const colors = computed(() => {
-      return ['#ddd', '#aaa', '#888', '#666', '#eee']
-    })
-
     return {
       userObject,
-      getAvatarSrc,
-      colors
+      getAvatarSrc
     }
   }
 })
