@@ -1,6 +1,6 @@
 import { NuxtConfig } from '@nuxt/types'
 
-require('dotenv').config()
+const { API } = require('../system/constants')
 
 const config: NuxtConfig = {
   // https://nuxtjs.org/docs/configuration-glossary/configuration-srcdir
@@ -229,8 +229,6 @@ const config: NuxtConfig = {
    ** Nuxt.js modules
    */
   modules: [
-    // https://www.npmjs.com/package/@nuxtjs/dotenv
-    ['@nuxtjs/dotenv', {}],
     // https://axios.nuxtjs.org
     '@nuxtjs/axios',
     // https://www.npmjs.com/package/cookie-universal-nuxt
@@ -250,7 +248,7 @@ const config: NuxtConfig = {
               global: true
             },
             endpoints: {
-              login: { url: `${process.env.API}/auth/local`, method: 'post' },
+              login: { url: `${process.env.API || API}/auth/local`, method: 'post' },
               logout: false,
               user: false
             },
