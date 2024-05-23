@@ -4,7 +4,12 @@ client-only
     template(#header)
       h2 {{ $t('general.edit') }}
 
-    CommentForm(ref="commentFormRef" :form-model="{ id: comment.id, content: comment.content }" @on-submit="handleOnSubmit")
+    CommentForm(
+      ref="commentFormRef"
+      :is-busy="state.isBusy"
+      :form-model="{ id: comment.id, content: comment.content }"
+      @on-submit="handleOnSubmit"
+    )
 </template>
 
 <script lang="ts">
@@ -20,6 +25,11 @@ export default defineComponent({
   },
   props: {
     isOpen: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    isBusy: {
       type: Boolean,
       required: false,
       default: false
@@ -59,14 +69,24 @@ export default defineComponent({
     }
 
     const handleOnSubmit = (review: ReviewTypes) => {
-      handleClose()
-
       emit('on-confirm', { ...props.comment, ...review })
     }
+
+    const state = reactive({
+      isBusy: props.isBusy
+    })
+
+    watch(
+      () => props.isBusy,
+      value => {
+        state.isBusy = value
+      }
+    )
 
     return {
       dialog,
       commentFormRef,
+      state,
       handleClose,
       handleOnSubmit
     }

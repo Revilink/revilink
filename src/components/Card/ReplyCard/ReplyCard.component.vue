@@ -58,8 +58,20 @@
             template(#tooltip)
               span {{ $t('general.report') }}
 
-  EditCommentDialog(:is-open="form.edit.isOpen" :comment="reply" @on-close="form.edit.isOpen = false" @on-confirm="handleEdit")
-  DeleteCommentDialog(:is-open="form.delete.isOpen" :comment="reply" @on-close="form.delete.isOpen = false" @on-confirm="handleDelete")
+  EditCommentDialog(
+    :is-open="form.edit.isOpen"
+    :is-busy="form.edit.isBusy"
+    :comment="reply"
+    @on-close="form.edit.isOpen = false"
+    @on-confirm="handleEdit"
+  )
+  DeleteCommentDialog(
+    :is-open="form.delete.isOpen"
+    :is-busy="form.delete.isBusy"
+    :comment="reply"
+    @on-close="form.delete.isOpen = false"
+    @on-confirm="handleDelete"
+  )
 </template>
 
 <script lang="ts">
@@ -90,10 +102,12 @@ export default defineComponent({
 
     const form = reactive({
       edit: {
-        isOpen: false
+        isOpen: false,
+        isBusy: false
       },
       delete: {
-        isOpen: false
+        isOpen: false,
+        isBusy: false
       }
     })
 
@@ -110,6 +124,8 @@ export default defineComponent({
     }
 
     const handleEdit = async (review: ReviewTypes) => {
+      form.edit.isBusy = true
+
       const { data, error } = await context.$api.rest.review.editReview({
         id: review.id,
         content: review.content,
@@ -125,12 +141,16 @@ export default defineComponent({
           flat: true
         })
 
+        form.edit.isOpen = false
+
         emit('on-edit-success', review)
       } else {
         emit('on-edit-error', { ...review, ...error })
       }
 
       emit('on-edit-confirm', review)
+
+      form.edit.isBusy = false
     }
 
     const handleClickDelete = () => {
@@ -139,6 +159,8 @@ export default defineComponent({
     }
 
     const handleDelete = async (review: ReviewTypes) => {
+      form.delete.isBusy = true
+
       const { data, error } = await context.$api.rest.review.deleteReview({
         id: review.id
       })
@@ -158,6 +180,8 @@ export default defineComponent({
       }
 
       emit('on-delete-confirm', review)
+
+      form.delete.isBusy = false
     }
 
     return {

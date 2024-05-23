@@ -4,16 +4,69 @@
   left: 0;
   z-index: var(--z-index-overlay);
   display: grid;
+  place-items: center;
   width: 100%;
   height: 100vh;
-  background-color: var(--color-ui-02);
-  place-items: center;
+  background-color: var(--color-ui-01);
 
-  &__inner {
-    position: relative;
+  .app-logo {
+    &__img {
+      height: 48px;
+    }
+
+    &__title {
+      margin-left: $spacer * 4;
+      font-size: var(--font-size-text-22);
+    }
   }
 
-  &__title {
-    font-size: 26px;
+  &__message {
+    position: fixed;
+    bottom: $spacer * 6;
+
+    @include center(true, false);
+  }
+
+  &__bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    background: var(--color-active-ui);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      left: 0;
+      display: block;
+      background-color: hsla(10, 0%, 0%, 1);
+      background-image: radial-gradient(at 27% 49%, rgb(8, 8, 8) 0, transparent 50%),
+        radial-gradient(at 98% 92%, rgb(64, 64, 64) 0, transparent 50%), radial-gradient(at 74% 84%, rgb(32, 32, 32) 0, transparent 50%),
+        radial-gradient(at 78% 2%, rgb(16, 16, 16) 0, transparent 50%), radial-gradient(at 94% 58%, rgb(48, 48, 48) 0, transparent 50%),
+        radial-gradient(at 62% 16%, rgb(24, 24, 24) 0, transparent 50%), radial-gradient(at 25% 32%, rgb(40, 40, 40) 0, transparent 50%);
+      border-radius: 16px;
+      animation: loadingBar 1.5s cubic-bezier(0, 0, 0.3, 1) 1s infinite;
+      content: '';
+    }
+  }
+
+  @keyframes loadingBar {
+    0% {
+      right: 100%;
+      left: -25%;
+    }
+
+    50% {
+      right: 20%;
+      left: 20%;
+    }
+
+    100% {
+      right: -10%;
+      left: 100%;
+    }
   }
 }
