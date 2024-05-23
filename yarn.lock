@@ -2232,14 +2232,6 @@
     pathe "^0.3.3"
     ufo "^0.8.5"
 
-"@nuxtjs/dotenv@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.4.2.tgz#ad60162ec484f61a93771aa8de18f4dda61a13dc"
-  integrity sha512-/3+Cw5qLNIQD8ZvXLJG1suxvfC4ltlUuYegOwirHrLrzptHh/+rCkBXrNbrz2qAiwc+/yK91XjZGGzNM1dFmCw==
-  dependencies:
-    consola "^3.2.3"
-    dotenv "^8.2.0"
-
 "@nuxtjs/eslint-config-typescript@^12.0.0":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/eslint-config-typescript/-/eslint-config-typescript-12.0.0.tgz#eaa36d8a8eb1c35a918f606e32613e0726b98c0b"
@@ -4802,11 +4794,6 @@ consola@^2.15.0, consola@^2.15.3, consola@^2.6.0:
   resolved "https://registry.yarnpkg.com/consola/-/consola-2.15.3.tgz#2e11f98d6a4be71ff72e0bdf07bd23e12cb61550"
   integrity sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==
 
-consola@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/consola/-/consola-3.2.3.tgz#0741857aa88cfa0d6fd53f1cff0375136e98502f"
-  integrity sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==
-
 console-browserify@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.2.0.tgz#67063cef57ceb6cf4993a2ab3a55840ae8c49336"
@@ -5755,11 +5742,6 @@ dotenv@^16.0.3:
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
   integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
-
-dotenv@^8.2.0:
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
-  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
 dotenv@^9.0.2:
   version "9.0.2"
