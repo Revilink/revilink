@@ -33,7 +33,9 @@
     "lint:stylelint": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\"",
     "lint:stylelint:fix": "stylelint --ignore-path .stylelintignore \"src/{assets/style,components,layouts,pages}/**/*.{css,sass,scss,less,stylus,vue}\" --fix",
     "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line lf",
-    "mock:api": "json-server --watch ./src/mock/db.json --port 3004 --delay 1000"
+    "mock:api": "json-server --watch ./src/mock/db.json --port 3004 --delay 1000",
+    "commit": "cz",
+    "changelog": "changelogen"
   },
   "lint-staged": {
     "*.{ts,js,vue}": [
@@ -86,6 +88,7 @@
     "@types/node": "^18.13.0",
     "@types/stylelint": "14.0.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "changelogen": "^0.5.5",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.34.0",
