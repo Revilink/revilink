@@ -33,7 +33,7 @@ ClientOnly
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, ref, reactive, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, ref, reactive, watch, computed } from '@nuxtjs/composition-api'
 import { useVuelidate } from '@vuelidate/core'
 import type { Ref } from 'vue'
 import type { FormTypes } from './CommentForm.component.types'
@@ -68,6 +68,13 @@ export default defineComponent({
     const state = reactive({
       isBusy: props.isBusy
     })
+
+    watch(
+      () => props.isBusy,
+      value => {
+        state.isBusy = value
+      }
+    )
 
     const form = reactive<FormTypes>({
       content: props.formModel?.content || ''
