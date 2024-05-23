@@ -7,7 +7,6 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
         v-model="form.url"
         :placeholder="$t('form.reviewSearch.url')"
         spellcheck="false"
-        autofocus
         theme="light"
         :maxlength="v$.url.maxLength.$params.max"
         primary
@@ -83,7 +82,9 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      focusToUrlInput()
+      if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        focusToUrlInput()
+      }
     })
 
     return {
