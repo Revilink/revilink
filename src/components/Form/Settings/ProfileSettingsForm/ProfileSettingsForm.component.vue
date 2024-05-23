@@ -9,7 +9,7 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
   template(v-if="fetchState.error")
     BasicState(:title="$t('error.error')" :description="getFetchError(fetchState.error).message")
       template(#head)
-        img(src="@/assets/media/elements/state/network.svg" width="256")
+        img(src="/media/elements/state/network.svg" width="256")
       template(#footer)
         vs-button.my-10(type="button" @click="fetch") {{ $t('error.tryAgain') }}
 

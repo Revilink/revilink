@@ -34,9 +34,9 @@ export default defineComponent({
   setup(props) {
     const logoImage = computed(() => {
       if (props.full) {
-        return require(`@/assets/media/core/logo/revilink_logo_512_full.png`)
+        return `/media/core/logo/revilink_logo_512_full.png`
       } else {
-        return require(`@/assets/media/core/logo/revilink_logo_512.png`)
+        return `/media/core/logo/revilink_logo_512.png`
       }
     })
 

@@ -3,7 +3,7 @@
   .col.col-lg-8.col-xl-6
     BasicState(:title="$t('form.forgotPassword.sent.title')" :description="$t('form.forgotPassword.sent.description')")
       template(#head)
-        img(src="@/assets/media/elements/state/card.svg" width="256")
+        img(src="/media/elements/state/card.svg" width="256")
 </template>
 
 <script lang="ts">

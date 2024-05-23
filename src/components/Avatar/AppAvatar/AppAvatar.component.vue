@@ -3,7 +3,7 @@
   vs-avatar(v-if="user?.avatar && getAvatarSrc({ user })?.length > 0" circle :size="String(size)")
     img.app-avatar__image(loading="lazy" :src="getAvatarSrc({ user })" :alt="user.username")
   vs-avatar(v-else circle :size="String(size)")
-    img.app-avatar__image(loading="lazy" src="@/assets/media/core/user.png" alt="Avatar")
+    img.app-avatar__image(loading="lazy" src="/media/core/user.png" alt="Avatar")
 </template>
 
 <script lang="ts">
