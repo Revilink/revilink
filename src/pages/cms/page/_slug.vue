@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useFetch, ref, watch } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useFetch, useMeta, ref, watch, computed } from '@nuxtjs/composition-api'
 import { CmsPagesWidget } from '@/components/Widget'
 import { AppLoading } from '@/components/Loading'
 
@@ -33,7 +33,7 @@ export default defineComponent({
     const context = useContext()
     const route = useRoute()
 
-    const doc = ref(null)
+    const doc: any = ref(null)
 
     const { fetch, fetchState } = useFetch(async () => {
       try {
@@ -53,12 +53,24 @@ export default defineComponent({
       }
     )
 
+    const pageTitle = computed(() => {
+      return doc.value?.body?.children[0]?.children[1]?.value || route.value.params.slug
+    })
+
+    useMeta(
+      () =>
+        ({
+          title: pageTitle.value
+        } as any)
+    )
+
     return {
       fetch,
       fetchState,
       doc
     }
-  }
+  },
+  head: {}
 })
 </script>
 

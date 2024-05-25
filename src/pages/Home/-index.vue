@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { ReviewSearchForm } from '@/components/Form'
 
 export default defineComponent({
@@ -32,7 +32,12 @@ export default defineComponent({
     ReviewSearchForm
   },
   layout: 'Home/Home.layout',
-  setup() {}
+  setup() {
+    useMeta(() => ({
+      title: ''
+    }))
+  },
+  head: {}
 })
 </script>
 

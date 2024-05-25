@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useRouter, useFetch, ref, reactive, watch } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useRouter, useFetch, useMeta, ref, reactive, watch } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
 import type { ReactionerUserListDialogTypes } from './Comment.page.types'
 import type { ReviewTypes } from '@/types'
@@ -116,6 +116,10 @@ export default defineComponent({
       }
     )
 
+    useMeta(() => ({
+      title: ''
+    }))
+
     return {
       fetch,
       fetchState,
@@ -126,7 +130,8 @@ export default defineComponent({
       handleDeleteSuccess,
       dialog
     }
-  }
+  },
+  head: {}
 })
 </script>
 

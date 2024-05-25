@@ -47,6 +47,7 @@ import {
   useRouter,
   useStore,
   useFetch,
+  useMeta,
   ref,
   reactive,
   computed,
@@ -127,6 +128,10 @@ export default defineComponent({
       }
     )
 
+    useMeta(() => ({
+      title: route.value.query.username as string
+    }))
+
     return {
       fetch,
       fetchState,
@@ -135,7 +140,8 @@ export default defineComponent({
       reviewsMeta,
       review
     }
-  }
+  },
+  head: {}
 })
 </script>
 

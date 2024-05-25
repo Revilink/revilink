@@ -41,9 +41,16 @@ export default defineComponent({
         window.$nuxt.$vs.loading({
           target: `.${baseClassName}`
         })
-        setTimeout(() => {
-          window.location.replace(context.localePath({ path: route.value.path, query: { ...route.value.query } }))
-        }, 1000)
+
+        if (route.value.name?.startsWith('cms')) {
+          setTimeout(() => {
+            window.location.replace(context.localePath('/cms/page'))
+          }, 1000)
+        } else {
+          setTimeout(() => {
+            window.location.replace(context.localePath({ path: route.value.path, query: { ...route.value.query } }))
+          }, 1000)
+        }
       }
     )
 
