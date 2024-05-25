@@ -4,7 +4,7 @@ Revilink; İnternetteki her hangi bir link için bu websitesi/uygulama üzerinde
 
 Revilink'i kullanarak internetteki her hangi bir bağlantı hakkında yorumda bulunabilir, reaksiyon verebilirsiniz. O bağlantı için olan yorumları okuyarak, reaksiyonları ve ek bilgileri görerek o bağlantıda yer alan şey hakkında bilgi edinmiş olursunuz.
 
-Revilink bağımsız bir geliştirici tarafından oluşturulmuş açık kaynak bir projedir. Kaynak kodları [Github Bağlantısı](https://github.com/selimdoyranli/revilink) üzerinde erişilebilir durumdadır. Revilink şu anda bir fona ya da mali kazanıma sahip değildir. Revilink'in devamlılığı ve diğer faydalı projeler için fonlamada bulunabilirsiniz
+Revilink bağımsız bir geliştirici tarafından oluşturulmuş açık kaynak bir projedir. Kaynak kodları [Github Bağlantısı](https://github.com/revilink/revilink) üzerinde erişilebilir durumdadır. Revilink şu anda bir fona ya da mali kazanıma sahip değildir. Revilink'in devamlılığı ve diğer faydalı projeler için fonlamada bulunabilirsiniz
 
 [💖 Bağış Yap](https://www.buymeacoffee.com/selimdoyranli)
 
