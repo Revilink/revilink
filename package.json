@@ -1,7 +1,7 @@
 {
   "name": "revilink",
   "version": "0.0.1",
-  "description": "See reviews on the thing in the link.",
+  "description": "Comment on any link on the internet",
   "private": true,
   "keywords": [
     "revilink",

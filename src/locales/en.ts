@@ -71,7 +71,7 @@ export default {
   hero: {
     home: {
       title: '<strong class="mark-reviews">Comment</strong> on any <strong class="mark-link">link</strong> <br> on the internet.',
-      description: 'Comment or react to any link and contribute to transforming the internet into a comment board.'
+      description: 'Comment or react to any link and contribute to transforming the internet into a comment board'
     }
   },
   form: {
@@ -382,6 +382,12 @@ export default {
     revilinkDataScraper: {
       title: 'Revilink Data Scraper',
       route: 'revilink-data-scraper'
+    }
+  },
+  seo: {
+    reviews: {
+      title: 'Reviews about link: {link}',
+      description: 'What people are saying about this link? See comments and reactions about the link: {link}'
     }
   }
 }

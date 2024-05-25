@@ -92,6 +92,7 @@ import {
   useRoute,
   useRouter,
   useStore,
+  useMeta,
   ref,
   reactive,
   onMounted,
@@ -375,6 +376,44 @@ export default defineComponent({
       fetchAndReadRobots()
     })
 
+    const truncateLink = (str: string, num = 50) => {
+      return str.length > num ? str.slice(0, num) + '...' : str
+    }
+
+    useMeta(
+      () =>
+        ({
+          title: context.i18n.t('seo.reviews.title', { link: truncateLink(route.value.query.link as string) }),
+          meta: [
+            {
+              hid: 'og:title',
+              name: 'og:title',
+              content: context.i18n.t('seo.reviews.title', { link: truncateLink(route.value.query.link as string) })
+            },
+            {
+              hid: 'twitter:title',
+              name: 'twitter:title',
+              content: context.i18n.t('seo.reviews.title', { link: truncateLink(route.value.query.link as string) })
+            },
+            {
+              hid: 'description',
+              name: 'description',
+              content: context.i18n.t('seo.reviews.description', { link: truncateLink(route.value.query.link as string) })
+            },
+            {
+              hid: 'og:description',
+              name: 'og:description',
+              content: context.i18n.t('seo.reviews.description', { link: truncateLink(route.value.query.link as string) })
+            },
+            {
+              hid: 'twitter:description',
+              name: 'twitter:description',
+              content: context.i18n.t('seo.reviews.description', { link: truncateLink(route.value.query.link as string) })
+            }
+          ]
+        } as any)
+    )
+
     return {
       rootRef,
       url,
@@ -393,7 +432,8 @@ export default defineComponent({
       handleReaction,
       convertToRevilinkFormat
     }
-  }
+  },
+  head: {}
 })
 </script>
 

@@ -378,5 +378,11 @@ export default {
       title: 'Revilink Veri Kazıyıcı',
       route: 'revilink-veri-kaziyici'
     }
+  },
+  seo: {
+    reviews: {
+      title: 'Link hakkında incelemeler: {link}',
+      description: 'İnsanlar bu link hakkında ne diyor? link hakkında yorumları ve reaksiyonları görün: {link}'
+    }
   }
 }

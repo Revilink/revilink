@@ -48,20 +48,109 @@ const config: NuxtConfig = {
     htmlAttrs: {
       lang: 'en'
     },
-    title: process.env.npm_package_name || '',
+    titleTemplate: titleChunk => {
+      return titleChunk
+        ? `${titleChunk} - Revilink - Comment on any link on the internet`
+        : 'Revilink - Comment on any link on the internet'
+    },
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+        content: 'viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+      },
+      {
+        hid: 'robots',
+        name: 'robots',
+        content: 'index,follow'
       },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: 'Comment on any link on the internet'
+      },
+      {
+        name: 'apple-mobile-web-app-capable',
+        content: 'yes'
+      },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Revilink ― Comment on any link on the internet'
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Revilink ― Comment on any link on the internet'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://revilink.io'
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: '/meta/preview/og-main.png'
+      },
+      {
+        hid: 'twitter:card',
+        property: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: 'Revilink ― Comment on any link on the internet'
+      },
+      {
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content: 'Revilink ― Comment on any link on the internet'
+      },
+      {
+        hid: 'twitter:url',
+        property: 'twitter:url',
+        content: 'https://revilink.io'
+      },
+      {
+        hid: 'twitter:image',
+        property: 'twitter:image',
+        content: '/meta/preview/og-main.png'
+      },
+      {
+        hid: 'Publisher',
+        property: 'Publisher',
+        content: 'selimdoyranli'
+      },
+      {
+        hid: 'theme-color',
+        name: 'theme-color',
+        content: '#fff'
+      },
+      {
+        name: 'apple-mobile-web-app-capable',
+        content: 'yes'
+      },
+      {
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'black-translucent'
+      },
+      { name: 'Rating', content: 'General' },
+      { name: 'Distribution', content: 'Global' },
+      { name: 'Copyright', content: 'Revilink' },
+      { itemprop: 'copyrightYear', content: new Date().getFullYear().toString() }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/meta/icon/favicon.ico' },
+      { rel: 'dns-prefetch', href: '//backend.revilink.io' },
+      { rel: 'manifest', href: '/manifest.json' }
+    ]
   },
 
   /*
@@ -135,7 +224,7 @@ const config: NuxtConfig = {
       ssr: true
     },
     {
-      src: '@/plugins/global-meta-tags-setter.ts',
+      src: '@/plugins/dynamic-head.ts',
       ssr: true
     },
     {
@@ -277,6 +366,7 @@ const config: NuxtConfig = {
             title: 'English',
             code: 'en',
             iso: 'en-US',
+            dir: 'ltr',
             icon: 'circle-flags:us',
             file: 'en.ts'
           },
@@ -285,6 +375,7 @@ const config: NuxtConfig = {
             title: 'Türkçe',
             code: 'tr',
             iso: 'tr-TR',
+            dir: 'ltr',
             icon: 'circle-flags:tr',
             file: 'tr.ts'
           }
@@ -342,6 +433,10 @@ const config: NuxtConfig = {
           'Settings/Account/index': {
             en: '/settings/account',
             tr: '/ayarlar/hesap'
+          },
+          'cms/page/_slug': {
+            en: '/cms/page/:slug',
+            tr: '/cms/sayfa/:slug'
           }
         }
       }

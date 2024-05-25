@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useMeta } from '@nuxtjs/composition-api'
 import { RegisterForm } from '@/components/Form'
 
 export default defineComponent({
@@ -13,7 +13,17 @@ export default defineComponent({
     RegisterForm
   },
   layout: 'Auth/Auth.layout',
-  setup() {}
+  setup() {
+    const context = useContext()
+
+    useMeta(
+      () =>
+        ({
+          title: context.i18n.t('general.register')
+        } as any)
+    )
+  },
+  head: {}
 })
 </script>
 
