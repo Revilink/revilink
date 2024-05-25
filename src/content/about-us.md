@@ -4,7 +4,7 @@ Revilink is a project that allows you to comment, react and get more information
 
 Using Revilink, you can comment and react to any link on the internet. By reading the comments, reactions and additional information for that link, you learn about what is contained in that link.
 
-Revilink is an open source project created by an indie developer. The source code is available on [Github Link](https://github.com/selimdoyranli/revilink). Revilink currently has no funding or financial gain. You can sponsor the continuation of Revilink and other useful projects
+Revilink is an open source project created by an indie developer. The source code is available on [Github Link](https://github.com/revilink/revilink). Revilink currently has no funding or financial gain. You can sponsor the continuation of Revilink and other useful projects
 
 [💖 Donate](https://www.buymeacoffee.com/selimdoyranli)
 
