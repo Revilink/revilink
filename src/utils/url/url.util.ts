@@ -1,3 +1,4 @@
+import { isSahibindenIlan } from '../detector/sahibinden.detector.util'
 const { withoutTrailingSlash, withProtocol } = require('ufo')
 
 /**
@@ -76,6 +77,15 @@ export const convertToRevilinkFormat = ({ url }: { url: string }) => {
   // Apply unecessary params and trailing slash cleaner
   _url = cleanDirtyParams({ url: _url })
   _url = removeTrailingSlash(_url)
+
+  if (isSahibindenIlan(_url)) {
+    const urlObj = new URL(_url)
+
+    if (!urlObj.hostname.startsWith('www.')) {
+      urlObj.hostname = 'www.' + urlObj.hostname
+    }
+    _url = urlObj.toString()
+  }
 
   return _url
 }
