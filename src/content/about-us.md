@@ -11,7 +11,7 @@ Revilink is an open source project created by an indie developer. The source cod
 **UI Developer**: Selim Doyranlı - selimdoyranli@gmail.com
 <br>
 <br>
-**Front-end Developer**: Selim Doyranlı - selimdoyranli@gmail.com
+**Front-End Developer**: Selim Doyranlı - selimdoyranli@gmail.com
 <br>
 <br>
 **Back-End Developer**: Selim Doyranlı - selimdoyranli@gmail.com
