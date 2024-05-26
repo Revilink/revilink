@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.0.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.0.1...v1.0.2)
+
+### 📖 Documentation
+
+- Update cms pages ([aa6d760](https://github.com/selimdoyranli/revilink/commit/aa6d760))
+- Update cms pages ([f1fc948](https://github.com/selimdoyranli/revilink/commit/f1fc948))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.0.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.0.0...v1.0.1)
