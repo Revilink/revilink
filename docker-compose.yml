@@ -8,13 +8,14 @@ services:
         condition: any
     environment:
       API: "${API}"
-      OPENAI_API_KEY: "${OPENAI_API_KEY}"
       GOOGLE_AUTH_CLIENT_ID: "${GOOGLE_AUTH_CLIENT_ID}"
+      BUCKET_URL: "${BUCKET_URL}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
     ports:
       - "3001:3001"
     networks:
       - revilink_network
-      
+
 networks:
   revilink_network:
     driver: overlay
