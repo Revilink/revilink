@@ -34,7 +34,7 @@ export default defineComponent({
 
     const { fetch, fetchState } = useFetch(async () => {
       if (process.client) {
-        const { data } = await context.$api.rest.scraper.fetchSiteAiSummary({
+        const { data } = await context.$api.rest.scraper.fetchAiDomainSummary({
           url: route.value.query.link
         })
 

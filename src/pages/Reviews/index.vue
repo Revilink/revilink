@@ -5,7 +5,7 @@
       .col-12.col-lg-11
         aside.sidebar
           // Link extra widget
-          LinkExtraWidget
+          LinkExtraWidget(:site-meta="site.meta")
           // Site summary widget
           SiteSummaryWidget(v-if="false")
     .col-12.col-lg-8
@@ -101,10 +101,11 @@ import {
 } from '@nuxtjs/composition-api'
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
-import type { UrlTypes, ReactionTypes, CommentRefTypes } from './Reviews.page.types'
+import type { UrlTypes, ReactionTypes, CommentRefTypes, SiteTypes } from './Reviews.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
+import { useLinkDetector } from '@/hooks'
 import { AppIcon } from '@/components/Icon'
 import { ReactionButtonGroup } from '@/components/ButtonGroup'
 import { ReviewList } from '@/components/List'
@@ -129,6 +130,8 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
 
+    const { getLinkMeta } = useLinkDetector()
+
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
     // Url
@@ -149,7 +152,7 @@ export default defineComponent({
     })
 
     // Website
-    const site = reactive({
+    const site: SiteTypes = reactive({
       isAllowed: false,
       isBusy: false,
       meta: {}
@@ -166,7 +169,11 @@ export default defineComponent({
 
       site.isAllowed = robotsResult.isAllowed
 
-      if (robotsResult.isAllowed) {
+      const linkMeta = await getLinkMeta(route.value.query.link as string)
+
+      if (linkMeta) {
+        site.meta = linkMeta
+      } else if (robotsResult.isAllowed) {
         await scrapeSite()
       }
 

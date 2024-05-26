@@ -26,7 +26,8 @@ const config: NuxtConfig = {
     API: process.env.API || '',
     GOOGLE_AUTH_CLIENT_ID: process.env.GOOGLE_AUTH_CLIENT_ID || '',
     BUCKET_URL: process.env.BUCKET_URL || '',
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY || ''
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+    ANNOUNCEMENT_PRICE_HISTORY_API: process.env.ANNOUNCEMENT_PRICE_HISTORY_API || ''
   },
 
   /*
@@ -38,7 +39,8 @@ const config: NuxtConfig = {
   },
 
   privateRuntimeConfig: {
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    ANNOUNCEMENT_PRICE_HISTORY_API: process.env.ANNOUNCEMENT_PRICE_HISTORY_API
   },
 
   /*
@@ -480,16 +482,20 @@ const config: NuxtConfig = {
    */
   serverMiddleware: [
     {
-      path: '/site-robots-checker',
-      handler: '@/server/middleware/site-robots-checker.ts'
+      path: '/link-robots-checker',
+      handler: '@/server/middleware/link-robots-checker.ts'
     },
     {
-      path: '/site-scraper',
-      handler: '@/server/middleware/site-scraper.ts'
+      path: '/link-scraper',
+      handler: '@/server/middleware/link-scraper.ts'
     },
     {
-      path: '/site-ai-summary',
-      handler: '@/server/middleware/site-ai-summary.ts'
+      path: '/ai-domain-summary',
+      handler: '@/server/middleware/ai-domain-summary.ts'
+    },
+    {
+      path: '/detector-based/fetch-announcement-price-history',
+      handler: '@/server/middleware/detector-based/fetch-announcement-price-history.ts'
     }
   ],
 

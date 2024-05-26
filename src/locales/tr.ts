@@ -343,6 +343,16 @@ export default {
       nav: {
         webArchive: {
           title: 'Web arşivi'
+        },
+        widget: {
+          priceHistory: {
+            title: 'Fiyat geçmişi',
+            showPriceHistory: 'Fiyat geçmişini gör'
+          },
+          announcementPriceHistory: {
+            title: 'İlan fiyat geçmişi',
+            showPriceHistory: 'İlan fiyat geçmişini gör'
+          }
         }
       }
     },

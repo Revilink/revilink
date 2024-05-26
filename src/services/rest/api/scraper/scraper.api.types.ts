@@ -6,12 +6,12 @@ export type FetchMetaTagsTypes = {
   url: string
 }
 
-export type FetchSiteAiSummary = {
+export type FetchAiDomainSummaryTypes = {
   url: string
 }
 
 export type ScraperApiTypes = {
   fetchAndReadRobots: Function
   fetchMetaTags: Function
-  fetchSiteAiSummary: Function
+  fetchAiDomainSummary: Function
 }
