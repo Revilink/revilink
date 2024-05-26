@@ -90,7 +90,6 @@ export default {
     yourPassword: 'Parolan',
     showPassword: 'Parolana bir bak',
     hidePassword: 'Parolanı gizle',
-    passwordsDoNotMatch: 'İki parola birbiriyle uyuşmuyor',
     message: 'Mesaj',
     location: 'Lokasyon',
     selectModel: '{model} seç',
@@ -116,6 +115,7 @@ export default {
       modelIsNotAvailable: 'Bu {model} uygun değil. Başka bir tane yaz',
       termsIsRequired: 'Koşul ve İlkeler sana uyuyorsa kayıt olabilirsin',
       makeSureAllTheFieldsAreAsDesired: 'Tüm alanların istenen gibi olduğundan emin ol',
+      passwordsDoNotMatch: 'İki parola birbiriyle uyuşmuyor',
       fileUpload: {
         maxItem: 'En fazla {max} dosya yükleyebilirsin',
         singleMaxItemSize: 'Yüklenen dosya en fazla {max} {unit} olmalı',
