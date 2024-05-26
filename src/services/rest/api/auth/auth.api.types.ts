@@ -19,6 +19,12 @@ export type ForgotPasswordTypes = {
   email: string
 }
 
+export type ResetPasswordTypes = {
+  code: string
+  password: string
+  passwordConfirmation: string
+}
+
 export type AuthApiTypes = {
   register: Function
   fetchGoogleUser: Function
@@ -26,4 +32,5 @@ export type AuthApiTypes = {
   fetchMe: Function
   updateMe: Function
   forgotPassword: Function
+  resetPassword: Function
 }

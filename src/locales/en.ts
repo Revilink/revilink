@@ -89,7 +89,6 @@ export default {
     yourPassword: 'Your password',
     showPassword: 'Show password',
     hidePassword: 'Hide password',
-    passwordsDoNotMatch: 'Passwords do not match',
     message: 'Message',
     location: 'Location',
     selectModel: 'Select {model}',
@@ -115,6 +114,7 @@ export default {
       modelIsNotAvailable: 'This {model} is not available. Type an another',
       termsIsRequired: 'If the terms & privacy policy applies to you, you can register',
       makeSureAllTheFieldsAreAsDesired: 'Make sure all the fields are as desired',
+      passwordsDoNotMatch: 'Passwords do not match',
       fileUpload: {
         maxItem: 'You can upload maximum {max} file',
         singleMaxItemSize: 'Uploaded file must be maximum {max} {unit}',

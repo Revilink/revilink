@@ -1,6 +1,6 @@
 import type { Context } from '@nuxt/types'
 import axios from 'axios'
-import type { AuthApiTypes, RegisterTypes, UpdateMeTypes, ForgotPasswordTypes } from './auth.api.types'
+import type { AuthApiTypes, RegisterTypes, UpdateMeTypes, ForgotPasswordTypes, ResetPasswordTypes } from './auth.api.types'
 import type { AppAxiosType } from '@/services/rest/core/core.types'
 import { userTransformer } from '@/services/rest/transformers'
 
@@ -100,9 +100,42 @@ export const authApi = (app: Context, appAxios: Function) =>
         }
       })
 
-      return {
-        data,
-        error
+      if (data) {
+        return {
+          data
+        }
+      }
+
+      if (error) {
+        return {
+          error
+        }
+      }
+    },
+
+    async resetPassword(params: ResetPasswordTypes) {
+      const { code, password, passwordConfirmation } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'post',
+        path: 'auth/reset-password',
+        data: {
+          code,
+          password,
+          passwordConfirmation
+        }
+      })
+
+      if (data) {
+        return {
+          data
+        }
+      }
+
+      if (error) {
+        return {
+          error
+        }
       }
     }
   }
