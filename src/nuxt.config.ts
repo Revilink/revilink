@@ -25,6 +25,7 @@ const config: NuxtConfig = {
   env: {
     API: process.env.API || '',
     GOOGLE_AUTH_CLIENT_ID: process.env.GOOGLE_AUTH_CLIENT_ID || '',
+    BUCKET_URL: process.env.BUCKET_URL || '',
     OPENAI_API_KEY: process.env.OPENAI_API_KEY || ''
   },
 

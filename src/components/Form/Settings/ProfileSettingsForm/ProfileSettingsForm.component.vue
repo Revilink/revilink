@@ -24,7 +24,7 @@ form.form.settings-form.profile-settings-form(@submit.prevent="handleSubmit")
               v-model="avatar.file"
               placeholder
               :disabled="state.isBusy"
-              :initial-image="$auth.loggedIn && getAvatarSrc({ user: $auth.user })"
+              :initial-image="$auth.loggedIn && getAvatarSrc({ user: $auth.user, corsForce: true })"
               :file-size-limit="Number(avatar.config.fileSizeLimit)"
               :accept="avatar.config.accept"
               :prevent-white-space="avatar.config.preventWhiteSpace"

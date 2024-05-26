@@ -32,8 +32,12 @@ export default () => {
    * @param {UserTypes} user
    * @returns {string} Avatar url
    */
-  const getAvatarSrc: GetAvatarSrcTypes = ({ user }) => {
-    return `${context.$config.API.replace('/api', '')}${user?.avatar?.formats?.thumbnail?.url}` || ''
+  const getAvatarSrc: GetAvatarSrcTypes = ({ user, corsForce = false }) => {
+    if (corsForce) {
+      return `${user?.avatar?.formats?.thumbnail?.url}?v=${new Date().getTime()}`
+    }
+
+    return `${user?.avatar?.formats?.thumbnail?.url}` || ''
   }
 
   /**
