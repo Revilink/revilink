@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.1.0...v1.2.0)
+
+### 🚀 Enhancements
+
+- Link detectors ([d8af715](https://github.com/selimdoyranli/revilink/commit/d8af715))
+
+### 🤖 CI
+
+- Update docker config ([907687c](https://github.com/selimdoyranli/revilink/commit/907687c))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.1.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.0.2...v1.1.0)
