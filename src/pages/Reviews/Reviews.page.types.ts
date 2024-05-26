@@ -1,3 +1,19 @@
+type SiteMetaWidgetTypes = {
+  announcementPriceHistory?: string
+}
+
+type SiteMetaTypes = {
+  title?: string
+  icon?: string
+  widget?: SiteMetaWidgetTypes
+}
+
+export type SiteTypes = {
+  isBusy: boolean
+  isAllowed: boolean
+  meta: SiteMetaTypes
+}
+
 export interface CommentRefTypes extends HTMLElement {
   clearForm(): void
   focus(): void

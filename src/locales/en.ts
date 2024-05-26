@@ -348,6 +348,16 @@ export default {
       nav: {
         webArchive: {
           title: 'Web archive'
+        },
+        widget: {
+          priceHistory: {
+            title: 'Price history',
+            showPriceHistory: 'Show price history'
+          },
+          announcementPriceHistory: {
+            title: 'Announcement price history',
+            showPriceHistory: 'Show announcement price history'
+          }
         }
       }
     },
