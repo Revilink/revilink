@@ -12,4 +12,4 @@ type GoogleResponseTypes = {
 
 export type SetGoogleUserTypes = (params: { callbackParams: CallbackParamsTypes; googleResponse: GoogleResponseTypes }) => Promise<void>
 export type GetAvatarTypes = (params: { user: UserTypes }) => AvatarTypes
-export type GetAvatarSrcTypes = (params: { user: UserTypes }) => string
+export type GetAvatarSrcTypes = (params: { user: UserTypes; corsForce?: boolean }) => string
