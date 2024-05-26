@@ -24,4 +24,5 @@ jobs:
       env:
           API: ${{ vars.API }}
           GOOGLE_AUTH_CLIENT_ID: ${{ vars.GOOGLE_AUTH_CLIENT_ID }}
+          BUCKET_URL: ${{ vars.BUCKET_URL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
