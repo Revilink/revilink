@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.0.2...v1.1.0)
+
+### 🚀 Enhancements
+
+- Reset password form fe ([cb4e227](https://github.com/selimdoyranli/revilink/commit/cb4e227))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.0.2
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.0.1...v1.0.2)
