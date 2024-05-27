@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.2.1...v1.2.2)
+
+### 🏡 Chore
+
+- Device info ([3844800](https://github.com/selimdoyranli/revilink/commit/3844800))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.2.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.2.0...v1.2.1)
