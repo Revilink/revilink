@@ -137,5 +137,56 @@ export const authApi = (app: Context, appAxios: Function) =>
           error
         }
       }
+    },
+
+    async getDeviceInfo() {
+      const UAParser = require('ua-parser-js')
+      const parser = new UAParser(navigator.userAgent)
+      const ua = parser.getResult()
+
+      let deviceInfo = {
+        ...ua
+      }
+
+      if (typeof window !== 'undefined') {
+        deviceInfo = {
+          ...deviceInfo,
+          window: {
+            outerWidth: window.outerWidth,
+            outerHeight: window.outerHeight
+          }
+        }
+      }
+
+      if (navigator) {
+        deviceInfo = {
+          ...deviceInfo,
+          language: navigator.language
+        }
+      }
+
+      try {
+        const response = await axios.get('https://api.userinfo.io/userinfos')
+        const ipData = response.data
+
+        if (ipData) {
+          deviceInfo = {
+            ...deviceInfo,
+            ipData
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching IPData info:', error)
+
+        return {
+          error
+        }
+      }
+
+      return {
+        data: {
+          deviceInfo
+        }
+      }
     }
   }

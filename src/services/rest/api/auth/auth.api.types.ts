@@ -33,4 +33,5 @@ export type AuthApiTypes = {
   updateMe: Function
   forgotPassword: Function
   resetPassword: Function
+  getDeviceInfo: Function
 }
