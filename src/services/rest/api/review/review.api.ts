@@ -71,6 +71,8 @@ export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
     async postReview(params: PostReviewTypes) {
       const { parent, url, content, media } = params
 
+      const { data: deviceInfo } = await app.$api.rest.auth.getDeviceInfo()
+
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'post',
         path: `comments`,
@@ -79,7 +81,8 @@ export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
             parent,
             url: encodeBase64(url),
             comment: content,
-            images: media
+            images: media,
+            deviceInfo
           }
         }
       })
@@ -94,6 +97,8 @@ export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
     async editReview(params: EditReviewTypes) {
       const { id, url, content, media } = params
 
+      const { data: deviceInfo } = await app.$api.rest.auth.getDeviceInfo()
+
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
         path: `comments/${id}`,
@@ -101,7 +106,8 @@ export const reviewApi = (appAxios: Function, app: NuxtAppOptions) =>
           data: {
             url,
             comment: content,
-            images: media
+            images: media,
+            deviceInfo
           }
         }
       })

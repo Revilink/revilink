@@ -66,6 +66,7 @@
     "openai": "^3.3.0",
     "page-metadata-parser": "^1.1.4",
     "robots-parser": "^3.0.1",
+    "ua-parser-js": "^1.0.37",
     "ufo": "^1.5.3",
     "universal-dom-parser": "^0.0.3",
     "v-autosize": "^1.0.3",
