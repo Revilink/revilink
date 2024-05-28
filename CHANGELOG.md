@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.5...v1.4.0)
+
+### 🚀 Enhancements
+
+- Ux improvements ([7c50c5f](https://github.com/selimdoyranli/revilink/commit/7c50c5f))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.3.5
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.4...v1.3.5)
