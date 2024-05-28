@@ -3,6 +3,18 @@ import { isTwitterDomain } from '../detector/twitter.detector.util'
 const { withoutTrailingSlash, withProtocol } = require('ufo')
 
 /**
+ * @function hasSubdomain Check if the URL has a subdomain
+ * @param {string} url Url
+ * @returns {boolean} True if the URL has a subdomain, false otherwise
+ */
+export const hasSubdomain = (url: string) => {
+  const urlObj = new URL(url)
+  const hostnameParts = urlObj.hostname.split('.')
+
+  return hostnameParts.length > 2
+}
+
+/**
  * @function removeProtocolAndWWW Remove protocol and www for url
  * @param {string} url Url
  * @returns {string} Stripped url
@@ -91,7 +103,7 @@ export const linkViewFormat = ({ url }: { url: string }) => {
 
   _url = convertToRevilinkFormat({ url: _url })
 
-  if (isSahibindenDomain(_url) || isSahibindenIlan(_url)) {
+  if ((isSahibindenDomain(_url) || isSahibindenIlan(_url)) && !hasSubdomain(_url)) {
     _url = withProtocol(_url, 'http://www.')
   }
 
