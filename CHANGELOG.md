@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.0...v1.3.1)
+
+### 🏡 Chore
+
+- Add local cookie dialog ([d5616e7](https://github.com/selimdoyranli/revilink/commit/d5616e7))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.3.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.2.2...v1.3.0)
