@@ -1,4 +1,4 @@
-import { useSahibindenLinkDetector } from '../detectors'
+import { useSahibindenLinkDetector, useTwitterLinkDetector } from '../detectors'
 
 const generateTitleBySlug = (slug: string) => {
   const words = slug.split('-')
@@ -9,6 +9,7 @@ const generateTitleBySlug = (slug: string) => {
 
 export default () => {
   const { isSahibindenDomain, isSahibindenIlan, getSahibindenIlanGecmisi } = useSahibindenLinkDetector()
+  const { isTwitterDomain, isXDomain } = useTwitterLinkDetector()
 
   const getLinkMeta = async (url: string) => {
     if (isSahibindenIlan(url)) {
@@ -35,10 +36,16 @@ export default () => {
         icon: 'https://www.google.com/s2/favicons?domain=sahibinden.com'
       }
     }
+
+    if (isTwitterDomain(url) || isXDomain(url)) {
+      return {
+        title: 'X',
+        icon: 'https://www.google.com/s2/favicons?domain=x.com'
+      }
+    }
   }
 
   return {
-    getLinkMeta,
-    getSahibindenIlanGecmisi
+    getLinkMeta
   }
 }

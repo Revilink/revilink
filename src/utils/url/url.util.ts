@@ -1,4 +1,5 @@
 import { isSahibindenIlan } from '../detector/sahibinden.detector.util'
+import { isTwitterDomain } from '../detector/twitter.detector.util'
 const { withoutTrailingSlash, withProtocol } = require('ufo')
 
 /**
@@ -85,6 +86,10 @@ export const convertToRevilinkFormat = ({ url }: { url: string }) => {
       urlObj.hostname = 'www.' + urlObj.hostname
     }
     _url = urlObj.toString()
+  }
+
+  if (isTwitterDomain(_url)) {
+    _url = _url.replace('twitter.com', 'x.com')
   }
 
   return _url
