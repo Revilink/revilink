@@ -14,19 +14,23 @@
 
   // Login Dialog
   LoginDialog
+
+  // Cookie Dialog
+  CookieDialog
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { AppPreloader } from '@/components/Preloader'
 import { AppHeader } from '@/components/Header'
-import { LoginDialog } from '@/components/Dialog'
+import { LoginDialog, CookieDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     AppPreloader,
     AppHeader,
-    LoginDialog
+    LoginDialog,
+    CookieDialog
   },
   setup() {}
 })
