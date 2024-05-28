@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.3.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.2.2...v1.3.0)
+
+### 🚀 Enhancements
+
+- Add twitter link detector ([904b8e7](https://github.com/selimdoyranli/revilink/commit/904b8e7))
+
+### 🩹 Fixes
+
+- Update broken manifest path ([953fa36](https://github.com/selimdoyranli/revilink/commit/953fa36))
+
+### 💅 Refactors
+
+- Update auth config ([97b88b7](https://github.com/selimdoyranli/revilink/commit/97b88b7))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.2.2
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.2.1...v1.2.2)
