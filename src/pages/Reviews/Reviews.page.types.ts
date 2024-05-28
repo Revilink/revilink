@@ -9,8 +9,9 @@ type SiteMetaTypes = {
 }
 
 export type SiteTypes = {
-  isBusy: boolean
   isAllowed: boolean
+  isInDetector: boolean
+  isBusy: boolean
   meta: SiteMetaTypes
 }
 

@@ -279,7 +279,8 @@ export default {
       meta: {
         tooltip: {
           allowed: `Linke ait web sayfası bilgileri alındı`,
-          noAllow: `Linke ait web sayfası bilgileri alınamadı, bu nedenle sadece URL görüyorsun`
+          noAllow: `Linke ait web sayfası bilgileri izin verilmediği için alınamadı, bu nedenle sadece URL görüyorsun`,
+          inDetector: `Linke ait gerçek web sayfası bilgileri izin verilmediği için alınamadı`
         }
       }
     }

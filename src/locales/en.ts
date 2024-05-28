@@ -284,7 +284,8 @@ export default {
       meta: {
         tooltip: {
           allowed: `The data of the web page of this link has been retrieved`,
-          noAllow: `Couldn't get the information of the web page for the link, so you only see the URL`
+          noAllow: `The web page information for the link could not be retrieved because it is not allowed, so you only see the URL`,
+          inDetector: `The actual web page information of the link could not be retrieved because permission was denied`
         }
       }
     }

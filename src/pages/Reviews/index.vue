@@ -15,12 +15,12 @@
           vs-avatar.reviews-page-review-meta__avatar(
             badge-position="top-left"
             :badge="!site.isBusy"
-            :badge-color="site.isAllowed ? 'success' : '#ddd'"
+            :badge-color="site.isInDetector ? '#ddd' : site.isAllowed ? 'success' : '#ddd'"
           )
             AppLoading(v-if="site.isBusy" :size="20")
             template(v-else)
               img(
-                v-if="site.isAllowed && site.meta.icon"
+                v-if="(site.isInDetector || site.isAllowed) && site.meta.icon"
                 :src="site.meta.icon"
                 :alt="$t('general.avatar')"
                 width="16"
@@ -30,11 +30,12 @@
               AppIcon(v-else name="charm:globe" color="var(--color-text-01)" :width="24" :height="24")
 
           template(#tooltip)
-            span(v-if="site.isAllowed") {{ $t('reviews.site.meta.tooltip.allowed') }}
+            span(v-if="site.isInDetector") {{ $t('reviews.site.meta.tooltip.inDetector') }}
+            span(v-else-if="site.isAllowed") {{ $t('reviews.site.meta.tooltip.allowed') }}
             span(v-else) {{ $t('reviews.site.meta.tooltip.noAllow') }}
 
         .reviews-page-review-meta__body
-          h1.reviews-page-review-meta__title(v-if="site.isAllowed") {{ site.meta.title }}
+          h1.reviews-page-review-meta__title(v-if="site.isInDetector || site.isAllowed") {{ site.meta.title }}
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
             a(rel="noopener,norel" :title="$route.query.link" :href="convertToRevilinkFormat({ url: $route.query.link })" target="_blank")
@@ -154,6 +155,7 @@ export default defineComponent({
     // Website
     const site: SiteTypes = reactive({
       isAllowed: false,
+      isInDetector: false,
       isBusy: false,
       meta: {}
     })
@@ -172,6 +174,7 @@ export default defineComponent({
       const linkMeta = await getLinkMeta(route.value.query.link as string)
 
       if (linkMeta) {
+        site.isInDetector = true
         site.meta = linkMeta
       } else if (robotsResult.isAllowed) {
         await scrapeSite()
