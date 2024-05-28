@@ -26,7 +26,7 @@ const setUser = async ({ $auth, $api, $cookies }: SetUserParamTypes) => {
     }
   }
 
-  if ($auth.strategy.name === 'google' && $cookies.get('google_auth_jwt_token')) {
+  if ($cookies.get('google_auth_jwt_token')) {
     const { data, error } = await $api.rest.auth.fetchMe()
 
     if (data) {
