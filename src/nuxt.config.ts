@@ -490,10 +490,6 @@ const config: NuxtConfig = {
       handler: '@/server/middleware/link-scraper.ts'
     },
     {
-      path: '/get-ip-info',
-      handler: '@/server/middleware/get-ip-info.ts'
-    },
-    {
       path: '/ai-domain-summary',
       handler: '@/server/middleware/ai-domain-summary.ts'
     },
