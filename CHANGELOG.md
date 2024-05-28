@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.4.0...v1.4.1)
+
+### 🩹 Fixes
+
+- User avatar reactivity fix ([6b14fcc](https://github.com/selimdoyranli/revilink/commit/6b14fcc))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.4.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.5...v1.4.0)
