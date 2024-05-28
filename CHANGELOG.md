@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.1...v1.3.2)
+
+### 🩹 Fixes
+
+- Get api proxy ([3176080](https://github.com/selimdoyranli/revilink/commit/3176080))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.3.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.0...v1.3.1)
