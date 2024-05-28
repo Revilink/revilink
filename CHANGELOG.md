@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.3
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.2...v1.3.3)
+
+### 🩹 Fixes
+
+- Update get ip info fn ([dafc323](https://github.com/selimdoyranli/revilink/commit/dafc323))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.3.2
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.1...v1.3.2)
