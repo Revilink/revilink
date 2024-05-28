@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks'
 
 export default defineComponent({
   layout: 'Default/Default.layout',
+  middleware: ['auth'],
   setup() {
     const { logout } = useAuth()
 

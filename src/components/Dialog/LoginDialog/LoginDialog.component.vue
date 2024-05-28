@@ -8,7 +8,7 @@ client-only
 </template>
 
 <script lang="ts">
-import { defineComponent, useStore, reactive, computed, watch } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useStore, useRouter, reactive, computed, watch } from '@nuxtjs/composition-api'
 import { LoginForm } from '@/components/Form'
 
 export default defineComponent({
@@ -16,7 +16,9 @@ export default defineComponent({
     LoginForm
   },
   setup(_, { emit }) {
+    const context = useContext()
     const store = useStore()
+    const router = useRouter()
 
     const isOpen = computed(() => store.getters['auth-control/isOpenLoginDialog'])
 
@@ -29,6 +31,8 @@ export default defineComponent({
       value => {
         if (value) {
           dialog.isOpen = true
+
+          context.$cookies.set('authNextRedirect', context.route.value.fullPath)
         } else {
           dialog.isOpen = false
         }
@@ -40,6 +44,18 @@ export default defineComponent({
 
       emit('on-close')
     }
+
+    context.$auth.$storage.watchState('loggedIn', async loggedIn => {
+      if (loggedIn) {
+        await store.commit('auth-control/CLOSE_LOGIN_DIALOG')
+
+        const redirect = context.$cookies.get('authNextRedirect')
+
+        if (redirect) {
+          await router.push(redirect)
+        }
+      }
+    })
 
     return {
       dialog,

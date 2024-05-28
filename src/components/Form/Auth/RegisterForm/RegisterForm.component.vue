@@ -8,7 +8,7 @@ form.form.auth-form.register-form(@submit.prevent="handleSubmit")
     .form-item
       ClientOnly
         .auth-provider-buttons
-          vs-button.auth-provider-button.auth-provider-button--google(active type="button" :href="`${$config.API}/connect/google`")
+          vs-button.auth-provider-button.auth-provider-button--google(active type="button" @click.prevent.capture="openGoogleAuth")
             AppIcon.ms-2(name="logos:google-icon")
             | {{ $t('form.register.provider.google.title') }}
           vs-button.auth-provider-button.auth-provider-button--apple(v-if="false" active type="button")
@@ -142,6 +142,12 @@ export default defineComponent({
       }
     }
 
+    const openGoogleAuth = () => {
+      context.$cookies.set('authNextRedirect', context.route.value.fullPath)
+
+      window.location.href = `${context.$config.API}/connect/google`
+    }
+
     const register = async () => {
       state.isBusy = true
 
@@ -196,7 +202,8 @@ export default defineComponent({
       form,
       isVisiblePassword,
       togglePasswordVisibility,
-      handleSubmit
+      handleSubmit,
+      openGoogleAuth
     }
   }
 })

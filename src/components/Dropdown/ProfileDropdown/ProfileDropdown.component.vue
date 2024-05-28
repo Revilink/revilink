@@ -6,9 +6,9 @@
       span.profile-dropdown__username {{ $auth.user.username }}
     template(#body)
       ul.profile-dropdown-list
-        li.profile-dropdown-list-item
+        li.profile-dropdown-list-item.profile-dropdown-list-item--profile
           NuxtLink(:to="localePath({ name: 'Profile', query: { username: $auth.user.username } })")
-            AppIcon.profile-dropdown-list-item__icon(name="ri:user-3-line")
+            AppAvatar.profile-dropdown-avatar.profile-dropdown-list-item__icon(:user="$auth.user" :size="24")
             span.profile-dropdown-list-item__title {{ $auth.user.username }}
         li.profile-dropdown-list-item
           NuxtLink(:to="localePath({ name: 'Settings-Profile' })")
