@@ -38,8 +38,8 @@
           h1.reviews-page-review-meta__title(v-if="site.isInDetector || site.isAllowed") {{ site.meta.title }}
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
-            a(rel="noopener,norel" :title="$route.query.link" :href="convertToRevilinkFormat({ url: $route.query.link })" target="_blank")
-              | {{ convertToRevilinkFormat({ url: $route.query.link }) }}
+            a(rel="noopener,norel" :title="$route.query.link" :href="linkViewFormat({ url: $route.query.link })" target="_blank")
+              | {{ linkViewFormat({ url: $route.query.link }) }}
 
           // Reactions
           .reviews-page-reactions
@@ -105,7 +105,7 @@ import type { Route } from 'vue-router'
 import type { UrlTypes, ReactionTypes, CommentRefTypes, SiteTypes } from './Reviews.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
-import { convertToRevilinkFormat } from '@/utils/url'
+import { convertToRevilinkFormat, linkViewFormat } from '@/utils/url'
 import { useLinkDetector } from '@/hooks'
 import { AppIcon } from '@/components/Icon'
 import { ReactionButtonGroup } from '@/components/ButtonGroup'
@@ -440,7 +440,8 @@ export default defineComponent({
       handleCommentOnSubmit,
       reaction,
       handleReaction,
-      convertToRevilinkFormat
+      convertToRevilinkFormat,
+      linkViewFormat
     }
   },
   head: {}

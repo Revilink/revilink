@@ -1,4 +1,4 @@
-import { isSahibindenIlan } from '../detector/sahibinden.detector.util'
+import { isSahibindenDomain, isSahibindenIlan } from '../detector/sahibinden.detector.util'
 import { isTwitterDomain } from '../detector/twitter.detector.util'
 const { withoutTrailingSlash, withProtocol } = require('ufo')
 
@@ -79,17 +79,20 @@ export const convertToRevilinkFormat = ({ url }: { url: string }) => {
   _url = cleanDirtyParams({ url: _url })
   _url = removeTrailingSlash(_url)
 
-  if (isSahibindenIlan(_url)) {
-    const urlObj = new URL(_url)
-
-    if (!urlObj.hostname.startsWith('www.')) {
-      urlObj.hostname = 'www.' + urlObj.hostname
-    }
-    _url = urlObj.toString()
-  }
-
   if (isTwitterDomain(_url)) {
     _url = _url.replace('twitter.com', 'x.com')
+  }
+
+  return _url
+}
+
+export const linkViewFormat = ({ url }: { url: string }) => {
+  let _url = url
+
+  _url = convertToRevilinkFormat({ url: _url })
+
+  if (isSahibindenDomain(_url) || isSahibindenIlan(_url)) {
+    _url = withProtocol(_url, 'http://www.')
   }
 
   return _url
