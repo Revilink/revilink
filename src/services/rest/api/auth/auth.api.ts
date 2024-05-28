@@ -1,5 +1,6 @@
 import type { Context } from '@nuxt/types'
 import axios from 'axios'
+import { RADKOD_API_URL } from '../../../../../system/constants'
 import type { AuthApiTypes, RegisterTypes, UpdateMeTypes, ForgotPasswordTypes, ResetPasswordTypes } from './auth.api.types'
 import type { AppAxiosType } from '@/services/rest/core/core.types'
 import { userTransformer } from '@/services/rest/transformers'
@@ -166,7 +167,7 @@ export const authApi = (app: Context, appAxios: Function) =>
       }
 
       try {
-        const response = await axios.get('/get-ip-info')
+        const response = await axios.get(`${RADKOD_API_URL}/global/ipinfo.php`)
         const ipData = response.data
 
         if (ipData) {
@@ -177,10 +178,6 @@ export const authApi = (app: Context, appAxios: Function) =>
         }
       } catch (error) {
         console.error('Error fetching IPData info:', error)
-
-        return {
-          error
-        }
       }
 
       return {
