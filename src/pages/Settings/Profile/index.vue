@@ -12,6 +12,7 @@ export default defineComponent({
     ProfileSettingsForm
   },
   layout: 'Settings/Settings.layout',
+  middleware: ['auth'],
   setup() {}
 })
 </script>

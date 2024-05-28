@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRouter, onMounted } from '@nuxtjs/composition-api'
 import { useAuth } from '@/hooks'
 const { getQuery, stringifyQuery } = require('ufo')
 
@@ -18,6 +18,7 @@ export default defineComponent({
   layout: 'Default/Default.layout',
   setup() {
     const context = useContext()
+    const router = useRouter()
     const { setGoogleUser } = useAuth()
 
     const fetchUser = async () => {
@@ -42,6 +43,10 @@ export default defineComponent({
 
     onMounted(async () => {
       await Promise.allSettled([fetchUser(), setUser()])
+
+      if (context.$cookies.get('authNextRedirect')) {
+        router.push(context.$cookies.get('authNextRedirect'))
+      }
     })
   }
 })

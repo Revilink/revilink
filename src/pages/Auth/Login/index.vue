@@ -13,6 +13,7 @@ export default defineComponent({
     LoginForm
   },
   layout: 'Auth/Auth.layout',
+  middleware: ['auth'],
   setup() {
     const context = useContext()
 
