@@ -166,7 +166,7 @@ export const authApi = (app: Context, appAxios: Function) =>
       }
 
       try {
-        const response = await axios.get('https://api.userinfo.io/userinfos')
+        const response = await axios.get('/get-ip-info')
         const ipData = response.data
 
         if (ipData) {
