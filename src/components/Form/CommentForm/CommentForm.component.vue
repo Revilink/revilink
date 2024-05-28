@@ -107,10 +107,10 @@ export default defineComponent({
       }
     }
 
-    const user = computed(() => context.$auth.loggedIn && context.$auth.user)
+    const user = computed(() => (context.$auth.loggedIn ? context.$auth.user : null))
 
     const contentPlaceholder = computed(() => {
-      return user?.value
+      return user.value
         ? context.i18n.t('form.comment.content.placeholder.loggedIn', { username: user.value.username })
         : context.i18n.t('form.comment.content.placeholder.nonLoggedIn')
     })
@@ -123,7 +123,7 @@ export default defineComponent({
       clearForm,
       focus,
       handleSubmit,
-      user: user?.value,
+      user,
       contentPlaceholder
     }
   }
