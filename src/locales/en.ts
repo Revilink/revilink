@@ -395,6 +395,11 @@ export default {
       route: 'revilink-data-scraper'
     }
   },
+  cookie: {
+    title: 'Cookie Policy',
+    description:
+      '🍪 We use cookies to offer an improved online experience and offer you content and services adopted to your interests. By using Revilink you are giving your consent to our <a href="/cms/page/cookie-policy" title="Cookie policy" target="_blank">cookie policy</a>.'
+  },
   seo: {
     reviews: {
       title: 'Reviews about link: {link}',

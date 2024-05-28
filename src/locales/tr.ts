@@ -390,6 +390,10 @@ export default {
       route: 'revilink-veri-kaziyici'
     }
   },
+  cookie: {
+    title: 'Çerez Politikası',
+    description: `🍪 Daha iyi bir çevrimiçi deneyim sunmak ve ilgi alanlarınıza uygun içerik ve hizmetler sunmak için çerezleri kullanıyoruz. Revilink'i kullanarak <a href="/tr/cms/sayfa/cerez-politikasi" title="Çerez politikası" target="_blank">çerez politikamıza</a> onay vermiş oluyorsunuz.`
+  },
   seo: {
     reviews: {
       title: 'Link hakkında incelemeler: {link}',
