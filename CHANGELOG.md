@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v1.3.5
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.4...v1.3.5)
+
+### 🩹 Fixes
+
+- Fix sahibinden detector ([e9ad0cf](https://github.com/selimdoyranli/revilink/commit/e9ad0cf))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
+## v1.3.4
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.3...v1.3.4)
+
+### 🩹 Fixes
+
+- Sahibinden detector fix ([fd3c439](https://github.com/selimdoyranli/revilink/commit/fd3c439))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.3.3
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.3.2...v1.3.3)
