@@ -47,6 +47,16 @@ export default defineComponent({
       if (context.$cookies.get('authNextRedirect')) {
         router.push(context.$cookies.get('authNextRedirect'))
       }
+
+      window.opener.postMessage({ type: 'google-auth-success' }, '*')
+
+      if (window.opener) {
+        setTimeout(() => {
+          window.close()
+        }, 1000)
+      } else {
+        console.warn('window.opener is not available, cannot close the window.')
+      }
     })
   }
 })

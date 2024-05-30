@@ -16,7 +16,8 @@ export default {
     updateFailed: 'Güncelleme başarısız oldu',
     editFailed: 'Düzenleme başarısız oldu',
     deleteFailed: 'Silme başarısız oldu',
-    uploadFailed: 'Yükleme başarısız oldu'
+    uploadFailed: 'Yükleme başarısız oldu',
+    copyFailed: 'Kopyalama başarısız oldu'
   },
   success: {
     successfuly: 'İşlem başarılı',
@@ -24,7 +25,8 @@ export default {
     updateSuccessfully: 'Güncellendi',
     editSuccessfully: 'Düzenleme başarılı',
     deleteSuccessfully: 'Silindi',
-    uploadSuccessfully: 'Yükleme başarılı'
+    uploadSuccessfully: 'Yükleme başarılı',
+    copySuccessfully: 'Başarıyla kopyalandı'
   },
   general: {
     loading: 'Yükleniyor',
@@ -66,7 +68,10 @@ export default {
     websiteLanguage: 'Site dili',
     loadingProfile: 'Profil yükleniyor',
     loadingComments: 'Yorumlar yükleniyor',
-    loadingReplies: 'Yanıtlar yükleniyor'
+    loadingReplies: 'Yanıtlar yükleniyor',
+    options: 'Seçenekler',
+    embedCode: 'Embed kodu',
+    copyEmbedCode: 'Embed kodunu kopyala'
   },
   hero: {
     home: {
@@ -285,6 +290,31 @@ export default {
       }
     }
   },
+  createReviewsEmbed: {
+    title: 'Yorum embedi oluştur',
+    description: 'Web siteniz için bir yorum embed oluşturun. Web sayfanız için ücretsiz yorum embed ekleyin',
+    options: {
+      link: 'Link',
+      perPage: 'Sayfa başına yorum',
+      page: 'Sayfa',
+      urlReactions: 'URL Reaksiyonları',
+      commentListHead: 'Yorum Listesi Başlığı',
+      avatar: 'Avatar',
+      like: 'Beğen',
+      reply: 'Yanıtlar',
+      commentFormAvatar: 'Yorum Formu Avatarı',
+      commentForm: 'Yorum Formu'
+    },
+    submit: {
+      action: {
+        title: 'Embed oluştur'
+      }
+    },
+    embed: {
+      title: 'Sizin embediniz',
+      hint: 'Kesik çizgili çerçeve sizin web sayfanızda görünmeyecek'
+    }
+  },
   state: {
     empty: {
       noResults: {
@@ -398,6 +428,10 @@ export default {
     reviews: {
       title: 'Link hakkında incelemeler: {link}',
       description: 'İnsanlar bu link hakkında ne diyor? link hakkında yorumları ve reaksiyonları görün: {link}'
+    },
+    createReviewsEmbed: {
+      title: 'Yorum embedi oluştur, web sayfana yorum alanı ekle',
+      description: 'Web siteniz için bir yorum embed oluşturun. Web sayfanız için ücretsiz yorum embed ekleyin'
     }
   }
 }

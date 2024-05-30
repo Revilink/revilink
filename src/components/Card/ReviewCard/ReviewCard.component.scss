@@ -9,6 +9,14 @@
 
   position: relative;
 
+  &:not(:has(.review-card__avatar)) {
+    #{$review-card} {
+      &__inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
   &__inner {
     position: relative;
     display: grid;

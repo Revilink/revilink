@@ -2,18 +2,30 @@
 client-only
   vs-dialog.login-dialog(v-model="dialog.isOpen" blur @close="handleClose")
     template(#header)
-      h2.mb-2 {{ $t('general.login') }}
+      h2.mb-2
+        template(v-if="activeAuthForm === 'login'") {{ $t('general.login') }}
+        template(v-if="activeAuthForm === 'register'") {{ $t('general.register') }}
 
-    LoginForm
+    div(v-show="activeAuthForm === 'login'")
+      LoginForm(:variant="variant" @on-click-register-link="onClickRegisterLink")
+    div(v-show="activeAuthForm === 'register'")
+      RegisterForm(:variant="variant" @on-click-login-link="onClickLoginLink")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useStore, useRouter, reactive, computed, watch } from '@nuxtjs/composition-api'
-import { LoginForm } from '@/components/Form'
+import { defineComponent, useContext, useStore, useRouter, ref, reactive, computed, watch } from '@nuxtjs/composition-api'
+import { LoginForm, RegisterForm } from '@/components/Form'
 
 export default defineComponent({
   components: {
-    LoginForm
+    LoginForm,
+    RegisterForm
+  },
+  props: {
+    variant: {
+      type: String,
+      default: 'default' // 'dialog' | 'embed' | 'default'
+    }
   },
   setup(_, { emit }) {
     const context = useContext()
@@ -57,9 +69,22 @@ export default defineComponent({
       }
     })
 
+    const activeAuthForm = ref('login')
+
+    const onClickRegisterLink = () => {
+      activeAuthForm.value = 'register'
+    }
+
+    const onClickLoginLink = () => {
+      activeAuthForm.value = 'login'
+    }
+
     return {
       dialog,
-      handleClose
+      handleClose,
+      activeAuthForm,
+      onClickRegisterLink,
+      onClickLoginLink
     }
   }
 })

@@ -6,3 +6,4 @@ export { default as profileSettingsValidator } from './profile-settings.validato
 export { default as accountSettingsValidator } from './account-settings.validator'
 export { default as reviewSearchValidator } from './review-search.validator'
 export { default as commentValidator } from './comment.validator'
+export { default as createReviewsEmbedFormValidator } from './create-reviews-embed-form.validator'

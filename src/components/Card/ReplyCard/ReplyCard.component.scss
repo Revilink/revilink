@@ -1,4 +1,6 @@
 .reply-card {
+  $reply-card: '.reply-card';
+
   --user-avatar-width: 48px;
 
   @include media-breakpoint-down(md) {
@@ -6,6 +8,14 @@
   }
 
   position: relative;
+
+  &:not(:has(.reply-card__avatar)) {
+    #{$reply-card} {
+      &__inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
 
   &__inner {
     position: relative;

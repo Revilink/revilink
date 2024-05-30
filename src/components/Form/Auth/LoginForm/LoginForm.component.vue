@@ -58,11 +58,20 @@ form.form.auth-form.login-form(@submit.prevent="handleSubmit")
         vs-button(:loading="state.isBusy" :disabled="state.isBusy")
           | {{ $t('form.login.submit.action.title') }}
           AppIcon.ms-2(name="ri:pass-pending-line")
-        NuxtLink.ms-4(:to="localePath({ name: 'Auth-ForgotPassword' })") {{ $t('form.login.iForgotMyPassword') }}
+        a.ms-4(v-if="variant === 'embed'" :href="localePath({ name: 'Auth-ForgotPassword' })" target="_blank")
+          | {{ $t('form.login.iForgotMyPassword') }}
+        NuxtLink.ms-4(v-else :to="localePath({ name: 'Auth-ForgotPassword' })") {{ $t('form.login.iForgotMyPassword') }}
 
     .form-item.mt-base
       span.me-2 {{ $t('general.doNotYouHaveAnAccountYet') }}
-      NuxtLink(:to="localePath({ name: 'Auth-Register' })") {{ $t('general.createAnAccount') }}
+      a(
+        v-if="variant === 'dialog' || variant === 'embed'"
+        :href="localePath({ name: 'Auth-Register' })"
+        target="_blank"
+        @click.prevent.capture="handleClickRegisterLink"
+      )
+        | {{ $t('general.createAnAccount') }}
+      NuxtLink(v-else :to="localePath({ name: 'Auth-Register' })") {{ $t('general.createAnAccount') }}
 </template>
 
 <script lang="ts">
@@ -78,7 +87,14 @@ export default defineComponent({
     AppLogo,
     AppIcon
   },
-  setup(_, { emit }) {
+  props: {
+    variant: {
+      type: String,
+      required: false,
+      default: 'default' // 'dialog' | 'embed' | 'default'
+    }
+  },
+  setup(props, { emit }) {
     const context = useContext()
 
     const state = reactive({
@@ -114,7 +130,11 @@ export default defineComponent({
     const openGoogleAuth = () => {
       context.$cookies.set('authNextRedirect', context.route.value.fullPath)
 
-      window.location.href = `${context.$config.API}/connect/google`
+      if (props.variant === 'embed') {
+        window.parent.postMessage({ type: 'on-click-google-auth', url: `${context.$config.API}/connect/google` }, '*')
+      } else {
+        window.location.href = `${context.$config.API}/connect/google`
+      }
     }
 
     const login = async () => {
@@ -157,6 +177,12 @@ export default defineComponent({
       state.isBusy = false
     }
 
+    const handleClickRegisterLink = () => {
+      if (props.variant === 'dialog' || props.variant === 'embed') {
+        emit('on-click-register-link')
+      }
+    }
+
     return {
       state,
       v$,
@@ -164,7 +190,8 @@ export default defineComponent({
       isVisiblePassword,
       togglePasswordVisibility,
       handleSubmit,
-      openGoogleAuth
+      openGoogleAuth,
+      handleClickRegisterLink
     }
   }
 })

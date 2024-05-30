@@ -1,7 +1,7 @@
 <template lang="pug">
 .reply-card(:data-id="reply.id")
   .reply-card__inner
-    .reply-card__avatar
+    .reply-card__avatar(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.AVATAR)")
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: reply.user.username } })" :title="reply.user.username")
         AppAvatar(:user="reply.user" :size="48")
 
@@ -22,13 +22,14 @@
 
       client-only
         .reply-card-actions
-          .reply-card-actions-item.like-button(role="button" auth-control :class="[likedClass]" @click="toggleLike")
-            PaperButton.reply-card-actions-item__button(:width="36" :height="36")
-              AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
-              AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
-            span.reply-card-actions-item__label
-              template(v-if="like.count <= 0") {{ $t('general.like') }}
-              template(v-else) {{ like.count }}
+          template(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.LIKE)")
+            .reply-card-actions-item.like-button(role="button" auth-control :class="[likedClass]" @click="toggleLike")
+              PaperButton.reply-card-actions-item__button(:width="36" :height="36")
+                AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
+                AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
+              span.reply-card-actions-item__label
+                template(v-if="like.count <= 0") {{ $t('general.like') }}
+                template(v-else) {{ like.count }}
 
           .reply-card-actions-item.reply-button(v-if="false" role="button" @click="handleClickReply")
             PaperButton.reply-card-actions-item__button(:width="36" :height="36")
@@ -77,7 +78,7 @@
 <script lang="ts">
 import { defineComponent, useContext, reactive } from '@nuxtjs/composition-api'
 import { ReviewTypes } from '@/types'
-import { useCommentLike } from '@/hooks'
+import { useCommentLike, useReviewsEmbed } from '@/hooks'
 import { AppAvatar } from '@/components/Avatar'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
@@ -99,6 +100,10 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const context = useContext()
+
+    const { setReviewsEmbedOptions, reviewsEmbedOptionKeyEnum, getReviewsEmbedOption } = useReviewsEmbed()
+
+    setReviewsEmbedOptions(context.route.value.fullPath)
 
     const form = reactive({
       edit: {
@@ -193,7 +198,9 @@ export default defineComponent({
       handleClickEdit,
       handleEdit,
       handleClickDelete,
-      handleDelete
+      handleDelete,
+      reviewsEmbedOptionKeyEnum,
+      getReviewsEmbedOption
     }
   }
 })

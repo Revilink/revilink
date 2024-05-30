@@ -3,7 +3,7 @@ ClientOnly
   form.form.comment-form(ref="rootRef" auth-control @submit.prevent="handleSubmit")
     .form__inner
       .comment-form-card
-        .comment-form-card__avatar(circle size="48")
+        .comment-form-card__avatar(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_FORM_AVATAR)" circle size="48")
           NuxtLink(v-if="user" :to="localePath({ name: 'Profile', query: { username: user.username } })" :title="user.username")
             AppAvatar(:user="user" :size="48")
           AppAvatar(v-else :size="48")
@@ -37,6 +37,7 @@ import { defineComponent, useContext, ref, reactive, watch, computed } from '@nu
 import { useVuelidate } from '@vuelidate/core'
 import type { Ref } from 'vue'
 import type { FormTypes } from './CommentForm.component.types'
+import { useReviewsEmbed } from '@/hooks'
 import { commentValidator } from '@/validator'
 import { AppAvatar } from '@/components/Avatar'
 import { AppTextarea } from '@/components/Textarea'
@@ -59,11 +60,14 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const baseClassName = 'comment-form'
-
-    const rootRef: Ref<HTMLElement | null> = ref(null)
-
     const context = useContext()
+
+    const { setReviewsEmbedOptions, reviewsEmbedOptionKeyEnum, getReviewsEmbedOption } = useReviewsEmbed()
+
+    setReviewsEmbedOptions(context.route.value.fullPath)
+
+    const baseClassName = 'comment-form'
+    const rootRef: Ref<HTMLElement | null> = ref(null)
 
     const state = reactive({
       isBusy: props.isBusy
@@ -124,7 +128,9 @@ export default defineComponent({
       focus,
       handleSubmit,
       user,
-      contentPlaceholder
+      contentPlaceholder,
+      reviewsEmbedOptionKeyEnum,
+      getReviewsEmbedOption
     }
   }
 })

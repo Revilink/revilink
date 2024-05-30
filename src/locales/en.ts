@@ -16,7 +16,8 @@ export default {
     updateFailed: 'Update failed',
     editFailed: 'Edit failed',
     deleteFailed: 'Delete failed',
-    uploadFailed: 'Upload failed'
+    uploadFailed: 'Upload failed',
+    copyFailed: 'Copy failed'
   },
   success: {
     successfuly: 'Successfully',
@@ -24,7 +25,8 @@ export default {
     updateSuccessfully: 'Update successfully',
     editSuccessfully: 'Edit successfully',
     deleteSuccessfully: 'Delete successfully',
-    uploadSuccessfully: 'Upload successfully'
+    uploadSuccessfully: 'Upload successfully',
+    copySuccessfully: 'Copy successfully'
   },
   general: {
     loading: 'Loading',
@@ -66,7 +68,10 @@ export default {
     websiteLanguage: 'Website language',
     loadingProfile: 'Loading profile',
     loadingComments: 'Loading comments',
-    loadingReplies: 'Loading replies'
+    loadingReplies: 'Loading replies',
+    options: 'Options',
+    embedCode: 'Embed code',
+    copyEmbedCode: 'Copy embed code'
   },
   hero: {
     home: {
@@ -290,6 +295,31 @@ export default {
       }
     }
   },
+  createReviewsEmbed: {
+    title: 'Create comments embed',
+    description: 'Create a comments embed for your website. Add free comments embed for your web page',
+    options: {
+      link: 'Link',
+      perPage: 'Per page',
+      page: 'Page',
+      urlReactions: 'Url Reactions',
+      commentListHead: 'Comment List Head',
+      avatar: 'Avatar',
+      like: 'Like',
+      reply: 'Replies',
+      commentFormAvatar: 'Comment Form Avatar',
+      commentForm: 'Comment Form'
+    },
+    submit: {
+      action: {
+        title: 'Create embed'
+      }
+    },
+    embed: {
+      title: 'Your embed',
+      hint: 'The dashed border will not appear in your web page'
+    }
+  },
   state: {
     empty: {
       noResults: {
@@ -404,6 +434,10 @@ export default {
     reviews: {
       title: 'Reviews about link: {link}',
       description: 'What people are saying about this link? See comments and reactions about the link: {link}'
+    },
+    createReviewsEmbed: {
+      title: 'Create comments embed, add free comments embed to your web page',
+      description: 'Create a comments embed for your website. Add free comments embed for your web page'
     }
   }
 }

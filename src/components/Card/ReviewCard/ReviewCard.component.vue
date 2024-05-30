@@ -3,7 +3,7 @@
   slot(name="prepend")
 
   .review-card__inner
-    .review-card__avatar(circle size="48")
+    .review-card__avatar(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.AVATAR)" circle size="48")
       NuxtLink(:to="localePath({ name: 'Profile', query: { username: review.user.username } })" :title="review.user.username")
         AppAvatar(:user="review.user" :size="48")
 
@@ -41,26 +41,38 @@
 
       client-only
         .review-card-actions
-          .review-card-actions-item.like-button(role="button" auth-control :class="[likedClass]" @click="toggleLike")
-            PaperButton.review-card-actions-item__button(:width="36" :height="36")
-              AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
-              AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
-            span.review-card-actions-item__label
-              template(v-if="isDetailed")
-                template(v-if="like.isActive") {{ $t('general.unlike') }}
-                template(v-else) {{ $t('general.like') }}
-              template(v-else)
-                template(v-if="like.count <= 0") {{ $t('general.like') }}
-                template(v-else) {{ like.count }}
+          template(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_REACTIONS)")
+            .review-card-actions-item.like-button(
+              v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.LIKE)"
+              role="button"
+              auth-control
+              :class="[likedClass]"
+              @click="toggleLike"
+            )
+              PaperButton.review-card-actions-item__button(:width="36" :height="36")
+                AppIcon(v-if="like.isActive" name="ri:heart-3-fill" :width="18" :height="18")
+                AppIcon(v-else name="ri:heart-3-line" :width="18" :height="18")
+              span.review-card-actions-item__label
+                template(v-if="isDetailed")
+                  template(v-if="like.isActive") {{ $t('general.unlike') }}
+                  template(v-else) {{ $t('general.like') }}
+                template(v-else)
+                  template(v-if="like.count <= 0") {{ $t('general.like') }}
+                  template(v-else) {{ like.count }}
 
-          .review-card-actions-item.reply-button(role="button" auth-control @click="handleClickReply")
-            PaperButton.review-card-actions-item__button(:width="36" :height="36")
-              AppIcon(name="ri:chat-1-line" :width="18" :height="18")
-            span.review-card-actions-item__label
-              template(v-if="isDetailed") {{ $t('general.reply') }}
-              template(v-else)
-                template(v-if="reply.count <= 0") {{ $t('general.reply') }}
-                template(v-else) {{ reply.count }}
+            .review-card-actions-item.reply-button(
+              v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.REPLY)"
+              role="button"
+              auth-control
+              @click="handleClickReply"
+            )
+              PaperButton.review-card-actions-item__button(:width="36" :height="36")
+                AppIcon(name="ri:chat-1-line" :width="18" :height="18")
+              span.review-card-actions-item__label
+                template(v-if="isDetailed") {{ $t('general.reply') }}
+                template(v-else)
+                  template(v-if="reply.count <= 0") {{ $t('general.reply') }}
+                  template(v-else) {{ reply.count }}
 
           template(v-if="$auth.loggedIn && $auth.user.username === review.user.username")
             .review-card-actions-item.edit-button(role="button" @click="handleClickEdit")
@@ -95,7 +107,9 @@
       span {{ fetchState.error }}
   template(v-else)
     // Replies
-    .review-card-replies(v-if="withReplies && reply.items && reply.items.length > 0")
+    .review-card-replies(
+      v-if="withReplies && reply.items && reply.items.length > 0 && getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.REPLY)"
+    )
       h4.review-card-replies__title {{ $t('general.replies') }}
 
       template(v-for="(replyItem, index) in reply.items")
@@ -152,7 +166,7 @@ import { defineComponent, useContext, useFetch, ref, reactive, computed } from '
 import type { Ref } from 'vue'
 import type { ReviewTypes } from '@/types'
 import { formatToFullDate } from '@/utils/date'
-import { useCommentLike } from '@/hooks'
+import { useCommentLike, useReviewsEmbed } from '@/hooks'
 import { AppAvatar } from '@/components/Avatar'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
@@ -192,6 +206,10 @@ export default defineComponent({
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
     const context = useContext()
+
+    const { setReviewsEmbedOptions, reviewsEmbedOptionKeyEnum, getReviewsEmbedOption } = useReviewsEmbed()
+
+    setReviewsEmbedOptions(context.route.value.fullPath)
 
     const form = reactive({
       reply: {
@@ -292,7 +310,7 @@ export default defineComponent({
     })
 
     const { fetch, fetchState } = useFetch(async () => {
-      if (props.withReplies) {
+      if (props.withReplies || getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.REPLY)) {
         const { data: replies } = await context.$api.rest.review.fetchReviews({
           populate: `populate=url,user,user.avatar,images`,
           filters: `filters[parent][id]=${props.review.id}`,
@@ -351,9 +369,9 @@ export default defineComponent({
     })
 
     return {
-      rootRef,
       fetch,
       fetchState,
+      rootRef,
       form,
       like,
       toggleLike,
@@ -369,7 +387,9 @@ export default defineComponent({
       handleReplyEdit,
       handleReplyDelete,
       detailedClass,
-      formatToFullDate
+      formatToFullDate,
+      reviewsEmbedOptionKeyEnum,
+      getReviewsEmbedOption
     }
   }
 })

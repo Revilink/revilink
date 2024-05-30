@@ -440,6 +440,14 @@ const config: NuxtConfig = {
           'cms/page/_slug': {
             en: '/cms/page/:slug',
             tr: '/cms/sayfa/:slug'
+          },
+          'Tool/CreateReviewsEmbed/index': {
+            en: '/create-comments-embed',
+            tr: '/yorum-embed-olustur'
+          },
+          'Integration/Embed/Reviews/index': {
+            en: '/embed/reviews',
+            tr: '/embed/incelemeler'
           }
         }
       }
