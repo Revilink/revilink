@@ -18,6 +18,10 @@
       grid-column-gap: calc(var(--spacer-base) / 4);
     }
 
+    &:not(:has(.comment-form-card__avatar)) {
+      grid-template-columns: 1fr;
+    }
+
     &__avatar {
       position: relative;
       width: var(--user-avatar-width);

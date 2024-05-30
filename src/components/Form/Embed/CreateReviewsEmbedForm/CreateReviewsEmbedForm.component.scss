@@ -1,0 +1,85 @@
+.create-reviews-embed-form {
+  position: relative;
+
+  .sidebar {
+    padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 2);
+    background-color: var(--color-ui-02);
+    border-radius: var(--border-radius-01);
+
+    @include media-breakpoint-down(md) {
+      margin-block-end: calc(var(--spacer) * 10);
+    }
+
+    .form__inner {
+      .form-item:nth-child(1),
+      .form-item:nth-child(2) {
+        margin-block-end: calc(var(--spacer) * 10);
+      }
+    }
+  }
+
+  .form__inner {
+    .form-item {
+      &--link {
+        margin-block: var(--spacer-base);
+        margin-block-start: calc(var(--spacer-base) * 2);
+
+        label {
+          top: calc(var(--spacer) * 4 * -1);
+          left: 0 !important;
+          font-size: var(--font-size-text-21);
+        }
+      }
+
+      &--embed {
+        section {
+          border: 1px dashed var(--color-border-02);
+          border-radius: var(--border-radius-01);
+
+          &:hover {
+            border: 1px dashed transparent;
+          }
+        }
+
+        iframe {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.embed-code-dialog {
+  $vs-dialog: '.vs-dialog';
+
+  #{$vs-dialog} {
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+
+    &__content {
+      width: var(--breakpoint-md);
+      max-width: var(--breakpoint-md);
+      padding: var(--spacer-base);
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+        max-width: 100%;
+        padding: calc(var(--spacer-base) / 2);
+      }
+    }
+  }
+
+  &__textarea {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 2);
+    color: var(--color-text-02);
+    font-size: var(--font-size-text-21);
+    background-color: var(--color-field-02);
+    border-radius: var(--border-radius-01);
+    box-shadow: var(--box-shadow-01);
+    resize: none;
+  }
+}

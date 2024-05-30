@@ -92,7 +92,13 @@ form.form.auth-form.register-form(@submit.prevent="handleSubmit")
 
     .form-item.mt-base
       span.me-2 {{ $t('general.doYouHaveAnAccount') }}
-      NuxtLink(:to="localePath({ name: 'Auth-Login' })") {{ $t('form.login.title') }}
+      a(
+        v-if="variant === 'dialog' || variant === 'embed'"
+        :href="localePath({ name: 'Auth-Login' })"
+        target="_blank"
+        @click.prevent.capture="handleClickLoginLink"
+      ) {{ $t('form.login.title') }}
+      NuxtLink(v-else :to="localePath({ name: 'Auth-Login' })") {{ $t('form.login.title') }}
 </template>
 
 <script lang="ts">
@@ -108,7 +114,13 @@ export default defineComponent({
     AppLogo,
     AppIcon
   },
-  setup(_, { emit }) {
+  props: {
+    variant: {
+      type: String,
+      default: 'default' // 'dialog' | 'embed' | 'default'
+    }
+  },
+  setup(props, { emit }) {
     const context = useContext()
 
     const state = reactive({
@@ -145,7 +157,11 @@ export default defineComponent({
     const openGoogleAuth = () => {
       context.$cookies.set('authNextRedirect', context.route.value.fullPath)
 
-      window.location.href = `${context.$config.API}/connect/google`
+      if (props.variant === 'embed') {
+        window.parent.postMessage({ type: 'on-click-google-auth', url: `${context.$config.API}/connect/google` }, '*')
+      } else {
+        window.location.href = `${context.$config.API}/connect/google`
+      }
     }
 
     const register = async () => {
@@ -196,6 +212,12 @@ export default defineComponent({
       state.isBusy = false
     }
 
+    const handleClickLoginLink = () => {
+      if (props.variant === 'dialog' || props.variant === 'embed') {
+        emit('on-click-login-link')
+      }
+    }
+
     return {
       state,
       v$,
@@ -203,7 +225,8 @@ export default defineComponent({
       isVisiblePassword,
       togglePasswordVisibility,
       handleSubmit,
-      openGoogleAuth
+      openGoogleAuth,
+      handleClickLoginLink
     }
   }
 })
