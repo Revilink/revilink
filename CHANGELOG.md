@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.5.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.5.0...v1.5.1)
+
+### 🩹 Fixes
+
+- Fix auth for embed ([3a53854](https://github.com/selimdoyranli/revilink/commit/3a53854))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.5.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.4.1...v1.5.0)
