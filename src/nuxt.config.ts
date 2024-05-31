@@ -331,7 +331,7 @@ const config: NuxtConfig = {
       {
         redirect: {
           login: '/login',
-          logout: null
+          logout: false
         },
         strategies: {
           local: {
