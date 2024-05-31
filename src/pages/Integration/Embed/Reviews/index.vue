@@ -147,7 +147,7 @@ export default defineComponent({
         pagination: `pagination[page]=${review.page}&pagination[pageSize]=${getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.PER_PAGE)}`
       })
 
-      if (data.items?.length <= 0) {
+      if (data?.items?.length <= 0) {
         review.page = 1
       }
     })
