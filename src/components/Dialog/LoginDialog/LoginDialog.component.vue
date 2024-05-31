@@ -27,7 +27,7 @@ export default defineComponent({
       default: 'dialog' // 'dialog' | 'embed'
     }
   },
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const context = useContext()
     const store = useStore()
     const router = useRouter()
@@ -61,10 +61,16 @@ export default defineComponent({
       if (loggedIn) {
         await store.commit('auth-control/CLOSE_LOGIN_DIALOG')
 
-        const redirect = context.$cookies.get('authNextRedirect')
+        if (props.variant === 'dialog') {
+          const redirect = context.$cookies.get('authNextRedirect')
 
-        if (redirect) {
-          await router.push(redirect)
+          if (redirect) {
+            await router.push(redirect)
+          }
+        }
+
+        if (props.variant === 'embed') {
+          window.location.reload()
         }
       }
     })
