@@ -50,21 +50,6 @@ export default defineComponent({
 
       window.opener.postMessage({ type: 'google-auth-success' }, '*')
 
-      window.addEventListener('message', event => {
-        if (event.origin === 'https://revilink.io') {
-          if (event.data.type === 'user-session') {
-            const sessionToken = event.data.sessionToken
-
-            // Mevcut çerezleri kontrol et ve uygun çerezi setle
-            if (context.$cookies.get('auth._token.google')) {
-              context.$cookies.set('auth._token.google', sessionToken, 7) // 7 gn boyunca geçerli
-            }
-
-            console.log('Session token received and set in cookie:', sessionToken)
-          }
-        }
-      })
-
       if (window.opener) {
         setTimeout(() => {
           window.close()
