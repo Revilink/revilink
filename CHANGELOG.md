@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v1.6.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.0...v1.6.1)
+
+### 🩹 Fixes
+
+- Ssr fix on embed provider ([be3fa5a](https://github.com/selimdoyranli/revilink/commit/be3fa5a))
+
+### 🏡 Chore
+
+- **release:** V1.6.1 ([b678f73](https://github.com/selimdoyranli/revilink/commit/b678f73))
+- **release:** V1.6.1" ([225dae6](https://github.com/selimdoyranli/revilink/commit/225dae6))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.5.2...v1.6.0)
