@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.6.6
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.5...v1.6.6)
+
+### 🏡 Chore
+
+- Update auth config ([217d1e5](https://github.com/selimdoyranli/revilink/commit/217d1e5))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.5
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.4...v1.6.5)
