@@ -333,6 +333,15 @@ const config: NuxtConfig = {
           login: '/login',
           logout: false
         },
+        localStorage: false,
+        cookie: {
+          prefix: 'auth.',
+          options: {
+            domain: process.env.NODE_ENV === 'production' ? '.revilink.io' : 'localhost',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+          }
+        },
         strategies: {
           local: {
             token: {
