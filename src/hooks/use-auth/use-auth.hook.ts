@@ -10,11 +10,21 @@ export default () => {
    * @param {SetGoogleUserTypes} params
    */
   const setGoogleUser: SetGoogleUserTypes = async ({ callbackParams, googleResponse }) => {
-    const cookieOptions = process.env.NODE_ENV === 'production' ? { domain: '.revilink.io', sameSite: 'none' } : {}
-
-    await context.$cookies.set('google_auth_callback_params', stringifyQuery(callbackParams), cookieOptions)
-    await context.$cookies.set('google_auth_jwt_token', googleResponse.jwt, cookieOptions)
-    await context.$cookies.set('google_auth_access_token', callbackParams.access_token, cookieOptions)
+    await context.$cookies.set('google_auth_callback_params', stringifyQuery(callbackParams), {
+      domain: process.env.NODE_ENV === 'production' ? '.revilink.io' : 'localhost',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    })
+    await context.$cookies.set('google_auth_jwt_token', googleResponse.jwt, {
+      domain: process.env.NODE_ENV === 'production' ? '.revilink.io' : 'localhost',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    })
+    await context.$cookies.set('google_auth_access_token', callbackParams.access_token, {
+      domain: process.env.NODE_ENV === 'production' ? '.revilink.io' : 'localhost',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    })
     await context.$auth.setStrategy('google')
     await context.$auth.setUserToken(googleResponse.jwt)
     await context.$auth.setUser(googleResponse.user)
