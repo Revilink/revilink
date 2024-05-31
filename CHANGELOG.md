@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.6.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.1...v1.6.2)
+
+### 🩹 Fixes
+
+- Reviews embed redirect fix ([1c48331](https://github.com/selimdoyranli/revilink/commit/1c48331))
+- Update url in constants ([ec0a5ac](https://github.com/selimdoyranli/revilink/commit/ec0a5ac))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.0...v1.6.1)
