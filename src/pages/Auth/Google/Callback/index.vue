@@ -19,6 +19,7 @@ export default defineComponent({
   setup() {
     const context = useContext()
     const router = useRouter()
+
     const { setGoogleUser } = useAuth()
 
     const fetchUser = async () => {
@@ -44,8 +45,10 @@ export default defineComponent({
     onMounted(async () => {
       await Promise.allSettled([fetchUser(), setUser()])
 
-      if (context.$cookies.get('authNextRedirect')) {
-        router.push(context.$cookies.get('authNextRedirect'))
+      const redirectPath = context.$cookies.get('authNextRedirect')
+
+      if (redirectPath) {
+        await router.push(redirectPath)
       }
 
       if (context.$auth.user) {

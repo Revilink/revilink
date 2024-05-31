@@ -10,17 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, onMounted } from '@nuxtjs/composition-api'
 import { useAuth } from '@/hooks'
 
 export default defineComponent({
   layout: 'Default/Default.layout',
   middleware: ['auth'],
   setup() {
+    const context = useContext()
     const { logout } = useAuth()
 
     onMounted(async () => {
       await logout()
+      await context.redirect(context.localePath('/'))
     })
 
     return {

@@ -62,10 +62,10 @@ export default defineComponent({
         await store.commit('auth-control/CLOSE_LOGIN_DIALOG')
 
         if (props.variant === 'dialog') {
-          const redirect = context.$cookies.get('authNextRedirect')
+          const redirectPath = context.$cookies.get('authNextRedirect')
 
-          if (redirect) {
-            await router.push(redirect)
+          if (redirectPath) {
+            await router.push(redirectPath)
           }
         }
 
