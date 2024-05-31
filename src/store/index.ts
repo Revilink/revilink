@@ -1,6 +1,31 @@
 import type { Context } from '@nuxt/types'
 
+type ControlOldCookiesParamTypes = Pick<Context, '$cookies'>
 type SetUserParamTypes = Pick<Context, '$auth' | '$api' | '$cookies'>
+
+const controlOldCookies = ({ $cookies }: ControlOldCookiesParamTypes) => {
+  const flagName = 'cookies_cleared'
+
+  if (!$cookies.get(flagName)) {
+    // Clear all cookies
+    const allCookies = $cookies.getAll()
+
+    for (const cookieName in allCookies) {
+      $cookies.remove(cookieName)
+    }
+
+    // Clear localStorage
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear()
+    }
+
+    // Set flag to indicate cookies have been cleared
+    $cookies.set(flagName, true, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 365 // 1 year
+    })
+  }
+}
 
 const setUser = async ({ $auth, $api, $cookies }: SetUserParamTypes) => {
   const logout = async () => {
@@ -26,12 +51,12 @@ const setUser = async ({ $auth, $api, $cookies }: SetUserParamTypes) => {
     }
   }
 
-  if ($cookies.get('google_auth_jwt_token')) {
+  if ($cookies.get('auth._token.google')) {
     const { data, error } = await $api.rest.auth.fetchMe()
 
     if (data) {
       await $auth.setStrategy('google')
-      await $auth.setUserToken(`${$cookies.get('google_auth_jwt_token')}`)
+      await $auth.setUserToken(`${$cookies.get('auth._token.google')}`)
       await $auth.setUser(data)
     }
 
@@ -43,6 +68,7 @@ const setUser = async ({ $auth, $api, $cookies }: SetUserParamTypes) => {
 
 export const actions = {
   async nuxtServerInit({ _ }: unknown, { $auth, $api, $cookies }: Context) {
+    await controlOldCookies({ $cookies })
     await setUser({ $auth, $api, $cookies })
 
     // Watch Auth State
@@ -54,6 +80,7 @@ export const actions = {
   },
 
   async nuxtClientInit({ _ }: unknown, { $auth, $api, $cookies }: Context) {
+    await controlOldCookies({ $cookies })
     await setUser({ $auth, $api, $cookies })
 
     // Watch Auth State
