@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.6.4
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.3...v1.6.4)
+
+### 💅 Refactors
+
+- Update auth for reviews embed ([c4acbf6](https://github.com/selimdoyranli/revilink/commit/c4acbf6))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.3
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.2...v1.6.3)
