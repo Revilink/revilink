@@ -44,7 +44,8 @@
     CommentForm(ref="commentFormRef" :is-busy="comment.isBusy" @on-submit="handleCommentOnSubmit")
 
   .d-flex.justify-content-end.mb-base.pb-base
-    vs-button.ml-auto.d-block.me-4(v-if="$auth.user" size="small" border @click="handleClickLogoutButton") {{ $t('general.logout') }}
+    ClientOnly
+      vs-button.ml-auto.d-block.me-4(v-if="$auth.user" size="small" border @click="handleClickLogoutButton") {{ $t('general.logout') }}
 
   footer.embed-reviews-page__copyright(aria-label="Powered by Revilink")
 
