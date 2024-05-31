@@ -48,14 +48,18 @@ export default defineComponent({
         router.push(context.$cookies.get('authNextRedirect'))
       }
 
-      if (window.opener) {
-        window.opener.postMessage({ type: 'google-auth-success' }, '*')
+      if (context.$auth.user) {
+        window.parent.postMessage({ type: 'google-callback-success' }, '*')
 
-        setTimeout(() => {
-          window.close()
-        }, 1000)
-      } else {
-        console.warn('window.opener is not available, cannot close the window.')
+        if (window.opener) {
+          window.opener.postMessage({ type: 'google-callback-success' }, '*')
+
+          setTimeout(() => {
+            window.close()
+          }, 1000)
+        } else {
+          console.warn('window.opener is not available, cannot close the window.')
+        }
       }
     })
   }
