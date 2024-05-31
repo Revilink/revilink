@@ -17,6 +17,10 @@ export default defineComponent({
   setup() {
     const context = useContext()
 
+    if (context.$auth.user) {
+      context.redirect(context.localePath('/'))
+    }
+
     useMeta(
       () =>
         ({

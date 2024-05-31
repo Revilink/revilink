@@ -24,7 +24,7 @@ export default defineComponent({
   props: {
     variant: {
       type: String,
-      default: 'default' // 'dialog' | 'embed' | 'default'
+      default: 'dialog' // 'dialog' | 'embed'
     }
   },
   setup(_, { emit }) {

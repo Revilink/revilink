@@ -17,7 +17,7 @@ const listenAuth = () => {
 
       if (popup) {
         window.addEventListener('message', event => {
-          if (event.data.type === 'google-auth-success') {
+          if (event.data.type === 'google-callback-success') {
             const iframe = document.getElementById('revilink-reviews-embed')
 
             if (iframe) {

@@ -18,7 +18,7 @@
 
         if (popup) {
           window.addEventListener('message', function(event) {
-            if (event.data.type === 'google-auth-success') {
+            if (event.data.type === 'google-callback-success') {
               var iframe = document.getElementById('revilink-reviews-embed');
 
               if (iframe) {
