@@ -48,24 +48,9 @@ export default defineComponent({
         router.push(context.$cookies.get('authNextRedirect'))
       }
 
-      window.opener.postMessage({ type: 'google-auth-success' }, '*')
-
-      window.addEventListener('message', event => {
-        if (event.origin === 'https://revilink.io') {
-          if (event.data.type === 'user-session') {
-            const sessionToken = event.data.sessionToken
-
-            // Mevcut çerezleri kontrol et ve uygun çerezi setle
-            if (context.$cookies.get('auth._token.google')) {
-              context.$cookies.set('auth._token.google', sessionToken, 7) // 7 gn boyunca geçerli
-            }
-
-            console.log('Session token received and set in cookie:', sessionToken)
-          }
-        }
-      })
-
       if (window.opener) {
+        window.opener.postMessage({ type: 'google-auth-success' }, '*')
+
         setTimeout(() => {
           window.close()
         }, 1000)

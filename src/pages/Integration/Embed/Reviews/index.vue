@@ -36,12 +36,15 @@
     )
 
   // Comment Form Section
-  section.embed-reviews-page-comment-form.my-base.py-base(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_FORM)")
+  section.embed-reviews-page-comment-form.mt-base.pt-base(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_FORM)")
     span.embed-reviews-page-comment-form__title
       AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
       | {{ $t('form.comment.title') }}
 
     CommentForm(ref="commentFormRef" :is-busy="comment.isBusy" @on-submit="handleCommentOnSubmit")
+
+  .d-flex.justify-content-end.mb-base.pb-base
+    vs-button.ml-auto.d-block.me-4(v-if="$auth.user" size="small" border @click="handleClickLogoutButton") {{ $t('general.logout') }}
 
   footer.embed-reviews-page__copyright(aria-label="Powered by Revilink")
 
@@ -72,7 +75,7 @@ import type { UrlTypes, ReactionTypes, CommentRefTypes } from './EmbedReviews.pa
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
-import { useReviewsEmbed } from '@/hooks'
+import { useReviewsEmbed, useAuth } from '@/hooks'
 import { AppIcon } from '@/components/Icon'
 import { ReactionButtonGroup } from '@/components/ButtonGroup'
 import { ReviewList } from '@/components/List'
@@ -94,6 +97,8 @@ export default defineComponent({
     const route: ComputedRef<Route> = useRoute()
     const router = useRouter()
     const store = useStore()
+
+    const { logout } = useAuth()
 
     const { setReviewsEmbedOptions, reviewsEmbedOptionKeyEnum, getReviewsEmbedOption } = useReviewsEmbed()
 
@@ -361,6 +366,10 @@ export default defineComponent({
       })
     })
 
+    const handleClickLogoutButton = async () => {
+      await logout()
+    }
+
     return {
       rootRef,
       url,
@@ -378,7 +387,8 @@ export default defineComponent({
       handleReaction,
       convertToRevilinkFormat,
       reviewsEmbedOptionKeyEnum,
-      getReviewsEmbedOption
+      getReviewsEmbedOption,
+      handleClickLogoutButton
     }
   },
   head: {}
