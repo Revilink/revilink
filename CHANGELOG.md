@@ -1,10 +1,6 @@
 # Changelog
 
 
-## v1.6.1
-
-[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.0...v1.6.1)
-
 ## v1.6.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.5.2...v1.6.0)
