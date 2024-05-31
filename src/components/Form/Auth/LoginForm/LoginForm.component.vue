@@ -131,7 +131,8 @@ export default defineComponent({
       context.$cookies.set('authNextRedirect', context.route.value.fullPath)
 
       if (props.variant === 'embed') {
-        window.parent.postMessage({ type: 'on-click-google-auth', url: `${context.$config.API}/connect/google` }, '*')
+        window.location.href = `${context.$config.API}/connect/google`
+        // window.parent.postMessage({ type: 'on-click-google-auth', url: `${context.$config.API}/connect/google` }, '*')
       } else {
         window.location.href = `${context.$config.API}/connect/google`
       }
