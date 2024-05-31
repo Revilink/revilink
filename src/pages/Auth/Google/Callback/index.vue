@@ -48,9 +48,9 @@ export default defineComponent({
         router.push(context.$cookies.get('authNextRedirect'))
       }
 
-      window.opener.postMessage({ type: 'google-auth-success' }, '*')
-
       if (window.opener) {
+        window.opener.postMessage({ type: 'google-auth-success' }, '*')
+
         setTimeout(() => {
           window.close()
         }, 1000)
