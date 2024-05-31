@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.5.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.5.1...v1.5.2)
+
+### 🩹 Fixes
+
+- Nullcheck on window opener ([5d07813](https://github.com/selimdoyranli/revilink/commit/5d07813))
+- Add logout button to embed reviews iframe provider ([5c73c24](https://github.com/selimdoyranli/revilink/commit/5c73c24))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.5.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.5.0...v1.5.1)
