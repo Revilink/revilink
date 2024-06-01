@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.6.10
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.9...v1.6.10)
+
+### 🏡 Chore
+
+- Ux improvements ([129bdcc](https://github.com/selimdoyranli/revilink/commit/129bdcc))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.9
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.8...v1.6.9)
