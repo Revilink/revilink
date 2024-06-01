@@ -297,7 +297,7 @@ export default {
       link: 'Link',
       perPage: 'Sayfa başına yorum',
       page: 'Sayfa',
-      urlReactions: 'URL Reaksiyonları',
+      urlReactions: 'Link Reaksiyonları',
       commentListHead: 'Yorum Listesi Başlığı',
       avatar: 'Avatar',
       like: 'Beğen',

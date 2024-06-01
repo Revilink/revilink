@@ -65,7 +65,7 @@ ClientOnly
               theme="light"
               :maxlength="v$.link.maxLength.$params.max"
               primary
-              @paste.prevent="v$.link.$touch"
+              @paste.prevent="handleOnPasteLink"
               @keyup.space.prevent
               @keydown="v$.link.$touch"
             )
@@ -134,6 +134,10 @@ export default defineComponent({
     }
 
     const v$ = useVuelidate(rule, form)
+
+    const handleOnPasteLink = (event: ClipboardEvent) => {
+      form.link = event.clipboardData?.getData('text') || ''
+    }
 
     const handleSubmit = () => {
       v$.value.$validate()
@@ -216,6 +220,7 @@ export default defineComponent({
       state,
       v$,
       form,
+      handleOnPasteLink,
       handleSubmit,
       isOpenEmbedCodeDialog,
       embedCode,
