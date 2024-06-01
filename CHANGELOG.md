@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.6.9
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.8...v1.6.9)
+
+### 💅 Refactors
+
+- Clean code ([e5de815](https://github.com/selimdoyranli/revilink/commit/e5de815))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.8
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.7...v1.6.8)
