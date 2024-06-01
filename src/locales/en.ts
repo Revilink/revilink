@@ -302,7 +302,7 @@ export default {
       link: 'Link',
       perPage: 'Per page',
       page: 'Page',
-      urlReactions: 'Url Reactions',
+      urlReactions: 'Link Reactions',
       commentListHead: 'Comment List Head',
       avatar: 'Avatar',
       like: 'Like',
