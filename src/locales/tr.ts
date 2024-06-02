@@ -20,7 +20,7 @@ export default {
     copyFailed: 'Kopyalama başarısız oldu'
   },
   success: {
-    successfuly: 'İşlem başarılı',
+    successfully: 'İşlem başarılı',
     sendSuccessfully: 'Gönderildi',
     updateSuccessfully: 'Güncellendi',
     editSuccessfully: 'Düzenleme başarılı',
@@ -71,7 +71,9 @@ export default {
     loadingReplies: 'Yanıtlar yükleniyor',
     options: 'Seçenekler',
     embedCode: 'Embed kodu',
-    copyEmbedCode: 'Embed kodunu kopyala'
+    embedStylesCode: 'Embed stil kodu',
+    copyEmbedCode: 'Embed kodunu kopyala',
+    copyEmbedStylesCode: 'Embed stil kodunu kopyala'
   },
   hero: {
     home: {

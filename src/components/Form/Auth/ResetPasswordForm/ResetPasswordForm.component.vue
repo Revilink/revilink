@@ -120,7 +120,7 @@ export default defineComponent({
       if (data) {
         window.$nuxt.$vs.notification({
           title: 'OK',
-          text: context.i18n.t('success.successfuly'),
+          text: context.i18n.t('success.successfully'),
           color: 'success',
           position: 'bottom-center',
           flat: true

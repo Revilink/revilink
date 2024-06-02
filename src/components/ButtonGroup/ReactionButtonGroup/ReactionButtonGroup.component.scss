@@ -1,6 +1,7 @@
 .reaction-button-group {
   position: relative;
   display: inline-flex;
+  width: 100%;
 
   &--isBusy {
     pointer-events: none;

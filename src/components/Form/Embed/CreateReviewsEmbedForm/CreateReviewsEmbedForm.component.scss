@@ -33,6 +33,7 @@
 
       &--embed {
         section {
+          background-color: var(--color-ui-02);
           border: 1px dashed var(--color-border-02);
           border-radius: var(--border-radius-01);
 
@@ -70,7 +71,7 @@
     }
   }
 
-  &__textarea {
+  textarea {
     position: relative;
     display: block;
     width: 100%;
