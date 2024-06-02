@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.7.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.10...v1.7.0)
+
+### 🚀 Enhancements
+
+- Css support for reviews embed ([0101c37](https://github.com/selimdoyranli/revilink/commit/0101c37))
+
+### 🏡 Chore
+
+- Ui improvements ([e7b0a87](https://github.com/selimdoyranli/revilink/commit/e7b0a87))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.6.10
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.9...v1.6.10)
