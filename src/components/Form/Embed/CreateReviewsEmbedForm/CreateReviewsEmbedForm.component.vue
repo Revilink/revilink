@@ -82,18 +82,32 @@ ClientOnly
             strong.d-block.mb-2 {{ $t('createReviewsEmbed.embed.title') }}
             small.d-block.mb-base.font-size-text-23 * {{ $t('createReviewsEmbed.embed.hint') }}
             section
-              iframe#revilink-reviews-embed(:src="embedSrc" frameborder="0" width="600" height="800" scrolling="no")
+              iframe#revilink-reviews-embed-iframe(:src="embedSrc" frameborder="0" width="600" height="800" scrolling="no")
 
     // Embed Code Dialog
     vs-dialog.embed-code-dialog(v-model="isOpenEmbedCodeDialog")
       template(#header)
         strong.embed-code-dialog__title {{ $t('general.embedCode') }}
 
-      textarea#embedCodeTextarea.embed-code-dialog__textarea(v-model="embedCode" readonly rows="10")
-      .d-flex.justify-content-end.mt-2
-        vs-button(@click="copyEmbedCode")
-          | {{ $t('general.copyEmbedCode') }}
-          AppIcon.ms-2(name="ri:clipboard-line")
+      .d-flex.mb-6
+        vs-button(border size="small" :active="isVisibleEmbedCode" @click="showEmbedCode")
+          | {{ $t('general.embedCode') }}
+        vs-button(border size="small" :active="isVisibleEmbedStylesCode" @click="showEmbedStylesCode")
+          | {{ $t('general.embedStylesCode') }}
+
+      template(v-if="isVisibleEmbedCode")
+        textarea#embedCodeTextarea(v-model="embedCode" readonly rows="10")
+        .d-flex.justify-content-end.mt-2
+          vs-button(@click="copyEmbedCode")
+            | {{ $t('general.copyEmbedCode') }}
+            AppIcon.ms-2(name="ri:clipboard-line")
+
+      template(v-if="isVisibleEmbedStylesCode")
+        textarea#embedStylesCodeTextarea(readonly :value="embedStylesCode.trim()" rows="10")
+        .d-flex.justify-content-end.mt-2
+          vs-button(@click="copyEmbedStylesCode")
+            | {{ $t('general.copyEmbedStylesCode') }}
+            AppIcon.ms-2(name="ri:clipboard-line")
 </template>
 
 <script lang="ts">
@@ -127,7 +141,43 @@ export default defineComponent({
       commentFormAvatar: true
     })
 
+    const isVisibleEmbedCode = ref(true)
+    const isVisibleEmbedStylesCode = ref(false)
+
+    const showEmbedCode = () => {
+      isVisibleEmbedCode.value = true
+      isVisibleEmbedStylesCode.value = false
+    }
+
+    const showEmbedStylesCode = () => {
+      isVisibleEmbedCode.value = false
+      isVisibleEmbedStylesCode.value = true
+    }
+
     const embedCode = ref('')
+    const embedStylesCode = `
+<style>
+.revilink-reviews-embed {
+  background-color: transparent;
+}
+
+.revilink-reviews-embed .reaction-button-group {
+  justify-content: flex-start;
+}
+
+.revilink-reviews-embed .review-card .review-card__body {
+  background-color: transparent;
+}
+
+.revilink-reviews-embed .reply-card .reply-card__body {
+  background-color: transparent;
+}
+
+.revilink-reviews-embed .comment-form-card .comment-form-card__body {
+  background-color: transparent;
+}
+</style>
+`
 
     const rule = {
       ...createReviewsEmbedFormValidator
@@ -164,7 +214,7 @@ export default defineComponent({
       state.isBusy = true
 
       // eslint-disable-next-line
-      embedCode.value = `<iframe id="revilink-reviews-embed" src="${embedSrc.value}" frameborder="0" width="600" height="800" scrolling="no" allowtransparency="true"></iframe><script async src="${REVILINK_URL}/integration/embed/reviews.js" charset="utf-8"><\/script>`
+      embedCode.value = `<iframe id="revilink-reviews-embed-iframe" src="${embedSrc.value}" frameborder="0" width="600" height="800" scrolling="no" allowtransparency="true"></iframe><script async src="${REVILINK_URL}/integration/embed/reviews.js" charset="utf-8"><\/script>`
 
       emit('on-success', form)
 
@@ -182,6 +232,36 @@ export default defineComponent({
         }
 
         await navigator.clipboard.writeText(embedCode.value)
+
+        window.$nuxt.$vs.notification({
+          title: context.i18n.t('success.successfully'),
+          text: context.i18n.t('success.copySuccessfully'),
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+      } catch (error) {
+        window.$nuxt.$vs.notification({
+          title: context.i18n.t('error.error'),
+          text: context.i18n.t('error.copyFailed'),
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        console.error('Error copying to clipboard:', error)
+      }
+    }
+
+    const copyEmbedStylesCode = async () => {
+      try {
+        const textarea = document.getElementById('embedStylesCodeTextarea') as HTMLTextAreaElement | null
+
+        if (textarea) {
+          textarea.select()
+        }
+
+        await navigator.clipboard.writeText(embedStylesCode.trim())
 
         window.$nuxt.$vs.notification({
           title: context.i18n.t('success.successfully'),
@@ -224,9 +304,15 @@ export default defineComponent({
       handleSubmit,
       isOpenEmbedCodeDialog,
       embedCode,
+      embedStylesCode,
       embedSrc,
       generateEmbedCode,
-      copyEmbedCode
+      copyEmbedCode,
+      copyEmbedStylesCode,
+      showEmbedCode,
+      showEmbedStylesCode,
+      isVisibleEmbedCode,
+      isVisibleEmbedStylesCode
     }
   }
 })

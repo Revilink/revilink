@@ -1,7 +1,7 @@
 <template lang="pug">
-.page.embed-reviews-page(ref="rootRef")
+.page.reviews-embed-page(ref="rootRef")
   // Reactions
-  .embed-reviews-page-reactions(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.URL_REACTIONS)")
+  .reviews-embed-page-reactions(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.URL_REACTIONS)")
     ReactionButtonGroup(
       :is-busy="reaction.isBusy || reviewsFetchState.pending"
       :busy-reaction-index="reaction.busyReactionIndex"
@@ -11,10 +11,10 @@
     )
 
   // Review List
-  .embed-reviews-page-review-list
-    .embed-reviews-page-review-list-head(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_LIST_HEAD)")
-      AppIcon.embed-reviews-page-review-list-head__icon(name="uil:comment-alt-dots" color="var(--color-icon-01)" :width="28" :height="28")
-      span.embed-reviews-page-review-list-head__title
+  .reviews-embed-page-review-list
+    .reviews-embed-page-review-list-head(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_LIST_HEAD)")
+      AppIcon.reviews-embed-page-review-list-head__icon(name="uil:comment-alt-dots" color="var(--color-icon-01)" :width="28" :height="28")
+      span.reviews-embed-page-review-list-head__title
         | {{ $t('general.comments') }}
         template(v-if="reviews && reviews.length > 0")
           | &nbsp;({{ reviewsMeta.pagination.total }})
@@ -36,8 +36,8 @@
     )
 
   // Comment Form Section
-  section.embed-reviews-page-comment-form.mt-base.pt-base(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_FORM)")
-    span.embed-reviews-page-comment-form__title
+  section.reviews-embed-page-comment-form.mt-base.pt-base(v-if="getReviewsEmbedOption(reviewsEmbedOptionKeyEnum.COMMENT_FORM)")
+    span.reviews-embed-page-comment-form__title
       AppIcon.me-2(name="uil:comment-alt-plus" color="var(--color-icon-01)" :width="24" :height="24")
       | {{ $t('form.comment.title') }}
 
@@ -47,7 +47,7 @@
     ClientOnly
       vs-button.ml-auto.d-block.me-4(v-if="$auth.user" size="small" border @click="handleClickLogoutButton") {{ $t('general.logout') }}
 
-  footer.embed-reviews-page__copyright(aria-label="Powered by Revilink")
+  footer.reviews-embed-page__copyright(aria-label="Powered by Revilink")
 
   // Login Dialog
   LoginDialog(variant="embed")
@@ -72,7 +72,7 @@ import {
 } from '@nuxtjs/composition-api'
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
-import type { UrlTypes, ReactionTypes, CommentRefTypes } from './EmbedReviews.page.types'
+import type { UrlTypes, ReactionTypes, CommentRefTypes } from './ReviewsEmbed.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat } from '@/utils/url'
@@ -332,6 +332,7 @@ export default defineComponent({
       if (rootRef.value) {
         const height = rootRef.value.scrollHeight
         window.parent.postMessage({ type: 'revilink-reviews-embed-height', height }, '*')
+        applyCSS()
       }
     }
 
@@ -352,11 +353,23 @@ export default defineComponent({
       return observer
     }
 
+    const applyCSS = () => {
+      window.addEventListener('message', event => {
+        if (rootRef.value) {
+          if (event.data.type === 'applyCSS') {
+            const style = document.createElement('style')
+            style.textContent = event.data.styles
+            document.head.appendChild(style)
+          }
+        }
+      })
+    }
+
     onMounted(async () => {
       await nextTick()
 
       if (process.browser) {
-        document.documentElement.classList.add('embed-document')
+        document.documentElement.classList.add('revilink-reviews-embed')
       }
 
       const observer = observeHeightChanges()
@@ -365,6 +378,8 @@ export default defineComponent({
       onBeforeUnmount(() => {
         observer.disconnect()
       })
+
+      applyCSS()
     })
 
     const handleClickLogoutButton = async () => {
@@ -396,4 +411,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" src="./EmbedReviews.page.scss"></style>
+<style lang="scss" src="./ReviewsEmbed.page.scss"></style>

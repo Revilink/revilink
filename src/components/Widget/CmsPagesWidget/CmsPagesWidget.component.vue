@@ -3,9 +3,10 @@
   .widget-head
     strong.widget-head__title {{ $t('widget.cmsPages.title') }}
   .widget__body
-    vs-sidebar(v-model="active" relative open)
+    nav.widget-nav
       template(v-for="item in nav.items")
-        vs-sidebar-item(:id="item.link" :key="item.link" :to="localePath({ name: 'cms-page-slug', params: { slug: item.link } })") {{ item.title }}
+        NuxtLink.widget-nav-item(:key="item.link" :to="localePath({ name: 'cms-page-slug', params: { slug: item.link } })")
+          span.widget-nav-item__title {{ item.title }}
 </template>
 
 <script lang="ts">

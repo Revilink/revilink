@@ -20,7 +20,7 @@ export default {
     copyFailed: 'Kopyalama başarısız oldu'
   },
   success: {
-    successfuly: 'İşlem başarılı',
+    successfully: 'İşlem başarılı',
     sendSuccessfully: 'Gönderildi',
     updateSuccessfully: 'Güncellendi',
     editSuccessfully: 'Düzenleme başarılı',
@@ -52,6 +52,7 @@ export default {
     edit: 'Düzenle',
     delete: 'Sil',
     cancel: 'İptal',
+    more: 'Daha fazla',
     loadMore: 'Daha fazla',
     avatar: 'Avatar',
     doYouHaveAnAccount: 'Zaten bir hesabın var mı?',
@@ -71,7 +72,9 @@ export default {
     loadingReplies: 'Yanıtlar yükleniyor',
     options: 'Seçenekler',
     embedCode: 'Embed kodu',
-    copyEmbedCode: 'Embed kodunu kopyala'
+    embedStylesCode: 'Embed stil kodu',
+    copyEmbedCode: 'Embed kodunu kopyala',
+    copyEmbedStylesCode: 'Embed stil kodunu kopyala'
   },
   hero: {
     home: {
@@ -369,6 +372,16 @@ export default {
     angry: 'Berbat'
   },
   widget: {
+    applicationDialog: {
+      nav: {
+        createReviewsEmbed: {
+          title: 'Sitene yorum alanı ekle'
+        },
+        webext: {
+          title: 'Chrome eklentimizi yükle'
+        }
+      }
+    },
     siteExtra: {
       title: 'Link hakkında daha fazla',
       nav: {

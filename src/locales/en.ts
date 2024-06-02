@@ -20,7 +20,7 @@ export default {
     copyFailed: 'Copy failed'
   },
   success: {
-    successfuly: 'Successfully',
+    successfully: 'Successfully',
     sendSuccessfully: 'Send successfully',
     updateSuccessfully: 'Update successfully',
     editSuccessfully: 'Edit successfully',
@@ -52,6 +52,7 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     cancel: 'Cancel',
+    more: 'More',
     loadMore: 'Load more',
     avatar: 'Avatar',
     doYouHaveAnAccount: 'Do you have an account?',
@@ -71,7 +72,9 @@ export default {
     loadingReplies: 'Loading replies',
     options: 'Options',
     embedCode: 'Embed code',
-    copyEmbedCode: 'Copy embed code'
+    embedStylesCode: 'Embed styles code',
+    copyEmbedCode: 'Copy embed code',
+    copyEmbedStylesCode: 'Copy embed styles code'
   },
   hero: {
     home: {
@@ -374,6 +377,16 @@ export default {
     angry: 'Terrible'
   },
   widget: {
+    applicationDialog: {
+      nav: {
+        createReviewsEmbed: {
+          title: 'Add comments to your website'
+        },
+        webext: {
+          title: 'Install chrome extension'
+        }
+      }
+    },
     siteExtra: {
       title: 'More about the link',
       nav: {
