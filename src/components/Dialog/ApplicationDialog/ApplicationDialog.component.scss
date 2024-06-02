@@ -1,8 +1,32 @@
 .application-dialog {
-  .vs-dialog {
-    @include media-breakpoint-down(md) {
+  $vs-dialog: '.vs-dialog';
+
+  #{$vs-dialog} {
+    max-width: 100%;
+
+    @include media-breakpoint-down(lg) {
       transform: scale(0.9);
       transform-origin: top;
+    }
+
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+
+    &__content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: calc(var(--spacer-base) / 2);
+      width: var(--breakpoint-lg);
+      max-width: var(--breakpoint-lg);
+      padding: var(--spacer-base);
+
+      @include media-breakpoint-down(lg) {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 100%;
+        padding: calc(var(--spacer-base) / 2);
+      }
     }
   }
 }

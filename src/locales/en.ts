@@ -52,6 +52,7 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     cancel: 'Cancel',
+    more: 'More',
     loadMore: 'Load more',
     avatar: 'Avatar',
     doYouHaveAnAccount: 'Do you have an account?',
@@ -376,6 +377,16 @@ export default {
     angry: 'Terrible'
   },
   widget: {
+    applicationDialog: {
+      nav: {
+        createReviewsEmbed: {
+          title: 'Add comments to your website'
+        },
+        webext: {
+          title: 'Install chrome extension'
+        }
+      }
+    },
     siteExtra: {
       title: 'More about the link',
       nav: {
