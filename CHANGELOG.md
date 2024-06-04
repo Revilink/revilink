@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.7.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.7.0...v1.7.1)
+
+### 🏡 Chore
+
+- Add gtm ([7e4bcd3](https://github.com/selimdoyranli/revilink/commit/7e4bcd3))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.7.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.6.10...v1.7.0)
