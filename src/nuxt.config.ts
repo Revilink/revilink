@@ -469,7 +469,16 @@ const config: NuxtConfig = {
       }
     ],
     // https://www.npmjs.com/package/nuxt-client-init-module
-    'nuxt-client-init-module'
+    'nuxt-client-init-module',
+    // https://www.npmjs.com/package/@nuxtjs/gtm
+    [
+      '@nuxtjs/gtm',
+      {
+        enabled: process.env.NODE_ENV === 'production',
+        debug: false,
+        id: 'G-ZC2QWPEX3N'
+      }
+    ]
   ],
 
   /*
