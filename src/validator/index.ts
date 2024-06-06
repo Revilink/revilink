@@ -7,3 +7,4 @@ export { default as accountSettingsValidator } from './account-settings.validato
 export { default as reviewSearchValidator } from './review-search.validator'
 export { default as commentValidator } from './comment.validator'
 export { default as createReviewsEmbedFormValidator } from './create-reviews-embed-form.validator'
+export { default as linkCollectionValidator } from './link-collection.validator'

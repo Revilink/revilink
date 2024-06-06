@@ -17,7 +17,9 @@ export default {
     editFailed: 'Edit failed',
     deleteFailed: 'Delete failed',
     uploadFailed: 'Upload failed',
-    copyFailed: 'Copy failed'
+    copyFailed: 'Copy failed',
+    addFailed: 'Add failed',
+    saveFailed: 'Save failed'
   },
   success: {
     successfully: 'Successfully',
@@ -26,7 +28,9 @@ export default {
     editSuccessfully: 'Edit successfully',
     deleteSuccessfully: 'Delete successfully',
     uploadSuccessfully: 'Upload successfully',
-    copySuccessfully: 'Copy successfully'
+    copySuccessfully: 'Copy successfully',
+    addSuccessfully: 'Add successfully',
+    saveSuccessfully: 'Save successfully'
   },
   general: {
     loading: 'Loading',
@@ -280,6 +284,25 @@ export default {
           }
         }
       }
+    },
+    linkCollection: {
+      title: 'Create link collection',
+      description: 'Create a link collection, save your favorite links and share with your friends',
+      field: {
+        title: {
+          label: 'Collection title',
+          placeholder: 'Collection title'
+        },
+        description: {
+          label: 'Collection description',
+          placeholder: 'Collection description'
+        },
+        submit: {
+          action: {
+            title: 'Create collection'
+          }
+        }
+      }
     }
   },
   reply: {
@@ -322,6 +345,29 @@ export default {
       title: 'Your embed',
       hint: 'The dashed border will not appear in your web page'
     }
+  },
+  linkCollection: {
+    linkCollection: 'Link collection',
+    linkCollections: 'Link collections',
+    myLinkCollections: 'My link collections',
+    selectedLink: 'You are saving this link',
+    privacy: {
+      meOnly: 'Only me',
+      linkOnly: 'Link only',
+      public: 'Public'
+    },
+    field: {
+      description: {
+        placeholder: 'Description (Optional)'
+      }
+    },
+    create: 'Create',
+    createNew: 'Create new',
+    createLinkCollection: 'Create link collection',
+    editLinkCollection: 'Edit link collection',
+    deleteLinkCollection: 'Delete link collection',
+    addToLinkCollection: 'Add to link collection',
+    removeFromLinkCollection: 'Remove from link collection'
   },
   state: {
     empty: {

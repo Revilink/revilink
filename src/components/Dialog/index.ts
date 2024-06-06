@@ -4,4 +4,5 @@ export { default as EditCommentDialog } from './EditCommentDialog/EditCommentDia
 export { default as DeleteCommentDialog } from './DeleteCommentDialog/DeleteCommentDialog.component.vue'
 export { default as ReactionerUserListDialog } from './ReactionerUserListDialog/ReactionerUserListDialog.component.vue'
 export { default as ApplicationDialog } from './ApplicationDialog/ApplicationDialog.component.vue'
+export { default as LinkCollectionsDialog } from './LinkCollectionsDialog/LinkCollectionsDialog.component.vue'
 export { default as CookieDialog } from './CookieDialog/CookieDialog.component.vue'

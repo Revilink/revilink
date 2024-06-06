@@ -457,6 +457,18 @@ const config: NuxtConfig = {
           'Integration/Embed/Reviews/index': {
             en: '/embed/reviews',
             tr: '/embed/incelemeler'
+          },
+          'LinkCollections/index': {
+            en: '/link-collections',
+            tr: '/link-koleksiyonlari'
+          },
+          'LinkCollections/CreateLinkCollection/index': {
+            en: '/create-link-collection',
+            tr: '/link-koleksiyonu-olustur'
+          },
+          'LinkCollections/LinkCollection/_slug': {
+            en: '/link-collection/:slug',
+            tr: '/link-koleksiyonu/:slug'
           }
         }
       }

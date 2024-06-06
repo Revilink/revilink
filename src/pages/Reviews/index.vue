@@ -41,6 +41,10 @@
             a(rel="noopener,norel" :title="$route.query.link" :href="linkViewFormat({ url: $route.query.link })" target="_blank")
               | {{ linkViewFormat({ url: $route.query.link }) }}
 
+          // Add To Bookmark Button
+          vs-button.reviews-page-review-meta-add-to-bookmark-button(auth-control size="small" border @click="handleClickAddToBookmark")
+            AppIcon.me-2(name="ri:bookmark-line" :width="14" :height="14")
+            | Save
           // Reactions
           .reviews-page-reactions
             ReactionButtonGroup(
@@ -386,6 +390,14 @@ export default defineComponent({
       fetchAndReadRobots()
     })
 
+    const handleClickAddToBookmark = () => {
+      store.commit('link-collection/OPEN_LINK_COLLECTIONS_DIALOG')
+      store.commit('link-collection/SET_SELECTED_LINK', {
+        url: route.value.query.link as string,
+        description: null
+      })
+    }
+
     const truncateLink = (str: string, num = 50) => {
       return str.length > num ? str.slice(0, num) + '...' : str
     }
@@ -441,7 +453,8 @@ export default defineComponent({
       reaction,
       handleReaction,
       convertToRevilinkFormat,
-      linkViewFormat
+      linkViewFormat,
+      handleClickAddToBookmark
     }
   },
   head: {}
