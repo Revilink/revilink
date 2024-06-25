@@ -3,6 +3,8 @@ import type {
   FetchBookmarksCollectionsTypes,
   FetchBookmarksCollectionTypes,
   PostBookmarksCollectionTypes,
+  UpdateBookmarksCollectionTypes,
+  DeleteBookmarksCollectionTypes,
   FetchBookmarksTypes,
   PostBookmarkTypes
 } from './bookmark.api.types'
@@ -86,6 +88,44 @@ export const bookmarkApi = (appAxios: Function) =>
             users
           }
         }
+      })
+
+      if (data) {
+        return { data: bookmarksCollectionTransformer(data) }
+      } else {
+        return { error }
+      }
+    },
+
+    async updateBookmarksCollection(params: UpdateBookmarksCollectionTypes) {
+      const { id, title, description, users, privacy } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'put',
+        path: `bookmarks-collections/${id}`,
+        data: {
+          data: {
+            title,
+            description,
+            users,
+            privacy
+          }
+        }
+      })
+
+      if (data) {
+        return { data: bookmarksCollectionTransformer(data) }
+      } else {
+        return { error }
+      }
+    },
+
+    async deleteBookmarksCollection(params: DeleteBookmarksCollectionTypes) {
+      const { id } = params
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'delete',
+        path: `bookmarks-collections/${id}`
       })
 
       if (data) {

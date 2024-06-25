@@ -2,56 +2,84 @@
 ClientOnly
   vs-dialog.link-collections-dialog(v-model="dialog.isOpen" tabindex="0" @close="handleClose")
     template(#header)
+      PaperButton.link-collections-dialog__closeButton(
+        v-if="isVisibleLinkCollectionForm"
+        @click.native.prevent.stop="closeLinkCollectionForm"
+      )
+        AppIcon(name="ri:arrow-left-line" :width="26" :height="26" color="var(--color-icon-01)")
       h2 {{ $t('linkCollection.myLinkCollections') }}
 
-    .link-collections-dialog-selected-link(v-if="selectedLink && Object.keys(selectedLink)?.length > 0")
-      span.link-collections-dialog-selected-link__title {{ $t('linkCollection.selectedLink') }}
-      UrlLinkCard.mb-3(:url="selectedLink.url")
-      AppTextarea.link-collections-dialog-selected-link__descriptionTextarea(
-        ref="descriptionTextareaRef"
-        :value="selectedLinkDescription"
-        :placeholder="$t('linkCollection.field.description.placeholder')"
-        rows="1"
-        spellcheck="false"
-        resize="none"
-        maxlength="512"
-        autofocus
-        character-counter
-        @input="selectedLinkDescription = $event.target.value"
-      )
-
-    template(v-if="state.isBusy")
-      AppLoading.my-6
-
-    template(v-if="fetchState.pending")
-      AppLoading.my-6
-
-    template(v-else-if="fetchState.error")
-      p {{ fetchState.error }}
-      vs-button(@click="fetch")
-        | {{ $t('error.tryAgain') }}
+    template(v-if="isVisibleLinkCollectionForm")
+      LinkCollectionForm(@on-success="handleLinkCollectionFormSuccess")
 
     template(v-else)
-      template(v-if="myLinkCollections.length > 0")
-        .link-collections-dialog__items(:inert="state.isBusy")
-          template(v-for="collection in myLinkCollections")
-            LinkCollectionCard(:key="collection.id" :collection="collection" @on-click="handleClickCollection(collection)")
+      .link-collections-dialog-selected-link(v-if="selectedLink && Object.keys(selectedLink)?.length > 0 && myLinkCollections.length > 0")
+        span.link-collections-dialog-selected-link__title {{ $t('linkCollection.selectedLink') }}
+        UrlLinkCard.mb-3(:url="selectedLink.url")
+        AppTextarea.link-collections-dialog-selected-link__descriptionTextarea(
+          ref="descriptionTextareaRef"
+          :value="selectedLinkDescription"
+          :placeholder="$t('linkCollection.field.description.placeholder')"
+          rows="1"
+          spellcheck="false"
+          resize="none"
+          maxlength="512"
+          autofocus
+          character-counter
+          @input="selectedLinkDescription = $event.target.value"
+        )
+
+      template(v-if="state.isBusy")
+        AppLoading.my-6
+
+      template(v-if="fetchState.pending")
+        AppLoading.my-6
+
+      template(v-else-if="fetchState.error")
+        p {{ fetchState.error }}
+        vs-button(@click="fetch")
+          | {{ $t('error.tryAgain') }}
 
       template(v-else)
-        BasicState(
-          :title="$t('state.empty.profileNoReviewComments.title')"
-          :description="$t('state.empty.profileNoReviewComments.description')"
-        )
-          template(#head)
-            img(src="/media/elements/state/no_results.svg" width="128")
-          template(#footer)
-            vs-button.mt-10(:loading="state.isBusy" :disabled="state.isBusy" size="small" @click="handleClickCreate")
-              | {{ $t('linkCollection.createNew') }}
-              AppIcon.ms-2(name="ri:add-line")
+        template(v-if="myLinkCollections.length > 0")
+          .link-collections-dialog__items(:inert="state.isBusy")
+            template(v-for="collection in myLinkCollections")
+              LinkCollectionCard(
+                :key="collection.id"
+                :collection="collection"
+                @on-click="handleClickCollection(collection)"
+                @on-update-link-collection="handleUpdateLinkCollection"
+                @on-delete-link-collection="handleDeleteLinkCollection"
+              )
+
+        template(v-else)
+          BasicState.mt-10.pt-10(
+            :title="$t('state.empty.noLinkCollection.title')"
+            :description="$t('state.empty.noLinkCollection.description')"
+          )
+            template(#head)
+              img(src="/media/elements/state/no_results.svg" width="128")
+            template(#footer)
+              vs-button.mt-10(
+                :loading="state.isBusy"
+                :disabled="state.isBusy"
+                size="small"
+                type="button"
+                @click.prevent.stop="handleClickCreate"
+              )
+                | {{ $t('linkCollection.createNew') }}
+                AppIcon.ms-2(name="ri:add-line")
 
     template(#footer)
       .d-flex.justify-content-end
-        vs-button(:loading="state.isBusy" :disabled="state.isBusy" size="small" @click="handleClickCreate")
+        vs-button(
+          v-if="!isVisibleLinkCollectionForm && myLinkCollections.length > 0"
+          :loading="state.isBusy"
+          :disabled="state.isBusy"
+          size="small"
+          type="button"
+          @click.prevent.stop="handleClickCreate"
+        )
           | {{ $t('linkCollection.createNew') }}
           AppIcon.ms-2(name="ri:add-line")
 </template>
@@ -76,6 +104,8 @@ import { LinkCollectionCard, UrlLinkCard } from '@/components/Card'
 import { AppTextarea } from '@/components/Textarea'
 import { AppLoading } from '@/components/Loading'
 import { BasicState } from '@/components/State'
+import { LinkCollectionForm } from '@/components/Form'
+import { PaperButton } from '@/components/Button'
 
 export default defineComponent({
   components: {
@@ -84,7 +114,9 @@ export default defineComponent({
     UrlLinkCard,
     AppTextarea,
     AppLoading,
-    BasicState
+    BasicState,
+    LinkCollectionForm,
+    PaperButton
   },
   props: {
     isBusy: {
@@ -135,7 +167,7 @@ export default defineComponent({
     })
 
     const handleClickCreate = () => {
-      //
+      openLinkCollectionForm()
     }
 
     const state = reactive({
@@ -227,6 +259,30 @@ export default defineComponent({
       }
     }
 
+    const isVisibleLinkCollectionForm = ref(false)
+
+    const openLinkCollectionForm = () => {
+      isVisibleLinkCollectionForm.value = true
+    }
+
+    const closeLinkCollectionForm = () => {
+      isVisibleLinkCollectionForm.value = false
+    }
+
+    const handleLinkCollectionFormSuccess = async () => {
+      await closeLinkCollectionForm()
+
+      await fetch()
+    }
+
+    const handleUpdateLinkCollection = async () => {
+      await fetch()
+    }
+
+    const handleDeleteLinkCollection = async () => {
+      await fetch()
+    }
+
     return {
       fetch,
       fetchState,
@@ -239,7 +295,13 @@ export default defineComponent({
       selectedLink,
       selectedLinkDescription,
       descriptionTextareaRef,
-      focusToDescriptionTextarea
+      focusToDescriptionTextarea,
+      isVisibleLinkCollectionForm,
+      openLinkCollectionForm,
+      closeLinkCollectionForm,
+      handleLinkCollectionFormSuccess,
+      handleUpdateLinkCollection,
+      handleDeleteLinkCollection
     }
   }
 })

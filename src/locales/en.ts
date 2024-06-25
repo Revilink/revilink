@@ -43,6 +43,9 @@ export default {
     okShort: 'OK',
     iUnderstand: 'I understand',
     no: 'No',
+    confirm: 'Confirm',
+    areYouSure: 'Are you sure?',
+    update: 'Update',
     reject: 'Reject',
     send: 'Send',
     like: 'Like',
@@ -78,7 +81,8 @@ export default {
     embedCode: 'Embed code',
     embedStylesCode: 'Embed styles code',
     copyEmbedCode: 'Copy embed code',
-    copyEmbedStylesCode: 'Copy embed styles code'
+    copyEmbedStylesCode: 'Copy embed styles code',
+    privacy: 'Privacy'
   },
   hero: {
     home: {
@@ -351,6 +355,7 @@ export default {
     linkCollections: 'Link collections',
     myLinkCollections: 'My link collections',
     selectedLink: 'You are saving this link',
+    seeLinkCollection: 'See link collection',
     privacy: {
       meOnly: 'Only me',
       linkOnly: 'Link only',
@@ -410,6 +415,10 @@ export default {
       noMoreReviews: {
         title: 'No more reviews',
         description: ''
+      },
+      noLinkCollection: {
+        title: 'No link collection',
+        description: 'No link collection has been created yet'
       }
     }
   },

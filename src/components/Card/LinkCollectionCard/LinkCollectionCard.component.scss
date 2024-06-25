@@ -6,7 +6,7 @@
   border: 1px solid transparent;
   border-radius: var(--border-radius-01);
   box-shadow: var(--box-shadow-01);
-  aspect-ratio: 16/9;
+  aspect-ratio: 6/4;
   cursor: pointer;
 
   &:hover {
@@ -27,8 +27,20 @@
     }
   }
 
+  &__actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+  }
+
   &__body {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: calc(var(--spacer-base) * 2) calc(var(--spacer-base) / 2);
   }
 
   &__title {

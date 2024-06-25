@@ -38,6 +38,11 @@
     }
   }
 
+  &__closeButton {
+    position: absolute;
+    left: var(--spacer-base);
+  }
+
   &-selected-link {
     position: relative;
     padding: calc(var(--spacer-base) / 2);
@@ -90,11 +95,5 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: calc(var(--spacer-base) / 2);
-  }
-
-  .link-collection-card {
-    &__users {
-      display: none;
-    }
   }
 }

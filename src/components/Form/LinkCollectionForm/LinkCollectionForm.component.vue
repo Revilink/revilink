@@ -101,6 +101,8 @@ export default defineComponent({
           position: 'bottom-center',
           flat: true
         })
+
+        emit('on-success', data)
       }
 
       if (error) {
@@ -111,6 +113,8 @@ export default defineComponent({
           position: 'bottom-center',
           flat: true
         })
+
+        emit('on-error', error)
       }
 
       state.isBusy = false

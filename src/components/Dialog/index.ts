@@ -1,4 +1,5 @@
 export { default as LoginDialog } from './LoginDialog/LoginDialog.component.vue'
+export { default as ConfirmDialog } from './ConfirmDialog/ConfirmDialog.component.vue'
 export { default as ReplyDialog } from './ReplyDialog/ReplyDialog.component.vue'
 export { default as EditCommentDialog } from './EditCommentDialog/EditCommentDialog.component.vue'
 export { default as DeleteCommentDialog } from './DeleteCommentDialog/DeleteCommentDialog.component.vue'

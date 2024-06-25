@@ -1,8 +1,5 @@
 <template lang="pug">
-NuxtLink.card.link-collection-card.link-collection-card(
-  :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug } })"
-  @click.native.prevent.capture="handleClick"
-)
+.card.link-collection-card.link-collection-card
   header.link-collection-card__header
     .link-collection-card__users
       template(v-for="user in collection.users")
@@ -10,7 +7,21 @@ NuxtLink.card.link-collection-card.link-collection-card(
           AppAvatar.link-collection-card-user__avatar(:user="user")
           span.link-collection-card-user__username {{ user.username }}
 
-  .link-collection-card__body
+    .link-collection-card__actions
+      LinkCollectionCardMoreDropdown(
+        :collection="collection"
+        :is-busy="state.isBusy"
+        @on-update-privacy-link-collection="handleUpdatePrivacyLinkCollection"
+        @on-delete-link-collection="handleDeleteLinkCollection"
+      )
+        template(#trigger)
+          PaperButton(:width="24" :height="24")
+            AppIcon(name="ri:more-line" :width="24" :height="24")
+
+  NuxtLink.link-collection-card__body(
+    :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug } })"
+    @click.native.prevent.capture="handleClick"
+  )
     strong.link-collection-card__title {{ collection.title }}
     .link-collection-card-privacy
       template(v-if="collection.privacy === bookmarksCollectionPrivacyEnum.ME_ONLY")
@@ -34,15 +45,20 @@ NuxtLink.card.link-collection-card.link-collection-card(
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, reactive } from '@nuxtjs/composition-api'
+import type { BookmarksCollectionPrivacyEnumTypes } from '@/types'
 import { bookmarksCollectionPrivacyEnum } from '@/enums'
 import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
+import { LinkCollectionCardMoreDropdown } from '@/components/Dropdown'
+import { PaperButton } from '@/components/Button'
 
 export default defineComponent({
   components: {
     AppAvatar,
-    AppIcon
+    AppIcon,
+    LinkCollectionCardMoreDropdown,
+    PaperButton
   },
   props: {
     collection: {
@@ -51,13 +67,87 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    const context = useContext()
+
+    const state = reactive({
+      isBusy: false
+    })
+
     const handleClick = () => {
       emit('on-click', props.collection)
     }
 
+    const handleUpdatePrivacyLinkCollection = async (privacy: BookmarksCollectionPrivacyEnumTypes) => {
+      state.isBusy = true
+
+      const { data, error } = await context.$api.rest.bookmark.updateBookmarksCollection({
+        id: props.collection.id,
+        privacy
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: context.i18n.t('success.updateSuccessfully'),
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        emit('on-update-link-collection', props.collection)
+      }
+
+      if (error) {
+        window.$nuxt.$vs.notification({
+          title: error.code,
+          text: error.message,
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
+      }
+
+      state.isBusy = false
+    }
+
+    const handleDeleteLinkCollection = async () => {
+      state.isBusy = true
+
+      const { data, error } = await context.$api.rest.bookmark.deleteBookmarksCollection({
+        id: props.collection.id
+      })
+
+      if (data) {
+        window.$nuxt.$vs.notification({
+          title: 'OK',
+          text: context.i18n.t('success.deleteSuccessfully'),
+          color: 'success',
+          position: 'bottom-center',
+          flat: true
+        })
+
+        emit('on-delete-link-collection', props.collection)
+      }
+
+      if (error) {
+        window.$nuxt.$vs.notification({
+          title: error.code,
+          text: error.message,
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
+      }
+
+      state.isBusy = false
+    }
+
     return {
       bookmarksCollectionPrivacyEnum,
-      handleClick
+      state,
+      handleClick,
+      handleUpdatePrivacyLinkCollection,
+      handleDeleteLinkCollection
     }
   }
 })

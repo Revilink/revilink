@@ -1,0 +1,15 @@
+.confirm-dialog {
+  z-index: var(--z-index-overlay);
+
+  .vs-dialog {
+    &__header {
+      padding: calc(var(--spacer-base) / 2);
+    }
+  }
+
+  &__collection {
+    position: relative;
+    margin-bottom: var(--spacer-base);
+    white-space: pre-line;
+  }
+}
