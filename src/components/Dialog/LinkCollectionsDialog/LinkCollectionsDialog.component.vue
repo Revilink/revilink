@@ -13,7 +13,7 @@ ClientOnly
       LinkCollectionForm(@on-success="handleLinkCollectionFormSuccess")
 
     template(v-else)
-      .link-collections-dialog-selected-link(v-if="selectedLink && Object.keys(selectedLink)?.length > 0 && myLinkCollections.length > 0")
+      .link-collections-dialog-selected-link(v-if="hasSelectedLink && myLinkCollections.length > 0")
         span.link-collections-dialog-selected-link__title {{ $t('linkCollection.selectedLink') }}
         UrlLinkCard.mb-3(:url="selectedLink.url")
         AppTextarea.link-collections-dialog-selected-link__descriptionTextarea(
@@ -46,6 +46,7 @@ ClientOnly
             template(v-for="collection in myLinkCollections")
               LinkCollectionCard(
                 :key="collection.id"
+                :as="hasSelectedLink ? 'div' : 'NuxtLink'"
                 :collection="collection"
                 @on-click="handleClickCollection(collection)"
                 @on-update-link-collection="handleUpdateLinkCollection"
@@ -200,6 +201,8 @@ export default defineComponent({
     const selectedLink = computed(() => store.getters['link-collection/selectedLink'])
     const selectedLinkDescription = ref(null)
 
+    const hasSelectedLink = computed(() => selectedLink.value && Object.keys(selectedLink.value)?.length > 0)
+
     const handleClickCollection = async (collection: BookmarksCollectionTypes) => {
       if (selectedLink.value && Object.keys(selectedLink.value)?.length > 0) {
         state.isBusy = true
@@ -294,6 +297,7 @@ export default defineComponent({
       handleClickCollection,
       selectedLink,
       selectedLinkDescription,
+      hasSelectedLink,
       descriptionTextareaRef,
       focusToDescriptionTextarea,
       isVisibleLinkCollectionForm,

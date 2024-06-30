@@ -1,56 +1,52 @@
 <template lang="pug">
-.card.link-collection-card.link-collection-card
-  header.link-collection-card__header
+component.card.link-collection-card.link-collection-card(
+  :is="as"
+  :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug } })"
+)
+  .link-collection-card__actions
+    LinkCollectionCardMoreDropdown(
+      :collection="collection"
+      :is-busy="state.isBusy"
+      @on-update-privacy-link-collection="handleUpdatePrivacyLinkCollection"
+      @on-delete-link-collection="handleDeleteLinkCollection"
+    )
+      template(#trigger)
+        PaperButton(:width="24" :height="24")
+          AppIcon(name="ri:more-line" :width="24" :height="24")
+
+  header.link-collection-card__header(:style="[headerStyle]" @click.prevent.capture="handleClick")
+    strong.link-collection-card__featuredTitle {{ collection.title }}
+
+  .link-collection-card__body(@click.prevent.capture="handleClick")
+    .d-flex.align-items-center.justify-content-between
+      strong.link-collection-card__title {{ collection.title }}
+      .link-collection-card-bookmark-count
+        AppIcon.link-collection-card-bookmark-count__icon(name="ri:link")
+        span.link-collection-card-bookmark-count__title {{ collection.bookmarkCount }} link
+
+    LinkCollectionPrivacyBadge(:privacy="collection.privacy")
+
+    p.link-collection-card__description {{ collection.description }}
+
+  footer.link-collection-card__footer(@click.prevent.capture="handleClick")
     .link-collection-card__users
       template(v-for="user in collection.users")
         .link-collection-card-user(:key="user.id" :user="user")
-          AppAvatar.link-collection-card-user__avatar(:user="user")
+          AppAvatar.link-collection-card-user__avatar(:user="user" :size="28")
           span.link-collection-card-user__username {{ user.username }}
-
-    .link-collection-card__actions
-      LinkCollectionCardMoreDropdown(
-        :collection="collection"
-        :is-busy="state.isBusy"
-        @on-update-privacy-link-collection="handleUpdatePrivacyLinkCollection"
-        @on-delete-link-collection="handleDeleteLinkCollection"
-      )
-        template(#trigger)
-          PaperButton(:width="24" :height="24")
-            AppIcon(name="ri:more-line" :width="24" :height="24")
-
-  NuxtLink.link-collection-card__body(
-    :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug } })"
-    @click.native.prevent.capture="handleClick"
-  )
-    strong.link-collection-card__title {{ collection.title }}
-    .link-collection-card-privacy
-      template(v-if="collection.privacy === bookmarksCollectionPrivacyEnum.ME_ONLY")
-        AppIcon.link-collection-card-privacy__icon(name="ri:lock-line" :width="16" :height="16")
-        span.link-collection-card-privacy__title {{ $t('linkCollection.privacy.meOnly') }}
-      template(v-else-if="collection.privacy === bookmarksCollectionPrivacyEnum.LINK_ONLY")
-        AppIcon.link-collection-card-privacy__icon(name="ri:link" :width="16" :height="16")
-        span.link-collection-card-privacy__title {{ $t('linkCollection.privacy.linkOnly') }}
-      template(v-else-if="collection.privacy === bookmarksCollectionPrivacyEnum.PUBLIC")
-        AppIcon.link-collection-card-privacy__icon(name="ri:global-line" :width="16" :height="16")
-        span.link-collection-card-privacy__title {{ $t('linkCollection.privacy.public') }}
-    p.link-collection-card__description {{ collection.description }}
-
-  footer.link-collection-card__footer
     .link-collection-card-date
       ClientOnly
         Timeago(:datetime="collection.createdAt" :auto-update="60" :locale="$i18n.locale")
-    .link-collection-card-bookmark-count
-      AppIcon.link-collection-card-bookmark-count__icon(name="ri:link")
-      span.link-collection-card-bookmark-count__title {{ collection.bookmarkCount }} link
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, reactive, computed } from '@nuxtjs/composition-api'
 import type { BookmarksCollectionPrivacyEnumTypes } from '@/types'
-import { bookmarksCollectionPrivacyEnum } from '@/enums'
+import { useColor } from '@/hooks'
 import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
 import { LinkCollectionCardMoreDropdown } from '@/components/Dropdown'
+import { LinkCollectionPrivacyBadge } from '@/components/Badge'
 import { PaperButton } from '@/components/Button'
 
 export default defineComponent({
@@ -58,9 +54,15 @@ export default defineComponent({
     AppAvatar,
     AppIcon,
     LinkCollectionCardMoreDropdown,
+    LinkCollectionPrivacyBadge,
     PaperButton
   },
   props: {
+    as: {
+      type: String,
+      required: false,
+      default: 'NuxtLink'
+    },
     collection: {
       type: Object,
       required: true
@@ -68,6 +70,8 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const context = useContext()
+
+    const { generateRadialGradient } = useColor()
 
     const state = reactive({
       isBusy: false
@@ -142,12 +146,16 @@ export default defineComponent({
       state.isBusy = false
     }
 
+    const headerStyle = computed(() => ({
+      background: generateRadialGradient({ key: props.collection.slug, theme: 'light' })
+    }))
+
     return {
-      bookmarksCollectionPrivacyEnum,
       state,
       handleClick,
       handleUpdatePrivacyLinkCollection,
-      handleDeleteLinkCollection
+      handleDeleteLinkCollection,
+      headerStyle
     }
   }
 })

@@ -18,21 +18,27 @@
             span.link-collection-card-more-dropdown-list-item__title {{ $t('general.edit') }}
           hr
           small {{ $t('general.privacy') }}
-        li.link-collection-card-more-dropdown-list-item(@click="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.PUBLIC)")
+        li.link-collection-card-more-dropdown-list-item(
+          @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.PUBLIC)"
+        )
           a
             AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:global-line")
             span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.privacy.public') }}
-        li.link-collection-card-more-dropdown-list-item(@click="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.LINK_ONLY)")
+        li.link-collection-card-more-dropdown-list-item(
+          @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.LINK_ONLY)"
+        )
           a
             AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:link")
             span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.privacy.linkOnly') }}
-        li.link-collection-card-more-dropdown-list-item(@click="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.ME_ONLY)")
+        li.link-collection-card-more-dropdown-list-item(
+          @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.ME_ONLY)"
+        )
           a
             AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:lock-line")
             span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.privacy.meOnly') }}
           hr
         li.link-collection-card-more-dropdown-list-item.link-collection-card-more-dropdown-list-item--delete(
-          @click="handleClickItemDelete"
+          @click.prevent.stop="handleClickItemDelete"
         )
           a
             AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:delete-bin-line")

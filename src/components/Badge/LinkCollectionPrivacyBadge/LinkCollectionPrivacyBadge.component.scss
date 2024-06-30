@@ -1,0 +1,14 @@
+.link-collection-privacy-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-03);
+
+  &__icon {
+    margin-inline-end: calc(var(--spacer) / 1);
+  }
+
+  &__title {
+    font-size: var(--font-size-text-22);
+  }
+}

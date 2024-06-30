@@ -197,7 +197,8 @@ const config: NuxtConfig = {
        * Mixins
        */
       '@/assets/style/scss/mixins/_font.scss',
-      '@/assets/style/scss/mixins/_gradient.scss'
+      '@/assets/style/scss/mixins/_gradient.scss',
+      '@/assets/style/scss/mixins/_typography.scss'
     ]
   },
 
