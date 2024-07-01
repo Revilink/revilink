@@ -10,9 +10,6 @@ component.card.link-collection-card.link-collection-card(
       @on-update-privacy-link-collection="handleUpdatePrivacyLinkCollection"
       @on-delete-link-collection="handleDeleteLinkCollection"
     )
-      template(#trigger)
-        PaperButton(:width="24" :height="24")
-          AppIcon(name="ri:more-line" :width="24" :height="24")
 
   header.link-collection-card__header(:style="[headerStyle]" @click.prevent.capture="handleClick")
     strong.link-collection-card__featuredTitle {{ collection.title }}
@@ -47,15 +44,13 @@ import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
 import { LinkCollectionCardMoreDropdown } from '@/components/Dropdown'
 import { LinkCollectionPrivacyBadge } from '@/components/Badge'
-import { PaperButton } from '@/components/Button'
 
 export default defineComponent({
   components: {
     AppAvatar,
     AppIcon,
     LinkCollectionCardMoreDropdown,
-    LinkCollectionPrivacyBadge,
-    PaperButton
+    LinkCollectionPrivacyBadge
   },
   props: {
     as: {

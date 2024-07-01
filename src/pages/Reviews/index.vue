@@ -49,7 +49,7 @@
             @click="handleClickAddToLinkCollection"
           )
             AppIcon.me-2(name="ri:bookmark-line" :width="14" :height="14")
-            | Save
+            | {{ $t('linkCollection.addToLinkCollection') }}
           // Reactions
           .reviews-page-reactions
             ReactionButtonGroup(

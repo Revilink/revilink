@@ -23,7 +23,7 @@ ClientOnly
           rows="1"
           spellcheck="false"
           resize="none"
-          maxlength="512"
+          maxlength="128"
           autofocus
           character-counter
           @input="selectedLinkDescription = $event.target.value"
@@ -37,7 +37,7 @@ ClientOnly
 
       template(v-else-if="fetchState.error")
         p {{ fetchState.error }}
-        vs-button(@click="fetch")
+        vs-button(@click.prevent.stop="fetch")
           | {{ $t('error.tryAgain') }}
 
       template(v-else)

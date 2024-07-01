@@ -1,4 +1,4 @@
-.link-collection-card-more-dropdown {
+.link-collection-link-card-more-dropdown {
   $v-dropdown-menu: '.v-dropdown-menu';
 
   position: relative;
@@ -10,7 +10,9 @@
       display: flex;
       align-items: center;
       padding: calc(var(--spacer-base) / 6) calc(var(--spacer-base) / 4);
+      background-color: var(--color-ui-02);
       border-radius: var(--border-radius-01);
+      box-shadow: var(--box-shadow-02);
       cursor: pointer;
 
       @include media-breakpoint-down(sm) {
@@ -18,7 +20,7 @@
       }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.16);
+        background-color: var(--color-hover-01);
 
         .paper-button {
           background-color: transparent;
@@ -48,6 +50,12 @@
 
     &-item {
       list-style: none;
+
+      &--delete {
+        span {
+          color: var(--color-danger-02);
+        }
+      }
 
       &:last-child {
         margin-block-end: 0;
@@ -90,5 +98,45 @@
     margin: calc(var(--spacer) * 4) calc(var(--spacer) * 2) calc(var(--spacer) * 2) calc(var(--spacer) * 2);
     color: var(--color-text-03);
     text-align: left;
+  }
+}
+
+.link-collection-link-card-more-dropdown-edit-dialog {
+  .edit-form {
+    position: relative;
+
+    .url-link-card {
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-inline-start: 2px solid var(--color-border-02);
+      border-radius: 0;
+
+      &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px !important;
+        height: 16px !important;
+        padding-block-start: calc(var(--spacer) / 2);
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &__title {
+        font-size: var(--font-size-text-22);
+      }
+    }
+
+    &__descriptionTextarea {
+      .app-textarea {
+        &__textarea {
+          max-height: 128px;
+          overflow: auto;
+        }
+      }
+    }
   }
 }

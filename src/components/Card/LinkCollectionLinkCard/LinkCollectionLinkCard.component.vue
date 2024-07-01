@@ -1,6 +1,16 @@
 <template lang="pug">
 a.link-collection-link-card(:href="link.url.urlRaw" :title="link.url.urlRaw" target="_blank")
   header.link-collection-link-card__header(:style="[headerStyle]")
+    .link-collection-link-card__actions
+      vs-tooltip(v-if="link.description" not-arrow shadow bottom)
+        vs-button.link-collection-link-card-action-item(transparent @click.prevent.stop="handleClickNoteActionItem")
+          AppIcon.link-collection-link-card-action-item__icon(name="fxemoji:note" color="var(--color-link-01)" :width="18" :height="18")
+          span.link-collection-link-card-action-item__title {{ $t('general.note') }}
+        template(#tooltip)
+          p.py-2.px-2 {{ link.description }}
+
+      LinkCollectionLinkCardMoreDropdown(:link="link")
+
     img.link-collection-link-card__image(v-if="site.meta?.image" :src="site.meta.image" alt="site image" width="1200" height="630")
     span.link-collection-link-card__domain(v-else) {{ parseURL(link.url.urlRaw).host }}
 
@@ -24,11 +34,13 @@ a.link-collection-link-card(:href="link.url.urlRaw" :title="link.url.urlRaw" tar
 import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api'
 import { useSiteScraper, useColor } from '@/hooks'
 import { AppIcon } from '@/components/Icon'
+import { LinkCollectionLinkCardMoreDropdown } from '@/components/Dropdown'
 const { parseURL } = require('ufo')
 
 export default defineComponent({
   components: {
-    AppIcon
+    AppIcon,
+    LinkCollectionLinkCardMoreDropdown
   },
   props: {
     link: {
@@ -36,7 +48,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { site, extractSiteMeta } = useSiteScraper()
     const { generateRadialGradient } = useColor()
 
@@ -46,6 +58,10 @@ export default defineComponent({
       })
     })
 
+    const handleClickNoteActionItem = () => {
+      emit('on-click-note')
+    }
+
     const headerStyle = computed(() => ({
       background: generateRadialGradient({ key: parseURL(props.link.url.urlRaw).host, theme: 'light' })
     }))
@@ -53,6 +69,7 @@ export default defineComponent({
     return {
       parseURL,
       site,
+      handleClickNoteActionItem,
       headerStyle
     }
   }

@@ -82,7 +82,8 @@ export default {
     embedStylesCode: 'Embed styles code',
     copyEmbedCode: 'Copy embed code',
     copyEmbedStylesCode: 'Copy embed styles code',
-    privacy: 'Privacy'
+    privacy: 'Privacy',
+    note: 'Note'
   },
   hero: {
     home: {
@@ -363,7 +364,7 @@ export default {
     },
     field: {
       description: {
-        placeholder: 'Description (Optional)'
+        placeholder: 'Note (Optional)'
       }
     },
     create: 'Create',
@@ -372,7 +373,8 @@ export default {
     editLinkCollection: 'Edit link collection',
     deleteLinkCollection: 'Delete link collection',
     addToLinkCollection: 'Add to link collection',
-    removeFromLinkCollection: 'Remove from link collection'
+    removeFromLinkCollection: 'Remove from link collection',
+    seeLink: 'See link reviews'
   },
   state: {
     empty: {

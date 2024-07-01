@@ -30,6 +30,17 @@ export interface PostBookmarkTypes extends ApiQueryTypes {
   description: string
 }
 
+export interface UpdateBookmarkTypes extends ApiQueryTypes {
+  id: number
+  collectionId: number
+  url: number
+  description: string
+}
+
+export interface DeleteBookmarkTypes extends ApiQueryTypes {
+  id: number
+}
+
 export type BookmarkApiTypes = {
   fetchBookmarksCollections: Function
   fetchBookmarksCollection: Function
@@ -38,4 +49,6 @@ export type BookmarkApiTypes = {
   deleteBookmarksCollection: Function
   fetchBookmarks: Function
   postBookmark: Function
+  updateBookmark: Function
+  deleteBookmark: Function
 }

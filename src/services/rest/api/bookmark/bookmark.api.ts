@@ -6,7 +6,9 @@ import type {
   UpdateBookmarksCollectionTypes,
   DeleteBookmarksCollectionTypes,
   FetchBookmarksTypes,
-  PostBookmarkTypes
+  PostBookmarkTypes,
+  UpdateBookmarkTypes,
+  DeleteBookmarkTypes
 } from './bookmark.api.types'
 import type { BookmarksCollectionApiModelTypes, BookmarkApiModelTypes } from '@/types'
 import { bookmarkTransformer, bookmarksCollectionTransformer } from '@/services/rest/transformers'
@@ -182,6 +184,63 @@ export const bookmarkApi = (appAxios: Function) =>
 
       if (data) {
         return { data: bookmarkTransformer(data) }
+      } else {
+        return { error }
+      }
+    },
+
+    async updateBookmark(params: UpdateBookmarkTypes) {
+      const { id, collectionId, url, description, populate, filters } = params
+
+      const queryDefault = {
+        populate: 'populate=url,bookmarksCollection.users',
+        filters: ''
+      }
+
+      const query = {
+        populate: populate || queryDefault.populate,
+        filters: filters || queryDefault.filters
+      }
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'put',
+        path: `bookmarks/${id}?${query.populate}&${query.filters}`,
+        data: {
+          data: {
+            bookmarksCollection: collectionId,
+            url,
+            description
+          }
+        }
+      })
+
+      if (data) {
+        return { data: bookmarkTransformer(data.data) }
+      } else {
+        return { error }
+      }
+    },
+
+    async deleteBookmark(params: DeleteBookmarkTypes) {
+      const { id, populate, filters } = params
+
+      const queryDefault = {
+        populate: 'populate=url,bookmarksCollection.users',
+        filters: ''
+      }
+
+      const query = {
+        populate: populate || queryDefault.populate,
+        filters: filters || queryDefault.filters
+      }
+
+      const { data, error } = await appAxios(<AppAxiosType>{
+        method: 'delete',
+        path: `bookmarks/${id}?${query.populate}&${query.filters}`
+      })
+
+      if (data) {
+        return { data: bookmarkTransformer(data.data) }
       } else {
         return { error }
       }

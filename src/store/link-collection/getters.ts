@@ -6,5 +6,11 @@ export default {
   },
   selectedLink(state: StateTypes) {
     return state.selectedLink
+  },
+  linkCollection(state: StateTypes) {
+    return state.linkCollection
+  },
+  linkCollectionLinks(state: StateTypes) {
+    return state.linkCollectionLinks
   }
 }

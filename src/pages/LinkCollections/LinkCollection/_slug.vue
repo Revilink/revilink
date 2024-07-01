@@ -35,13 +35,11 @@
     AppLoading
 
   template(v-else)
-    LinkCollectionLinkCardList(:items="bookmarks")
+    LinkCollectionLinkCardList(:items="linkCollectionLinks")
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute, useFetch, ref, computed } from '@nuxtjs/composition-api'
-import type { Ref } from 'vue'
-import type { BookmarksCollectionTypes } from '@/types'
+import { defineComponent, useRoute, useStore, useFetch, computed } from '@nuxtjs/composition-api'
 import { useColor } from '@/hooks'
 import { AppLoading } from '@/components/Loading'
 import { LinkCollectionPrivacyBadge } from '@/components/Badge'
@@ -59,40 +57,23 @@ export default defineComponent({
   },
   layout: 'Default/Default.layout',
   setup() {
-    const context = useContext()
     const route = useRoute()
+    const store = useStore()
 
     const { generateRadialGradient } = useColor()
 
-    const linkCollection: Ref<BookmarksCollectionTypes | null> = ref(null)
+    const collectionId = Number(route.value.params.slug.split('-').pop())
+
+    const linkCollection = computed(() => store.getters['link-collection/linkCollection'])
 
     const { fetch: collectionFetch, fetchState: collectionFetchState } = useFetch(async () => {
-      const collectionId = Number(route.value.params.slug.split('-').pop())
-      const { data, error } = await context.$api.rest.bookmark.fetchBookmarksCollection({ id: collectionId })
-
-      if (data) {
-        linkCollection.value = data.data
-      }
-
-      if (error) {
-        throw new Error(error.message)
-      }
+      await store.dispatch('link-collection/fetchLinkCollection', { id: collectionId })
     })
 
-    const bookmarks = ref(null)
+    const linkCollectionLinks = computed(() => store.getters['link-collection/linkCollectionLinks'])
 
     const { fetch: bookmarksFetch, fetchState: bookmarksFetchState } = useFetch(async () => {
-      const collectionId = Number(route.value.params.slug.split('-').pop())
-
-      const { data, error } = await context.$api.rest.bookmark.fetchBookmarks({ collectionId })
-
-      if (data) {
-        bookmarks.value = data.data
-      }
-
-      if (error) {
-        throw new Error(error.message)
-      }
+      await store.dispatch('link-collection/fetchLinkCollectionLinks', { collectionId })
     })
 
     const coverStyle = computed(() => ({
@@ -105,7 +86,7 @@ export default defineComponent({
       bookmarksFetch,
       bookmarksFetchState,
       linkCollection,
-      bookmarks,
+      linkCollectionLinks,
       coverStyle
     }
   }

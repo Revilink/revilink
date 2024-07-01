@@ -4,5 +4,7 @@ export default (): StateTypes => ({
   linkCollectionsDialog: {
     isOpen: false
   },
-  selectedLink: null
+  selectedLink: null,
+  linkCollection: {},
+  linkCollectionLinks: []
 })
