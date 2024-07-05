@@ -508,6 +508,10 @@ export default {
     createReviewsEmbed: {
       title: 'Create comments embed, add free comments embed to your web page',
       description: 'Create a comments embed for your website. Add free comments embed for your web page'
+    },
+    linkCollection: {
+      title: 'Link collection: {collectionTitle}',
+      description: 'This link collection includes {linkCount} links and created by {username} - {collectionDescription}'
     }
   }
 }

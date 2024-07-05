@@ -445,6 +445,10 @@ export default {
     createReviewsEmbed: {
       title: 'Yorum embedi oluştur, web sayfana yorum alanı ekle',
       description: 'Web siteniz için bir yorum embed oluşturun. Web sayfanız için ücretsiz yorum embed ekleyin'
+    },
+    linkCollection: {
+      title: 'Link koleksiyonu: {collectionTitle}',
+      description: 'Bu link koleksiyonu {linkCount} link içeriyor ve {username} oluşturdu - {collectionDescription}'
     }
   }
 }

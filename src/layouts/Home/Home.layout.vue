@@ -38,7 +38,7 @@
   AppFooter
 
   // Link Collections Dialog
-  LinkCollectionsDialog
+  LinkCollectionsDialog(v-if="$auth.loggedIn")
 
   // Cookie Dialog
   CookieDialog

@@ -1,8 +1,12 @@
 .link-collection-link-card-list {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: calc(var(--spacer-base) / 2);
+
+  &__items {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--spacer-base) / 2);
+  }
 
   &__noResults {
     margin-block-end: calc(var(--spacer-base) * 2);

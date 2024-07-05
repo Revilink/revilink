@@ -13,7 +13,7 @@
         Nuxt
 
   // Link Collections Dialog
-  LinkCollectionsDialog
+  LinkCollectionsDialog(v-if="$auth.loggedIn")
 
   // Login Dialog
   LoginDialog

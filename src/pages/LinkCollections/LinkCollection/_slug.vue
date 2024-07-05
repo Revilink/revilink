@@ -3,14 +3,21 @@
   template(v-if="collectionFetchState.pending")
     AppLoading
 
+  template(v-if="collectionFetchState.error")
+    BasicState.mb-base.pb-base(:title="$t('error.error')" :description="collectionFetchState.error.message")
+      template(#head)
+        img(src="/media/elements/state/network.svg" width="256")
+      template(#footer)
+        vs-button.my-10(type="button" @click="collectionFetch") {{ $t('error.tryAgain') }}
+
   template(v-else)
-    .row
+    .row(v-if="linkCollection && Object.keys(linkCollection).length > 0")
       .col.col-4
         .link-collection-page-cover(:style="[coverStyle]")
           h1.link-collection-page__coverTitle {{ linkCollection.title }}
 
       .col.col-8
-        header.link-collection-page__header(v-if="linkCollection")
+        header.link-collection-page__header
           h1.link-collection-page__title {{ linkCollection.title }}
 
           span.link-collection-page__linkCount.me-2
@@ -31,21 +38,30 @@
 
           p.link-collection-page__description(v-if="linkCollection.description?.length > 0") {{ linkCollection.description }}
 
-  template(v-if="bookmarksFetchState.pending")
-    AppLoading
+    template(v-if="bookmarksFetchState.pending")
+      AppLoading
 
-  template(v-else)
-    LinkCollectionLinkCardList(:items="linkCollectionLinks")
+    template(v-if="bookmarksFetchState.error")
+      BasicState.mb-base.pb-base(:title="$t('error.error')" :description="$t('error.anErrorOccurred')")
+        template(#head)
+          img(src="/media/elements/state/network.svg" width="256")
+        template(#footer)
+          vs-button.my-10(type="button" @click="collectionFetch") {{ $t('error.tryAgain') }}
+
+    template(v-else)
+      LinkCollectionLinkCardList(:items="linkCollectionLinks")
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, useStore, useFetch, computed } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute, useStore, useFetch, computed, useMeta } from '@nuxtjs/composition-api'
+import { bookmarksCollectionPrivacyEnum } from '@/enums'
 import { useColor } from '@/hooks'
 import { AppLoading } from '@/components/Loading'
 import { LinkCollectionPrivacyBadge } from '@/components/Badge'
 import { AppIcon } from '@/components/Icon'
 import { AppAvatar } from '@/components/Avatar'
 import { LinkCollectionLinkCardList } from '@/components/List'
+import { BasicState } from '@/components/State'
 
 export default defineComponent({
   components: {
@@ -53,10 +69,12 @@ export default defineComponent({
     LinkCollectionPrivacyBadge,
     AppIcon,
     AppAvatar,
-    LinkCollectionLinkCardList
+    LinkCollectionLinkCardList,
+    BasicState
   },
   layout: 'Default/Default.layout',
   setup() {
+    const context = useContext()
     const route = useRoute()
     const store = useStore()
 
@@ -80,6 +98,77 @@ export default defineComponent({
       background: generateRadialGradient({ key: linkCollection.value?.title || '', theme: 'light' })
     }))
 
+    useMeta(() => {
+      if (!linkCollection.value || collectionFetchState.error) {
+        return {
+          meta: [
+            {
+              hid: 'robots',
+              name: 'robots',
+              content: 'noindex,nofollow'
+            }
+          ]
+        }
+      }
+
+      const metaTags = [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: context.i18n.t('seo.linkCollection.title', { collectionTitle: linkCollection.value.title || '' })
+        },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content: context.i18n.t('seo.linkCollection.title', { collectionTitle: linkCollection.value.title || '' })
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: context.i18n.t('seo.linkCollection.description', {
+            collectionDescription: linkCollection.value.description,
+            linkCount: linkCollection.value.bookmarks.length,
+            username: linkCollection.value.users[0].username
+          })
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: context.i18n.t('seo.linkCollection.description', {
+            collectionDescription: linkCollection.value.description,
+            linkCount: linkCollection.value.bookmarks.length,
+            username: linkCollection.value.users[0].username
+          })
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: context.i18n.t('seo.linkCollection.description', {
+            collectionDescription: linkCollection.value.description,
+            linkCount: linkCollection.value.bookmarks.length,
+            username: linkCollection.value.users[0].username
+          })
+        }
+      ]
+
+      if (
+        collectionFetchState.error ||
+        linkCollection.value?.privacy === bookmarksCollectionPrivacyEnum.LINK_ONLY ||
+        linkCollection.value?.privacy === bookmarksCollectionPrivacyEnum.ME_ONLY
+      ) {
+        metaTags.push({
+          hid: 'robots',
+          name: 'robots',
+          content: 'noindex,nofollow'
+        })
+      }
+
+      return {
+        title: context.i18n.t('seo.linkCollection.title', { collectionTitle: linkCollection.value.title || '' }),
+        meta: metaTags
+      } as any
+    })
+
     return {
       collectionFetch,
       collectionFetchState,
@@ -89,7 +178,8 @@ export default defineComponent({
       linkCollectionLinks,
       coverStyle
     }
-  }
+  },
+  head: {}
 })
 </script>
 
