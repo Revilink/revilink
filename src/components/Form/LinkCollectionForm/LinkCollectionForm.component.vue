@@ -87,7 +87,7 @@ export default defineComponent({
     const createLinkCollection = async () => {
       state.isBusy = true
 
-      const { data, error } = await context.$api.rest.bookmark.postBookmarksCollection({
+      const { data, error } = await context.$api.rest.linkCollection.postLinkCollection({
         title: form.title,
         description: form.description,
         users: [context.$auth?.user]

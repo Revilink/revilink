@@ -99,7 +99,7 @@ import {
   nextTick
 } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
-import type { BookmarksCollectionTypes } from '@/types'
+import type { LinkCollectionTypes } from '@/types'
 import { AppIcon } from '@/components/Icon'
 import { LinkCollectionCard, UrlLinkCard } from '@/components/Card'
 import { AppTextarea } from '@/components/Textarea'
@@ -185,7 +185,7 @@ export default defineComponent({
     const myLinkCollections = ref([])
 
     const { fetch, fetchState } = useFetch(async () => {
-      const { data, error } = await context.$api.rest.bookmark.fetchBookmarksCollections({
+      const { data, error } = await context.$api.rest.linkCollection.fetchLinkCollections({
         filters: `filters[users][id][$eq]=${context.$auth?.user?.id}`
       })
 
@@ -203,10 +203,10 @@ export default defineComponent({
 
     const hasSelectedLink = computed(() => selectedLink.value && Object.keys(selectedLink.value)?.length > 0)
 
-    const handleClickCollection = async (collection: BookmarksCollectionTypes) => {
+    const handleClickCollection = async (collection: LinkCollectionTypes) => {
       if (selectedLink.value && Object.keys(selectedLink.value)?.length > 0) {
         state.isBusy = true
-        const { data, error } = await context.$api.rest.bookmark.postBookmark({
+        const { data, error } = await context.$api.rest.linkCollection.postLinkCollectionLink({
           collectionId: collection.id,
           url: selectedLink.value.url,
           description: selectedLinkDescription.value

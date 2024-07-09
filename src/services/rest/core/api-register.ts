@@ -1,5 +1,5 @@
 import { Context } from '@nuxt/types'
-import { authApi, userApi, fileApi, urlApi, reviewApi, scraperApi, bookmarkApi } from '@/services/rest/api'
+import { authApi, userApi, fileApi, urlApi, reviewApi, scraperApi, linkCollectionApi } from '@/services/rest/api'
 
 export default function ({ app }: Context) {
   app.$api.rest = {
@@ -9,6 +9,6 @@ export default function ({ app }: Context) {
     url: urlApi(app.$appAxios, app),
     review: reviewApi(app.$appAxios, app),
     scraper: scraperApi(app.$appAxios, app),
-    bookmark: bookmarkApi(app.$appAxios)
+    linkCollection: linkCollectionApi(app.$appAxios)
   }
 }

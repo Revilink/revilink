@@ -15,7 +15,7 @@ ClientOnly
               AppIcon.link-collection-link-card-more-dropdown-list-item__icon(name="ri:external-link-line")
               span.link-collection-link-card-more-dropdown-list-item__title {{ $t('linkCollection.seeLink') }}
 
-          template(v-if="isOwner({ users: link.bookmarksCollection.users })")
+          template(v-if="isOwner({ users: link.linkCollection.users })")
             li.link-collection-link-card-more-dropdown-list-item.link-collection-link-card-more-dropdown-list-item--edit(
               @click.prevent.stop="handleClickItemEdit"
             )
@@ -32,7 +32,7 @@ ClientOnly
                 AppIcon.link-collection-link-card-more-dropdown-list-item__icon(name="ri:delete-bin-line")
                 span.link-collection-link-card-more-dropdown-list-item__title {{ $t('general.delete') }}
 
-    template(v-if="isOwner({ users: link.bookmarksCollection.users })")
+    template(v-if="isOwner({ users: link.linkCollection.users })")
       ConfirmDialog.link-collection-link-card-more-dropdown-edit-dialog(
         :is-open="isOpenEditDialog"
         :title="$t('general.edit')"

@@ -24,20 +24,18 @@ ClientOnly
                 span.link-collection-card-more-dropdown-list-item__title {{ $t('general.edit') }}
               hr
               small {{ $t('general.privacy') }}
-            li.link-collection-card-more-dropdown-list-item(
-              @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.PUBLIC)"
-            )
+            li.link-collection-card-more-dropdown-list-item(@click.prevent.stop="handleClickItemPrivacy(linkCollectionPrivacyEnum.PUBLIC)")
               a
                 AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:global-line")
                 span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.privacy.public') }}
             li.link-collection-card-more-dropdown-list-item(
-              @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.LINK_ONLY)"
+              @click.prevent.stop="handleClickItemPrivacy(linkCollectionPrivacyEnum.LINK_ONLY)"
             )
               a
                 AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:link")
                 span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.privacy.linkOnly') }}
             li.link-collection-card-more-dropdown-list-item(
-              @click.prevent.stop="handleClickItemPrivacy(bookmarksCollectionPrivacyEnum.ME_ONLY)"
+              @click.prevent.stop="handleClickItemPrivacy(linkCollectionPrivacyEnum.ME_ONLY)"
             )
               a
                 AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:lock-line")
@@ -71,8 +69,8 @@ ClientOnly
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import DropdownMenu from 'v-dropdown-menu'
 import { useAuth } from '@/hooks'
-import type { BookmarksCollectionPrivacyEnumTypes } from '@/types'
-import { bookmarksCollectionPrivacyEnum } from '@/enums'
+import type { LinkCollectionPrivacyEnumTypes } from '@/types'
+import { linkCollectionPrivacyEnum } from '@/enums'
 import 'v-dropdown-menu/dist/v-dropdown-menu.css'
 import { PaperButton } from '@/components/Button'
 import { AppIcon } from '@/components/Icon'
@@ -109,7 +107,7 @@ export default defineComponent({
 
     const selectedPrivacy = ref('')
 
-    const handleClickItemPrivacy = (privacy: BookmarksCollectionPrivacyEnumTypes) => {
+    const handleClickItemPrivacy = (privacy: LinkCollectionPrivacyEnumTypes) => {
       selectedPrivacy.value = privacy
       isOpenPrivacyUpdateDialog.value = true
     }
@@ -138,7 +136,7 @@ export default defineComponent({
 
     return {
       isOwner,
-      bookmarksCollectionPrivacyEnum,
+      linkCollectionPrivacyEnum,
       isOpen,
       onClose,
       isOpenPrivacyUpdateDialog,

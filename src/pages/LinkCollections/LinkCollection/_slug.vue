@@ -22,7 +22,7 @@
 
           span.link-collection-page__linkCount.me-2
             AppIcon.link-collection-page__linkCount__icon(name="ri:link" :width="16" :height="16")
-            span.link-collection-page__linkCount__title {{ linkCollection.bookmarks.length }} Link
+            span.link-collection-page__linkCount__title {{ linkCollection.linkCollectionLinkCount }} Link
 
           LinkCollectionPrivacyBadge(:privacy="linkCollection.privacy")
 
@@ -38,10 +38,10 @@
 
           p.link-collection-page__description(v-if="linkCollection.description?.length > 0") {{ linkCollection.description }}
 
-    template(v-if="bookmarksFetchState.pending")
+    template(v-if="linkCollectionLinksFetchState.pending")
       AppLoading
 
-    template(v-if="bookmarksFetchState.error")
+    template(v-if="linkCollectionLinksFetchState.error")
       BasicState.mb-base.pb-base(:title="$t('error.error')" :description="$t('error.anErrorOccurred')")
         template(#head)
           img(src="/media/elements/state/network.svg" width="256")
@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { defineComponent, useContext, useRoute, useStore, useFetch, computed, useMeta } from '@nuxtjs/composition-api'
-import { bookmarksCollectionPrivacyEnum } from '@/enums'
+import { linkCollectionPrivacyEnum } from '@/enums'
 import { useColor } from '@/hooks'
 import { AppLoading } from '@/components/Loading'
 import { LinkCollectionPrivacyBadge } from '@/components/Badge'
@@ -90,7 +90,7 @@ export default defineComponent({
 
     const linkCollectionLinks = computed(() => store.getters['link-collection/linkCollectionLinks'])
 
-    const { fetch: bookmarksFetch, fetchState: bookmarksFetchState } = useFetch(async () => {
+    const { fetch: linkCollectionLinksFetch, fetchState: linkCollectionLinksFetchState } = useFetch(async () => {
       await store.dispatch('link-collection/fetchLinkCollectionLinks', { collectionId })
     })
 
@@ -127,8 +127,8 @@ export default defineComponent({
           name: 'description',
           content: context.i18n.t('seo.linkCollection.description', {
             collectionDescription: linkCollection.value.description,
-            linkCount: linkCollection.value.bookmarks.length,
-            username: linkCollection.value.users[0].username
+            linkCount: linkCollection.value.linkCollectionLinkCount,
+            username: linkCollection.value.users?.[0]?.username || ''
           })
         },
         {
@@ -136,8 +136,8 @@ export default defineComponent({
           name: 'og:description',
           content: context.i18n.t('seo.linkCollection.description', {
             collectionDescription: linkCollection.value.description,
-            linkCount: linkCollection.value.bookmarks.length,
-            username: linkCollection.value.users[0].username
+            linkCount: linkCollection.value.linkCollectionLinkCount,
+            username: linkCollection.value.users?.[0]?.username || ''
           })
         },
         {
@@ -145,16 +145,16 @@ export default defineComponent({
           name: 'twitter:description',
           content: context.i18n.t('seo.linkCollection.description', {
             collectionDescription: linkCollection.value.description,
-            linkCount: linkCollection.value.bookmarks.length,
-            username: linkCollection.value.users[0].username
+            linkCount: linkCollection.value.linkCollectionLinkCount,
+            username: linkCollection.value.users?.[0]?.username || ''
           })
         }
       ]
 
       if (
         collectionFetchState.error ||
-        linkCollection.value?.privacy === bookmarksCollectionPrivacyEnum.LINK_ONLY ||
-        linkCollection.value?.privacy === bookmarksCollectionPrivacyEnum.ME_ONLY
+        linkCollection.value?.privacy === linkCollectionPrivacyEnum.LINK_ONLY ||
+        linkCollection.value?.privacy === linkCollectionPrivacyEnum.ME_ONLY
       ) {
         metaTags.push({
           hid: 'robots',
@@ -172,8 +172,8 @@ export default defineComponent({
     return {
       collectionFetch,
       collectionFetchState,
-      bookmarksFetch,
-      bookmarksFetchState,
+      linkCollectionLinksFetch,
+      linkCollectionLinksFetchState,
       linkCollection,
       linkCollectionLinks,
       coverStyle

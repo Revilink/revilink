@@ -1,23 +1,23 @@
 import type {
-  BookmarkApiTypes,
-  FetchBookmarksCollectionsTypes,
-  FetchBookmarksCollectionTypes,
-  PostBookmarksCollectionTypes,
-  UpdateBookmarksCollectionTypes,
-  DeleteBookmarksCollectionTypes,
-  FetchBookmarksTypes,
-  PostBookmarkTypes,
-  UpdateBookmarkTypes,
-  DeleteBookmarkTypes
-} from './bookmark.api.types'
-import type { BookmarksCollectionApiModelTypes, BookmarkApiModelTypes } from '@/types'
-import { bookmarkTransformer, bookmarksCollectionTransformer } from '@/services/rest/transformers'
+  LinkCollectionApiTypes,
+  FetchLinkCollectionsTypes,
+  FetchLinkCollectionTypes,
+  PostLinkCollectionTypes,
+  UpdateLinkCollectionTypes,
+  DeleteLinkCollectionTypes,
+  FetchLinkCollectionLinksTypes,
+  PostLinkCollectionLinkTypes,
+  UpdateLinkCollectionLinkTypes,
+  DeleteLinkCollectionLinkTypes
+} from './link-collection.api.types'
+import type { LinkCollectionApiModelTypes, LinkCollectionLinkApiModelTypes } from '@/types'
+import { linkCollectionLinkTransformer, linkCollectionTransformer } from '@/services/rest/transformers'
 import { AppAxiosType } from '@/services/rest/core/core.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 
-export const bookmarkApi = (appAxios: Function) =>
-  <BookmarkApiTypes>{
-    async fetchBookmarksCollections(params: FetchBookmarksCollectionsTypes) {
+export const linkCollectionApi = (appAxios: Function) =>
+  <LinkCollectionApiTypes>{
+    async fetchLinkCollections(params: FetchLinkCollectionsTypes) {
       const { populate, filters } = params
 
       const queryDefault = {
@@ -32,13 +32,13 @@ export const bookmarkApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `bookmarks-collections?${query.populate}&${query.filters}`
+        path: `link-collections?${query.populate}&${query.filters}`
       })
 
       if (data) {
         return {
           data: {
-            items: data.data.map((item: BookmarksCollectionApiModelTypes) => bookmarksCollectionTransformer(item)),
+            items: data.data.map((item: LinkCollectionApiModelTypes) => linkCollectionTransformer(item)),
             meta: data.meta
           }
         }
@@ -47,11 +47,11 @@ export const bookmarkApi = (appAxios: Function) =>
       }
     },
 
-    async fetchBookmarksCollection(params: FetchBookmarksCollectionTypes) {
+    async fetchLinkCollection(params: FetchLinkCollectionTypes) {
       const { id, populate, filters } = params
 
       const queryDefault = {
-        populate: 'populate=users.avatar,bookmarks.url',
+        populate: 'populate=users.avatar,linkCollectionLinks.url',
         filters: ''
       }
 
@@ -62,13 +62,13 @@ export const bookmarkApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `bookmarks-collections/${id}?${query.populate}&${query.filters}`
+        path: `link-collections/${id}?${query.populate}&${query.filters}`
       })
 
       if (data) {
         return {
           data: {
-            data: bookmarksCollectionTransformer(data.data),
+            data: linkCollectionTransformer(data.data),
             meta: data.meta
           }
         }
@@ -77,12 +77,12 @@ export const bookmarkApi = (appAxios: Function) =>
       }
     },
 
-    async postBookmarksCollection(params: PostBookmarksCollectionTypes) {
+    async postLinkCollection(params: PostLinkCollectionTypes) {
       const { title, description, users } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'post',
-        path: `bookmarks-collections`,
+        path: `link-collections`,
         data: {
           data: {
             title,
@@ -93,18 +93,18 @@ export const bookmarkApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data: bookmarksCollectionTransformer(data) }
+        return { data: linkCollectionTransformer(data) }
       } else {
         return { error }
       }
     },
 
-    async updateBookmarksCollection(params: UpdateBookmarksCollectionTypes) {
+    async updateLinkCollection(params: UpdateLinkCollectionTypes) {
       const { id, title, description, users, privacy } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
-        path: `bookmarks-collections/${id}`,
+        path: `link-collections/${id}`,
         data: {
           data: {
             title,
@@ -116,33 +116,33 @@ export const bookmarkApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data: bookmarksCollectionTransformer(data) }
+        return { data: linkCollectionTransformer(data) }
       } else {
         return { error }
       }
     },
 
-    async deleteBookmarksCollection(params: DeleteBookmarksCollectionTypes) {
+    async deleteLinkCollection(params: DeleteLinkCollectionTypes) {
       const { id } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'delete',
-        path: `bookmarks-collections/${id}`
+        path: `link-collections/${id}`
       })
 
       if (data) {
-        return { data: bookmarksCollectionTransformer(data) }
+        return { data: linkCollectionTransformer(data) }
       } else {
         return { error }
       }
     },
 
-    async fetchBookmarks(params: FetchBookmarksTypes) {
+    async fetchLinkCollectionLinks(params: FetchLinkCollectionLinksTypes) {
       const { collectionId, populate, filters } = params
 
       const queryDefault = {
-        populate: 'populate=url,bookmarksCollection.users.avatar',
-        filters: `filters[bookmarksCollection][id][$eq]=${collectionId}`
+        populate: 'populate=url,linkCollection.users.avatar',
+        filters: `filters[linkCollection][id][$eq]=${collectionId}`
       }
 
       const query = {
@@ -152,13 +152,13 @@ export const bookmarkApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `bookmarks/?${query.populate}&${query.filters}`
+        path: `link-collection-links/?${query.populate}&${query.filters}`
       })
 
       if (data) {
         return {
           data: {
-            data: data.data.map((bookmark: BookmarkApiModelTypes) => bookmarkTransformer(bookmark)),
+            data: data.data.map((link: LinkCollectionLinkApiModelTypes) => linkCollectionLinkTransformer(link)),
             meta: data.meta
           }
         }
@@ -167,15 +167,15 @@ export const bookmarkApi = (appAxios: Function) =>
       }
     },
 
-    async postBookmark(params: PostBookmarkTypes) {
+    async postLinkCollectionLink(params: PostLinkCollectionLinkTypes) {
       const { collectionId, url, description } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'post',
-        path: `bookmarks`,
+        path: `link-collection-links`,
         data: {
           data: {
-            bookmarksCollection: collectionId,
+            linkCollection: collectionId,
             url: encodeBase64(url),
             description
           }
@@ -183,17 +183,17 @@ export const bookmarkApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data: bookmarkTransformer(data) }
+        return { data: linkCollectionLinkTransformer(data) }
       } else {
         return { error }
       }
     },
 
-    async updateBookmark(params: UpdateBookmarkTypes) {
+    async updateLinkCollectionLink(params: UpdateLinkCollectionLinkTypes) {
       const { id, collectionId, url, description, populate, filters } = params
 
       const queryDefault = {
-        populate: 'populate=url,bookmarksCollection.users',
+        populate: 'populate=url,linkCollection.users',
         filters: ''
       }
 
@@ -204,10 +204,10 @@ export const bookmarkApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
-        path: `bookmarks/${id}?${query.populate}&${query.filters}`,
+        path: `link-collection-links/${id}?${query.populate}&${query.filters}`,
         data: {
           data: {
-            bookmarksCollection: collectionId,
+            linkCollection: collectionId,
             url,
             description
           }
@@ -215,17 +215,17 @@ export const bookmarkApi = (appAxios: Function) =>
       })
 
       if (data) {
-        return { data: bookmarkTransformer(data.data) }
+        return { data: linkCollectionLinkTransformer(data.data) }
       } else {
         return { error }
       }
     },
 
-    async deleteBookmark(params: DeleteBookmarkTypes) {
+    async deleteLinkCollectionLink(params: DeleteLinkCollectionLinkTypes) {
       const { id, populate, filters } = params
 
       const queryDefault = {
-        populate: 'populate=url,bookmarksCollection.users',
+        populate: 'populate=url,linkCollection.users',
         filters: ''
       }
 
@@ -236,11 +236,11 @@ export const bookmarkApi = (appAxios: Function) =>
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'delete',
-        path: `bookmarks/${id}?${query.populate}&${query.filters}`
+        path: `link-collection-links/${id}?${query.populate}&${query.filters}`
       })
 
       if (data) {
-        return { data: bookmarkTransformer(data.data) }
+        return { data: linkCollectionLinkTransformer(data.data) }
       } else {
         return { error }
       }

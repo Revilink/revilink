@@ -17,9 +17,9 @@ component.card.link-collection-card.link-collection-card(
   .link-collection-card__body(@click.prevent.capture="handleClick")
     .d-flex.align-items-center.justify-content-between
       strong.link-collection-card__title {{ collection.title }}
-      .link-collection-card-bookmark-count
-        AppIcon.link-collection-card-bookmark-count__icon(name="ri:link")
-        span.link-collection-card-bookmark-count__title {{ collection.bookmarkCount }} link
+      .link-collection-card-link-count
+        AppIcon.link-collection-card-link-count__icon(name="ri:link")
+        span.link-collection-card-link-count__title {{ collection.linkCollectionLinkCount }} link
 
     LinkCollectionPrivacyBadge(:privacy="collection.privacy")
 
@@ -38,7 +38,7 @@ component.card.link-collection-card.link-collection-card(
 
 <script lang="ts">
 import { defineComponent, useContext, reactive, computed } from '@nuxtjs/composition-api'
-import type { BookmarksCollectionPrivacyEnumTypes } from '@/types'
+import type { LinkCollectionPrivacyEnumTypes } from '@/types'
 import { useColor } from '@/hooks'
 import { AppAvatar } from '@/components/Avatar'
 import { AppIcon } from '@/components/Icon'
@@ -76,10 +76,10 @@ export default defineComponent({
       emit('on-click', props.collection)
     }
 
-    const handleUpdatePrivacyLinkCollection = async (privacy: BookmarksCollectionPrivacyEnumTypes) => {
+    const handleUpdatePrivacyLinkCollection = async (privacy: LinkCollectionPrivacyEnumTypes) => {
       state.isBusy = true
 
-      const { data, error } = await context.$api.rest.bookmark.updateBookmarksCollection({
+      const { data, error } = await context.$api.rest.linkCollection.updateLinkCollection({
         id: props.collection.id,
         privacy
       })
@@ -112,7 +112,7 @@ export default defineComponent({
     const handleDeleteLinkCollection = async () => {
       state.isBusy = true
 
-      const { data, error } = await context.$api.rest.bookmark.deleteBookmarksCollection({
+      const { data, error } = await context.$api.rest.linkCollection.deleteLinkCollection({
         id: props.collection.id
       })
 

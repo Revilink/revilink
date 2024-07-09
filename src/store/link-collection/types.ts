@@ -1,4 +1,4 @@
-import type { BookmarksCollectionTypes, BookmarkTypes } from '@/types'
+import type { LinkCollectionTypes, LinkCollectionLinkTypes } from '@/types'
 
 type LinkCollectionsDialogTypes = {
   isOpen: boolean
@@ -12,8 +12,8 @@ export type SelectedLinkTypes = {
 export type StateTypes = {
   linkCollectionsDialog: LinkCollectionsDialogTypes
   selectedLink: SelectedLinkTypes
-  linkCollection: BookmarksCollectionTypes | {}
-  linkCollectionLinks: BookmarkTypes[]
+  linkCollection: LinkCollectionTypes | {}
+  linkCollectionLinks: LinkCollectionLinkTypes[]
 }
 
 export type FetchLinkCollectionParamsTypes = {

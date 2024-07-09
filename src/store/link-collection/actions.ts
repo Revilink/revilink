@@ -11,7 +11,7 @@ export default {
   async fetchLinkCollection({ commit }: ActionContext<StateTypes, StateTypes>, params: FetchLinkCollectionParamsTypes) {
     const { id } = params
 
-    const { data, error } = await (this as any).$api.rest.bookmark.fetchBookmarksCollection({ id })
+    const { data, error } = await (this as any).$api.rest.linkCollection.fetchLinkCollection({ id })
 
     if (data) {
       commit('SET_LINK_COLLECTION', data.data)
@@ -25,7 +25,7 @@ export default {
   async fetchLinkCollectionLinks({ commit }: ActionContext<StateTypes, StateTypes>, params: FetchLinkCollectionLinksParamsTypes) {
     const { collectionId } = params
 
-    const { data, error } = await (this as any).$api.rest.bookmark.fetchBookmarks({ collectionId })
+    const { data, error } = await (this as any).$api.rest.linkCollection.fetchLinkCollectionLinks({ collectionId })
 
     if (data) {
       commit('SET_LINK_COLLECTION_LINKS', data.data)
@@ -39,7 +39,7 @@ export default {
   async updateLinkCollectionLink({ commit }: ActionContext<StateTypes, StateTypes>, params: UpdateLinkCollectionLinkParamsTypes) {
     const { id, collectionId, url, description } = params
 
-    const { data, error } = await (this as any).$api.rest.bookmark.updateBookmark({ id, collectionId, url, description })
+    const { data, error } = await (this as any).$api.rest.linkCollection.updateLinkCollectionLink({ id, collectionId, url, description })
 
     if (data) {
       commit('UPDATE_LINK_COLLECTION_LINK', data)
@@ -59,7 +59,7 @@ export default {
   async deleteLinkCollectionLink({ commit }: ActionContext<StateTypes, StateTypes>, params: DeleteLinkCollectionLinkParamsTypes) {
     const { id } = params
 
-    const { data, error } = await (this as any).$api.rest.bookmark.deleteBookmark({ id })
+    const { data, error } = await (this as any).$api.rest.linkCollection.deleteLinkCollectionLink({ id })
 
     if (data) {
       commit('DELETE_LINK_COLLECTION_LINK', data.id)
