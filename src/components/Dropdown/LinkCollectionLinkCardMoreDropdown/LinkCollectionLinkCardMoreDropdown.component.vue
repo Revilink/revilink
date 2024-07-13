@@ -15,6 +15,13 @@ ClientOnly
               AppIcon.link-collection-link-card-more-dropdown-list-item__icon(name="ri:external-link-line")
               span.link-collection-link-card-more-dropdown-list-item__title {{ $t('linkCollection.seeLink') }}
 
+          li.link-collection-link-card-more-dropdown-list-item(v-if="site?.meta?.widget?.announcementPriceHistory")
+            a(@click.prevent.capture="onClickShowAnnouncementsPriceHistory")
+              AppIcon.link-collection-link-card-more-dropdown-list-item__icon(name="ri:line-chart-fill")
+              span.link-collection-link-card-more-dropdown-list-item__title
+                | {{ $t('widget.siteExtra.nav.widget.announcementPriceHistory.showPriceHistory') }}
+              img.link-collection-link-card-more-dropdown-list-item__icon.ms-1(:src="site.meta.icon" width="16" height="16")
+
           template(v-if="isOwner({ users: link.linkCollection.users })")
             li.link-collection-link-card-more-dropdown-list-item.link-collection-link-card-more-dropdown-list-item--edit(
               @click.prevent.stop="handleClickItemEdit"
@@ -70,6 +77,13 @@ ClientOnly
         @on-cancel="handleCancelDelete"
       )
         p.my-2 {{ link.url.urlRaw }}
+
+      // Announcements Price History Dialog
+      template(v-if="site?.meta?.widget?.announcementPriceHistory")
+        vs-dialog.announcement-price-history-dialog(v-model="isOpenAnnouncementsPriceHistoryDialog" scroll)
+          template(#header)
+            h3.announcement-price-history-dialog__title {{ $t('widget.siteExtra.nav.widget.announcementPriceHistory.title') }}
+          p(v-html="site?.meta?.widget?.announcementPriceHistory")
 </template>
 
 <script lang="ts">
@@ -96,6 +110,11 @@ export default defineComponent({
     link: {
       type: Object,
       required: true
+    },
+    site: {
+      type: Object,
+      required: false,
+      default: null
     },
     isBusy: {
       type: Boolean,
@@ -223,6 +242,12 @@ export default defineComponent({
       isOpenDeleteDialog.value = false
     }
 
+    const isOpenAnnouncementsPriceHistoryDialog = ref(false)
+
+    const onClickShowAnnouncementsPriceHistory = () => {
+      isOpenAnnouncementsPriceHistoryDialog.value = true
+    }
+
     return {
       isOwner,
       state,
@@ -236,7 +261,9 @@ export default defineComponent({
       isOpenDeleteDialog,
       handleClickItemDelete,
       handleConfirmDelete,
-      handleCancelDelete
+      handleCancelDelete,
+      isOpenAnnouncementsPriceHistoryDialog,
+      onClickShowAnnouncementsPriceHistory
     }
   }
 })

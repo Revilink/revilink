@@ -9,7 +9,7 @@ a.link-collection-link-card(:href="link.url.urlRaw" :title="link.url.urlRaw" tar
         template(#tooltip)
           p.py-2.px-2 {{ link.description }}
 
-      LinkCollectionLinkCardMoreDropdown(:link="link")
+      LinkCollectionLinkCardMoreDropdown(:link="link" :site="site")
 
     img.link-collection-link-card__image(v-if="site.meta?.image" :src="site.meta.image" alt="site image" width="1200" height="630")
     span.link-collection-link-card__domain(v-else) {{ parseURL(link.url.urlRaw).host }}

@@ -1,5 +1,5 @@
 type SiteMetaWidgetTypes = {
-  announcementPriceHistory?: string
+  announcementPriceHistory?: string | null
 }
 
 type SiteMetaTypes = {
