@@ -100,7 +100,7 @@ export const linkCollectionApi = (appAxios: Function) =>
     },
 
     async updateLinkCollection(params: UpdateLinkCollectionTypes) {
-      const { id, title, description, users, privacy } = params
+      const { id, title, privacy, description, users } = params
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'put',
@@ -108,9 +108,9 @@ export const linkCollectionApi = (appAxios: Function) =>
         data: {
           data: {
             title,
+            privacy,
             description,
-            users,
-            privacy
+            users
           }
         }
       })

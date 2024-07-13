@@ -14,11 +14,6 @@
     border: 1px solid var(--color-brand-01);
   }
 
-  @include media-breakpoint-down(md) {
-    padding: calc(var(--spacer-base) / 6) calc(var(--spacer-base) / 3);
-    padding-inline-end: calc(var(--spacer-base) / 2);
-  }
-
   &__header {
     position: relative;
     display: flex;
@@ -184,7 +179,7 @@
 
   &__footerDomain {
     display: block;
-    width: 132px;
+    max-width: 132px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

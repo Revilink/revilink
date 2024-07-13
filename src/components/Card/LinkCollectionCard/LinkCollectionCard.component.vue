@@ -1,6 +1,7 @@
 <template lang="pug">
 component.card.link-collection-card.link-collection-card(
   :is="as"
+  :style="[gradientCssVar]"
   :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug } })"
 )
   .link-collection-card__actions
@@ -13,22 +14,22 @@ component.card.link-collection-card.link-collection-card(
 
   header.link-collection-card__header(:style="[headerStyle]" @click.prevent.capture="handleClick")
     strong.link-collection-card__featuredTitle {{ collection.title }}
+    strong.link-collection-card__letter {{ collection.title.charAt(0) }}
 
   .link-collection-card__body(@click.prevent.capture="handleClick")
-    .d-flex.align-items-center.justify-content-between
+    .link-collection-card__content
       strong.link-collection-card__title {{ collection.title }}
+      LinkCollectionPrivacyBadge(:privacy="collection.privacy")
       .link-collection-card-link-count
         AppIcon.link-collection-card-link-count__icon(name="ri:link")
         span.link-collection-card-link-count__title {{ collection.linkCollectionLinkCount }} link
-
-    LinkCollectionPrivacyBadge(:privacy="collection.privacy")
 
     p.link-collection-card__description {{ collection.description }}
 
   footer.link-collection-card__footer(@click.prevent.capture="handleClick")
     .link-collection-card__users
       template(v-for="user in collection.users")
-        .link-collection-card-user(:key="user.id" :user="user")
+        .link-collection-card-user(:key="user.id")
           AppAvatar.link-collection-card-user__avatar(:user="user" :size="28")
           span.link-collection-card-user__username {{ user.username }}
     .link-collection-card-date
@@ -141,6 +142,12 @@ export default defineComponent({
       state.isBusy = false
     }
 
+    const gradientCssVar = computed(() => {
+      return {
+        '--gradient': generateRadialGradient({ key: props.collection.slug, theme: 'light' })
+      }
+    })
+
     const headerStyle = computed(() => ({
       background: generateRadialGradient({ key: props.collection.slug, theme: 'light' })
     }))
@@ -150,6 +157,7 @@ export default defineComponent({
       handleClick,
       handleUpdatePrivacyLinkCollection,
       handleDeleteLinkCollection,
+      gradientCssVar,
       headerStyle
     }
   }

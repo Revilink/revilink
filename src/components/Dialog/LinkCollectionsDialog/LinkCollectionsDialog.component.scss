@@ -29,7 +29,7 @@
         @include transparent-gradient-to-top(#f4f4f4, 75%);
       }
 
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
         grid-template-columns: 1fr;
         width: 100%;
         max-width: 100%;
@@ -95,5 +95,13 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: calc(var(--spacer-base) / 2);
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }

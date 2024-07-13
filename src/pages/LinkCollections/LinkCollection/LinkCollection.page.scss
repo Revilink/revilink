@@ -11,6 +11,14 @@
     aspect-ratio: 16 / 9;
     place-items: center;
 
+    @include media-breakpoint-between(md, lg) {
+      aspect-ratio: 1/1;
+    }
+
+    @include media-breakpoint-down(md) {
+      aspect-ratio: 21 / 9;
+    }
+
     &::before {
       position: absolute;
       top: 0;
@@ -23,6 +31,12 @@
       opacity: 0.5;
       filter: brightness(0);
       content: '';
+    }
+
+    &__actions {
+      margin-block: calc(var(--spacer) * 2);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

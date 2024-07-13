@@ -1,0 +1,22 @@
+.vs-select {
+  $vs-select: '.vs-select';
+
+  $select-width: 100%;
+  $select-min-height: 42px;
+
+  &-content {
+    &[theme='light'] {
+      #{$vs-select}__input {
+        background-color: var(--color-field-02) !important;
+      }
+    }
+  }
+
+  &__input {
+    width: $select-width !important;
+    min-height: $select-min-height !important;
+    background-color: var(--color-field-01) !important;
+    border-bottom: 1px solid var(--color-border-03) !important;
+    border-radius: var(--border-radius-01) !important;
+  }
+}

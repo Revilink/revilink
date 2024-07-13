@@ -15,10 +15,6 @@
       box-shadow: var(--box-shadow-02);
       cursor: pointer;
 
-      @include media-breakpoint-down(sm) {
-        padding: 0;
-      }
-
       &:hover {
         background-color: var(--color-hover-01);
 

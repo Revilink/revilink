@@ -24,6 +24,15 @@
     border-radius: var(--border-radius-01) var(--border-radius-01) 0 0;
     aspect-ratio: 21/9;
 
+    @include media-breakpoint-down(md) {
+      float: left;
+      width: 52px;
+      height: 52px;
+      margin: calc(var(--spacer) * 3);
+      padding: var(--spacer);
+      border-radius: var(--border-radius-01);
+    }
+
     &::before {
       position: absolute;
       top: 0;
@@ -46,6 +55,21 @@
     margin-block-start: calc(var(--spacer) * 3);
 
     @include line-clamp(4);
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  &__letter {
+    display: none;
+    color: var(--color-text-01);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-text-18);
+
+    @include media-breakpoint-down(md) {
+      display: inline-block;
+    }
   }
 
   &__favicon {
@@ -75,29 +99,76 @@
     padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 2);
   }
 
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+
+    @include media-breakpoint-down(md) {
+      flex-wrap: wrap;
+    }
+  }
+
   &__title {
     overflow: hidden;
     color: var(--color-text-01);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-text-21);
     word-wrap: break-word;
+    margin-block-end: calc(var(--spacer) * 3);
 
     @include line-clamp(1);
 
     @include media-breakpoint-down(md) {
-      font-size: var(--font-size-text-21);
+      width: 90%;
+      font-size: var(--font-size-text-22);
+      margin-block-end: calc(var(--spacer) * 2);
     }
   }
 
   &__description {
     display: block;
-    margin-block-start: calc(var(--spacer-base) / 2);
     color: var(--color-text-03);
     font-size: var(--font-size-text-23);
+    margin-block-start: calc(var(--spacer-base) / 2);
   }
 
   .link-collection-privacy-badge {
     margin-block-start: calc(var(--spacer-base) / 4);
+
+    &::after {
+      @include media-breakpoint-down(md) {
+        display: block;
+        width: 4px;
+        height: 4px;
+        margin-left: 8px;
+        background-color: var(--color-text-03);
+        border-radius: 100%;
+        opacity: 0.5;
+        content: '';
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      margin-block-start: calc(var(--spacer) / 6);
+      margin-inline-end: calc(var(--spacer) * 2);
+    }
+
+    &__icon {
+      svg {
+        @include media-breakpoint-down(md) {
+          width: 14px !important;
+          height: 14px !important;
+        }
+      }
+    }
+
+    &__title {
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-text-23);
+      }
+    }
   }
 
   &__description {
@@ -115,20 +186,34 @@
 
     &__avatar {
       margin-inline-end: calc(var(--spacer-base) / 4);
+
+      @include media-breakpoint-down(md) {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &__username {
+      @include media-breakpoint-down(md) {
+        font-size: var(--font-size-text-22);
+        margin-block-start: calc(var(--spacer) / 2);
+      }
     }
   }
 
   &__footer {
-    margin-block-start: auto;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     padding: calc(var(--spacer-base) / 2) calc(var(--spacer-base) / 2);
+    margin-block-start: auto;
   }
 
   &-link-count {
+    position: relative;
+    bottom: calc(var(--spacer) * 1 * -1);
     display: inline-flex;
     align-items: center;
     padding: calc(var(--spacer-base) / 4) calc(var(--spacer-base) / 3);
@@ -137,15 +222,30 @@
     white-space: nowrap;
     background-color: var(--color-ui-03);
     border-radius: var(--border-radius-01);
+    margin-inline-start: auto;
+
+    @include media-breakpoint-down(md) {
+      bottom: unset;
+      padding: 0;
+      font-size: var(--font-size-text-23);
+      background-color: transparent;
+      margin-inline-start: unset;
+    }
 
     &__icon {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       margin-inline-end: calc(var(--spacer-base) / 4);
 
+      @include media-breakpoint-down(md) {
+        width: 14px;
+        height: 14px;
+        margin-inline-end: calc(var(--spacer) * 1);
+      }
+
       svg {
-        width: 100%;
-        height: 100%;
+        width: inherit !important;
+        height: inherit !important;
       }
     }
   }
@@ -154,5 +254,10 @@
     position: relative;
     color: var(--color-text-03);
     font-size: var(--font-size-text-22);
+
+    @include media-breakpoint-down(md) {
+      font-size: var(--font-size-text-23);
+      margin-block-start: calc(var(--spacer) / 2);
+    }
   }
 }

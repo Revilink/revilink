@@ -50,6 +50,14 @@
     position: relative;
     margin-bottom: calc(var(--spacer-base) / 4);
 
+    &__label {
+      display: block;
+      margin-bottom: calc(var(--spacer-base) / 4);
+      color: var(--color-text-03);
+      font-size: var(--font-size-text-23);
+      margin-inline: calc(var(--spacer) * 3);
+    }
+
     &--submit {
       margin-top: var(--spacer-base);
 

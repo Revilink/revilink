@@ -13,10 +13,6 @@
       border-radius: var(--border-radius-01);
       cursor: pointer;
 
-      @include media-breakpoint-down(sm) {
-        padding: 0;
-      }
-
       &:hover {
         background-color: rgba(0, 0, 0, 0.16);
 

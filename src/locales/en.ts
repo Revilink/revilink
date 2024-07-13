@@ -83,7 +83,8 @@ export default {
     copyEmbedCode: 'Copy embed code',
     copyEmbedStylesCode: 'Copy embed styles code',
     privacy: 'Privacy',
-    note: 'Note'
+    note: 'Note',
+    back: 'Back'
   },
   hero: {
     home: {
@@ -293,10 +294,25 @@ export default {
     linkCollection: {
       title: 'Create link collection',
       description: 'Create a link collection, save your favorite links and share with your friends',
+      edit: {
+        title: 'Edit link collection',
+        description: '',
+        field: {
+          submit: {
+            action: {
+              title: 'Update link collection'
+            }
+          }
+        }
+      },
       field: {
         title: {
           label: 'Collection title',
           placeholder: 'Collection title'
+        },
+        privacy: {
+          label: 'Privacy',
+          placeholder: 'Privacy'
         },
         description: {
           label: 'Collection description',

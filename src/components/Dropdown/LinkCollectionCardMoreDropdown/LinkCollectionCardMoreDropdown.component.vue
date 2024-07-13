@@ -19,9 +19,13 @@ ClientOnly
               span.link-collection-card-more-dropdown-list-item__title {{ $t('linkCollection.seeLinkCollection') }}
           template(v-if="isOwner({ users: collection.users })")
             li.link-collection-card-more-dropdown-list-item
-              a
-                AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:pencil-line")
-                span.link-collection-card-more-dropdown-list-item__title {{ $t('general.edit') }}
+              //
+                NuxtLink(
+                  :to="localePath({ name: 'LinkCollections-LinkCollection-slug', params: { slug: collection.slug }, query: { edit: true } })"
+                  :title="$t('general.edit')"
+                )
+                  AppIcon.link-collection-card-more-dropdown-list-item__icon(name="ri:pencil-line")
+                  span.link-collection-card-more-dropdown-list-item__title {{ $t('general.edit') }}
               hr
               small {{ $t('general.privacy') }}
             li.link-collection-card-more-dropdown-list-item(@click.prevent.stop="handleClickItemPrivacy(linkCollectionPrivacyEnum.PUBLIC)")
@@ -60,6 +64,7 @@ ClientOnly
       :title="collection.title"
       :is-busy="isBusy"
       confirm-button-color="danger"
+      :confirm-text="$t('general.delete')"
       @on-confirm="handleConfirmDeleteLinkCollection"
       @on-cancel="handleCancelDeleteLinkCollection"
     )
