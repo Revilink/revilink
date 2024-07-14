@@ -373,6 +373,8 @@ export default {
     myLinkCollections: 'My link collections',
     selectedLink: 'You are saving this link',
     seeLinkCollection: 'See link collection',
+    loadingCollection: 'Loading collection',
+    loadingCollectionLinks: 'Fetching collection links',
     privacy: {
       meOnly: 'Only me',
       linkOnly: 'Link only',

@@ -1,6 +1,5 @@
 import { useContext } from '@nuxtjs/composition-api'
-import type { SetGoogleUserTypes, GetAvatarTypes, GetAvatarSrcTypes } from './use-auth.hook.types'
-import type { UserTypes } from '@/types'
+import type { SetGoogleUserTypes, GetAvatarTypes, GetAvatarSrcTypes, IsOwnerTypes } from './use-auth.hook.types'
 
 export default () => {
   const context = useContext()
@@ -58,7 +57,7 @@ export default () => {
    * @param {UserTypes[]} [params.users] - An array of users to check ownership against
    * @returns {boolean} True if the current user is the owner, false otherwise
    */
-  const isOwner = ({ user, users }: { user?: UserTypes; users?: UserTypes[] }) => {
+  const isOwner: IsOwnerTypes = ({ user, users }) => {
     if (user) {
       return user.id === context.$auth.user?.id
     }
