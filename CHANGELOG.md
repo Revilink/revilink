@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.8.2
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.1...v1.8.2)
+
+### 🩹 Fixes
+
+- Add missed dialogs ([d86e13f](https://github.com/selimdoyranli/revilink/commit/d86e13f))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.8.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.0...v1.8.1)
