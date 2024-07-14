@@ -1,5 +1,5 @@
 .confirm-dialog {
-  z-index: var(--z-index-overlay);
+  z-index: 999;
 
   .vs-dialog {
     &__header {

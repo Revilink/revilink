@@ -12,9 +12,9 @@
 
   template(v-else)
     template(v-if="collectionFetchState.pending")
-      AppLoading
+      AppLoading.py-base(:title="$t('linkCollection.loadingCollection')")
 
-    template(v-if="collectionFetchState.error")
+    template(v-else-if="collectionFetchState.error")
       BasicState.mb-base.pb-base(:title="$t('error.error')" :description="collectionFetchState.error.message")
         template(#head)
           img(src="/media/elements/state/network.svg" width="256")
@@ -58,9 +58,9 @@
             p.link-collection-page__description(v-if="linkCollection.description?.length > 0") {{ linkCollection.description }}
 
       template(v-if="linkCollectionLinksFetchState.pending")
-        AppLoading
+        AppLoading.py-base(:title="$t('linkCollection.loadingCollectionLinks')")
 
-      template(v-if="linkCollectionLinksFetchState.error")
+      template(v-else-if="linkCollectionLinksFetchState.error")
         BasicState.mb-base.pb-base(:title="$t('error.error')" :description="$t('error.anErrorOccurred')")
           template(#head)
             img(src="/media/elements/state/network.svg" width="256")

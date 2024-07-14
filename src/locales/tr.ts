@@ -364,6 +364,8 @@ export default {
     myLinkCollections: 'Link koleksiyonlarım',
     selectedLink: 'Şu linki kayıt ediyorsun',
     seeLinkCollection: 'Koleksiyonunu gör',
+    loadingCollection: 'Koleksiyon yükleniyor',
+    loadingCollectionLinks: 'Koleksiyon linkleri getiriliyor',
     privacy: {
       meOnly: 'Sadece ben',
       linkOnly: 'Bağlantıyı bilenler',
