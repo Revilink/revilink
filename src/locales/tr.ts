@@ -39,6 +39,9 @@ export default {
     okShort: 'Tamam',
     iUnderstand: 'Anladım',
     no: 'Hayır',
+    confirm: 'Onayla',
+    areYouSure: 'Emin misin?',
+    update: 'Güncelle',
     reject: 'Reddet',
     send: 'Gönder',
     like: 'Beğen',
@@ -74,7 +77,10 @@ export default {
     embedCode: 'Embed kodu',
     embedStylesCode: 'Embed stil kodu',
     copyEmbedCode: 'Embed kodunu kopyala',
-    copyEmbedStylesCode: 'Embed stil kodunu kopyala'
+    copyEmbedStylesCode: 'Embed stil kodunu kopyala',
+    privacy: 'Gizlilik',
+    note: 'Not',
+    back: 'Geri'
   },
   hero: {
     home: {
@@ -275,6 +281,40 @@ export default {
           }
         }
       }
+    },
+    linkCollection: {
+      title: 'Link koleksiyonu oluştur',
+      description: 'Link koleksiyonu oluştur, favori linklerinizi kaydedin ve arkadaşlarınızla paylaşın',
+      edit: {
+        title: 'Link koleksiyonu düzenle',
+        description: '',
+        field: {
+          submit: {
+            action: {
+              title: 'Link koleksiyonunu güncelle'
+            }
+          }
+        }
+      },
+      field: {
+        title: {
+          label: 'Koleksiyon başlığı',
+          placeholder: 'Koleksiyon başlığı'
+        },
+        privacy: {
+          label: 'Gizlilik',
+          placeholder: 'Gizlilik'
+        },
+        description: {
+          label: 'Koleksiyon açıklaması',
+          placeholder: 'Koleksiyon açıklaması'
+        },
+        submit: {
+          action: {
+            title: 'Koleksiyon oluştur'
+          }
+        }
+      }
     }
   },
   reply: {
@@ -318,6 +358,31 @@ export default {
       hint: 'Kesik çizgili çerçeve sizin web sayfanızda görünmeyecek'
     }
   },
+  linkCollection: {
+    linkCollection: 'Link koleksiyonu',
+    linkCollections: 'Link koleksiyonları',
+    myLinkCollections: 'Link koleksiyonlarım',
+    selectedLink: 'Şu linki kayıt ediyorsun',
+    seeLinkCollection: 'Koleksiyonunu gör',
+    privacy: {
+      meOnly: 'Sadece ben',
+      linkOnly: 'Bağlantıyı bilenler',
+      public: 'Herkes'
+    },
+    field: {
+      description: {
+        placeholder: 'Not (İsteğe bağlı)'
+      }
+    },
+    create: 'Oluştur',
+    createNew: 'Yeni oluştur',
+    createLinkCollection: 'Link koleksiyonu oluştur',
+    editLinkCollection: 'Link koleksiyonunu düzenle',
+    deleteLinkCollection: 'Link koleksiyonunu sil',
+    addToLinkCollection: 'Link koleksiyonuna ekle',
+    removeFromLinkCollection: 'Link koleksiyonundan çıkar',
+    seeLink: 'İncelemeleri gör'
+  },
   state: {
     empty: {
       noResults: {
@@ -359,6 +424,10 @@ export default {
       noMoreReviews: {
         title: 'Tüm incelemeler bu kadar',
         description: ''
+      },
+      noLinkCollection: {
+        title: 'Link koleksiyonu yok',
+        description: 'Henüz bir link koleksiyonu oluşturulmadı'
       }
     }
   },
@@ -445,6 +514,10 @@ export default {
     createReviewsEmbed: {
       title: 'Yorum embedi oluştur, web sayfana yorum alanı ekle',
       description: 'Web siteniz için bir yorum embed oluşturun. Web sayfanız için ücretsiz yorum embed ekleyin'
+    },
+    linkCollection: {
+      title: 'Link koleksiyonu: {collectionTitle}',
+      description: 'Bu link koleksiyonu {linkCount} link içeriyor ve {username} oluşturdu - {collectionDescription}'
     }
   }
 }

@@ -18,7 +18,7 @@ export default (model: UserApiModelTypes) => {
     username: model.attributes?.username || model.username,
     avatar: model.attributes?.avatar?.data || model.avatar ? avatarTransformer(model.attributes?.avatar.data || model.avatar) : null,
     confirmed: model.attributes?.confirmed || model.confirmed,
-    blocked: model.attributes?.blocked || model.blocked,
+    blocked: !!(model.attributes?.blocked || model.blocked),
     provider: model.attributes?.provider || model.provider,
     information:
       model.attributes?.information || model.information

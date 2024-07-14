@@ -37,6 +37,9 @@
   // App Footer
   AppFooter
 
+  // Link Collections Dialog
+  LinkCollectionsDialog(v-if="$auth.loggedIn")
+
   // Cookie Dialog
   CookieDialog
 </template>
@@ -46,13 +49,14 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { AppPreloader } from '@/components/Preloader'
 import { AppHeader } from '@/components/Header'
 import { AppFooter } from '@/components/Footer'
-import { CookieDialog } from '@/components/Dialog'
+import { LinkCollectionsDialog, CookieDialog } from '@/components/Dialog'
 
 export default defineComponent({
   components: {
     AppPreloader,
     AppHeader,
     AppFooter,
+    LinkCollectionsDialog,
     CookieDialog
   },
   setup() {}

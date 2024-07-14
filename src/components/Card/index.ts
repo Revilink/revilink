@@ -1,3 +1,5 @@
 export { default as ReviewCard } from './ReviewCard/ReviewCard.component.vue'
 export { default as ReplyCard } from './ReplyCard/ReplyCard.component.vue'
 export { default as UrlLinkCard } from './UrlLinkCard/UrlLinkCard.component.vue'
+export { default as LinkCollectionCard } from './LinkCollectionCard/LinkCollectionCard.component.vue'
+export { default as LinkCollectionLinkCard } from './LinkCollectionLinkCard/LinkCollectionLinkCard.component.vue'

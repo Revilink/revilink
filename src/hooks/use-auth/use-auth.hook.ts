@@ -1,5 +1,6 @@
 import { useContext } from '@nuxtjs/composition-api'
 import type { SetGoogleUserTypes, GetAvatarTypes, GetAvatarSrcTypes } from './use-auth.hook.types'
+import type { UserTypes } from '@/types'
 
 export default () => {
   const context = useContext()
@@ -50,10 +51,30 @@ export default () => {
     await context.$cookies.remove('google_auth_jwt_token')
   }
 
+  /**
+   * Check if the current authenticated user is the owner
+   * @param {Object} params - The parameters object
+   * @param {UserTypes} [params.user] - A single user to check ownership against
+   * @param {UserTypes[]} [params.users] - An array of users to check ownership against
+   * @returns {boolean} True if the current user is the owner, false otherwise
+   */
+  const isOwner = ({ user, users }: { user?: UserTypes; users?: UserTypes[] }) => {
+    if (user) {
+      return user.id === context.$auth.user?.id
+    }
+
+    if (users) {
+      return users.some(u => u.id === context.$auth.user?.id)
+    }
+
+    return false
+  }
+
   return {
     setGoogleUser,
     getAvatar,
     getAvatarSrc,
-    logout
+    logout,
+    isOwner
   }
 }
