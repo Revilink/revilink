@@ -15,9 +15,42 @@
     }
   }
 
+  &--resize-none {
+    #{$app-textarea} {
+      &__textarea {
+        resize: none !important;
+      }
+    }
+  }
+
+  &--resize-vertical {
+    #{$app-textarea} {
+      &__textarea {
+        resize: vertical;
+      }
+    }
+  }
+
+  &--resize-horizontal {
+    #{$app-textarea} {
+      &__textarea {
+        resize: horizontal;
+      }
+    }
+  }
+
+  &--resize-both {
+    #{$app-textarea} {
+      &__textarea {
+        resize: both;
+      }
+    }
+  }
+
   &__textarea {
     position: relative;
     width: 100%;
+    resize: both;
   }
 
   &-character-counter {

@@ -41,6 +41,15 @@
             a(rel="noopener,norel" :title="$route.query.link" :href="linkViewFormat({ url: $route.query.link })" target="_blank")
               | {{ linkViewFormat({ url: $route.query.link }) }}
 
+          // Add To Link Collection Button
+          vs-button.reviews-page-review-meta-add-to-link-collection-button(
+            auth-control
+            size="small"
+            border
+            @click="handleClickAddToLinkCollection"
+          )
+            AppIcon.me-2(name="ri:bookmark-line" :width="14" :height="14")
+            | {{ $t('linkCollection.addToLinkCollection') }}
           // Reactions
           .reviews-page-reactions
             ReactionButtonGroup(
@@ -102,11 +111,11 @@ import {
 } from '@nuxtjs/composition-api'
 import type { Ref, ComputedRef } from 'vue'
 import type { Route } from 'vue-router'
-import type { UrlTypes, ReactionTypes, CommentRefTypes, SiteTypes } from './Reviews.page.types'
+import type { UrlTypes, ReactionTypes, CommentRefTypes } from './Reviews.page.types'
 import { encodeBase64 } from '@/utils/encode-decode'
 import type { ReviewTypes } from '@/types'
 import { convertToRevilinkFormat, linkViewFormat } from '@/utils/url'
-import { useLinkDetector } from '@/hooks'
+import { useSiteScraper } from '@/hooks'
 import { AppIcon } from '@/components/Icon'
 import { ReactionButtonGroup } from '@/components/ButtonGroup'
 import { ReviewList } from '@/components/List'
@@ -131,7 +140,7 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
 
-    const { getLinkMeta } = useLinkDetector()
+    const { site, extractSiteMeta } = useSiteScraper()
 
     const rootRef: Ref<HTMLElement | null> = ref(null)
 
@@ -151,47 +160,6 @@ export default defineComponent({
         url.value = data.item
       }
     })
-
-    // Website
-    const site: SiteTypes = reactive({
-      isAllowed: false,
-      isInDetector: false,
-      isBusy: false,
-      meta: {}
-    })
-
-    const fetchAndReadRobots = async () => {
-      site.isBusy = true
-
-      const robotsResult = await context.$api.rest.scraper.fetchAndReadRobots({
-        url: convertToRevilinkFormat({
-          url: route.value.query.link as string
-        })
-      })
-
-      site.isAllowed = robotsResult.isAllowed
-
-      const linkMeta = await getLinkMeta(route.value.query.link as string)
-
-      if (linkMeta) {
-        site.isInDetector = true
-        site.meta = linkMeta
-      } else if (robotsResult.isAllowed) {
-        await scrapeSite()
-      }
-
-      site.isBusy = false
-    }
-
-    const scrapeSite = async () => {
-      const siteResult = await context.$api.rest.scraper.fetchMetaTags({
-        url: convertToRevilinkFormat({
-          url: route.value.query.link as string
-        })
-      })
-
-      site.meta = siteResult
-    }
 
     // Comments
     const review = reactive({
@@ -383,8 +351,20 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      fetchAndReadRobots()
+      extractSiteMeta({
+        url: convertToRevilinkFormat({
+          url: route.value.query.link as string
+        })
+      })
     })
+
+    const handleClickAddToLinkCollection = () => {
+      store.commit('link-collection/OPEN_LINK_COLLECTIONS_DIALOG')
+      store.commit('link-collection/SET_SELECTED_LINK', {
+        url: route.value.query.link as string,
+        description: null
+      })
+    }
 
     const truncateLink = (str: string, num = 50) => {
       return str.length > num ? str.slice(0, num) + '...' : str
@@ -441,7 +421,8 @@ export default defineComponent({
       reaction,
       handleReaction,
       convertToRevilinkFormat,
-      linkViewFormat
+      linkViewFormat,
+      handleClickAddToLinkCollection
     }
   },
   head: {}

@@ -17,7 +17,9 @@ export default {
     editFailed: 'Edit failed',
     deleteFailed: 'Delete failed',
     uploadFailed: 'Upload failed',
-    copyFailed: 'Copy failed'
+    copyFailed: 'Copy failed',
+    addFailed: 'Add failed',
+    saveFailed: 'Save failed'
   },
   success: {
     successfully: 'Successfully',
@@ -26,7 +28,9 @@ export default {
     editSuccessfully: 'Edit successfully',
     deleteSuccessfully: 'Delete successfully',
     uploadSuccessfully: 'Upload successfully',
-    copySuccessfully: 'Copy successfully'
+    copySuccessfully: 'Copy successfully',
+    addSuccessfully: 'Add successfully',
+    saveSuccessfully: 'Save successfully'
   },
   general: {
     loading: 'Loading',
@@ -39,6 +43,9 @@ export default {
     okShort: 'OK',
     iUnderstand: 'I understand',
     no: 'No',
+    confirm: 'Confirm',
+    areYouSure: 'Are you sure?',
+    update: 'Update',
     reject: 'Reject',
     send: 'Send',
     like: 'Like',
@@ -74,7 +81,10 @@ export default {
     embedCode: 'Embed code',
     embedStylesCode: 'Embed styles code',
     copyEmbedCode: 'Copy embed code',
-    copyEmbedStylesCode: 'Copy embed styles code'
+    copyEmbedStylesCode: 'Copy embed styles code',
+    privacy: 'Privacy',
+    note: 'Note',
+    back: 'Back'
   },
   hero: {
     home: {
@@ -280,6 +290,40 @@ export default {
           }
         }
       }
+    },
+    linkCollection: {
+      title: 'Create link collection',
+      description: 'Create a link collection, save your favorite links and share with your friends',
+      edit: {
+        title: 'Edit link collection',
+        description: '',
+        field: {
+          submit: {
+            action: {
+              title: 'Update link collection'
+            }
+          }
+        }
+      },
+      field: {
+        title: {
+          label: 'Collection title',
+          placeholder: 'Collection title'
+        },
+        privacy: {
+          label: 'Privacy',
+          placeholder: 'Privacy'
+        },
+        description: {
+          label: 'Collection description',
+          placeholder: 'Collection description'
+        },
+        submit: {
+          action: {
+            title: 'Create collection'
+          }
+        }
+      }
     }
   },
   reply: {
@@ -323,6 +367,31 @@ export default {
       hint: 'The dashed border will not appear in your web page'
     }
   },
+  linkCollection: {
+    linkCollection: 'Link collection',
+    linkCollections: 'Link collections',
+    myLinkCollections: 'My link collections',
+    selectedLink: 'You are saving this link',
+    seeLinkCollection: 'See link collection',
+    privacy: {
+      meOnly: 'Only me',
+      linkOnly: 'Link only',
+      public: 'Public'
+    },
+    field: {
+      description: {
+        placeholder: 'Note (Optional)'
+      }
+    },
+    create: 'Create',
+    createNew: 'Create new',
+    createLinkCollection: 'Create link collection',
+    editLinkCollection: 'Edit link collection',
+    deleteLinkCollection: 'Delete link collection',
+    addToLinkCollection: 'Add to link collection',
+    removeFromLinkCollection: 'Remove from link collection',
+    seeLink: 'See link reviews'
+  },
   state: {
     empty: {
       noResults: {
@@ -364,6 +433,10 @@ export default {
       noMoreReviews: {
         title: 'No more reviews',
         description: ''
+      },
+      noLinkCollection: {
+        title: 'No link collection',
+        description: 'No link collection has been created yet'
       }
     }
   },
@@ -451,6 +524,10 @@ export default {
     createReviewsEmbed: {
       title: 'Create comments embed, add free comments embed to your web page',
       description: 'Create a comments embed for your website. Add free comments embed for your web page'
+    },
+    linkCollection: {
+      title: 'Link collection: {collectionTitle}',
+      description: 'This link collection includes {linkCount} links and created by {username} - {collectionDescription}'
     }
   }
 }

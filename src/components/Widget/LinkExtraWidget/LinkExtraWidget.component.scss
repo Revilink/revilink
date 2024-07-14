@@ -18,6 +18,10 @@
 
       &__icon {
         margin-inline-end: calc(var(--spacer-base) / 2);
+
+        &:last-child {
+          bottom: calc(var(--spacer) / 2 * -1);
+        }
       }
 
       &__title {
