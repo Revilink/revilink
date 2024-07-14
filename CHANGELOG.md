@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v1.8.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.7.1...v1.8.0)
+
+### 💅 Refactors
+
+- Link collection structure ([d849557](https://github.com/selimdoyranli/revilink/commit/d849557))
+- Refactor link collection ([5c15cb1](https://github.com/selimdoyranli/revilink/commit/5c15cb1))
+
+### 🏡 Chore
+
+- Link collection structure ([ac5ce34](https://github.com/selimdoyranli/revilink/commit/ac5ce34))
+- Link collection structure ([c3e6594](https://github.com/selimdoyranli/revilink/commit/c3e6594))
+- Link collection structure ([e10c1cd](https://github.com/selimdoyranli/revilink/commit/e10c1cd))
+- Link collection structure ([6785d5a](https://github.com/selimdoyranli/revilink/commit/6785d5a))
+- Link collection structure ([2437bb5](https://github.com/selimdoyranli/revilink/commit/2437bb5))
+- Ui improvements ([8fd63ca](https://github.com/selimdoyranli/revilink/commit/8fd63ca))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.7.1
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.7.0...v1.7.1)
