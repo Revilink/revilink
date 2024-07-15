@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.8.3
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.2...v1.8.3)
+
+### 🩹 Fixes
+
+- Sort fix on link collection api ([5d52276](https://github.com/selimdoyranli/revilink/commit/5d52276))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.8.2
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.1...v1.8.2)
