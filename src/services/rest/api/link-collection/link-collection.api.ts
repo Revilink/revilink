@@ -18,21 +18,23 @@ import { encodeBase64 } from '@/utils/encode-decode'
 export const linkCollectionApi = (appAxios: Function) =>
   <LinkCollectionApiTypes>{
     async fetchLinkCollections(params: FetchLinkCollectionsTypes) {
-      const { populate, filters } = params
+      const { populate, filters, sort } = params
 
       const queryDefault = {
         populate: 'populate=users.avatar',
-        filters: ''
+        filters: '',
+        sort: 'sort=id:desc'
       }
 
       const query = {
         populate: populate || queryDefault.populate,
-        filters: filters || queryDefault.filters
+        filters: filters || queryDefault.filters,
+        sort: sort || queryDefault.sort
       }
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `link-collections?${query.populate}&${query.filters}`
+        path: `link-collections?${query.populate}&${query.filters}&${query.sort}`
       })
 
       if (data) {
@@ -138,21 +140,23 @@ export const linkCollectionApi = (appAxios: Function) =>
     },
 
     async fetchLinkCollectionLinks(params: FetchLinkCollectionLinksTypes) {
-      const { collectionId, populate, filters } = params
+      const { collectionId, populate, filters, sort } = params
 
       const queryDefault = {
         populate: 'populate=url,linkCollection.users.avatar',
-        filters: `filters[linkCollection][id][$eq]=${collectionId}`
+        filters: `filters[linkCollection][id][$eq]=${collectionId}`,
+        sort: 'sort=id:desc'
       }
 
       const query = {
         populate: populate || queryDefault.populate,
-        filters: filters || queryDefault.filters
+        filters: filters || queryDefault.filters,
+        sort: sort || queryDefault.sort
       }
 
       const { data, error } = await appAxios(<AppAxiosType>{
         method: 'get',
-        path: `link-collection-links/?${query.populate}&${query.filters}`
+        path: `link-collection-links/?${query.populate}&${query.filters}&${query.sort}`
       })
 
       if (data) {
