@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.8.4
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.3...v1.8.4)
+
+### 🏡 Chore
+
+- Ui improvements ([422ac4d](https://github.com/selimdoyranli/revilink/commit/422ac4d))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.8.3
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.2...v1.8.3)
