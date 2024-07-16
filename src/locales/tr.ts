@@ -369,7 +369,7 @@ export default {
     privacy: {
       meOnly: 'Sadece ben',
       linkOnly: 'Bağlantıyı bilenler',
-      public: 'Herkes'
+      public: 'Herkese açık'
     },
     field: {
       description: {

@@ -53,6 +53,10 @@
     position: relative;
     display: block;
     margin-block-end: calc(var(--spacer-base) * 4);
+
+    @include media-breakpoint-down(md) {
+      margin-block-end: calc(var(--spacer-base) * 2);
+    }
   }
 
   &__title {
@@ -61,6 +65,10 @@
     font-size: var(--font-size-text-18);
     line-height: var(--font-size-h2);
     margin-block-end: calc(var(--spacer-base) / 2);
+
+    @include media-breakpoint-down(md) {
+      margin-block-start: calc(var(--spacer-base) / 2);
+    }
   }
 
   &__users {
