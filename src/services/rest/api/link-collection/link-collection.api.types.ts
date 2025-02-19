@@ -1,5 +1,5 @@
 import type { ApiQueryTypes } from '@/services/rest/core/core.types'
-import type { UserTypes, LinkCollectionPrivacyEnumTypes } from '@/types'
+import type { UserTypes, LinkCollectionPrivacyEnumTypes, MediaApiModelTypes } from '@/types'
 
 export interface FetchLinkCollectionsTypes extends ApiQueryTypes {}
 export interface FetchLinkCollectionTypes extends ApiQueryTypes {
@@ -34,6 +34,7 @@ export interface UpdateLinkCollectionLinkTypes extends ApiQueryTypes {
   id: number
   collectionId: number
   url: number
+  media: MediaApiModelTypes
   description: string
 }
 

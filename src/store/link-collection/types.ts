@@ -29,6 +29,7 @@ export type UpdateLinkCollectionLinkParamsTypes = {
   collectionId: number
   url?: number
   description?: string | null
+  media?: any | null
 }
 
 export type DeleteLinkCollectionLinkParamsTypes = {

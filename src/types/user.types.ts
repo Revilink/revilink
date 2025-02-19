@@ -1,9 +1,4 @@
-export type AvatarTypes = {
-  id: number
-  data?: Record<string, any>
-  attributes?: Record<string, any>
-  formats?: Record<string, any>
-}
+import type { MediaApiModelTypes, MediaTypes } from '@/types'
 
 export type UserInformationTypes = {
   id?: number
@@ -19,7 +14,7 @@ export type UserApiModelTypes = {
   username: string
   email: string
   password: string
-  avatar: AvatarTypes
+  avatar: MediaApiModelTypes
   confirmed: boolean
   blocked: boolean
   provider: string
@@ -33,7 +28,7 @@ export type UserTypes = {
   email: string
   username: string
   password: string
-  avatar: AvatarTypes
+  avatar: MediaTypes
   confirmed: boolean
   blocked: boolean
   provider: string

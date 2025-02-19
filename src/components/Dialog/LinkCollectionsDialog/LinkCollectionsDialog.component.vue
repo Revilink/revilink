@@ -29,6 +29,35 @@ ClientOnly
           @input="selectedLinkDescription = $event.target.value"
         )
 
+        // Image Upload
+        .link-collections-dialog-selected-link-image-upload
+          span.link-collections-dialog-selected-link-image-upload__title Görsel yükle
+          AppLoading.link-collections-dialog-selected-link-image-upload__loading(v-if="state.isBusy")
+          client-only
+            label.link-collections-dialog-selected-link-image-upload__icon.cursor-pointer(
+              v-if="!isChoosedImage"
+              @click="$refs.imageUploadRef.chooseFile()"
+            )
+              AppIcon(v-if="!isChoosedImage" name="ri:image-line" :width="24" :height="24")
+            div(@click.stop)
+              croppa(
+                ref="imageUploadRef"
+                v-model="imageUpload.file"
+                placeholder
+                :disabled="state.isBusy"
+                :file-size-limit="Number(imageUpload.config.fileSizeLimit)"
+                :accept="imageUpload.config.accept"
+                :prevent-white-space="imageUpload.config.preventWhiteSpace"
+                :show-remove-button="imageUpload.config.showRemoveButton && !state.isBusy"
+                :zoom-speed="imageUpload.config.zoomSpeed"
+                :width="imageUpload.config.width"
+                :height="imageUpload.config.height"
+                @file-choose="handleImageChoose"
+                @image-remove="handleImageRemove"
+                @file-size-exceed="showImageFileSizeExceedMessage"
+                @file-type-mismatch="showImageFileTypeMismatchMessage"
+              )
+
       template(v-if="state.isBusy")
         AppLoading.my-6
 
@@ -42,6 +71,10 @@ ClientOnly
 
       template(v-else)
         template(v-if="myLinkCollections.length > 0")
+          .link-collections-dialog__itemsTitle(v-if="hasSelectedLink")
+            AppIcon(name="ri:information-line" :width="24" :height="24")
+            | Kaydetmek için aşağıdan bir koleksiyona bas
+
           .link-collections-dialog__items(:inert="state.isBusy")
             template(v-for="collection in myLinkCollections")
               LinkCollectionCard(
@@ -99,6 +132,7 @@ import {
   nextTick
 } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
+import type { ImageUploadRefTypes, ImageUploadTypes } from './LinkCollectionsDialog.component.types'
 import type { LinkCollectionTypes } from '@/types'
 import { AppIcon } from '@/components/Icon'
 import { LinkCollectionCard, UrlLinkCard } from '@/components/Card'
@@ -203,6 +237,97 @@ export default defineComponent({
 
     const hasSelectedLink = computed(() => selectedLink.value && Object.keys(selectedLink.value)?.length > 0)
 
+    const imageUploadRef: Ref<ImageUploadRefTypes | null> = ref(null)
+    const imageUpload = reactive<ImageUploadTypes>({
+      file: {},
+      isDirty: false,
+      config: {
+        width: 600,
+        height: 400,
+        preventWhiteSpace: true,
+        showRemoveButton: true,
+        zoomSpeed: 10,
+        accept: '.JPEG,.jpg,.jpeg,.png',
+        fileSizeLimit: 2 * 1024 * 1024 // 2MB limit
+      }
+    })
+
+    const showImageFileSizeExceedMessage = () => {
+      window.$nuxt.$vs.notification({
+        title: context.i18n.t('form.validation.fileUpload.singleMaxItemSize', {
+          max: imageUpload.config.fileSizeLimit / 1024 / 1024,
+          unit: 'MB'
+        }),
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
+      })
+    }
+
+    const showImageFileTypeMismatchMessage = () => {
+      window.$nuxt.$vs.notification({
+        title: context.i18n.t('form.validation.fileUpload.singleItemMismatch', { extensions: imageUpload.config.accept }),
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
+      })
+    }
+
+    const isChoosedImage = ref(false)
+
+    const handleImageChoose = () => {
+      isChoosedImage.value = true
+      imageUpload.isDirty = true
+    }
+
+    const handleImageRemove = (e: Event) => {
+      if (e) e.stopPropagation()
+      isChoosedImage.value = false
+      imageUpload.isDirty = false
+    }
+
+    const uploadMedia = async ({ blob, linkId }: { blob: Blob; linkId: string }): Promise<void> => {
+      state.isBusy = true
+
+      const formData = new FormData()
+      formData.append('files', new File([blob], 'link-preview.png'))
+
+      const { data, error } = await context.$api.rest.file.uploadFile({
+        formData
+      })
+
+      if (data) {
+        const uploadedFile = data[0]
+
+        const { data: updateLinkCollection } = await context.$api.rest.linkCollection.updateLinkCollectionLink({
+          id: linkId,
+          media: uploadedFile.id
+        })
+
+        if (updateLinkCollection) {
+          //
+        } else {
+          window.$nuxt.$vs.notification({
+            title: context.i18n.t('error.error'),
+            text: context.i18n.t('error.updateFailed'),
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else {
+        window.$nuxt.$vs.notification({
+          title: error.code,
+          text: error.message,
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
+      }
+
+      state.isBusy = false
+    }
+
     const handleClickCollection = async (collection: LinkCollectionTypes) => {
       if (selectedLink.value && Object.keys(selectedLink.value)?.length > 0) {
         state.isBusy = true
@@ -222,6 +347,25 @@ export default defineComponent({
           })
 
           selectedLinkDescription.value = null
+
+          // Handle image upload before closing
+          if (selectedLink.value?.media && !imageUploadRef.value?.hasImage()) {
+            selectedLink.value.media = null
+            await handleClose()
+          } else if ((!imageUpload.file.currentIsInitial && imageUploadRef.value?.hasImage()) || imageUpload.isDirty) {
+            await new Promise(resolve => {
+              imageUpload.file.generateBlob?.((blob: Blob) => {
+                uploadMedia({
+                  blob,
+                  linkId: data.id
+                }).then(() => resolve(true))
+              }, 0.8)
+            })
+            await handleClose()
+          } else {
+            await handleClose()
+          }
+
           await store.commit('link-collection/CLOSE_LINK_COLLECTIONS_DIALOG')
         }
 
@@ -238,14 +382,14 @@ export default defineComponent({
         state.isBusy = false
 
         return false
+      } else {
+        await router.push(
+          context.localePath({
+            name: 'LinkCollections-LinkCollection-slug',
+            params: { slug: collection.slug }
+          })
+        )
       }
-
-      await router.push(
-        context.localePath({
-          name: 'LinkCollections-LinkCollection-slug',
-          params: { slug: collection.slug }
-        })
-      )
     }
 
     const descriptionTextareaRef: Ref = ref(null)
@@ -305,7 +449,14 @@ export default defineComponent({
       closeLinkCollectionForm,
       handleLinkCollectionFormSuccess,
       handleUpdateLinkCollection,
-      handleDeleteLinkCollection
+      handleDeleteLinkCollection,
+      imageUploadRef,
+      imageUpload,
+      isChoosedImage,
+      showImageFileSizeExceedMessage,
+      showImageFileTypeMismatchMessage,
+      handleImageChoose,
+      handleImageRemove
     }
   }
 })

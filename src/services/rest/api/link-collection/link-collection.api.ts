@@ -143,7 +143,7 @@ export const linkCollectionApi = (appAxios: Function) =>
       const { collectionId, populate, filters, sort } = params
 
       const queryDefault = {
-        populate: 'populate=url,linkCollection.users.avatar',
+        populate: 'populate=url,linkCollection.users.avatar,media',
         filters: `filters[linkCollection][id][$eq]=${collectionId}`,
         sort: 'sort=id:desc'
       }
@@ -194,10 +194,10 @@ export const linkCollectionApi = (appAxios: Function) =>
     },
 
     async updateLinkCollectionLink(params: UpdateLinkCollectionLinkTypes) {
-      const { id, collectionId, url, description, populate, filters } = params
+      const { id, collectionId, url, media, description, populate, filters } = params
 
       const queryDefault = {
-        populate: 'populate=url,linkCollection.users',
+        populate: 'populate=url,linkCollection.users,media',
         filters: ''
       }
 
@@ -213,6 +213,7 @@ export const linkCollectionApi = (appAxios: Function) =>
           data: {
             linkCollection: collectionId,
             url,
+            media,
             description
           }
         }

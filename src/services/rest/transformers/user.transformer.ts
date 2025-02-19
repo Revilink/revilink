@@ -1,13 +1,5 @@
 import { UserApiModelTypes, UserTypes } from '@/types'
-
-const avatarTransformer = (model: Record<string, any>) => {
-  return model
-    ? {
-        ...(model.attributes || model),
-        id: model.id
-      }
-    : null
-}
+import { mediaTransformer } from '@/services/rest/transformers'
 
 export default (model: UserApiModelTypes) => {
   return <UserTypes>{
@@ -16,7 +8,7 @@ export default (model: UserApiModelTypes) => {
     updatedAt: model.attributes?.updatedAt || model.updatedAt,
     email: model.attributes?.email || model.email,
     username: model.attributes?.username || model.username,
-    avatar: model.attributes?.avatar?.data || model.avatar ? avatarTransformer(model.attributes?.avatar.data || model.avatar) : null,
+    avatar: model.attributes?.avatar?.data || model.avatar ? mediaTransformer(model.attributes?.avatar.data || model.avatar) : null,
     confirmed: model.attributes?.confirmed || model.confirmed,
     blocked: !!(model.attributes?.blocked || model.blocked),
     provider: model.attributes?.provider || model.provider,

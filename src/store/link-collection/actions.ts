@@ -37,9 +37,15 @@ export default {
   },
 
   async updateLinkCollectionLink({ commit }: ActionContext<StateTypes, StateTypes>, params: UpdateLinkCollectionLinkParamsTypes) {
-    const { id, collectionId, url, description } = params
+    const { id, collectionId, url, description, media } = params
 
-    const { data, error } = await (this as any).$api.rest.linkCollection.updateLinkCollectionLink({ id, collectionId, url, description })
+    const { data, error } = await (this as any).$api.rest.linkCollection.updateLinkCollectionLink({
+      id,
+      collectionId,
+      url,
+      description,
+      media
+    })
 
     if (data) {
       commit('UPDATE_LINK_COLLECTION_LINK', data)
