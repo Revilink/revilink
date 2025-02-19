@@ -67,6 +67,38 @@ ClientOnly
                 @input="editForm.description = $event.target.value"
               )
 
+            // Image Upload
+            .link-collections-dialog-selected-link-image-upload
+              span.link-collections-dialog-selected-link-image-upload__title Görsel yükle
+              AppLoading.link-collections-dialog-selected-link-image-upload__loading(v-if="state.isBusy")
+              client-only
+                label.link-collections-dialog-selected-link-image-upload__icon.cursor-pointer(
+                  v-if="!isChoosedImage && !link.media"
+                  @click="$refs.imageUploadRef.chooseFile()"
+                )
+                  AppIcon(v-if="!isChoosedImage" name="ri:image-line" :width="24" :height="24")
+                div(@click.stop)
+                  croppa(
+                    ref="imageUploadRef"
+                    v-model="imageUpload.file"
+                    :initial-image="`${link.media?.formats.small?.url || link.media?.url}?v=${new Date().getTime()}`"
+                    placeholder
+                    :disabled="state.isBusy"
+                    :file-size-limit="Number(imageUpload.config.fileSizeLimit)"
+                    :accept="imageUpload.config.accept"
+                    :prevent-white-space="imageUpload.config.preventWhiteSpace"
+                    :show-remove-button="imageUpload.config.showRemoveButton && !state.isBusy"
+                    :zoom-speed="imageUpload.config.zoomSpeed"
+                    :width="imageUpload.config.width"
+                    :height="imageUpload.config.height"
+                    @file-choose="handleImageChoose"
+                    @image-remove="handleImageRemove"
+                    @move="handleDirtyImage"
+                    @zoom="handleDirtyImage"
+                    @file-size-exceed="showImageFileSizeExceedMessage"
+                    @file-type-mismatch="showImageFileTypeMismatchMessage"
+                  )
+
       ConfirmDialog(
         :is-open="isOpenDeleteDialog"
         :title="$t('general.delete')"
@@ -89,6 +121,8 @@ ClientOnly
 <script lang="ts">
 import { defineComponent, useContext, useStore, ref, reactive, computed, watch } from '@nuxtjs/composition-api'
 import DropdownMenu from 'v-dropdown-menu'
+import type { Ref } from 'vue'
+import type { ImageUploadRefTypes, ImageUploadTypes } from './LinkCollectionLinkCardMoreDropdown.component.types'
 import { useAuth } from '@/hooks'
 import 'v-dropdown-menu/dist/v-dropdown-menu.css'
 import { PaperButton } from '@/components/Button'
@@ -96,6 +130,7 @@ import { AppIcon } from '@/components/Icon'
 import { ConfirmDialog } from '@/components/Dialog'
 import { UrlLinkCard } from '@/components/Card'
 import { AppTextarea } from '@/components/Textarea'
+import { AppLoading } from '@/components/Loading'
 
 export default defineComponent({
   components: {
@@ -104,7 +139,8 @@ export default defineComponent({
     AppIcon,
     ConfirmDialog,
     UrlLinkCard,
-    AppTextarea
+    AppTextarea,
+    AppLoading
   },
   props: {
     link: {
@@ -157,6 +193,110 @@ export default defineComponent({
       description: props.link.description
     })
 
+    const imageUploadRef: Ref<ImageUploadRefTypes | null> = ref(null)
+    const imageUpload = reactive<ImageUploadTypes>({
+      file: {},
+      isDirty: false,
+      config: {
+        width: 600,
+        height: 400,
+        preventWhiteSpace: true,
+        showRemoveButton: true,
+        zoomSpeed: 10,
+        accept: '.JPEG,.jpg,.jpeg,.png',
+        fileSizeLimit: 2 * 1024 * 1024
+      }
+    })
+
+    const isChoosedImage = ref(false)
+
+    const handleImageChoose = () => {
+      isChoosedImage.value = true
+      imageUpload.isDirty = true
+    }
+
+    const handleImageRemove = (e: Event) => {
+      if (e) e.stopPropagation()
+      isChoosedImage.value = false
+      imageUpload.isDirty = false
+    }
+
+    const handleDirtyImage = () => {
+      imageUpload.isDirty = true
+      isChoosedImage.value = true
+    }
+
+    const showImageFileSizeExceedMessage = () => {
+      window.$nuxt.$vs.notification({
+        title: context.i18n.t('form.validation.fileUpload.singleMaxItemSize', {
+          max: imageUpload.config.fileSizeLimit / 1024 / 1024,
+          unit: 'MB'
+        }),
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
+      })
+    }
+
+    const showImageFileTypeMismatchMessage = () => {
+      window.$nuxt.$vs.notification({
+        title: context.i18n.t('form.validation.fileUpload.singleItemMismatch', { extensions: imageUpload.config.accept }),
+        color: 'danger',
+        position: 'bottom-center',
+        flat: true
+      })
+    }
+
+    const uploadMedia = async ({ blob, linkId }: { blob: Blob; linkId: number }): Promise<void> => {
+      state.isBusy = true
+
+      const formData = new FormData()
+      formData.append('files', new File([blob], 'link-preview.png'))
+
+      const { data, error } = await context.$api.rest.file.uploadFile({
+        formData
+      })
+
+      if (data) {
+        const uploadedFile = data[0]
+
+        const { data: updateLinkCollection } = await context.$api.rest.linkCollection.updateLinkCollectionLink({
+          id: linkId,
+          media: uploadedFile.id
+        })
+
+        if (data) {
+          window.$nuxt.$vs.notification({
+            title: 'OK',
+            text: context.i18n.t('success.editSuccessfully'),
+            color: 'success',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+
+        if (!updateLinkCollection) {
+          window.$nuxt.$vs.notification({
+            title: context.i18n.t('error.error'),
+            text: context.i18n.t('error.updateFailed'),
+            color: 'danger',
+            position: 'bottom-center',
+            flat: true
+          })
+        }
+      } else {
+        window.$nuxt.$vs.notification({
+          title: error.code,
+          text: error.message,
+          color: 'danger',
+          position: 'bottom-center',
+          flat: true
+        })
+      }
+
+      state.isBusy = false
+    }
+
     const handleConfirmEdit = async () => {
       state.isBusy = true
 
@@ -164,10 +304,27 @@ export default defineComponent({
         id: props.link.id,
         collectionId: props.link.collectionId || linkCollection.value?.id,
         url: props.link.url.id,
-        description: editForm.description
+        description: editForm.description,
+        media: imageUpload.file.currentIsInitial ? undefined : null
       })
 
       if (data) {
+        if ((!imageUpload.file.currentIsInitial && imageUploadRef.value?.hasImage()) || imageUpload.isDirty) {
+          await new Promise(resolve => {
+            imageUpload.file.generateBlob?.((blob: Blob) => {
+              uploadMedia({
+                blob,
+                linkId: props.link.id
+              }).then(() => resolve(true))
+            }, 0.8)
+          })
+        } else if (imageUpload.file.currentIsInitial && !imageUploadRef.value?.hasImage()) {
+          await context.$api.rest.linkCollection.updateLinkCollectionLink({
+            id: props.link.id,
+            media: null
+          })
+        }
+
         window.$nuxt.$vs.notification({
           title: 'OK',
           text: context.i18n.t('success.editSuccessfully'),
@@ -177,7 +334,6 @@ export default defineComponent({
         })
 
         isOpenEditDialog.value = false
-
         emit('on-edit')
       }
 
@@ -263,7 +419,15 @@ export default defineComponent({
       handleConfirmDelete,
       handleCancelDelete,
       isOpenAnnouncementsPriceHistoryDialog,
-      onClickShowAnnouncementsPriceHistory
+      onClickShowAnnouncementsPriceHistory,
+      imageUploadRef,
+      imageUpload,
+      isChoosedImage,
+      handleImageChoose,
+      handleImageRemove,
+      showImageFileSizeExceedMessage,
+      showImageFileTypeMismatchMessage,
+      handleDirtyImage
     }
   }
 })
