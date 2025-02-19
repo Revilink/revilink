@@ -1,4 +1,4 @@
-import type { UserApiModelTypes, UserTypes, UrlApiModelTypes, UrlTypes } from '@/types'
+import type { UserApiModelTypes, UserTypes, UrlApiModelTypes, UrlTypes, MediaTypes } from '@/types'
 
 export type LinkCollectionPrivacyEnumTypes = 'ME_ONLY' | 'LINK_ONLY' | 'PUBLIC'
 
@@ -17,6 +17,7 @@ export type LinkCollectionLinkApiModelTypes = {
   createdAt: Date | string
   updatedAt?: Date | string
   url: UrlApiModelTypes
+  media: MediaTypes
   description: string
   linkCollection: BaseLinkCollectionTypes
 }
@@ -26,6 +27,7 @@ export type LinkCollectionLinkTypes = {
   createdAt: string
   updatedAt: string
   url: UrlTypes
+  media: MediaTypes | null
   description: string
   linkCollection: BaseLinkCollectionTypes
 }

@@ -11,8 +11,18 @@ a.link-collection-link-card(:href="link.url.urlRaw" :title="link.url.urlRaw" tar
 
       LinkCollectionLinkCardMoreDropdown(:link="link" :site="site")
 
-    img.link-collection-link-card__image(v-if="site.meta?.image" :src="site.meta.image" alt="site image" width="1200" height="630")
-    span.link-collection-link-card__domain(v-else) {{ parseURL(link.url.urlRaw).host }}
+    template(v-if="link.media")
+      img.link-collection-link-card__image(
+        loading="lazy"
+        :src="link.media.formats.small?.url || link.media.url"
+        :alt="link.url.urlRaw"
+        width="1200"
+        height="630"
+      )
+
+    template(v-else)
+      img.link-collection-link-card__image(v-if="site.meta?.image" :src="site.meta.image" alt="site image" width="1200" height="630")
+      span.link-collection-link-card__domain(v-else) {{ parseURL(link.url.urlRaw).host }}
 
   .link-collection-link-card__body
     span.link-collection-link-card__title(v-if="site.meta?.title") {{ site.meta.title }}
