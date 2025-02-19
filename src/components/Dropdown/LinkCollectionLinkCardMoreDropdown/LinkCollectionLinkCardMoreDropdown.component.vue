@@ -265,7 +265,9 @@ export default defineComponent({
           media: uploadedFile.id
         })
 
-        if (data) {
+        if (updateLinkCollection) {
+          store.commit('link-collection/UPDATE_LINK_COLLECTION_LINK', updateLinkCollection)
+
           window.$nuxt.$vs.notification({
             title: 'OK',
             text: context.i18n.t('success.editSuccessfully'),
@@ -319,10 +321,14 @@ export default defineComponent({
             }, 0.8)
           })
         } else if (imageUpload.file.currentIsInitial && !imageUploadRef.value?.hasImage()) {
-          await context.$api.rest.linkCollection.updateLinkCollectionLink({
+          const { data: updateData } = await context.$api.rest.linkCollection.updateLinkCollectionLink({
             id: props.link.id,
             media: null
           })
+
+          if (updateData) {
+            store.commit('link-collection/UPDATE_LINK_COLLECTION_LINK', updateData)
+          }
         }
 
         window.$nuxt.$vs.notification({
