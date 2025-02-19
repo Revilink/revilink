@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.9.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.9.0...v1.9.1)
+
+### 🩹 Fixes
+
+- Update fix for change image on link collection link ([b3a4b10](https://github.com/selimdoyranli/revilink/commit/b3a4b10))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.9.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.4...v1.9.0)
