@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v1.9.0
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.4...v1.9.0)
+
+### 🚀 Enhancements
+
+- Link image on link collection ([13b5a70](https://github.com/selimdoyranli/revilink/commit/13b5a70))
+- Edit image on link edit on collection ([c9678fd](https://github.com/selimdoyranli/revilink/commit/c9678fd))
+
+### 💅 Refactors
+
+- Add yarn version ([0ed8e6a](https://github.com/selimdoyranli/revilink/commit/0ed8e6a))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.8.4
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.8.3...v1.8.4)
