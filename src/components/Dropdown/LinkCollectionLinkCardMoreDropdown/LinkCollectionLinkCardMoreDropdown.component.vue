@@ -46,6 +46,7 @@ ClientOnly
         :is-busy="state.isBusy"
         @on-confirm="handleConfirmEdit"
         @on-cancel="handleCancelEdit"
+        @on-close="handleCancelEdit"
       )
         form.edit-form(@submit.prevent)
           .form__inner
@@ -299,6 +300,20 @@ export default defineComponent({
       state.isBusy = false
     }
 
+    const resetImageUpload = () => {
+      if (imageUploadRef.value) {
+        imageUploadRef.value.remove()
+      }
+      isChoosedImage.value = false
+      imageUpload.isDirty = false
+    }
+
+    const handleCancelEdit = () => {
+      isOpenEditDialog.value = false
+      resetImageUpload()
+      editForm.description = props.link.description
+    }
+
     const handleConfirmEdit = async () => {
       state.isBusy = true
 
@@ -340,6 +355,7 @@ export default defineComponent({
         })
 
         isOpenEditDialog.value = false
+        resetImageUpload()
         emit('on-edit')
       }
 
@@ -354,10 +370,6 @@ export default defineComponent({
       }
 
       state.isBusy = false
-    }
-
-    const handleCancelEdit = () => {
-      isOpenEditDialog.value = false
     }
 
     const handleConfirmDelete = async () => {
@@ -433,7 +445,8 @@ export default defineComponent({
       handleImageRemove,
       showImageFileSizeExceedMessage,
       showImageFileTypeMismatchMessage,
-      handleDirtyImage
+      handleDirtyImage,
+      resetImageUpload
     }
   }
 })

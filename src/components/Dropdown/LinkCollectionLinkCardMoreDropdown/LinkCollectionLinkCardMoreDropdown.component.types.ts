@@ -1,6 +1,7 @@
 export interface ImageUploadRefTypes {
-  hasImage: () => boolean
   chooseFile: () => void
+  hasImage: () => boolean
+  remove: () => void
 }
 
 export interface ImageUploadTypes {
