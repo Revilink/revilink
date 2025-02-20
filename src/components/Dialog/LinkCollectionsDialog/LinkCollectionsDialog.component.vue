@@ -190,6 +190,7 @@ export default defineComponent({
 
     const handleClose = () => {
       selectedLinkDescription.value = null
+      resetImageUpload()
 
       store.commit('link-collection/CLEAR_SELECTED_LINK')
       store.commit('link-collection/CLOSE_LINK_COLLECTIONS_DIALOG')
@@ -408,8 +409,17 @@ export default defineComponent({
 
     const isVisibleLinkCollectionForm = ref(false)
 
+    const resetImageUpload = () => {
+      if (imageUploadRef.value) {
+        imageUploadRef.value.remove()
+      }
+      isChoosedImage.value = false
+      imageUpload.isDirty = false
+    }
+
     const openLinkCollectionForm = () => {
       isVisibleLinkCollectionForm.value = true
+      resetImageUpload()
     }
 
     const closeLinkCollectionForm = () => {
