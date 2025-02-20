@@ -7,6 +7,7 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
         v-model="form.url"
         :placeholder="$t('form.reviewSearch.url')"
         spellcheck="false"
+        autocomplete="off"
         theme="light"
         :maxlength="v$.url.maxLength.$params.max"
         primary
@@ -23,32 +24,47 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
 
       h2.review-search-form__description {{ $t('form.reviewSearch.description') }}
 
-    .form-item
+    .form-item.form-item--submit
       vs-button.review-search-form__submitButton(type="submit" size="large")
         span {{ $t('form.reviewSearch.submit') }}
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter, ref, reactive, onMounted, nextTick } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRouter, useRoute, ref, reactive, onMounted, nextTick, watch } from '@nuxtjs/composition-api'
 import type { Ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { FormTypes } from './ReviewSearchForm.component.types'
 import { AppIcon } from '@/components/Icon'
 import { reviewSearchValidator } from '@/validator'
+import { linkViewFormat } from '@/utils/url'
 
 export default defineComponent({
   components: {
     AppIcon
   },
-  setup(_, { emit }) {
+  props: {
+    autoFocus: {
+      type: Boolean,
+      default: true
+    }
+  },
+  setup(props, { emit }) {
     const context = useContext()
     const router = useRouter()
+    const route = useRoute()
 
     const urlInputRef: Ref = ref(null)
 
     const form = reactive<FormTypes>({
-      url: ''
+      url: route.value.query.link ? linkViewFormat({ url: String(route.value.query.link) }) : ''
     })
+
+    watch(
+      () => route.value.query.link,
+      value => {
+        form.url = value ? linkViewFormat({ url: String(value) }) : ''
+      }
+    )
 
     const rule = {
       ...reviewSearchValidator
@@ -83,7 +99,9 @@ export default defineComponent({
 
     onMounted(() => {
       if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
-        focusToUrlInput()
+        if (props.autoFocus) {
+          focusToUrlInput()
+        }
       }
     })
 
@@ -92,7 +110,8 @@ export default defineComponent({
       v$,
       form,
       handleOnSubmit,
-      handleOnPaste
+      handleOnPaste,
+      linkViewFormat
     }
   }
 })

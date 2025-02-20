@@ -1,5 +1,5 @@
 <template lang="pug">
-a.link-collection-link-card(:href="link.url.urlRaw" :title="link.url.urlRaw" target="_blank")
+a.link-collection-link-card(:href="link.url.urlRaw" target="_blank")
   header.link-collection-link-card__header(:style="[headerStyle]")
     .link-collection-link-card__actions
       vs-tooltip(v-if="link.description" not-arrow shadow bottom)

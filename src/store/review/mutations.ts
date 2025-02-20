@@ -22,5 +22,13 @@ export default {
 
   SET_META(state: StateTypes, meta: Object) {
     state.meta = meta
+  },
+
+  CLEAR_ITEMS(state: StateTypes) {
+    state.items = []
+  },
+
+  CLEAR_META(state: StateTypes) {
+    state.meta = {}
   }
 }

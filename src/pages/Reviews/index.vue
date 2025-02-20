@@ -35,7 +35,11 @@
             span(v-else) {{ $t('reviews.site.meta.tooltip.noAllow') }}
 
         .reviews-page-review-meta__body
-          h1.reviews-page-review-meta__title(v-if="site.isInDetector || site.isAllowed") {{ site.meta.title }}
+          h1.reviews-page-review-meta__title(v-if="site.isInDetector || site.isAllowed")
+            template(v-if="site.isBusy")
+              | ...
+            template(v-else)
+              | {{ site.meta.title }}
           h4.reviews-page-review-meta__url
             AppIcon(name="material-symbols:link" color="var(--color-link-01)" :width="24" :height="24")
             a(rel="noopener,norel" :title="$route.query.link" :href="linkViewFormat({ url: $route.query.link })" target="_blank")
@@ -188,6 +192,49 @@ export default defineComponent({
         review.page = 1
       }
     })
+
+    const resetStates = async () => {
+      // Reset review states
+      review.page = 1
+      store.commit('review/CLEAR_ITEMS')
+      store.commit('review/CLEAR_META')
+
+      // Reset url state
+      url.value = {}
+
+      // Reset reaction states
+      reaction.reactionCount = {}
+      reaction.myReaction = {}
+      reaction.isBusy = false
+      reaction.busyReactionIndex = null
+
+      // Reset comment states
+      comment.isBusy = false
+
+      if (commentFormRef.value) {
+        commentFormRef.value.clearForm()
+      }
+
+      // Re-fetch all data
+      site.isBusy = true
+      await urlFetch()
+      await extractSiteMeta({
+        url: convertToRevilinkFormat({
+          url: route.value.query.link as string
+        })
+      })
+      await reviewsFetch()
+      await fetchUrlReactions()
+    }
+
+    watch(
+      () => route.value.query.link,
+      (prevLink, newLink) => {
+        if (prevLink !== newLink) {
+          resetStates()
+        }
+      }
+    )
 
     watch(
       () => review.page,

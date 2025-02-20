@@ -5,7 +5,7 @@
   z-index: var(--z-index-header);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
   height: var(--header-height);
   background-color: transparent;
@@ -35,6 +35,7 @@
     position: relative;
     width: auto;
     height: 34px;
+    margin-inline-end: var(--spacer-base);
 
     @include media-breakpoint-down(md) {
       width: auto;
@@ -45,6 +46,49 @@
       position: relative;
       width: auto;
       height: 100%;
+    }
+  }
+
+  .review-search-form {
+    min-width: var(--breakpoint-sm);
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+
+    &__urlInput {
+      --input-height: 32px;
+      --input-font-size: var(--font-size-text-21);
+
+      input {
+        padding-inline-start: calc(var(--spacer-base) + 10px) !important;
+      }
+
+      .vs-input__label {
+        left: calc(var(--spacer-base) + 16px) !important;
+      }
+    }
+
+    .app-icon {
+      width: 20px;
+      height: 20px;
+
+      svg {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+
+    .form-item {
+      margin: 0;
+
+      &--submit {
+        display: none;
+      }
+    }
+
+    &__description {
+      display: none;
     }
   }
 }
