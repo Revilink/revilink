@@ -90,5 +90,9 @@
     &__description {
       display: none;
     }
+
+    .validation-message {
+      position: absolute;
+    }
   }
 }

@@ -19,7 +19,7 @@ form.form.review-search-form(@submit.prevent="handleOnSubmit")
 
       // Validation messages
       template(v-if="v$.url.$error")
-        small.d-block.color-text-danger.my-6
+        small.validation-message.d-block.color-text-danger.my-6
           | {{ $t('form.validation.enterValidUrl') }}
 
       h2.review-search-form__description {{ $t('form.reviewSearch.description') }}
