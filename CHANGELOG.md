@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.10.1
+
+[compare changes](https://github.com/selimdoyranli/revilink/compare/v1.10.0...v1.10.1)
+
+### 🩹 Fixes
+
+- Fix image upload on link collection modal close ([1c806a6](https://github.com/selimdoyranli/revilink/commit/1c806a6))
+- Fix image upload for link edit on link colleciton ([1784eda](https://github.com/selimdoyranli/revilink/commit/1784eda))
+
+### ❤️ Contributors
+
+- Selimdoyranli ([@selimdoyranli](http://github.com/selimdoyranli))
+
 ## v1.10.0
 
 [compare changes](https://github.com/selimdoyranli/revilink/compare/v1.9.1...v1.10.0)
